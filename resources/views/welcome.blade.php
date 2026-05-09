@@ -54,10 +54,20 @@
                     >the Filament panel docs</a>.
                     Add your first admin route when the app is ready.
                 </p>
+                @if (Route::has('filament.admin.pages.dashboard'))
+                    <p
+                        class="mt-8 max-w-[36rem] motion-reduce:animate-none motion-reduce:opacity-100 sm:mt-9 animate-welcome-delay-2"
+                    >
+                        <a
+                            href="{{ route('filament.admin.pages.dashboard') }}"
+                            class="inline-flex min-h-11 items-center justify-center rounded-md bg-welcome-accent px-6 py-3 text-sm font-semibold text-welcome-bg [-webkit-tap-highlight-color:transparent] transition-colors duration-200 ease-out hover:bg-welcome-accent-hover active:translate-y-px motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-welcome-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-welcome-bg"
+                        >Open admin</a>
+                    </p>
+                @endif
             </main>
 
             <footer
-                class="mt-[4.5rem] max-w-[42rem] border-t border-welcome-border pt-7 text-xs font-medium text-welcome-footer motion-reduce:animate-none motion-reduce:opacity-100 sm:pt-8 md:mt-28 animate-welcome-delay-2"
+                class="mt-[4.5rem] max-w-[42rem] border-t border-welcome-border pt-7 text-xs font-medium text-welcome-footer motion-reduce:animate-none motion-reduce:opacity-100 sm:pt-8 md:mt-28 animate-welcome-delay-3"
             >
                 <span class="tabular-nums">PHP {{ PHP_VERSION }}</span>
                 <span class="mx-2 text-welcome-divider" aria-hidden="true">·</span>

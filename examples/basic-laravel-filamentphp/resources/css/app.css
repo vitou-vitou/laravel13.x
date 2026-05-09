@@ -49,4 +49,8 @@
     .animate-welcome-delay-2 {
         animation: welcome-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
     }
+
+    .animate-welcome-delay-3 {
+        animation: welcome-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+    }
 }
