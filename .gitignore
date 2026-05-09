@@ -20,7 +20,14 @@
 /storage/*.key
 /storage/pail
 /graphify-out
-/examples
+/apps/*/node_modules
+/apps/*/vendor
+/apps/*/.env
+/apps/*/public/build
+/apps/*/public/hot
+/apps/*/public/storage
+/apps/*/storage/*.key
+/apps/*/storage/pail
 /vendor
 _ide_helper.php
 Homestead.json

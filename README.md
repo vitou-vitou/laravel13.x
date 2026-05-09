@@ -7,6 +7,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Monorepo Apps Layout
+
+This repository now uses an `apps/` layout for multiple Laravel applications.
+
+### Apps
+
+- `apps/app-01` to `apps/app-10`: placeholder app folders for future projects.
+- `apps/app-11-basic-filament`: full clone of `examples/basic-laravel-filamentphp`.
+
+Each app stays independently installable and runnable.
+
+### Bootstrap App 11
+
+```bash
+cd apps/app-11-basic-filament
+composer install
+npm install
+php artisan key:generate
+php artisan migrate
+php artisan test
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
