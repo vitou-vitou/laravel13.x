@@ -2,13 +2,16 @@
 
 namespace App\Filament\Auth;
 
+use App\Models\Guest;
 use Filament\Actions\Action;
 use Filament\Auth\Pages\Login;
+use Filament\Facades\Filament;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Text;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
-/** @see Task 7: continue-as-guest implementation */
 class GuestLogin extends Login
 {
     public function form(Schema $schema): Schema
@@ -42,6 +45,27 @@ class GuestLogin extends Login
 
     public function continueAsGuest(): void
     {
-        // Implemented in next commit.
+        try {
+            $guest = Guest::query()->create([
+                'uuid' => (string) Str::uuid(),
+            ]);
+        } catch (\Throwable) {
+            Notification::make()
+                ->title('Could not start guest session')
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        Filament::auth()->login($guest);
+        session()->regenerate();
+
+        Notification::make()
+            ->title('Guest mode (demo)')
+            ->success()
+            ->send();
+
+        $this->redirect(Filament::getUrl());
     }
 }
