@@ -15,6 +15,7 @@ This repository now uses an `apps/` layout for multiple Laravel applications.
 
 - `apps/app-01` to `apps/app-10`: placeholder app folders for future projects.
 - `apps/app-11-basic-filament`: full clone of `examples/basic-laravel-filamentphp`.
+- `apps/app-12-post-saas`: Laravel 13 + Filament workspaces + posts datatable.
 
 Each app stays independently installable and runnable.
 
@@ -26,6 +27,17 @@ composer install
 npm install
 php artisan key:generate
 php artisan migrate
+php artisan test
+```
+
+### Bootstrap App 12 (post SaaS)
+
+```bash
+cd apps/app-12-post-saas
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
 php artisan test
 ```
 
