@@ -11,6 +11,14 @@
 
 This repository now uses an `apps/` layout for multiple Laravel applications.
 
+### Features
+
+- Laravel 13 skeleton at repo root with Vite and Tailwind v4, including a custom welcome page.
+- Runnable Laravel apps under `apps/`, each with its own Composer install and environment.
+- Reference Filament project in `examples/basic-laravel-filamentphp` (admin panel, resources, widgets); same stack mirrored in `apps/app-11-basic-filament`.
+- Sample SaaS-style app in `apps/app-12-post-saas` (workspaces and posts).
+- Placeholder directories `apps/app-01` through `apps/app-10` reserved for new projects.
+
 ### Apps
 
 - `apps/app-01` to `apps/app-10`: placeholder app folders for future projects.
