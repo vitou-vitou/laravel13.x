@@ -19,6 +19,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/graphify-out
+/examples
 /vendor
 _ide_helper.php
 Homestead.json
