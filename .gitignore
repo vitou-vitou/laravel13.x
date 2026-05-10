@@ -20,6 +20,7 @@
 /storage/*.key
 /storage/pail
 /graphify-out
+.firecrawl/
 /apps/*/node_modules
 /apps/*/vendor
 /apps/*/.env
