@@ -1,6 +1,6 @@
 # Design: Singapore-focused Laravel example app (`examples/my-sg-laravel`)
 
-**Status:** Draft — pending user review after commit.  
+**Status:** Approved (user confirmed “spec ok” 2026-05-10).  
 **Source inspiration:** `examples/my-sg-app/fortunesoft-sg-nav/02-technology-services/services__laravel-development.md` (marketing copy trimmed; not a clone of third-party site).  
 **Location:** New application root at `examples/my-sg-laravel/` (full `composer create-project` style tree, not a package inside the monorepo’s main Laravel app unless later refactored).
 
