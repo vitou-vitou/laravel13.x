@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-outfit: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+    --color-welcome-bg: oklch(0.135 0.009 70);
+    --color-welcome-elevated: oklch(0.19 0.009 68);
+    --color-welcome-fg: oklch(0.97 0.006 75);
+    --color-welcome-body: oklch(0.93 0.01 78);
+    --color-welcome-muted: oklch(0.72 0.014 78);
+    --color-welcome-subtle: oklch(0.58 0.012 75);
+    --color-welcome-accent: oklch(0.74 0.065 82);
+    --color-welcome-accent-hover: oklch(0.8 0.072 82);
+    --color-welcome-border: oklch(0.33 0.014 68);
+    --color-welcome-footer: oklch(0.48 0.012 72);
+    --color-welcome-divider: oklch(0.38 0.012 70);
+    --color-welcome-selection: oklch(0.74 0.065 82 / 0.22);
+}
+
+@keyframes welcome-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@layer utilities {
+    .animate-welcome {
+        animation: welcome-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .animate-welcome-delay {
+        animation: welcome-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+
+    .animate-welcome-delay-2 {
+        animation: welcome-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+    }
+
+    .animate-welcome-delay-3 {
+        animation: welcome-in 0.78s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+    }
+}
