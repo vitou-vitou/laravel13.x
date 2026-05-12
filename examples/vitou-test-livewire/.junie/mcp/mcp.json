@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "C:\\Users\\vitou\\.config\\herd\\bin\\php85\\php.exe",
+            "args": [
+                "C:\\Users\\vitou\\Herd\\vitou-test-livewire\\artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
