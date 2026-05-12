@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(Select-String -i filament)",
-      "Bash(cmd *)"
+      "Bash(cmd *)",
+      "Bash(php artisan *)",
+      "Bash(php *)"
     ]
   }
 }
