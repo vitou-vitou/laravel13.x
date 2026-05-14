@@ -4,7 +4,21 @@
       "Bash(Select-String -i filament)",
       "Bash(cmd *)",
       "Bash(php artisan *)",
-      "Bash(php *)"
+      "Bash(php *)",
+      "PowerShell(Get-ChildItem \"D:\\\\laravel13.x\\\\examples\\\\jwt\" -Force | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem \"D:\\\\laravel13.x\\\\examples\\\\jwt\\\\routes\" -Force | ForEach-Object { $_.Name })",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost/api/auth/login\" -Method POST -ContentType \"application/json\" -Body '{\"email\":\"test@test.com\",\"password\":\"password\"}' -UseBasicParsing 2>&1 | Select-Object -First 5)",
+      "PowerShell(Start-Process php -ArgumentList \"D:\\\\laravel13.x\\\\examples\\\\jwt\\\\artisan\", \"serve\", \"--port=8001\" -WindowStyle Hidden)",
+      "PowerShell(Start-Sleep -Seconds 3; Invoke-WebRequest -Uri \"http://localhost:8001\" -UseBasicParsing -TimeoutSec 5 | Select-Object StatusCode)",
+      "PowerShell(php --version 2>&1 | Select-Object -First 1)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8001)",
+      "Bash(curl -s -X POST http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{}')",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"wrong@test.com\",\"password\":\"wrongpass\"}')",
+      "Bash(curl -s http://localhost:8001/api/auth/me)",
+      "PowerShell(Get-ChildItem \"D:\\\\laravel13.x\\\\examples\\\\jwt\\\\database\" -Recurse -Force | ForEach-Object { $_.FullName })",
+      "Bash(sqlite3 *)",
+      "Bash(curl -s -X POST http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\",\"password\":\"password\"}')"
     ]
   }
 }
