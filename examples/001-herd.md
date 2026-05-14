@@ -57,3 +57,6 @@ Add `%USERPROFILE%\.config\herd` to Windows Defender exclusions — prevents Def
 ```powershell
 Add-MpPreference -ExclusionPath "$env:USERPROFILE\.config\herd"
 ```
+```powershell
+$ powershell -c "herd --version"
+Herd 1.28.0
