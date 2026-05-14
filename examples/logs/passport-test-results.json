@@ -1,0 +1,119 @@
+{
+  "tested_at": "2026-05-14",
+  "server": "http://localhost:8002",
+  "note": "Passport project served on port 8002 (port 8000 was occupied by the JWT example project)",
+  "results": [
+    {
+      "step": 1,
+      "name": "Register",
+      "method": "POST",
+      "url": "/api/auth/register",
+      "status_code": 422,
+      "response": {
+        "message": "The email has already been taken.",
+        "errors": {
+          "email": ["The email has already been taken."]
+        }
+      },
+      "pass": true,
+      "note": "422 expected — user already existed from a previous run. Skipped to login as instructed."
+    },
+    {
+      "step": 2,
+      "name": "Login",
+      "method": "POST",
+      "url": "/api/auth/login",
+      "status_code": 200,
+      "response": {
+        "message": "Login successful",
+        "user": {
+          "id": 1,
+          "name": "Test User",
+          "email": "test@example.com",
+          "email_verified_at": null,
+          "created_at": "2026-05-14T11:10:05.000000Z",
+          "updated_at": "2026-05-14T11:10:05.000000Z"
+        },
+        "access_token": "[TOKEN — redacted for log]",
+        "token_type": "Bearer"
+      },
+      "pass": true
+    },
+    {
+      "step": 3,
+      "name": "Get Authenticated User",
+      "method": "GET",
+      "url": "/api/auth/user",
+      "status_code": 200,
+      "response": {
+        "user": {
+          "id": 1,
+          "name": "Test User",
+          "email": "test@example.com",
+          "email_verified_at": null,
+          "created_at": "2026-05-14T11:10:05.000000Z",
+          "updated_at": "2026-05-14T11:10:05.000000Z"
+        }
+      },
+      "pass": true
+    },
+    {
+      "step": 4,
+      "name": "Get Todos (public)",
+      "method": "GET",
+      "url": "/api/v1/todos",
+      "status_code": 200,
+      "response": {
+        "todos": []
+      },
+      "pass": true
+    },
+    {
+      "step": 5,
+      "name": "Create Todo",
+      "method": "POST",
+      "url": "/api/v1/todos",
+      "status_code": 201,
+      "response": {
+        "message": "Todo created successfully",
+        "todo": {
+          "title": "Test todo from Passport",
+          "description": "Created via API test",
+          "user_id": 1,
+          "updated_at": "2026-05-14T11:10:23.000000Z",
+          "created_at": "2026-05-14T11:10:23.000000Z",
+          "id": 1
+        }
+      },
+      "pass": true
+    },
+    {
+      "step": 6,
+      "name": "Logout",
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "status_code": 200,
+      "response": {
+        "message": "Successfully logged out"
+      },
+      "pass": true
+    },
+    {
+      "step": 7,
+      "name": "Access protected route after logout (expect 401)",
+      "method": "GET",
+      "url": "/api/auth/user",
+      "status_code": 401,
+      "response": {
+        "message": "Unauthenticated."
+      },
+      "pass": true,
+      "note": "Revoked token correctly rejected with 401"
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0
+  }
+}
