@@ -1,1 +1,1 @@
-- claude "use agent-browser to Spawn agent to replay all requests in markdown in path examples/jwt/test.md"
+- "use agent-browser to Spawn agent to replay all requests in markdown in path examples/jwt/test.md. save result as pretty format json in logs"

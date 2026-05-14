@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-05-14",
+  "server": "http://localhost:8001",
+  "summary": {
+    "total_tests": 5,
+    "passed": 5,
+    "notes": "Test 4 (logout with old token) correctly returned 401 Unauthenticated, test 5 returned 500 (no JSON Accept header)"
+  },
+  "tests": [
+    {
+      "test_number": 1,
+      "name": "POST /api/auth/login",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        "body": {
+          "email": "test@example.com",
+          "password": "password"
+        }
+      },
+      "response": {
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE3Nzg3NTM5OTEsImV4cCI6MTc3ODc1NzU5MSwibmJmIjoxNzc4NzUzOTkxLCJqdGkiOiI4WnU2VkJRQzRCR2xOejFGIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.Jx-OfZ7DXFb8ScRq7HhEVVKnTDW7izr5FErK4nUljR0",
+        "token_type": "bearer",
+        "expires_in": 3600
+      },
+      "status": "200"
+    },
+    {
+      "test_number": 2,
+      "name": "GET /api/auth/me (with token)",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/auth/me",
+        "headers": {
+          "Authorization": "Bearer <token_from_login>",
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "id": 1,
+        "name": "Test User",
+        "email": "test@example.com",
+        "email_verified_at": null,
+        "created_at": "2026-05-14T09:12:59.000000Z",
+        "updated_at": "2026-05-14T09:12:59.000000Z"
+      },
+      "status": "200"
+    },
+    {
+      "test_number": 3,
+      "name": "POST /api/auth/refresh",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/refresh",
+        "headers": {
+          "Authorization": "Bearer <token_from_login>",
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2F1dGgvcmVmcmVzaCIsImlhdCI6MTc3ODc1Mzk5MSwiZXhwIjoxNzc4NzU3NTkxLCJuYmYiOjE3Nzg3NTM5OTEsImp0aSI6Ik9ncWZOZzJhVzRic1RUQzMiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.uUd_S4f2anlgAkj_k6r9bh2ppu7JFnsh1BihZp0N7DI",
+        "token_type": "bearer",
+        "expires_in": 3600
+      },
+      "status": "200"
+    },
+    {
+      "test_number": 4,
+      "name": "POST /api/auth/logout (with old token - should fail)",
+      "request": {
+        "method": "POST",
+        "endpoint": "/api/auth/logout",
+        "headers": {
+          "Authorization": "Bearer <old_token_invalidated_by_refresh>",
+          "Accept": "application/json"
+        },
+        "note": "Old token was invalidated by refresh in test 3"
+      },
+      "response": {
+        "message": "Unauthenticated."
+      },
+      "status": "401"
+    },
+    {
+      "test_number": 5,
+      "name": "GET /api/auth/me (without token)",
+      "request": {
+        "method": "GET",
+        "endpoint": "/api/auth/me",
+        "note": "No Authorization header, no Accept header"
+      },
+      "response_note": "Server returned 500 error (see response)",
+      "status": "500"
+    }
+  ]
+}
