@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,16 @@ Route::get('/action', function (Request $request) {
     ]);
 
 })->name('email.action');
+
+// Mailtrap demo routes
+Route::prefix('mail')->group(function () {
+    // Send via Laravel Mail (SMTP/log driver from .env)
+    Route::post('/send', [MailController::class, 'sendViaLaravel'])->name('mail.send');
+
+    // Send via Mailtrap Sending API (requires MAILTRAP_API_TOKEN)
+    Route::post('/send-api', [MailController::class, 'sendViaMailtrapApi'])->name('mail.send-api');
+
+    // Send to Mailtrap sandbox inbox (testing)
+    Route::post('/sandbox', [MailController::class, 'sendToSandbox'])->name('mail.sandbox');
+});
 
