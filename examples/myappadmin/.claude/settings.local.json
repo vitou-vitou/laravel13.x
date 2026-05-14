@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf vendor)",
+      "Bash(rm -f composer.lock)",
+      "Bash(composer install *)",
+      "PowerShell(composer install *)"
+    ]
+  }
+}
