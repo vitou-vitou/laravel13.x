@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Mail\AttachmentMail;
+use App\Mail\AttachmentMailQueued;
 use App\Mail\WelcomeMail;
 use App\Mail\WelcomeMailQueued;
 use App\Models\User;
@@ -94,7 +95,7 @@ class MailController extends Controller
         ]);
 
         Mail::to($request->email)->queue(
-            new WelcomeMailQueued($request->name)
+            new WelcomeMailQueued($request->name, $request->email)
         );
 
         return response()->json(['message' => 'Email queued for delivery.']);
@@ -123,6 +124,32 @@ class MailController extends Controller
         );
 
         return response()->json(['message' => 'Email with attachment sent.']);
+    }
+
+    /**
+     * Queue email with a file attachment (store file first, worker sends async).
+     */
+    public function sendQueuedWithAttachment(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name'       => 'required|string|max:100',
+            'email'      => 'required|email',
+            'attachment' => 'required|file|max:10240',
+        ]);
+
+        $file        = $request->file('attachment');
+        $storagePath = $file->store('mail-attachments', 'local');
+
+        Mail::to($request->email)->queue(
+            new AttachmentMailQueued(
+                userName:       $request->name,
+                userEmail:      $request->email,
+                storagePath:    $storagePath,
+                attachmentName: $file->getClientOriginalName(),
+            )
+        );
+
+        return response()->json(['message' => 'Email with attachment queued for delivery.']);
     }
 
     /**

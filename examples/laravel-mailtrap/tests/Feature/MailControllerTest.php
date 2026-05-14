@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Mail\AttachmentMail;
+use App\Mail\AttachmentMailQueued;
 use App\Mail\WelcomeMailQueued;
 use App\Notifications\WelcomeNotification;
 use Illuminate\Http\UploadedFile;
@@ -108,7 +109,8 @@ class MailControllerTest extends TestCase
           ->assertExactJson(['message' => 'Email queued for delivery.']);
 
         Mail::assertQueued(WelcomeMailQueued::class, function (WelcomeMailQueued $mail): bool {
-            return $mail->userName === 'Test User';
+            return $mail->userName === 'Test User'
+                && $mail->userEmail === 'test@example.com';
         });
     }
 
@@ -155,6 +157,43 @@ class MailControllerTest extends TestCase
     public function test_send_attachment_rejects_invalid_email(): void
     {
         $this->postJson('/mail/send-attachment', [
+            'name'  => 'Test',
+            'email' => 'not-valid',
+        ])->assertUnprocessable()
+          ->assertJsonValidationErrors(['email']);
+    }
+
+    // ─── POST /mail/send-queued-attachment ───────────────────────────────────
+
+    public function test_send_queued_attachment_dispatches_to_queue(): void
+    {
+        $file = UploadedFile::fake()->create('report.pdf', 100, 'application/pdf');
+
+        $this->post('/mail/send-queued-attachment', [
+            'name'       => 'Test User',
+            'email'      => 'test@example.com',
+            'attachment' => $file,
+        ])->assertOk()
+          ->assertExactJson(['message' => 'Email with attachment queued for delivery.']);
+
+        Mail::assertQueued(AttachmentMailQueued::class, function (AttachmentMailQueued $mail): bool {
+            return $mail->userName === 'Test User'
+                && $mail->userEmail === 'test@example.com'
+                && $mail->attachmentName === 'report.pdf'
+                && str_starts_with($mail->storagePath, 'mail-attachments/');
+        });
+    }
+
+    public function test_send_queued_attachment_rejects_missing_fields(): void
+    {
+        $this->postJson('/mail/send-queued-attachment', [])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['name', 'email', 'attachment']);
+    }
+
+    public function test_send_queued_attachment_rejects_invalid_email(): void
+    {
+        $this->postJson('/mail/send-queued-attachment', [
             'name'  => 'Test',
             'email' => 'not-valid',
         ])->assertUnprocessable()
