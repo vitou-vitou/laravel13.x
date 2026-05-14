@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Mail\AttachmentMail;
 use App\Mail\WelcomeMail;
+use App\Mail\WelcomeMailQueued;
+use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Mailtrap\Helper\ResponseHelper;
 use Mailtrap\MailtrapClient;
 use Mailtrap\Mime\MailtrapEmail;
@@ -76,5 +81,63 @@ class MailController extends Controller
         );
 
         return response()->json(['message' => 'Email sent to Mailtrap sandbox.']);
+    }
+
+    /**
+     * Dispatch welcome email to the queue (async, non-blocking).
+     */
+    public function sendQueued(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name'  => 'required|string|max:100',
+            'email' => 'required|email',
+        ]);
+
+        Mail::to($request->email)->queue(
+            new WelcomeMailQueued($request->name)
+        );
+
+        return response()->json(['message' => 'Email queued for delivery.']);
+    }
+
+    /**
+     * Send email with a file attachment.
+     */
+    public function sendWithAttachment(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name'       => 'required|string|max:100',
+            'email'      => 'required|email',
+            'attachment' => 'required|file|max:10240',
+        ]);
+
+        $file = $request->file('attachment');
+        $path = $file->store('mail-attachments', 'local');
+
+        Mail::to($request->email)->send(
+            new AttachmentMail(
+                userName:       $request->name,
+                attachmentPath: storage_path("app/private/{$path}"),
+                attachmentName: $file->getClientOriginalName(),
+            )
+        );
+
+        return response()->json(['message' => 'Email with attachment sent.']);
+    }
+
+    /**
+     * Send a Laravel Notification via mail channel (on-demand, no User model required).
+     */
+    public function sendNotification(Request $request): JsonResponse
+    {
+        $request->validate([
+            'name'  => 'required|string|max:100',
+            'email' => 'required|email',
+        ]);
+
+        Notification::route('mail', $request->email)
+            ->notify(new WelcomeNotification($request->name));
+
+        return response()->json(['message' => 'Notification dispatched via mail channel.']);
     }
 }

@@ -1,0 +1,17 @@
+{
+  "endpoint": "POST /mail/send-api",
+  "description": "Send via Mailtrap Sending API. Requires MAILTRAP_API_TOKEN in .env.",
+  "request": {
+    "name": "Test User",
+    "email": "test@example.com"
+  },
+  "response": {
+    "status": 500,
+    "body": {
+      "exception": "Mailtrap\\Exception\\HttpClientException",
+      "message": "Unauthorized. Make sure you are sending correct credentials with the request before retrying. Errors: Unauthorized."
+    }
+  },
+  "note": "Expected failure without credentials. Set MAILTRAP_API_TOKEN in .env to test.",
+  "tested_at": "2026-05-14T12:30:53.083Z"
+}

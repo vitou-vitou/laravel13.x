@@ -37,5 +37,14 @@ Route::prefix('mail')->group(function () {
 
     // Send to Mailtrap sandbox inbox (testing)
     Route::post('/sandbox', [MailController::class, 'sendToSandbox'])->name('mail.sandbox');
+
+    // Dispatch email to queue (async, non-blocking)
+    Route::post('/send-queued', [MailController::class, 'sendQueued'])->name('mail.send-queued');
+
+    // Send email with file attachment (multipart/form-data)
+    Route::post('/send-attachment', [MailController::class, 'sendWithAttachment'])->name('mail.send-attachment');
+
+    // Send via Laravel Notification (mail channel)
+    Route::post('/notify', [MailController::class, 'sendNotification'])->name('mail.notify');
 });
 

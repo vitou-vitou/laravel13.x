@@ -1,0 +1,15 @@
+{
+  "endpoint": "POST /mail/send",
+  "description": "Send via Laravel mailer (log driver). No credentials needed.",
+  "request": {
+    "name": "Test User",
+    "email": "test@example.com"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "message": "Email sent via Laravel mailer."
+    }
+  },
+  "tested_at": "2026-05-14T12:30:53.083Z"
+}

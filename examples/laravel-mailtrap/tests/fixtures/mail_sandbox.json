@@ -1,0 +1,17 @@
+{
+  "endpoint": "POST /mail/sandbox",
+  "description": "Send to Mailtrap sandbox inbox via SMTP. Requires MAILTRAP_USERNAME + MAILTRAP_PASSWORD in .env.",
+  "request": {
+    "name": "Test User",
+    "email": "test@example.com"
+  },
+  "response": {
+    "status": 500,
+    "body": {
+      "exception": "Symfony\\Component\\Mailer\\Exception\\UnexpectedResponseException",
+      "message": "Expected response code \"250\" but got code \"530\", with message \"530 5.7.1 Authentication required\"."
+    }
+  },
+  "note": "Expected failure without credentials. Set MAILTRAP_USERNAME and MAILTRAP_PASSWORD in .env to test.",
+  "tested_at": "2026-05-14T12:30:53.083Z"
+}
