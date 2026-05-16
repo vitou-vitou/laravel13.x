@@ -18,7 +18,9 @@
       "Bash(curl -s http://localhost:8001/api/auth/me)",
       "PowerShell(Get-ChildItem \"D:\\\\laravel13.x\\\\examples\\\\jwt\\\\database\" -Recurse -Force | ForEach-Object { $_.FullName })",
       "Bash(sqlite3 *)",
-      "Bash(curl -s -X POST http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\",\"password\":\"password\"}')"
+      "Bash(curl -s -X POST http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\",\"password\":\"password\"}')",
+      "PowerShell(Copy-Item 'd:\\\\laravel13.x\\\\examples\\\\laravel-logs\\\\.env.example' 'd:\\\\laravel13.x\\\\examples\\\\laravel-logs\\\\.env')",
+      "PowerShell(& php 'd:\\\\laravel13.x\\\\examples\\\\laravel-logs\\\\artisan' key:generate)"
     ]
   }
 }
