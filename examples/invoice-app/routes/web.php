@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('customers', \App\Http\Controllers\CustomerController::class);
+    Route::get('invoices/{invoice}/pdf', \App\Http\Controllers\InvoicePdfController::class)
+        ->name('invoices.pdf');
     Route::resource('invoices', \App\Http\Controllers\InvoiceController::class);
 });
 
