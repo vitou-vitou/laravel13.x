@@ -35,12 +35,14 @@ class InvoiceController extends Controller
     public function show(Invoice $invoice)
     {
         $invoice->load('customer', 'items');
+
         return view('invoices.show', compact('invoice'));
     }
 
     public function edit(Invoice $invoice)
     {
         $invoice->load('items');
+
         return view('invoices.edit', [
             'invoice' => $invoice,
             'customers' => Customer::orderBy('name')->get(),
@@ -61,6 +63,7 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         $invoice->delete();
+
         return redirect('/invoices');
     }
 }
