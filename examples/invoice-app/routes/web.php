@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('customers', \App\Http\Controllers\CustomerController::class);
+    Route::resource('invoices', \App\Http\Controllers\InvoiceController::class);
 });
 
 require __DIR__.'/auth.php';
