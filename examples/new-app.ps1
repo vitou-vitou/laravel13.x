@@ -19,11 +19,13 @@
 .EXAMPLE
     .\new-app.ps1
     .\new-app.ps1 -Name bright-map-3301 -Port 9200 -AppName "Bright Map"
+    .\new-app.ps1 -Sleep          # sleep PC after successful start
 #>
 param(
     [string]$Name     = "",
     [int]   $Port     = 0,
-    [string]$AppName  = ""
+    [string]$AppName  = "",
+    [switch]$Sleep
 )
 
 Set-StrictMode -Version Latest
@@ -225,3 +227,13 @@ if ($status -like "HTTP 2*") {
     Write-Host "  Check $logOut for details"
 }
 Write-Host ""
+
+if ($Sleep) {
+    if ($status -like "HTTP 2*") {
+        Write-Host "  Sleeping PC in 10 seconds... (Ctrl+C to cancel)" -ForegroundColor DarkGray
+        Start-Sleep -Seconds 10
+        rundll32.exe powrprof.dll,SetSuspendState 0,1,0
+    } else {
+        Write-Host "  Skipping sleep — app did not start cleanly." -ForegroundColor Yellow
+    }
+}
