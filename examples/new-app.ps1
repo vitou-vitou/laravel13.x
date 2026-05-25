@@ -228,6 +228,22 @@ if ($status -like "HTTP 2*") {
 }
 Write-Host ""
 
+# ── build report ─────────────────────────────────────────────────────────────
+
+$reportPath = Join-Path $PSScriptRoot "build-report.txt"
+$timestamp  = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+if ($status -like "HTTP 2*") {
+    $reportLine = "[$timestamp] PASS  $Name  http://127.0.0.1:$Port  PID:$($proc.Id)"
+} else {
+    $reportLine = "[$timestamp] FAIL  $Name  status:$status"
+}
+
+Add-Content -Path $reportPath -Value $reportLine -Encoding utf8
+Write-Host "  Report: $reportPath" -ForegroundColor DarkGray
+
+# ── sleep ─────────────────────────────────────────────────────────────────────
+
 if ($Sleep) {
     if ($status -like "HTTP 2*") {
         Write-Host "  Sleeping PC in 10 seconds... (Ctrl+C to cancel)" -ForegroundColor DarkGray
