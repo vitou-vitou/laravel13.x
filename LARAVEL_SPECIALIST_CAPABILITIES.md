@@ -441,4 +441,204 @@ The 180+ list isn't exhaustive. It's representative. Any business domain you nam
 
 ---
 
+## Domain Decomposition — Live Framework
+
+### What "Decompose" Actually Means
+
+Not "list features." Real decomposition = exposing the **invariants** of a domain.
+
+```
+Invariant = a rule that can NEVER be violated, no matter what
+```
+
+Find the invariants → you understand the domain. Miss them → bugs in production.
+
+---
+
+### The 7-Layer Decomposition Model
+
+For any domain, answer these in order:
+
+```
+Layer 1: IDENTITY     — What are the core entities?
+Layer 2: OWNERSHIP    — Who owns what? (tenancy, permissions)
+Layer 3: LIFECYCLE    — What states can entities be in?
+Layer 4: INVARIANTS   — What rules can never break?
+Layer 5: COMMANDS     — What actions change state?
+Layer 6: EVENTS       — What happened as a result?
+Layer 7: QUERIES      — What do consumers need to read?
+```
+
+---
+
+### Live Example 1: Hospital Management
+
+**Layer 1 — Identity**
+```
+Patient, Doctor, Appointment, Prescription, Ward, Bed, MedicalRecord
+```
+
+**Layer 2 — Ownership**
+```
+Patient owns MedicalRecord (HIPAA — no cross-patient access)
+Doctor owns Prescriptions they write
+Hospital owns Wards/Beds
+```
+
+**Layer 3 — Lifecycle**
+```
+Appointment: scheduled → confirmed → in_progress → completed | cancelled | no_show
+Bed:         available → occupied → cleaning → available
+Prescription: draft → signed → dispensed → completed | voided
+```
+
+**Layer 4 — Invariants**
+```
+- A bed cannot be occupied by 2 patients simultaneously
+- A doctor cannot have overlapping appointments
+- A prescription cannot be dispensed without doctor signature
+- MedicalRecord is immutable after signing (append-only)
+```
+
+**Layer 5 — Commands**
+```
+BookAppointment       → validates doctor availability, creates Appointment
+AdmitPatient          → assigns Bed, creates AdmissionRecord
+SignPrescription      → requires Doctor auth, locks Prescription
+DischargePatient      → releases Bed, triggers cleaning job, generates discharge summary
+```
+
+**Layer 6 — Events**
+```
+AppointmentBooked     → notify patient (SMS/email)
+PatientAdmitted       → notify ward nurse
+PrescriptionSigned    → notify pharmacy queue
+PatientDischarged     → trigger bed cleaning job, generate invoice
+```
+
+**Layer 7 — Queries**
+```
+Doctor's schedule for today
+Available beds in Ward X
+Patient's full medication history
+Pending prescriptions for pharmacy
+```
+
+**Laravel Map:**
+```
+Entities      → Eloquent Models + Migrations
+Ownership     → Policies + Gates + Scopes
+Lifecycle     → Enum states + State machine (spatie/laravel-model-states)
+Invariants    → Service layer validation + DB constraints
+Commands      → Service methods + Form Requests
+Events        → Laravel Events + Listeners + Notifications
+Queries       → API Resources + Eager loading + Caching
+```
+
+---
+
+### Live Example 2: Fintech Wallet
+
+**Invariants (critical):**
+```
+- Wallet balance can NEVER go negative
+- Every debit must have a corresponding credit (double-entry)
+- Transaction is immutable after confirmed
+- Concurrent transfers must not cause race conditions
+```
+
+**Laravel Solution per Invariant:**
+```php
+// Balance never negative → DB constraint + pessimistic lock
+Wallet::lockForUpdate()->find($id);
+// Never use optimistic lock here — race condition risk
+
+// Double-entry → single DB transaction wrapping both journal entries
+DB::transaction(function () use ($from, $to, $amount) {
+    $from->debit($amount);
+    $to->credit($amount);
+    JournalEntry::createPair($from, $to, $amount);
+});
+
+// Immutable transactions → no update/delete on Transaction model
+// Enforce via Model::saving() observer that blocks updates post-confirmation
+
+// Race conditions → queue + lock
+// Transfer jobs run sequentially per wallet via unique job ID
+```
+
+---
+
+### Live Example 3: Multi-vendor Marketplace
+
+**Ownership complexity:**
+```
+Platform owns: Categories, Tags, Dispute resolution
+Vendor owns:   Products, Orders (their portion), Payouts
+Buyer owns:    Cart, Order, Reviews
+```
+
+**Key Invariants:**
+```
+- Commission calculated at order time, not payout time (price lock)
+- Vendor cannot see other vendor's data
+- Dispute freezes payout until resolved
+- Refund cannot exceed original payment
+```
+
+**Tricky part → multi-tenancy scoping:**
+```php
+// Global scope on every vendor-owned model
+protected static function booted(): void
+{
+    static::addGlobalScope('vendor', function (Builder $query) {
+        if (auth()->check() && auth()->user()->isVendor()) {
+            $query->where('vendor_id', auth()->user()->vendor_id);
+        }
+    });
+}
+```
+
+---
+
+### The Questions That Expose Hidden Complexity
+
+Ask these for any domain:
+
+```
+1. What can NEVER happen? (invariants)
+2. What happens when two users act simultaneously? (concurrency)
+3. What is irreversible? (immutability)
+4. Who can see whose data? (tenancy/permissions)
+5. What must be audited? (compliance)
+6. What fails silently if you don't handle it? (edge cases)
+7. What external system can go down? (resilience)
+```
+
+Answers to these 7 questions = the hard 20% of any project.
+
+---
+
+### Pattern: Complexity Heatmap
+
+```
+Low complexity  → CRUD (blog, catalog, directory)
+Med complexity  → Workflows, state machines, multi-role (CRM, LMS, booking)
+High complexity → Money, concurrency, compliance (fintech, healthcare, marketplace)
+```
+
+Higher complexity = more invariants = more service layer = more tests.
+
+**Laravel handles all three tiers. Architecture changes, not the framework.**
+
+---
+
+### Bottom Line
+
+Domain decomposition is the skill. Laravel is the tool.
+
+Master decomposition → you can build anything, in any framework.
+
+---
+
 *Skill: laravel-specialist — activated via `Skill` tool in Claude Code*

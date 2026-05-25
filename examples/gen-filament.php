@@ -559,9 +559,33 @@ foreach ($models as $idx => $model) {
 gen_stats_widget($appDir, $stats, $models);
 gen_seeder($appDir, $def);
 
+// ── server.php (static-file router for PHP built-in server) ──────────────────
+$serverPhp = <<<'PHP'
+<?php
+// PHP built-in server router — serves Filament/Livewire static assets correctly.
+// Start from project root: php -S 127.0.0.1:PORT -t public server.php
+// OR from public/: php -S 127.0.0.1:PORT ../server.php
+$uri  = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '');
+$file = getcwd() . $uri;
+if ($uri !== '/' && file_exists($file) && !is_dir($file)) {
+    return false; // serve static file directly (correct MIME, no Laravel overhead)
+}
+require getcwd() . '/index.php';
+PHP;
+
+$serverPhpPath = "$appDir/server.php";
+if (!file_exists($serverPhpPath)) {
+    file_put_contents($serverPhpPath, $serverPhp);
+    echo "  Created: server.php\n";
+}
+
 echo "\n  Done. Next steps:\n";
 echo "    1. Edit database/seeders/*Seeder.php — add real data\n";
-echo "    2. php artisan migrate:fresh --seed\n";
-echo "    3. php artisan make:filament-user  (create admin user)\n";
-echo "    4. npm run build\n";
-echo "    5. Visit /admin\n\n";
+echo "    2. php artisan filament:assets           (publish Filament JS/CSS)\n";
+echo "    3. php artisan vendor:publish --tag=livewire:assets\n";
+echo "    4. php artisan migrate:fresh --seed\n";
+echo "    5. php artisan make:filament-user        (create admin user)\n";
+echo "    6. npm run build\n";
+echo "    7. Start server from public/ dir:\n";
+echo "         cd public && php -S 127.0.0.1:PORT ../server.php\n";
+echo "    8. Visit http://127.0.0.1:PORT/admin\n\n";
