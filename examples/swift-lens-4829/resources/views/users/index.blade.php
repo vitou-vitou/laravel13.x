@@ -6,12 +6,27 @@
         </h2>
     </x-slot>
 
-    <div class="py-6">
+    <div class="py-6" x-data="{ filtersOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex gap-6">
+
+            {{-- Mobile filter toggle --}}
+            <div class="lg:hidden mb-3">
+                <button @click="filtersOpen = !filtersOpen"
+                    class="flex items-center gap-2 text-sm font-medium text-indigo-600 border border-indigo-300 rounded-md px-3 py-2 hover:bg-indigo-50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z" />
+                    </svg>
+                    <span x-text="filtersOpen ? 'Hide Filters' : 'Show Filters'">Show Filters</span>
+                </button>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-6">
 
                 {{-- FILTER SIDEBAR --}}
-                <aside class="w-64 flex-shrink-0">
+                <aside class="w-full lg:w-64 lg:flex-shrink-0 lg:!block"
+                    x-show="filtersOpen"
+                    x-transition>
                     <div class="bg-white rounded-lg shadow p-5">
                         <h3 class="font-semibold text-gray-700 mb-4">Filters</h3>
                         <form method="GET" action="/" x-data="{ period: '{{ request('period') }}' }">
@@ -101,7 +116,7 @@
                                 </select>
                             </div>
 
-                            {{-- Custom date range (Alpine x-show) --}}
+                            {{-- Custom date range --}}
                             <div x-show="period === 'custom'" x-cloak class="mb-4 space-y-2">
                                 <div>
                                     <label class="block text-xs font-medium text-gray-600 mb-1">From</label>
@@ -138,19 +153,19 @@
                             <table class="min-w-full divide-y divide-gray-200 text-sm">
                                 <thead class="bg-gray-50">
                                     <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Device</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Source</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">ID</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">User</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Location</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Device</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Source</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Joined</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @forelse ($users as $user)
                                         <tr class="hover:bg-gray-50">
-                                            <td class="px-4 py-3 text-gray-400">{{ $user->id }}</td>
+                                            <td class="px-4 py-3 text-gray-400 whitespace-nowrap">{{ $user->id }}</td>
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center gap-3">
                                                     @if ($user->avatar)
@@ -160,18 +175,16 @@
                                                             <span class="text-xs text-gray-500">{{ strtoupper(substr($user->username, 0, 1)) }}</span>
                                                         </div>
                                                     @endif
-                                                    <div>
-                                                        <div class="font-medium text-gray-900">{{ $user->username }}</div>
-                                                        <div class="text-gray-400 text-xs">{{ $user->email }}</div>
+                                                    <div class="min-w-0">
+                                                        <div class="font-medium text-gray-900 whitespace-nowrap">{{ $user->username }}</div>
+                                                        <div class="text-gray-400 text-xs whitespace-nowrap">{{ $user->email }}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-4 py-3 text-gray-600">
-                                                {{ $user->city ?? '—' }}, {{ $user->country ?? '—' }}
-                                            </td>
-                                            <td class="px-4 py-3 text-gray-600">{{ $user->device_type ?? '—' }}</td>
-                                            <td class="px-4 py-3 text-gray-600">{{ $user->signup_source ?? '—' }}</td>
-                                            <td class="px-4 py-3">
+                                            <td class="px-4 py-3 text-gray-600 whitespace-nowrap">{{ $user->city ?? '—' }}, {{ $user->country ?? '—' }}</td>
+                                            <td class="px-4 py-3 text-gray-600 whitespace-nowrap">{{ $user->device_type ?? '—' }}</td>
+                                            <td class="px-4 py-3 text-gray-600 whitespace-nowrap">{{ $user->signup_source ?? '—' }}</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
                                                 @php
                                                     $isActive = $user->last_login_at && $user->last_login_at->gte(now()->subDays(30));
                                                 @endphp
@@ -181,7 +194,7 @@
                                                     <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">Inactive</span>
                                                 @endif
                                             </td>
-                                            <td class="px-4 py-3 text-gray-500 text-xs">{{ $user->created_at->format('M d, Y') }}</td>
+                                            <td class="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">{{ $user->created_at->format('M d, Y') }}</td>
                                         </tr>
                                     @empty
                                         <tr>
