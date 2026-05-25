@@ -39,7 +39,7 @@ class UserController extends Controller
             $q->where('signup_source', $request->signup_source)
         );
 
-        $query->when($request->has('has_avatar') && $request->has_avatar !== '', function ($q) use ($request) {
+        $query->when($request->filled('has_avatar'), function ($q) use ($request) {
             if ($request->has_avatar == '1') {
                 $q->whereNotNull('avatar');
             } else {
@@ -47,7 +47,7 @@ class UserController extends Controller
             }
         });
 
-        $query->when($request->has('is_active') && $request->is_active !== '', function ($q) use ($request) {
+        $query->when($request->filled('is_active'), function ($q) use ($request) {
             $threshold = now()->subDays(self::ACTIVE_DAYS);
             if ($request->is_active == '1') {
                 $q->where('last_login_at', '>=', $threshold);
