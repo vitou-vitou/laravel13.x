@@ -71,7 +71,10 @@ class UserController extends Controller
         });
 
         $query->when($period === 'custom' && $request->filled('start_date') && $request->filled('end_date'), fn ($q) =>
-            $q->whereBetween('created_at', [$request->start_date, $request->end_date])
+            $q->whereBetween('created_at', [
+                $request->start_date . ' 00:00:00',
+                $request->end_date   . ' 23:59:59',
+            ])
         );
 
         $users = $query->orderBy('created_at', 'desc')->paginate(20)->withQueryString();
