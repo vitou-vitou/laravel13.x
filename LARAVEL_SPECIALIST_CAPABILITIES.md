@@ -980,4 +980,245 @@ Output: full domain map → ready to build in Laravel.
 
 ---
 
+## Live Decomposition Example: Multi-vendor Marketplace
+
+### 1. Core Entities (Domain Language)
+
+```
+Customer        — buys products
+Vendor          — sells products, manages their store
+Product         — listed item with variants
+ProductVariant  — SKU-level (size, color, stock)
+Order           — customer purchase (may span multiple vendors)
+OrderGroup      — subset of Order belonging to one Vendor
+OrderLine       — single product+qty within OrderGroup
+Cart            — pre-order state
+Payment         — financial transaction against Order
+Payout          — platform pays Vendor their earnings
+Review          — Customer rates a Product or Vendor
+Dispute         — Customer challenges an OrderGroup
+Commission      — platform's cut per OrderGroup
+```
+
+---
+
+### 2. Ownership Boundaries
+
+```
+Platform owns:  Categories, Tags, Commission rates, Dispute resolution, Payouts
+Vendor owns:    Products, ProductVariants, their OrderGroups, their Payouts
+Customer owns:  Cart, Orders, Reviews, Disputes they filed
+```
+
+**Critical:** Vendor can NEVER see another Vendor's data.
+
+---
+
+### 3. Lifecycle States
+
+```
+Product:
+  draft → active → suspended | archived
+
+ProductVariant:
+  active → out_of_stock → discontinued
+
+Cart:
+  active → checked_out | abandoned | expired
+
+Order:
+  pending_payment → paid → processing → partially_shipped
+  → shipped → delivered → completed | cancelled | refunded
+
+OrderGroup (per vendor):
+  pending → confirmed → processing → shipped → delivered
+  → completed | cancelled | disputed
+
+Payment:
+  pending → processing → completed | failed | refunded
+
+Payout:
+  pending → scheduled → processing → completed | failed
+
+Dispute:
+  opened → under_review → resolved_buyer | resolved_vendor | escalated
+```
+
+---
+
+### 4. Invariants (What Can NEVER Happen)
+
+```
+- Order total must equal sum of all OrderGroup totals
+- Commission locked at order time (not payout time)
+- Vendor cannot fulfill another Vendor's OrderGroup
+- Payout cannot be released while Dispute is open on that OrderGroup
+- Refund cannot exceed original Payment amount
+- ProductVariant stock cannot go negative
+- Customer cannot review a Product they didn't purchase
+- Vendor cannot see Customer PII beyond shipping address for their orders
+- Price on OrderLine is snapshot — immutable after order placed
+- Cart cannot be checked out with out-of-stock variants
+```
+
+---
+
+### 5. Aggregate Roots
+
+```
+Order (root)
+  └── OrderGroups → OrderLines (owned)
+  └── Payment (associated — own lifecycle)
+
+Product (root)
+  └── ProductVariants (owned)
+  └── Reviews (associated)
+
+Dispute (root)
+  └── DisputeMessages (owned)
+```
+
+---
+
+### 6. Commands vs Queries
+
+**Commands (state-changing):**
+```
+AddToCart              → validates stock, creates/updates CartLine
+Checkout               → creates Order + OrderGroups + locks prices
+ProcessPayment         → charges gateway, updates Payment
+ConfirmOrderGroup      → Vendor acknowledges their portion
+ShipOrderGroup         → Vendor marks shipped + tracking number
+FileDispute            → Customer challenges delivery/quality
+ResolveDispute         → Admin rules in favor of buyer or vendor
+ReleasePayout          → Platform pays Vendor after hold period
+```
+
+**Queries (read-only):**
+```
+Vendor dashboard        → their orders, revenue, pending payouts
+Customer order history  → all orders with status
+Admin dispute queue     → open disputes by age
+Product catalog         → paginated, filtered, search
+```
+
+---
+
+### 7. Bounded Contexts
+
+```
+"Product" means different things:
+
+Catalog context:    name, description, images, SEO, categories
+Inventory context:  SKU, stock_qty, reorder_point, warehouse
+Pricing context:    base_price, sale_price, tax_class, currency
+Order context:      SNAPSHOT — price+name locked at purchase time (immutable)
+```
+
+```
+"User" means different things:
+
+Auth context:       email, password, tokens, 2FA
+Customer context:   shipping addresses, wishlist, order history
+Vendor context:     store name, payout details, commission tier, rating
+Admin context:      permissions, audit log access
+```
+
+---
+
+### 8. Domain Events + Reactions
+
+```
+OrderPlaced           → notify all Vendors in order, reduce stock
+PaymentCompleted      → unlock OrderGroups for fulfillment
+OrderGroupShipped     → notify Customer with tracking, start delivery timer
+OrderGroupDelivered   → start review window, start payout hold timer
+DisputeOpened         → freeze Vendor payout, notify Admin
+DisputeResolved       → release or refund accordingly, notify both parties
+PayoutReleased        → notify Vendor, update ledger
+ReviewPosted          → update Vendor rating aggregate
+StockDepleted         → notify Vendor, mark variant out_of_stock
+```
+
+---
+
+### 9. The 7 Hard Questions
+
+```
+1. CONCURRENCY
+   Two customers buy last item simultaneously?
+   → Pessimistic lock on ProductVariant stock during checkout
+   → DB-level: check-then-decrement in single transaction
+
+2. IMMUTABILITY
+   What never changes after creation?
+   → OrderLine price + product snapshot
+   → Payment amount after completion
+   → Commission rate on OrderGroup
+
+3. COMPLIANCE
+   What must be audited?
+   → All Payment state changes
+   → All Payout releases
+   → Dispute resolutions (admin action log)
+   → PII access by Vendors
+
+4. TENANCY
+   Who sees whose data?
+   → Global scopes on Product, OrderGroup, Payout by vendor_id
+   → Customer sees only their own Orders
+   → Admin sees everything
+
+5. EXTERNAL SYSTEM FAILURES
+   Payment gateway down?
+   → Queue retry with exponential backoff
+   → Order stays in pending_payment, cart preserved
+   Shipping API down?
+   → Manual tracking fallback, alert Vendor
+
+6. SILENT FAILURES
+   Payout job fails silently?
+   → Horizon monitoring + failed job alerts
+   Stock not decremented on payment failure?
+   → Compensating transaction in PaymentFailed listener
+
+7. IRREVERSIBILITY
+   What cannot be undone?
+   → Released Payout (only new Payout can compensate)
+   → Completed Dispute resolution
+   → Posted Review (editable within 48h window only)
+```
+
+---
+
+### 10. Ubiquitous Language Check
+
+| Business Term | Code Term | Match? |
+|--------------|-----------|--------|
+| "Store" | `Vendor` | ✓ |
+| "Listing" | `Product` | ✓ |
+| "Purchase" | `Order` | ✓ |
+| "Seller's cut" | `Payout` | ✓ |
+| "Platform fee" | `Commission` | ✓ |
+| "Claim" | `Dispute` | ✓ |
+
+---
+
+### Laravel Implementation Map
+
+```
+Entities          → Eloquent Models + Migrations
+Global scopes     → Vendor/Customer data isolation
+State machines    → spatie/laravel-model-states
+Stock decrement   → DB::transaction + lockForUpdate()
+Price snapshot    → OrderLine stores price at purchase time
+Events            → Laravel Events + Listeners
+Payout hold       → Scheduled job checks hold_until timestamp
+Commission lock   → Stored on OrderGroup at creation
+Dispute freeze    → Payout query checks for open disputes
+Tests             → Pest feature tests per invariant
+```
+
+---
+
 *Skill: laravel-specialist — activated via `Skill` tool in Claude Code*
