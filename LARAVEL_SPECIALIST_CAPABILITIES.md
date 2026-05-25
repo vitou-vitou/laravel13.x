@@ -641,4 +641,343 @@ Master decomposition → you can build anything, in any framework.
 
 ---
 
+## Domain Decomposition — The Master Skill
+
+### Why Decomposition > Framework Knowledge
+
+Most developers learn frameworks. Few master decomposition. Result:
+
+```
+Framework expert without decomposition:
+→ Builds the wrong thing perfectly
+→ Misses invariants → prod bugs
+→ Rewrites when requirements shift
+
+Decomposition master with any framework:
+→ Builds the right thing, learns framework as needed
+→ Catches edge cases before code exists
+→ Adapts when domain evolves
+```
+
+**Framework = syntax. Decomposition = thinking.**
+
+---
+
+### The Mental Model Shift
+
+Stop thinking in code. Think in **domain language** first.
+
+```
+WRONG approach:
+"I need a users table, orders table, products table..."
+
+RIGHT approach:
+"A Customer places an Order containing OrderLines.
+ Each OrderLine references a Product variant.
+ An Order transitions through states.
+ Payment and fulfillment are separate lifecycles."
+```
+
+Same database. Completely different architecture. Second one survives 3 years of product changes. First one gets rewritten at month 6.
+
+---
+
+### The 3 Levels of Domain Understanding
+
+```
+Level 1 — SURFACE     Entities and CRUD operations
+Level 2 — BEHAVIOR    State machines, workflows, business rules
+Level 3 — INVARIANTS  What can never be violated under any circumstance
+```
+
+Most developers stop at Level 1. Production bugs live at Level 3.
+
+---
+
+### How to Reach Level 3: The Invariant Hunt
+
+**Technique: Ask "what if" until you find the constraint that cannot move.**
+
+Example domain: **Online Auction**
+
+```
+What if two people bid the same amount at the same time?
+→ Only one can win → need atomic bid acceptance
+
+What if the seller cancels after bids exist?
+→ Bidders must be notified + deposits returned → cancellation has consequences
+
+What if the winner doesn't pay?
+→ Second-highest bidder gets offered the item → reserve winner logic
+
+What if someone bids on their own auction?
+→ Must be prevented → self-bid invariant
+
+What if the auction clock hits zero during bid processing?
+→ Bid in-flight at deadline — accept or reject? → need explicit rule
+```
+
+Each "what if" exposes an invariant. **These become your service layer rules, DB constraints, and test cases.**
+
+---
+
+### The Ubiquitous Language Principle
+
+Stolen from Domain-Driven Design (DDD). Core idea:
+
+**Code must use the same words the business uses.**
+
+```
+Business says:    "The order is fulfilled"
+Bad code:         $order->status = 4;
+Good code:        $order->fulfill();
+
+Business says:    "Suspend the account"
+Bad code:         $user->active = false;
+Good code:        $account->suspend(reason: $reason);
+```
+
+Why it matters:
+- Bug reports map directly to code
+- New developers understand intent immediately
+- Domain experts can review logic without translation
+
+**In Laravel:**
+```php
+// Bad
+$order->update(['status' => 'shipped', 'shipped_at' => now()]);
+
+// Good
+$order->ship(carrier: $carrier, trackingNumber: $tracking);
+// Method encapsulates: status change + timestamp + event dispatch + notification
+```
+
+---
+
+### The Aggregate Root Pattern
+
+Not everything is equal. Some entities **own** others and protect invariants across them.
+
+```
+Order (aggregate root)
+  ├── OrderLines      (owned — cannot exist without Order)
+  ├── ShippingAddress (owned — value object)
+  └── Payment         (associated — has its own lifecycle)
+```
+
+Rules:
+- Only modify `OrderLine` through `Order`
+- `Order` enforces: total recalculation, status consistency, line limit rules
+- External code never touches `OrderLine` directly
+
+**In Laravel:**
+```php
+// Wrong — bypasses aggregate
+OrderLine::create([...]);
+
+// Right — Order enforces invariants
+$order->addLine(product: $product, qty: 2);
+// Internally: creates line, recalculates total, checks max lines, fires event
+```
+
+---
+
+### Commands vs Queries — The CQRS Insight
+
+Every operation is either:
+
+```
+COMMAND → changes state, has side effects, returns nothing (or minimal ack)
+QUERY   → reads state, no side effects, returns data
+```
+
+Separating them:
+- Commands go through service layer (validation, events, jobs)
+- Queries go direct to DB (optimized reads, no business logic overhead)
+
+**In Laravel:**
+```php
+// Command — through service
+app(OrderService::class)->placeOrder($customer, $cart);
+
+// Query — direct, optimized
+Order::with(['lines.product', 'customer'])
+    ->where('customer_id', $id)
+    ->latest()
+    ->paginate(20);
+```
+
+Never mix. A method that reads AND writes is a hidden bug waiting to happen.
+
+---
+
+### The Bounded Context — When One Model Isn't Enough
+
+Same word, different meaning in different parts of the system:
+
+```
+"Product" in Catalog context:
+  → name, description, images, SEO, categories
+
+"Product" in Inventory context:
+  → SKU, stock level, warehouse location, reorder point
+
+"Product" in Pricing context:
+  → base price, discount rules, tax class, currency variants
+
+"Product" in Order context:
+  → snapshot at time of purchase (price locked, immutable)
+```
+
+**One Product model trying to do all four = a 40-column table with God-object smell.**
+
+Solution: separate models per context, shared ID as reference.
+
+```php
+// Catalog
+App\Catalog\Models\Product
+
+// Inventory
+App\Inventory\Models\StockItem  (references product_id)
+
+// Order (immutable snapshot)
+App\Orders\Models\OrderLineSnapshot  (copied data at order time)
+```
+
+---
+
+### The Event Storming Shortcut
+
+Fast way to decompose any domain in a team meeting:
+
+```
+Step 1: Write all DOMAIN EVENTS on orange stickies (things that happened)
+        "OrderPlaced", "PaymentFailed", "ItemShipped", "AccountSuspended"
+
+Step 2: Write COMMANDS that caused them on blue stickies
+        "PlaceOrder" → "OrderPlaced"
+
+Step 3: Write AGGREGATES that handle commands on yellow stickies
+        Order aggregate handles PlaceOrder
+
+Step 4: Write POLICIES that react to events on purple stickies
+        "When PaymentFailed → send retry email after 1 hour"
+
+Step 5: Write READ MODELS needed on green stickies
+        "Customer needs order history with status"
+```
+
+30 minutes → full domain map → direct translation to Laravel code.
+
+---
+
+### Decomposition Anti-Patterns
+
+**Anemic Domain Model**
+```php
+// Bad — model is just a data bag, logic lives in controller
+class Order extends Model {} // no methods, just fillable
+
+class OrderController {
+    public function ship($id) {
+        $order = Order::find($id);
+        $order->status = 'shipped';      // raw state mutation
+        $order->shipped_at = now();
+        $order->save();
+        // forgot to notify customer
+        // forgot to decrement inventory
+        // forgot to fire event
+    }
+}
+```
+
+**God Service**
+```php
+// Bad — one service knows everything
+class OrderService {
+    public function doEverything() { ... } // 800 lines
+}
+
+// Good — bounded responsibility
+class OrderPlacementService { ... }
+class OrderFulfillmentService { ... }
+class OrderRefundService { ... }
+```
+
+**Primitive Obsession**
+```php
+// Bad
+public function transfer(int $fromId, int $toId, float $amount, string $currency)
+
+// Good — value objects carry invariants
+public function transfer(WalletId $from, WalletId $to, Money $amount)
+// Money enforces: positive amount, valid currency, precision rules
+```
+
+---
+
+### The Decomposition Checklist
+
+Before writing one line of code:
+
+```
+[ ] Named all core entities in domain language
+[ ] Defined ownership boundaries (who owns what)
+[ ] Mapped all lifecycle states per entity
+[ ] Listed every invariant (what can NEVER happen)
+[ ] Identified aggregate roots
+[ ] Separated commands from queries
+[ ] Found bounded contexts (same word, different meaning?)
+[ ] Mapped domain events and their reactions
+[ ] Asked the 7 hard questions (concurrency, immutability, compliance...)
+[ ] Verified ubiquitous language matches business terminology
+```
+
+Complete this checklist → your architecture is 80% done before touching Laravel.
+
+---
+
+### The Ultimate Truth
+
+```
+Bad developer:   learns framework → tries to fit domain into framework patterns
+Good developer:  understands domain → uses framework as implementation detail
+Great developer: decomposes domain → framework choice becomes almost irrelevant
+```
+
+Laravel, Django, Rails, Spring — all capable. The difference in output quality comes entirely from how deeply the developer understood the domain before writing code.
+
+**Decomposition is the senior engineer skill. Everything else is execution.**
+
+---
+
+## How to Get Decomposition Checklist for Your App
+
+Ask directly in chat. Provide:
+
+```
+1. What the app does (one sentence)
+2. Who uses it (roles)
+3. The main "thing" the app manages
+```
+
+The decomposition runs live against your domain:
+
+```
+[ ] Core entities in domain language
+[ ] Ownership boundaries
+[ ] Lifecycle states per entity
+[ ] Invariants (what can NEVER happen)
+[ ] Aggregate roots
+[ ] Commands vs queries
+[ ] Bounded contexts
+[ ] Domain events + reactions
+[ ] 7 hard questions (concurrency, immutability, compliance...)
+[ ] Ubiquitous language check
+```
+
+Output: full domain map → ready to build in Laravel.
+
+---
+
 *Skill: laravel-specialist — activated via `Skill` tool in Claude Code*
