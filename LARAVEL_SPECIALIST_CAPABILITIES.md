@@ -1221,4 +1221,39 @@ Tests             → Pest feature tests per invariant
 
 ---
 
+## How to Continue in a New Session
+
+**Step 1 — Reactivate skill:**
+```
+activate skill laravel-specialist
+```
+
+**Step 2 — Resume context:**
+```
+continue decomposition for multi-vendor marketplace
+```
+or jump straight to building:
+```
+scaffold the Order + OrderGroup + OrderLine models for multi-vendor marketplace
+per the decomposition in LARAVEL_SPECIALIST_CAPABILITIES.md
+```
+
+---
+
+**This file is your memory.** All entities, invariants, states, events, and implementation map are here. Point the skill at it — picks up exactly where we left off.
+
+---
+
+### Next Logical Build Steps
+
+```
+1. Migrations       — Vendor, Product, ProductVariant, Cart, Order, OrderGroup, OrderLine
+2. Models           — relationships + global scopes + state machines
+3. Service layer    — Checkout, Payment, Payout
+4. Events           — Listeners per domain event
+5. Tests            — Pest feature tests per invariant
+```
+
+---
+
 *Skill: laravel-specialist — activated via `Skill` tool in Claude Code*
