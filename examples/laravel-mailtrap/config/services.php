@@ -29,7 +29,8 @@ return [
     ],
 
     'mailtrap' => [
-        'api_token' => env('MAILTRAP_API_TOKEN'),
+        'api_token'      => env('MAILTRAP_API_TOKEN'),
+        'webhook_secret' => env('MAILTRAP_WEBHOOK_SECRET'),
     ],
 
     'slack' => [

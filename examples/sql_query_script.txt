@@ -1,0 +1,118 @@
+-- ─── USER SELECTIONS (NULL = ANY = no filter applied) ───
+SET @country      = NULL;        -- NULL = all countries
+SET @city         = NULL;        -- NULL = all cities
+SET @device_type  = NULL;        -- NULL = all devices
+SET @has_image    = NULL;        -- NULL = both | 1 = yes | 0 = no
+SET @signup_src   = NULL;        -- NULL = all sources
+SET @is_active    = NULL;        -- NULL = both | 1 = active | 0 = inactive
+SET @keyword      = NULL;        -- NULL = no keyword search
+SET @active_days  = 30;          -- define active threshold
+
+-- ─── TIME PERIOD (all NULL = ANY time) ───
+SET @period       = NULL;        -- 'day'|'week'|'month'|'year'|'custom'|NULL
+SET @start_date   = NULL;        -- used when @period = 'custom'
+SET @end_date     = NULL;        -- used when @period = 'custom'
+
+-- ─── GEO (all NULL = no geo filter) ───
+SET @center_lat   = NULL;        -- NULL = skip geo filter
+SET @center_long  = NULL;
+SET @radius_km    = NULL;
+
+-- ─── PAGINATION ───
+SET @page_size    = 20;
+SET @page_offset  = 0;           -- page 1 = 0, page 2 = 20 ...
+
+-- ─── MAIN QUERY ───
+SELECT
+    user_id,
+    username,
+    email,
+    country,
+    city,
+    device_type,
+    signup_source,
+    avatar,
+    geo_lat,
+    geo_long,
+    created_at,
+    last_login_at,
+    CASE
+        WHEN last_login_at >= DATE_SUB(CURDATE(), INTERVAL @active_days DAY)
+        THEN 'Active' ELSE 'Inactive'
+    END as user_status,
+    -- distance only when geo filter is set
+    CASE WHEN @center_lat IS NOT NULL THEN
+        ROUND(6371 * ACOS(
+            COS(RADIANS(@center_lat)) * COS(RADIANS(geo_lat)) *
+            COS(RADIANS(geo_long) - RADIANS(@center_long)) +
+            SIN(RADIANS(@center_lat)) * SIN(RADIANS(geo_lat))
+        ), 2)
+    ELSE NULL END as distance_km
+
+FROM users
+
+WHERE
+    -- COUNTRY
+    (@country IS NULL OR country = @country)
+
+    -- CITY
+    AND (@city IS NULL OR city = @city)
+
+    -- TIME PERIOD
+    AND (
+        @period IS NULL
+        OR (@period = 'day'   AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 DAY))
+        OR (@period = 'week'  AND created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY))
+        OR (@period = 'month' AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH))
+        OR (@period = 'year'  AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR))
+        OR (@period = 'custom' AND created_at BETWEEN @start_date AND @end_date)
+    )
+
+    -- PROFILE IMAGE
+    AND (
+        @has_image IS NULL
+        OR (@has_image = 1 AND avatar IS NOT NULL)
+        OR (@has_image = 0 AND avatar IS NULL)
+    )
+
+    -- DEVICE TYPE
+    AND (@device_type IS NULL OR device_type = @device_type)
+
+    -- SIGNUP SOURCE
+    AND (@signup_src IS NULL OR signup_source = @signup_src)
+
+    -- ACTIVE STATUS
+    AND (
+        @is_active IS NULL
+        OR (@is_active = 1 AND last_login_at >= DATE_SUB(CURDATE(), INTERVAL @active_days DAY))
+        OR (@is_active = 0 AND (last_login_at < DATE_SUB(CURDATE(), INTERVAL @active_days DAY)
+                                OR last_login_at IS NULL))
+    )
+
+    -- KEYWORD SEARCH
+    AND (
+        @keyword IS NULL
+        OR username  LIKE CONCAT('%', @keyword, '%')
+        OR email     LIKE CONCAT('%', @keyword, '%')
+        OR city      LIKE CONCAT('%', @keyword, '%')
+        OR country   LIKE CONCAT('%', @keyword, '%')
+    )
+
+    -- GEO RADIUS (bounding box first, then Haversine)
+    AND (
+        @center_lat IS NULL
+        OR (
+            geo_lat  BETWEEN (@center_lat  - @radius_km/111.0)
+                         AND (@center_lat  + @radius_km/111.0)
+            AND geo_long BETWEEN (@center_long - @radius_km/111.0)
+                             AND (@center_long + @radius_km/111.0)
+            AND (6371 * ACOS(
+                    COS(RADIANS(@center_lat)) * COS(RADIANS(geo_lat)) *
+                    COS(RADIANS(geo_long) - RADIANS(@center_long)) +
+                    SIN(RADIANS(@center_lat)) * SIN(RADIANS(geo_lat))
+                )) <= @radius_km
+        )
+    )
+
+ORDER BY created_at DESC
+LIMIT @page_size OFFSET @page_offset;

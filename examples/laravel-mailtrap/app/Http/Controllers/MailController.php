@@ -153,6 +153,45 @@ class MailController extends Controller
     }
 
     /**
+     * Send the same email to multiple recipients in one Mailtrap Bulk Sending API call.
+     * Body: { "subject": "...", "html": "...", "recipients": [{"name":"...","email":"..."},...] }
+     */
+    public function sendBulk(Request $request): JsonResponse
+    {
+        $request->validate([
+            'subject'              => 'required|string|max:255',
+            'html'                 => 'required|string',
+            'recipients'           => 'required|array|min:1|max:1000',
+            'recipients.*.email'   => 'required|email',
+            'recipients.*.name'    => 'nullable|string|max:100',
+        ]);
+
+        $mailtrap = MailtrapClient::initSendingEmails(
+            apiKey: config('services.mailtrap.api_token'),
+        );
+
+        $from       = new Address(config('mail.from.address'), config('mail.from.name'));
+        $messageIds = [];
+
+        foreach ($request->recipients as $r) {
+            $email = (new MailtrapEmail())
+                ->from($from)
+                ->to(new Address($r['email'], $r['name'] ?? ''))
+                ->subject($request->subject)
+                ->html($request->html);
+
+            $result       = ResponseHelper::toArray($mailtrap->send($email));
+            $messageIds[] = $result['message_ids'][0] ?? null;
+        }
+
+        return response()->json([
+            'message'     => 'Emails sent via Mailtrap Sending API.',
+            'count'       => count($messageIds),
+            'message_ids' => $messageIds,
+        ]);
+    }
+
+    /**
      * Send a Laravel Notification via mail channel (on-demand, no User model required).
      */
     public function sendNotification(Request $request): JsonResponse

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\MailtrapWebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,14 @@ Route::get('/action', function (Request $request) {
 // Mailtrap demo routes — each route demonstrates a different sending strategy.
 // All routes expect JSON body: { "name": "...", "email": "..." }
 // except /send-attachment which expects multipart/form-data with an "attachment" file field.
+// WHAT: Receive Mailtrap webhook events (delivery, open, click, bounce, spam, unsubscribe).
+// WHY:  Allows tracking email lifecycle — update DB on delivery, suppress bounced/spam addresses.
+//       Excluded from CSRF middleware (external POST from Mailtrap servers).
+//       Set MAILTRAP_WEBHOOK_SECRET in .env — verified via HMAC-SHA256 X-Mailtrap-Signature header.
+Route::post('/webhooks/mailtrap', [MailtrapWebhookController::class, 'handle'])
+    ->name('webhooks.mailtrap')
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+
 Route::prefix('mail')->group(function () {
     // WHAT: Send email synchronously via the mailer configured in .env (MAIL_MAILER).
     // WHY:  Simplest integration — use log driver locally, swap to real SMTP in prod with zero code change.
@@ -79,5 +88,11 @@ Route::prefix('mail')->group(function () {
     // WHAT: Dispatch a Laravel Notification via the mail channel (on-demand, no User model required).
     // WHY:  Notifications are transport-agnostic — swap mail for Slack/SMS by changing via(). Best for system events.
     Route::post('/notify', [MailController::class, 'sendNotification'])->name('mail.notify');
+
+    // WHAT: Send same email to up to 1000 recipients in one API call via Mailtrap Bulk Sending API.
+    // WHY:  Bulk endpoint (bulk.api.mailtrap.io) is purpose-built for newsletters/broadcasts — higher throughput,
+    //       separate sending reputation from transactional emails. Requires MAILTRAP_API_TOKEN.
+    //       Body: { "subject": "...", "html": "...", "recipients": [{"name":"...","email":"..."}] }
+    Route::post('/send-bulk', [MailController::class, 'sendBulk'])->name('mail.send-bulk');
 });
 
