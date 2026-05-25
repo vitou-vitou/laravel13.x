@@ -159,9 +159,10 @@ Push-Location $dest
 composer install --no-interaction --quiet
 Pop-Location
 
-Write-Host "[4/6] Installing JS deps (npm install)..." -ForegroundColor Yellow
+Write-Host "[4/6] Installing JS deps (npm install + build)..." -ForegroundColor Yellow
 Push-Location $dest
 npm install --silent 2>&1 | Out-Null
+npm run build --silent 2>&1 | Out-Null
 Pop-Location
 
 # ── clean up template artifacts ───────────────────────────────────────────────
@@ -182,15 +183,23 @@ php artisan migrate --force --quiet
 php artisan db:seed --quiet
 Pop-Location
 
+# Router that passes static files through (fixes Vite CSS/JS assets)
+$routerPath = Join-Path $dest "public\router.php"
+Set-Content -Path $routerPath -Encoding utf8 -Value @'
+<?php
+$uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '');
+if ($uri !== '/' && file_exists(__DIR__ . $uri)) { return false; }
+require_once __DIR__ . '/index.php';
+'@
+
 # ── start server ──────────────────────────────────────────────────────────────
 
 Write-Host "[6/6] Starting dev server..." -ForegroundColor Yellow
 
 $logOut = Join-Path $dest "serve.log"
-$logErr = Join-Path $dest "serve-err.log"
 
-$proc = Start-Process powershell `
-    -ArgumentList "-NoProfile -Command `"php -S 127.0.0.1:$Port -t '$dest\public' '$dest\public\index.php' *> '$logOut' 2> '$logErr'`"" `
+$proc = Start-Process php `
+    -ArgumentList "-S","127.0.0.1:$Port","-t","$dest\public","$dest\public\router.php" `
     -WindowStyle Hidden `
     -PassThru
 
@@ -213,6 +222,6 @@ if ($status -like "HTTP 2*") {
     Write-Host "    # stop server: Stop-Process -Id $($proc.Id)"
 } else {
     Write-Host "  WARNING: server check returned: $status" -ForegroundColor Red
-    Write-Host "  Check $logErr for details"
+    Write-Host "  Check $logOut for details"
 }
 Write-Host ""
