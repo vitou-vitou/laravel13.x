@@ -1,0 +1,82 @@
+app:
+  name: Monday Clone
+
+models:
+
+  - name: MonBoard
+    nav_icon: heroicon-o-squares-2x2
+    nav_group: Boards
+    fields:
+      - name: name
+        type: string
+      - name: icon
+        type: string
+        default: "📋"
+      - name: color
+        type: string
+        default: "bg-indigo-500"
+    has_many:
+      - MonGroup
+
+  - name: MonGroup
+    nav_icon: heroicon-o-folder-open
+    nav_group: Boards
+    fields:
+      - name: mon_board
+        type: belongs_to
+      - name: name
+        type: string
+      - name: color
+        type: string
+        default: "bg-green-500"
+      - name: sort_order
+        type: integer
+        default: 0
+    has_many:
+      - MonItem
+
+  - name: MonItem
+    nav_icon: heroicon-o-check-circle
+    nav_group: Items
+    fields:
+      - name: mon_group
+        type: belongs_to
+      - name: mon_board
+        type: belongs_to
+      - name: title
+        type: string
+      - name: status
+        type: enum
+        options: [not_started, working_on_it, done, stuck]
+        default: not_started
+      - name: assignee
+        type: string
+        nullable: true
+      - name: due_date
+        type: date
+        nullable: true
+      - name: priority
+        type: enum
+        options: [low, medium, high, critical]
+        default: medium
+      - name: progress
+        type: integer
+        default: 0
+
+stats:
+  - label: Total Items
+    query: "MonItem::count()"
+    icon: heroicon-o-squares-2x2
+    color: primary
+  - label: Done
+    query: "MonItem::where('status','done')->count()"
+    icon: heroicon-o-check-circle
+    color: success
+  - label: Working On It
+    query: "MonItem::where('status','working_on_it')->count()"
+    icon: heroicon-o-arrow-path
+    color: warning
+  - label: Stuck
+    query: "MonItem::where('status','stuck')->count()"
+    icon: heroicon-o-exclamation-triangle
+    color: danger

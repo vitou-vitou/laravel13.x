@@ -5,7 +5,9 @@
 
 .DESCRIPTION
     Clones swift-lens-4829, sets correct .env defaults (SESSION_DRIVER=file,
-    CACHE_STORE=file), removes leftover test artifacts, and starts dev server.
+    CACHE_STORE=file), removes leftover test artifacts (ExampleTest, UserController,
+    users/ views), resets routes/web.php to blank placeholder, and starts dev server.
+    Use CASE WHEN (not FIELD()) for custom ordering — SQLite does not support FIELD().
 
 .PARAMETER Name
     App folder name. If omitted, generates adjective-noun-NNNN.
@@ -175,6 +177,25 @@ Write-Host "[5/6] Cleaning up..." -ForegroundColor Yellow
 $exampleTest = Join-Path $dest "tests\Feature\ExampleTest.php"
 if (Test-Path $exampleTest) { Remove-Item $exampleTest -Force }
 
+# Remove template-specific controller and views — every new app replaces these
+$userController = Join-Path $dest "app\Http\Controllers\UserController.php"
+if (Test-Path $userController) { Remove-Item $userController -Force }
+
+$usersViews = Join-Path $dest "resources\views\users"
+if (Test-Path $usersViews) { Remove-Item $usersViews -Recurse -Force }
+
+# Reset routes/web.php to a blank placeholder (template route always gets replaced)
+Set-Content -Path (Join-Path $dest "routes\web.php") -Encoding utf8 -Value @'
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+// TODO: wire up your controller here
+Route::get('/', function () {
+    return view('welcome');
+});
+'@
+
 # Fresh SQLite DB
 $dbPath = Join-Path $dest "database\database.sqlite"
 if (-not (Test-Path $dbPath)) { New-Item -ItemType File $dbPath | Out-Null }
@@ -205,12 +226,16 @@ $proc = Start-Process php `
     -WindowStyle Hidden `
     -PassThru
 
-Start-Sleep -Seconds 2
-
-$status = try {
-    $r = Invoke-WebRequest "http://127.0.0.1:$Port" -UseBasicParsing -TimeoutSec 5
-    "HTTP $($r.StatusCode)"
-} catch { "ERROR: $_" }
+# Retry up to 5x (some machines take longer than 2s to start)
+$status = "ERROR: timeout"
+for ($i = 1; $i -le 5; $i++) {
+    Start-Sleep -Seconds 2
+    try {
+        $r = Invoke-WebRequest "http://127.0.0.1:$Port" -UseBasicParsing -TimeoutSec 5 -MaximumRedirection 5
+        $status = "HTTP $($r.StatusCode)"
+        break
+    } catch { $status = "ERROR: $_" }
+}
 
 Write-Host ""
 if ($status -like "HTTP 2*") {
@@ -220,7 +245,14 @@ if ($status -like "HTTP 2*") {
     Write-Host ""
     Write-Host "  Next steps:"
     Write-Host "    cd examples\$Name"
-    Write-Host "    # edit app/Http/Controllers/, resources/views/, routes/web.php"
+    Write-Host "    # 1. create database\migrations\<name>.php"
+    Write-Host "    # 2. create database\seeders\<Name>Seeder.php"
+    Write-Host "    # 3. add call to DatabaseSeeder.php"
+    Write-Host "    # 4. create app\Http\Controllers\<Name>Controller.php"
+    Write-Host "    # 5. wire routes\web.php"
+    Write-Host "    # 6. create resources\views\<name>\ blade files"
+    Write-Host "    # 7. php artisan migrate:fresh --seed"
+    Write-Host "    # 8. npm run build  (if you added new Tailwind classes)"
     Write-Host "    # stop server: Stop-Process -Id $($proc.Id)"
 } else {
     Write-Host "  WARNING: server check returned: $status" -ForegroundColor Red
@@ -250,6 +282,6 @@ if ($Sleep) {
         Start-Sleep -Seconds 10
         rundll32.exe powrprof.dll,SetSuspendState 0,1,0
     } else {
-        Write-Host "  Skipping sleep — app did not start cleanly." -ForegroundColor Yellow
+        Write-Host "  Skipping sleep - app did not start cleanly." -ForegroundColor Yellow
     }
 }
