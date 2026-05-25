@@ -318,6 +318,11 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\\{$name}Resource\Pages;
 use App\Filament\Resources\\{$name}Resource\RelationManagers;
 use App\Models\\$name;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -349,13 +354,13 @@ $tableStr
 $filtersStr
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->defaultSort('created_at', 'desc');
@@ -422,6 +427,8 @@ function gen_relation_manager(string $appDir, string $parentName, string $childN
 <?php
 namespace App\Filament\Resources\\{$parent}Resource\RelationManagers;
 
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -446,8 +453,8 @@ class {$child}RelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ]);
     }
 }

@@ -178,6 +178,77 @@
 - Automated email sequences
 - Trigger-based action engine
 
+### Healthcare & Education
+- Patient management system
+- Appointment scheduling with reminders
+- Telemedicine backend
+- LMS (courses, lessons, quizzes, progress)
+- Student enrollment system
+- Certificate generation pipeline
+
+### Finance & Fintech
+- Wallet system (deposits, withdrawals, transfers)
+- Transaction ledger
+- Currency exchange backend
+- Loan management system
+- Budget tracking API
+- Tax calculation engine
+
+### Logistics & Supply Chain
+- Order fulfillment pipeline
+- Warehouse management system
+- Shipment tracking integration
+- Supplier management portal
+- Purchase order system
+
+### Gaming & Entertainment
+- Leaderboard system
+- Achievement/badge engine
+- Virtual currency system
+- Matchmaking backend
+- Game session management
+
+### Internal Tools
+- Employee directory
+- Internal ticketing system
+- Expense management
+- Asset tracking
+- Onboarding workflow automation
+
+### API Gateway Patterns
+- Rate limiting per client
+- API key rotation system
+- Request logging & replay
+- Circuit breaker pattern
+- Multi-tenant API scoping
+
+### Emerging & Niche
+- AI chatbot backend (OpenAI/Claude API integration)
+- RAG pipeline (embeddings, vector search, context retrieval)
+- Crypto payment processor (on-chain verification)
+- NFT metadata API
+- Decentralized identity verification backend
+- Carbon footprint tracking system
+- Smart home device backend (MQTT + WebSockets)
+- Drone fleet management API
+- Satellite data ingestion pipeline
+- Digital twin backend
+
+### Platform Engineering
+- Feature flag system (LaunchDarkly clone)
+- Error tracking service (Sentry clone)
+- Log aggregation API
+- Uptime monitoring backend
+- Synthetic monitoring job system
+- Cost tracking & billing metering
+
+### Developer Tools
+- CLI tool with Laravel Zero
+- Code snippet manager API
+- API documentation generator
+- Schema migration diff tool
+- Webhook testing/debugging platform (RequestBin clone)
+
 ---
 
 ## What Gets Built Per Feature

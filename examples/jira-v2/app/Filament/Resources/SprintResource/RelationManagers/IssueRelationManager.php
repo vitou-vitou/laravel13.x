@@ -1,6 +1,8 @@
 <?php
 namespace App\Filament\Resources\SprintResource\RelationManagers;
 
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables;
@@ -25,8 +27,8 @@ class IssueRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
             ]);
     }
 }
