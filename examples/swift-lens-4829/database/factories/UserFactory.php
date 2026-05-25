@@ -2,44 +2,38 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
-/**
- * @extends Factory<User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+        $countries = ['US', 'KH', 'TH', 'JP', 'FR', 'DE', 'AU', 'SG'];
+        $cities = [
+            'US' => ['New York', 'Los Angeles', 'Chicago'],
+            'KH' => ['Phnom Penh', 'Siem Reap', 'Battambang'],
+            'TH' => ['Bangkok', 'Chiang Mai', 'Phuket'],
+            'JP' => ['Tokyo', 'Osaka', 'Kyoto'],
+            'FR' => ['Paris', 'Lyon', 'Marseille'],
+            'DE' => ['Berlin', 'Munich', 'Hamburg'],
+            'AU' => ['Sydney', 'Melbourne', 'Brisbane'],
+            'SG' => ['Singapore'],
         ];
-    }
+        $country = $this->faker->randomElement($countries);
+        $isActive = $this->faker->boolean(70);
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return [
+            'username'      => $this->faker->unique()->userName(),
+            'email'         => $this->faker->unique()->safeEmail(),
+            'country'       => $country,
+            'city'          => $this->faker->randomElement($cities[$country]),
+            'device_type'   => $this->faker->randomElement(['web', 'mobile', 'tablet']),
+            'signup_source' => $this->faker->randomElement(['organic', 'referral', 'social', 'paid']),
+            'avatar'        => $this->faker->boolean(60) ? 'https://i.pravatar.cc/80?u=' . $this->faker->uuid() : null,
+            'last_login_at' => $isActive
+                ? $this->faker->dateTimeBetween('-29 days', 'now')
+                : $this->faker->optional(0.7)->dateTimeBetween('-1 year', '-31 days'),
+            'created_at'    => $this->faker->dateTimeBetween('-2 years', 'now'),
+        ];
     }
 }
