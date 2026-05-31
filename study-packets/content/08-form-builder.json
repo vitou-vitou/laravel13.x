@@ -1,0 +1,177 @@
+{
+  "title": "Building a Form Builder in Laravel (Typeform-style)",
+  "subtitle": "Forms as data-driven schemas, dynamic rendering, server-side validation generated from the schema, submission storage, conditional logic, and spam protection — the Laravel architecture behind a form builder.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~80 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a form builder fits together",
+      "blocks":[
+        {"p":"A form builder is a <strong>data-driven schema that generates UI, validation, and storage at runtime</strong>. The pressure: forms are defined by users (not developers), so fields are <em>data</em>; the same schema must render the form, validate submissions server-side, and shape how responses are stored and reported."},
+        {"diagram":"User (form creator)\n └─ Form (schema = ordered fields as JSON/rows)\n     ├─ Fields (type, label, required, options, rules, logic)\n     └─ Submissions (answers keyed by field)\n          └─ used for export, aggregation, webhooks\n Public respondent ──► fills + submits ──► validated against schema"},
+        {"p":"The defining action — a submission — is validated against the schema, not hard-coded rules:"},
+        {"diagram":"Respondent submits answers\n   │\n   ▼ load form schema (fields + rules)\n   ▼ build validation rules dynamically from schema\n   ▼ validate ; on fail → errors keyed by field\n   │ on pass\n   ▼ store Submission (answers) ; fire webhooks/notifications (queued)\n   ▼ spam checks (honeypot, rate limit, captcha)"},
+        {"ul":[
+          "<strong>Schema model</strong> — fields as data (type, options, required, validation, conditional logic).",
+          "<strong>Dynamic validation</strong> — translate the schema into Laravel validation rules at request time.",
+          "<strong>Submission storage</strong> — JSON answers vs normalized, and how that affects reporting.",
+          "<strong>Logic & protection</strong> — conditional show/hide and spam defences."
+        ]},
+        {"callout":"A form builder is a <em>runtime interpreter of a user-defined schema</em>: one schema drives rendering, validation, and storage. The hard part is generating trustworthy server-side validation from data.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Fields are data, not code"},
+        {"p":"Each <strong>field</strong> is a record: <code>type</code> (text/email/select/checkbox/file/number/date), <code>label</code>, <code>required</code>, <code>options</code> (for choices), and <code>validation</code> rules. Store fields as ordered rows or a JSON array on the form. The application <em>interprets</em> this schema; it never hard-codes a specific form."},
+        {"h3":"Generating validation from the schema"},
+        {"p":"The critical security point: <strong>never trust the client</strong>. On submit, load the schema and <strong>build Laravel validation rules dynamically</strong> — e.g. a required email field becomes <code>['answers.fld_3' => 'required|email']</code>. Validation must derive from the server-side schema, not from client-sent rules, or attackers bypass it."},
+        {"h3":"Submission storage: JSON vs normalized"},
+        {"p":"Two patterns. <strong>JSON answers</strong>: one <code>submissions</code> row with an <code>answers</code> JSON keyed by field id — simple, flexible, but harder to aggregate/query per field. <strong>Normalized</strong>: an <code>answers</code> table (submission_id, field_id, value) — easier per-field reporting, more rows/joins. JSON is the common default; add normalization or a reporting projection when analytics demand it."},
+        {"h3":"Field identity and schema evolution"},
+        {"p":"Forms change over time. Key answers by a <strong>stable field id</strong> (not label or position), so renaming a field or reordering doesn't orphan past responses. Consider versioning the schema so a submission records which schema version it answered."},
+        {"h3":"Conditional logic"},
+        {"p":"Fields can show/hide based on earlier answers ('if country = US, show state'). Store logic as data (conditions referencing field ids). The client uses it for UX, but the server must <strong>re-evaluate</strong> it during validation — only require/accept fields that should be visible given the submitted answers."},
+        {"h3":"File uploads"},
+        {"p":"File fields need validated mime/size, storage on a disk (S3), and the stored path/URL recorded in the answer. Stream large files, scan if needed, and use signed/temporary URLs so responses aren't publicly guessable."},
+        {"h3":"Spam & abuse protection"},
+        {"p":"Public forms attract bots. Layer defences: a <strong>honeypot</strong> field (hidden; if filled, drop), <strong>rate limiting</strong> per IP, optional CAPTCHA, and timing checks. Keep them server-side; client-only checks are trivially bypassed."},
+        {"callout":"Trusting client-sent validation rules (or validating only in the browser) is the classic form-builder vulnerability. Always rebuild and run validation from the server-side schema on every submission.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A form builder stores forms as field schemas, interprets them at runtime to render UI and to generate server-side validation, then stores submissions keyed by stable field ids — with conditional logic re-evaluated and spam filtered on the server."},
+        {"h4":"Analogy — the recipe card"},
+        {"p":"A form is a <strong>recipe card</strong> (the schema) that the kitchen (server) follows to both cook (render) and inspect the dish (validate). You'd never let a diner hand you their own inspection checklist (client-sent rules) — the kitchen keeps the authoritative recipe. Ingredients are labelled by a fixed code, not their position on the card, so reordering the recipe doesn't ruin past meals (stable field ids). Some steps only apply under conditions ('if vegetarian, skip the stock') — and the kitchen re-checks those conditions itself."},
+        {"h4":"Comparison — submission storage"},
+        {"table":{"head":["Storage","Flexibility","Per-field reporting","When"],
+          "rows":[
+            ["JSON answers column","High","Harder (JSON paths)","Default; most forms"],
+            ["Normalized answers table","Medium","Easy (group by field)","Analytics-heavy forms"],
+            ["JSON + reporting projection","High","Easy","Scale: write JSON, project for BI"]
+          ]}},
+        {"h4":"Diagram — schema drives everything"},
+        {"diagram":"           ┌──────────────┐\n           │  Form Schema │ (fields as data)\n           └──────┬───────┘\n        ┌─────────┼─────────┐\n        ▼         ▼         ▼\n     Render   Validate   Store/shape\n      UI      (server)   submissions"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative.","class":"kbd"},
+        {"h3":"Lesson 1 — Model fields as data"},
+        {"code":"// fields: id, form_id, type, label, required, options(json), rules(json), logic(json), position\nclass Field extends Model {\n    protected $casts = ['options'=>'array','rules'=>'array','logic'=>'array','required'=>'boolean'];\n}","lang":"php"},
+        {"h3":"Lesson 2 — Build validation from the schema"},
+        {"code":"public function rulesFor(Form $form, array $visible): array {\n    $rules = [];\n    foreach ($form->fields as $f) {\n        if (!in_array($f->id, $visible)) continue; // hidden by logic\n        $r = [];\n        if ($f->required) $r[] = 'required';\n        if ($f->type === 'email') $r[] = 'email';\n        if ($f->type === 'number') $r[] = 'numeric';\n        $rules[\"answers.{$f->id}\"] = array_merge($r, $f->rules ?? []);\n    }\n    return $rules;\n}","lang":"php"},
+        {"h3":"Lesson 3 — Validate then store"},
+        {"code":"public function submit(Request $r, Form $form) {\n    $visible = $this->resolveVisibleFields($form, $r->input('answers', []));\n    $data = $r->validate($this->rulesFor($form, $visible));\n    $form->submissions()->create(['answers'=>$data['answers']]);\n    DispatchWebhooks::dispatch($form, $data['answers']); // queued\n}","lang":"php"},
+        {"h3":"Lesson 4 — Re-evaluate conditional logic server-side"},
+        {"code":"function resolveVisibleFields(Form $form, array $answers): array {\n    return $form->fields->filter(function ($f) use ($answers) {\n        foreach ($f->logic ?? [] as $cond) {\n            if (($answers[$cond['field']] ?? null) !== $cond['equals']) return false;\n        }\n        return true;\n    })->pluck('id')->all();\n}","lang":"php"},
+        {"h3":"Lesson 5 — Key answers by stable field id"},
+        {"code":"// answers: { \"fld_8f3\": \"Alice\", \"fld_2a1\": \"US\" }\n// renaming the label or reordering does NOT change the key → past responses stay valid","lang":"php"},
+        {"h3":"Lesson 6 — Honeypot + rate limit"},
+        {"code":"// honeypot: a hidden field bots fill\nif ($r->filled('website_url')) abort(422); // drop silently\nRateLimiter::attempt('form:'.$form->id.':'.$r->ip(), 5, fn() => true, 60)\n    or abort(429, 'Too many submissions.');","lang":"php"},
+        {"h3":"Lesson 7 — File answers store a path"},
+        {"code":"if ($f->type === 'file') {\n    $path = $r->file(\"answers.{$f->id}\")->store('responses','s3');\n    $answers[$f->id] = ['path'=>$path]; // serve later via temporary signed URL\n}","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why are form fields modelled as data rather than code?","a":"Forms are defined by users, not developers. Storing fields as records/JSON lets one application interpret any form — rendering, validating, and storing — without code changes per form."},
+          {"q":"Q2. Where must validation rules come from, and why?","a":"From the server-side schema, rebuilt on each submission — never from client-sent rules or browser-only checks. Otherwise an attacker simply omits or alters the rules and bypasses validation."},
+          {"q":"Q3. Compare JSON vs normalized submission storage.","a":"JSON answers (one row, keyed by field id) is simple and flexible but harder to aggregate per field. A normalized answers table eases per-field reporting at the cost of rows/joins. JSON is the default; add normalization/projection for analytics."},
+          {"q":"Q4. Why key answers by a stable field id instead of label or position?","a":"So renaming a field or reordering the form doesn't orphan or misalign past responses. The id is the durable identity; labels and positions change."},
+          {"q":"Q5. How must conditional (show/hide) logic be handled on the server?","a":"Re-evaluate it during validation: determine which fields should be visible given the submitted answers, and only require/accept those. Client-side logic is UX only and untrusted."},
+          {"q":"Q6. Name three server-side spam defences for a public form.","a":"Honeypot field (drop if filled), per-IP rate limiting, and optional CAPTCHA/timing checks. All enforced server-side; client-only checks are trivially bypassed."},
+          {"q":"Q7. How are file uploads handled in answers?","a":"Validate mime/size, store on a disk (e.g. S3), record the path in the answer, and serve later via temporary signed URLs so responses aren't publicly guessable."}
+        ]}},
+        {"h3":"Code drill — server validation can't be bypassed (Pest)"},
+        {"code":"it('rejects a submission missing a required field regardless of client', function () {\n    $form = Form::factory()->withField(['type'=>'email','required'=>true,'id'=>'fld_e'])->create();\n    $this->postJson(\"/f/{$form->id}\", ['answers'=>[]])\n        ->assertStatus(422)->assertJsonValidationErrors('answers.fld_e');\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw 'schema drives everything' each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; restate schema→validation flow.","First retrieval."],
+            ["Day 3","Flashcards; explain JSON vs normalized aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write rulesFor() from blank.","Mix contexts."],
+            ["Day 16","Re-derive stable-field-id reasoning.","Widen interval."],
+            ["Day 35","Teach server-side logic re-evaluation to someone.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. A pentester submits invalid data by editing the page and it saves. Root cause?","a":"Validation was client-side or trusted client-sent rules. Rebuild validation from the server schema on every submission so the browser can't be the authority."},
+          {"q":"M2. After a form owner renamed a field, old responses show blanks for it. Why and fix?","a":"Answers were keyed by label/position, which changed. Key answers by a stable field id (and version the schema) so renames/reorders don't orphan data."},
+          {"q":"M3. Analytics on a single question are painfully slow with JSON storage. Options?","a":"Query JSON paths with an index/generated column, or maintain a normalized answers table / reporting projection populated on submit for per-field aggregation."},
+          {"q":"M4. A 'state' field is required even when the user picked a non-US country. Bug?","a":"Conditional logic not re-evaluated server-side — the field should be hidden (and not required) given the answers. Compute visible fields from submitted answers before validating."},
+          {"q":"M5. Bots are flooding a public form. First, cheapest defences?","a":"Add a honeypot field (drop if filled) and per-IP rate limiting; escalate to CAPTCHA/timing checks if needed. All server-side."},
+          {"q":"M6. When is a normalized answers table worth the extra complexity?","a":"When per-field reporting/aggregation/filtering is a core feature at scale, where JSON-path queries become too slow. For most forms, JSON answers (optionally with a projection) are simpler and enough."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build validation two ways</strong> — trusting client rules vs rebuilding from schema — and exploit the first to feel why the second is mandatory.",
+          "<strong>Break field identity on purpose</strong> — key answers by label, rename a field, watch responses orphan.",
+          "<strong>Write the bypass tests first</strong>: missing required, hidden-field injection, honeypot tripped.",
+          "<strong>Add multi-page forms</strong> with partial saves and resume tokens.",
+          "<strong>Stretch goals:</strong> answer-piping/personalization, calculated fields, webhook + Zapier delivery, response analytics dashboard, and schema versioning per submission."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["What a form builder fundamentally is","A runtime interpreter of a user-defined field schema driving render, validation, and storage."],
+    ["Why fields are data not code","Users define forms; one app interprets any schema without per-form code."],
+    ["Where validation rules must come from","The server-side schema, rebuilt every submission — never client-sent rules or browser-only checks."],
+    ["The classic security flaw","Trusting client validation; attackers omit/alter rules to bypass it."],
+    ["JSON vs normalized submissions","JSON: simple/flexible, harder per-field reporting. Normalized: easy reporting, more joins. JSON is default."],
+    ["Why key answers by stable field id","Renames/reorders don't orphan past responses; id is durable identity."],
+    ["Server-side conditional logic","Re-evaluate visibility from submitted answers; only require/accept fields that should show."],
+    ["Three spam defences","Honeypot field, per-IP rate limiting, CAPTCHA/timing — all server-side."],
+    ["File answer handling","Validate mime/size, store on S3, save path, serve via temporary signed URLs."],
+    ["Schema versioning","Record which schema version a submission answered so old data stays interpretable."],
+    ["Honeypot mechanism","A hidden field bots fill; if filled, silently drop the submission."],
+    ["Reporting projection pattern","Write JSON answers, project into a normalized/BI store for fast per-field analytics."]
+  ],
+  "glossary": [
+    ["Form schema","The set of fields (as data) defining a form."],
+    ["Field","A typed input definition: type, label, required, options, rules, logic."],
+    ["Dynamic validation","Validation rules generated from the schema at request time."],
+    ["Submission","A respondent's set of answers to a form."],
+    ["Answers JSON","Submission storage keyed by field id in one column."],
+    ["Normalized answers","A row-per-answer table for per-field reporting."],
+    ["Stable field id","A durable key for an answer, independent of label/position."],
+    ["Conditional logic","Rules showing/hiding fields based on other answers."],
+    ["Honeypot","A hidden field used to catch bots."],
+    ["Rate limiting","Capping submissions per IP/time window."],
+    ["Signed URL","A temporary, authorized link to a stored file."],
+    ["Schema version","A snapshot of the form structure a submission answered."]
+  ]
+}

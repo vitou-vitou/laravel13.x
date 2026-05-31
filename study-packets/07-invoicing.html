@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Packet — Building an Invoicing & Billing App in Laravel</title>
+<style>
+  :root{--bg:#0f1117;--panel:#171a23;--panel2:#1d212c;--ink:#e6e9ef;--muted:#9aa3b2;--accent:#7c9cff;--accent2:#5be0b3;--warn:#ffcc66;--danger:#ff7b72;--line:#2a2f3c;--code:#0b0d13;--radius:14px}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header.hero{padding:64px 20px 40px;text-align:center;background:radial-gradient(1200px 400px at 50% -120px,rgba(124,156,255,.18),transparent 70%);border-bottom:1px solid var(--line)}
+  header.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:-.5px}
+  header.hero .sub{color:var(--muted);max-width:680px;margin:0 auto;font-size:16px}
+  .badges{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:999px;font-size:13px}
+  nav.jump{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 20px}
+  nav.jump .inner{max-width:920px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  nav.jump a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border:1px solid transparent}
+  nav.jump a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{margin-top:46px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:rgba(124,156,255,.12);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .pill.step{color:var(--accent2);background:rgba(91,224,179,.12)}
+  h2{font-size:25px;margin:6px 0 14px;letter-spacing:-.3px}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  h4{font-size:16px;margin:18px 0 6px;color:var(--accent2)}
+  p{margin:10px 0}ul,ol{margin:10px 0;padding-left:22px}li{margin:5px 0}
+  .step-divider{display:flex;align-items:center;gap:14px;margin:60px 0 0}
+  .step-divider .bar{flex:1;height:1px;background:var(--line)}
+  .step-divider .lbl{color:var(--muted);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--panel2);padding:14px 18px;border-radius:8px;margin:16px 0}
+  .callout.warn{border-color:var(--warn)}.callout.danger{border-color:var(--danger)}
+  .callout .t{font-weight:700;margin-bottom:4px}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel2);padding:2px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.55;display:block;color:#cdd6f4}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .diagram{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto}
+  .diagram pre{background:none;border:none;margin:0;padding:0;color:#9fb4ff;font-size:12.5px;line-height:1.45}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+  .flip{perspective:1200px;height:170px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.flipped .flip-in{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);padding:16px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .flip-front{background:var(--panel2);font-weight:600}
+  .flip-back{background:linear-gradient(160deg,#1c2738,#15202e);transform:rotateY(180deg);color:#d7e4ff;font-size:14px;line-height:1.5}
+  .flip .hint{position:absolute;bottom:8px;right:12px;font-size:10.5px;color:var(--muted);font-weight:400}
+  .q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .q .qn{font-weight:600;margin-bottom:6px}
+  .reveal-btn{background:var(--panel2);color:var(--accent);border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+  .reveal-btn:hover{background:#222838}
+  .answer{display:none;margin-top:10px;border-left:3px solid var(--accent2);background:rgba(91,224,179,.07);padding:10px 14px;border-radius:6px;font-size:14.5px}
+  .answer.show{display:block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .toolbar button{background:var(--accent);color:#0b0d13;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .toolbar button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .sched td:first-child{white-space:nowrap;font-weight:600;color:var(--accent2)}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .kbd{font-size:12px;color:var(--muted)}
+  a.inlink{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Building an Invoicing & Billing App in Laravel</h1>
+  <p class="sub">Invoices and line items, tax calculation, gapless numbering, statuses and payments, recurring billing, and PDF generation — the Laravel architecture behind an invoicing tool.</p>
+  <div class="badges">
+    <span class="badge">Level: Professional</span>
+    <span class="badge">Laravel 11/12 · PHP 8.2+</span>
+    <span class="badge">8-Principle Method</span>
+    <span class="badge">~80 min first pass</span>
+  </div>
+</header>
+<nav class="jump"><div class="inner">
+    <a href="#p1">Map</a>
+    <a href="#p2">Clear</a>
+    <a href="#p3">Different</a>
+    <a href="#p4">Short</a>
+    <a href="#p5">Test</a>
+    <a href="#p6">Wait</a>
+    <a href="#p7">Mix</a>
+    <a href="#p8">Don't</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#glossary">Glossary</a>
+</div></nav>
+<div class="wrap">
+<div class="step-divider"><span class="lbl">Step 1 — Understanding</span><span class="bar"></span></div>
+<section id="p1">
+  <span class="pill">Principle 1 — Map of the System</span>
+  <h2>How an invoicing app fits together</h2>
+  <p>An invoicing app is a <strong>money document that must total correctly, number sequentially, and track payment</strong>. The pressure: monetary math must be exact (never floats), invoice numbers must be gapless for compliance, an invoice is immutable once issued, and partial/late payments change its status.</p>
+  <div class="diagram"><pre>Customer
+ └─ Invoice (number, status, currency, totals)
+     ├─ Line Items (qty, unit_price, tax_rate, line_total)
+     ├─ Payments (amount, method, date) ─► partial/full
+     └─ PDF snapshot
+ Recurring profile ─► generates Invoices on schedule</pre></div>
+  <p>The defining action — issuing an invoice — assigns a number, freezes totals, and starts the dunning clock:</p>
+  <div class="diagram"><pre>Issue invoice ──► assign next gapless number (atomic)
+   │ compute line totals + tax + grand total (integer cents)
+   ▼ status: draft → sent ; due_at set
+   ▼ render + store PDF snapshot ; email customer (queued)
+   └─► scheduled job flips to overdue past due_at if unpaid</pre></div>
+  <ul><li><strong>Document model</strong> — invoice + line items, totals computed and frozen on issue.</li><li><strong>Money & tax</strong> — integer minor units, exact tax rounding per line vs total.</li><li><strong>Numbering & status</strong> — atomic gapless sequence; draft→sent→paid/overdue lifecycle.</li><li><strong>Payments & recurring</strong> — partial payments, reconciliation, and scheduled generation.</li></ul>
+  <div class="callout"><div class="t">The mental model in one sentence</div>An invoice is an <em>immutable, exactly-totalled, sequentially-numbered money document</em>. The hard parts are precise money/tax math and gapless numbering under concurrency — not the form.</div>
+</section>
+
+<section id="p2">
+  <span class="pill">Principle 2 — Clear Explanations</span>
+  <h2>The concepts, defined precisely</h2>
+  <h3>Never use floats for money</h3>
+  <p>Floating point can't represent 0.10 exactly, so sums drift by cents. Store money as <strong>integer minor units</strong> (cents) or use a decimal/money library (e.g. brick/money). All arithmetic happens in integers; format to currency only at display.</p>
+  <h3>Line items and totals</h3>
+  <p>An invoice <code>hasMany</code> <strong>line items</strong> (description, quantity, unit price, tax rate). Line total = qty × unit price; tax = line total × rate. The invoice subtotal, tax, and grand total are <strong>sums of line values</strong>, computed once and <strong>stored</strong> on the invoice at issue so the document is self-consistent forever.</p>
+  <h3>Per-line vs per-invoice tax rounding</h3>
+  <p>Rounding tax per line then summing can differ by a cent from taxing the subtotal. Jurisdictions specify which is correct. Pick a documented rule (commonly round each line, then sum) and apply it consistently — this is a frequent source of off-by-a-cent disputes.</p>
+  <h3>Gapless invoice numbering</h3>
+  <p>Many tax regimes require <strong>sequential, gapless</strong> invoice numbers. You cannot use the DB auto-increment id (gaps from deletes/rollbacks) or compute max()+1 (races). Use an atomic counter: a dedicated sequence row locked in a transaction (<code>SELECT ... FOR UPDATE</code>) so two concurrent issues can't claim the same or skip a number.</p>
+  <h3>Immutability after issue</h3>
+  <p>Once <em>sent</em>, an invoice must not change — you issue a <strong>credit note</strong> or a new invoice instead of editing. Lock line items and totals after issue; only status and payments evolve. This is both a legal and trust requirement.</p>
+  <h3>Status lifecycle & dunning</h3>
+  <p><em>draft → sent → (partially_paid) → paid</em>, or <em>sent → overdue</em> past the due date if unpaid. A <strong>scheduled job</strong> flips unpaid sent invoices to overdue and can send reminders (dunning). Status is derived from payments + due date, recorded explicitly for querying.</p>
+  <h3>Payments & recurring</h3>
+  <p>A <strong>payment</strong> records amount/method/date; an invoice is paid when payments sum to the total (handle partials and overpayment). <strong>Recurring</strong> billing stores a profile (interval, template) and a scheduled job generates the next invoice — idempotently, so a double-run doesn't bill twice.</p>
+  <div class="callout danger"><div class="t">Most common misconception</div>Using floats for money or max(number)+1 for numbering are the two classic invoicing bugs — one drifts cents, the other duplicates/skips legally-required sequence. Use integer cents and an atomic counter.</div>
+</section>
+
+<section id="p3">
+  <span class="pill">Principle 3 — Different Media</span>
+  <h2>The same ideas, four ways</h2>
+  <h4>One-line summary</h4>
+  <p>An invoicing app builds immutable money documents from line items, totals them in integer cents with a defined tax-rounding rule, assigns gapless numbers atomically, and tracks payments to drive status.</p>
+  <h4>Analogy — the cash register receipt</h4>
+  <p>An issued invoice is a <strong>printed receipt</strong>: once it prints you can't scribble on it — a mistake means a refund slip (credit note), not an edit. The register counts in <strong>whole pennies</strong>, never fuzzy fractions. Receipts come off the roll in <strong>strict order with no missing numbers</strong> — you can't have receipt 1002 without 1001. And the till is balanced by matching <strong>payments</strong> to receipts.</p>
+  <h4>Comparison — numbering strategies</h4>
+  <table><thead><tr><th>Strategy</th><th>Gapless?</th><th>Concurrency-safe?</th><th>Verdict</th></tr></thead><tbody><tr><td>DB auto-increment id</td><td>No (delete gaps)</td><td>Yes</td><td>Not legal-compliant</td></tr><tr><td>max(number)+1</td><td>No (races)</td><td>No</td><td>Avoid</td></tr><tr><td>Locked sequence row (FOR UPDATE)</td><td>Yes</td><td>Yes</td><td>Recommended</td></tr><tr><td>Per-year reset sequence</td><td>Yes</td><td>Yes</td><td>Common for tax years</td></tr></tbody></table>
+  <h4>Diagram — atomic number claim</h4>
+  <div class="diagram"><pre>BEGIN
+  SELECT value FROM sequences WHERE key='invoice' FOR UPDATE; -- locks row
+  next = value + 1
+  UPDATE sequences SET value = next WHERE key='invoice';
+COMMIT  -- no other tx can read the row until commit → gapless</pre></div>
+</section>
+
+<section id="p4">
+  <span class="pill">Principle 4 — Short Lessons</span>
+  <h2>Bite-sized micro-lessons</h2>
+  <p>Each lesson is one idea. Code illustrative.</p>
+  <h3>Lesson 1 — Money in integer cents</h3>
+  <pre><code>// store amounts as integers (cents); cast helper for display
+class Invoice extends Model {
+    protected $casts = ['total_cents'=&gt;'integer'];
+    public function totalFormatted(): string {
+        return number_format($this-&gt;total_cents / 100, 2);
+    }
+}</code></pre>
+  <h3>Lesson 2 — Compute and freeze totals on issue</h3>
+  <pre><code>$subtotal = $items-&gt;sum(fn($i) =&gt; $i-&gt;qty * $i-&gt;unit_price_cents);
+$tax = $items-&gt;sum(fn($i) =&gt; intdiv($i-&gt;qty * $i-&gt;unit_price_cents * $i-&gt;tax_bp, 10000));
+$invoice-&gt;update(['subtotal_cents'=&gt;$subtotal,'tax_cents'=&gt;$tax,
+    'total_cents'=&gt;$subtotal + $tax]); // frozen at issue</code></pre>
+  <h3>Lesson 3 — Atomic gapless number</h3>
+  <pre><code>$number = DB::transaction(function () {
+    $seq = Sequence::where('key','invoice')-&gt;lockForUpdate()-&gt;first();
+    $seq-&gt;increment('value');
+    return $seq-&gt;value; // formatted e.g. INV-2026-000123
+});</code></pre>
+  <h3>Lesson 4 — Lock the document after issue</h3>
+  <pre><code>public function update(Request $r, Invoice $invoice) {
+    abort_if($invoice-&gt;status !== 'draft', 422, 'Issued invoices are immutable; issue a credit note.');
+    // ... only drafts editable
+}</code></pre>
+  <h3>Lesson 5 — Mark overdue on schedule</h3>
+  <pre><code>// routes/console.php
+Schedule::call(function () {
+    Invoice::where('status','sent')-&gt;where('due_at','&lt;',now())
+        -&gt;update(['status'=&gt;'overdue']);
+})-&gt;dailyAt('02:00');</code></pre>
+  <h3>Lesson 6 — Record payments, derive paid</h3>
+  <pre><code>$invoice-&gt;payments()-&gt;create(['amount_cents'=&gt;$amt,'method'=&gt;$m,'paid_at'=&gt;now()]);
+$paid = $invoice-&gt;payments()-&gt;sum('amount_cents');
+$invoice-&gt;update(['status' =&gt; $paid &gt;= $invoice-&gt;total_cents ? 'paid'
+    : ($paid &gt; 0 ? 'partially_paid' : $invoice-&gt;status)]);</code></pre>
+  <h3>Lesson 7 — Recurring generation, idempotent</h3>
+  <pre><code>// guard against double-run: unique (profile_id, period)
+RecurringProfile::due()-&gt;each(function ($p) {
+    Invoice::firstOrCreate(
+        ['profile_id'=&gt;$p-&gt;id,'period'=&gt;$p-&gt;currentPeriod()],
+        $p-&gt;buildInvoiceAttributes(),
+    );
+});</code></pre>
+</section>
+
+<div class="step-divider"><span class="lbl">Step 2 — Automaticity</span><span class="bar"></span></div>
+<section id="p5">
+  <span class="pill step">Principle 5 — Test Yourself</span>
+  <h2>Retrieval-practice quiz</h2>
+  <p>Answer before revealing.</p>
+  <div class="toolbar"><button onclick="revealAll('p5',true)">Show all answers</button><button class="ghost" onclick="revealAll('p5',false)">Hide all</button></div><div class="q" data-sec="p5"><div class="qn">Q1. Why must money never be stored as a float?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Floats can't represent decimals like 0.10 exactly, so sums drift by cents over many operations. Store integer minor units (cents) or use a money library; format to currency only at display.</div></div><div class="q" data-sec="p5"><div class="qn">Q2. Why can't you use the DB auto-increment id or max(number)+1 for invoice numbers?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Auto-increment leaves gaps (deletes/rollbacks), violating gapless-sequence tax rules; max()+1 races under concurrency, producing duplicates or skips. Use an atomic locked sequence row.</div></div><div class="q" data-sec="p5"><div class="qn">Q3. Describe the atomic gapless-numbering technique.</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">In a transaction, SELECT the sequence row FOR UPDATE (locking it), increment, and commit. Concurrent issuers block until the lock releases, so each gets a unique consecutive number with no gaps.</div></div><div class="q" data-sec="p5"><div class="qn">Q4. Why are totals computed once and stored on the invoice at issue?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">So the document is self-consistent and immutable: later price/tax changes can't alter a sent invoice. The stored subtotal/tax/total are the legal record.</div></div><div class="q" data-sec="p5"><div class="qn">Q5. What's the per-line vs per-invoice tax-rounding issue?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Rounding tax on each line then summing can differ by a cent from taxing the subtotal once. Jurisdictions mandate one; pick and document a consistent rule to avoid off-by-a-cent disputes.</div></div><div class="q" data-sec="p5"><div class="qn">Q6. How should you correct an error on an issued invoice?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Don't edit it — issue a credit note or a corrective invoice. Issued invoices are immutable for legal and trust reasons; only status and payments may change.</div></div><div class="q" data-sec="p5"><div class="qn">Q7. How is recurring billing made safe against double runs?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Idempotent generation: firstOrCreate keyed on (profile_id, period) with a unique constraint, so a re-run of the scheduler can't create two invoices for the same period.</div></div>
+  <h3>Code drill — gapless under concurrency (Pest)</h3>
+  <pre><code>it('never issues duplicate invoice numbers concurrently', function () {
+    $numbers = collect(range(1,20))-&gt;map(fn() =&gt; nextInvoiceNumber()); // simulate parallel
+    expect($numbers-&gt;unique()-&gt;count())-&gt;toBe(20)
+        -&gt;and($numbers-&gt;max() - $numbers-&gt;min())-&gt;toBe(19); // no gaps
+});</code></pre>
+</section>
+
+<section id="p6">
+  <span class="pill step">Principle 6 — Wait to Review</span>
+  <h2>Spaced-repetition schedule</h2>
+  <p>Re-do the quiz from memory; redraw the atomic-number-claim each session.</p>
+  <table><thead><tr><th>When</th><th>Session (~10–15 min)</th><th>Goal</th></tr></thead><tbody><tr><td>Day 0</td><td>Read packet; quiz with answers open.</td><td>Build the model.</td></tr><tr><td>Day 1</td><td>Quiz closed-book; restate integer-cents + gapless rules.</td><td>First retrieval.</td></tr><tr><td>Day 3</td><td>Flashcards; explain per-line vs per-invoice tax aloud.</td><td>Strengthen.</td></tr><tr><td>Day 7</td><td>Interleaved quiz; write the locked-sequence code from blank.</td><td>Mix contexts.</td></tr><tr><td>Day 16</td><td>Re-derive immutability + credit-note reasoning.</td><td>Widen interval.</td></tr><tr><td>Day 35</td><td>Teach gapless numbering to someone in 5 minutes.</td><td>Consolidate.</td></tr><tr><td>Day 70</td><td>Closed-book interleaved pass; misses restart Day 1.</td><td>Long-term.</td></tr></tbody></table>
+  <div class="callout"><div class="t">Why the gaps grow</div>Retrieving just before you'd forget produces the strongest gain.</div>
+</section>
+
+<section id="p7">
+  <span class="pill step">Principle 7 — Mix It Up</span>
+  <h2>Interleaved quiz</h2>
+  <p>Topics shuffled to train choosing the right idea.</p>
+  <div class="toolbar"><button onclick="revealAll('p7',true)">Show all answers</button><button class="ghost" onclick="revealAll('p7',false)">Hide all</button></div><div class="q" data-sec="p7"><div class="qn">M1. Customers report totals occasionally off by a cent. Two likely causes?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">(1) Float money arithmetic drifting. (2) Inconsistent tax rounding (per-line vs per-invoice). Fix: integer cents everywhere and one documented rounding rule.</div></div><div class="q" data-sec="p7"><div class="qn">M2. An auditor finds invoice numbers 1001, 1003, 1004 — 1002 missing. How did it happen and how prevent?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A number was claimed then the transaction rolled back, or numbers come from auto-increment with a deleted row. Prevent by claiming the number only on successful issue via a locked sequence committed atomically with the invoice.</div></div><div class="q" data-sec="p7"><div class="qn">M3. Two staff issue invoices at the same instant and get the same number. Fix?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Replace max()+1 with SELECT ... FOR UPDATE on a sequence row inside a transaction so concurrent issuers serialize and each gets a unique consecutive number.</div></div><div class="q" data-sec="p7"><div class="qn">M4. A sent invoice was edited to change an amount. What should the system have done?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Blocked the edit (immutable once sent) and required a credit note / corrective invoice. Only drafts are editable.</div></div><div class="q" data-sec="p7"><div class="qn">M5. The recurring scheduler ran twice after a deploy and billed some customers twice. Root cause?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Non-idempotent generation. Use firstOrCreate keyed on (profile_id, period) with a unique index so re-runs are no-ops.</div></div><div class="q" data-sec="p7"><div class="qn">M6. When would you store money as a decimal column instead of integer cents?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">When using a money library/DB DECIMAL with controlled scale and you need fractional minor units (e.g. unit prices at 4 dp for some currencies/commodities). Either is fine if arithmetic is exact and rounding is explicit — the cardinal rule is no binary floats.</div></div>
+</section>
+
+<section id="p8">
+  <span class="pill step">Principle 8 — Don't Stop</span>
+  <h2>Overlearning plan</h2>
+  <ul><li><strong>Build totals two ways</strong> — float vs integer cents — and watch the float version drift over many lines.</li><li><strong>Break numbering on purpose</strong> — use max()+1 and fire concurrent issues to reproduce duplicates.</li><li><strong>Write immutability + gapless tests first</strong> before the UI.</li><li><strong>Add PDF generation</strong> — render an immutable PDF snapshot stored per invoice.</li><li><strong>Stretch goals:</strong> multi-currency with FX snapshots, partial-payment allocation, dunning email sequences, credit notes, and Stripe/Paddle reconciliation via webhooks.</li></ul>
+</section>
+
+
+<section id="cards">
+  <span class="pill step">Active Recall — Flashcards</span>
+  <h2>Click a card to flip</h2>
+  <p class="kbd">Prompt on the front, answer on the back. Say your answer before flipping.</p>
+  <div class="cards-grid" id="flashcards"></div>
+</section>
+<section id="glossary">
+  <span class="pill">Reference — Glossary</span>
+  <h2>Key terms</h2>
+  <table><tbody>
+      <tr><td><strong>Invoice</strong></td><td>An immutable money document billing a customer.</td></tr>
+      <tr><td><strong>Line item</strong></td><td>A billed row: quantity × unit price, plus tax.</td></tr>
+      <tr><td><strong>Minor units</strong></td><td>Integer cents — the safe representation of money.</td></tr>
+      <tr><td><strong>Gapless numbering</strong></td><td>Strictly sequential invoice numbers with no missing values.</td></tr>
+      <tr><td><strong>Sequence row</strong></td><td>A locked counter row used to claim numbers atomically.</td></tr>
+      <tr><td><strong>Credit note</strong></td><td>A document reversing/correcting an issued invoice.</td></tr>
+      <tr><td><strong>Dunning</strong></td><td>Automated reminders for overdue invoices.</td></tr>
+      <tr><td><strong>Partial payment</strong></td><td>A payment less than the invoice total.</td></tr>
+      <tr><td><strong>Recurring profile</strong></td><td>A template + schedule generating invoices periodically.</td></tr>
+      <tr><td><strong>Tax rounding rule</strong></td><td>The documented method for rounding tax (per line/total).</td></tr>
+      <tr><td><strong>Overdue</strong></td><td>An unpaid invoice past its due date.</td></tr>
+      <tr><td><strong>Reconciliation</strong></td><td>Matching recorded payments to gateway/bank events.</td></tr>
+  </tbody></table>
+</section>
+<footer>
+  <p>Study packet · 8-Principle Method · Building an Invoicing & Billing App in Laravel · Professional level</p>
+  <p class="kbd">Self-contained. No external resources, no tracking, no browser storage — works offline on any device.</p>
+</footer>
+</div>
+<script>
+  function tog(btn){var a=btn.parentElement.querySelector('.answer');var on=a.classList.toggle('show');btn.textContent=on?'Hide answer':'Reveal answer';}
+  function revealAll(sec,show){document.querySelectorAll('.q[data-sec="'+sec+'"]').forEach(function(q){var a=q.querySelector('.answer'),b=q.querySelector('.reveal-btn');if(show){a.classList.add('show');b.textContent='Hide answer';}else{a.classList.remove('show');b.textContent='Reveal answer';}});}
+  var CARDS=[["The two hard parts of invoicing","Exact money/tax math and gapless invoice numbering under concurrency."],["Why never floats for money","0.10 isn't exact in binary; sums drift by cents. Use integer minor units."],["Why not auto-increment id for invoice numbers","Deletes/rollbacks leave gaps, violating gapless-sequence tax rules."],["Why not max(number)+1","It races under concurrency → duplicate or skipped numbers."],["Atomic gapless numbering","SELECT sequence row FOR UPDATE in a transaction, increment, commit — serializes issuers."],["Why freeze totals on issue","Makes the invoice self-consistent and immutable; later price/tax changes can't alter it."],["Per-line vs per-invoice tax","Rounding per line then summing can differ a cent from taxing the subtotal; pick one documented rule."],["Correcting an issued invoice","Issue a credit note / corrective invoice — never edit; issued invoices are immutable."],["Invoice status lifecycle","draft → sent → partially_paid → paid, or sent → overdue past due_at."],["Deriving 'paid'","Sum payments; paid when ≥ total, partially_paid when >0, handle overpayment."],["Idempotent recurring billing","firstOrCreate keyed on (profile_id, period) with a unique index prevents double billing."],["Marking overdue","A scheduled job flips unpaid sent invoices past due_at to overdue (and can send dunning)."]];
+  (function(){var grid=document.getElementById('flashcards');CARDS.forEach(function(c){var el=document.createElement('div');el.className='flip';el.innerHTML='<div class="flip-in"><div class="flip-face flip-front">'+c[0]+'<span class="hint">click ↻</span></div><div class="flip-face flip-back">'+c[1]+'<span class="hint">click ↻</span></div></div>';el.addEventListener('click',function(){el.classList.toggle('flipped');});grid.appendChild(el);});})();
+</script>
+</body>
+</html>

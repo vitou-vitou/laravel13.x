@@ -1,0 +1,177 @@
+{
+  "title": "Building a Time Tracking & Timesheets App in Laravel",
+  "subtitle": "Running timers, time entries, overlap handling, billable rates and rounding, approval workflows, and reporting — the Laravel architecture behind a time-tracking tool.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~80 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a time tracker fits together",
+      "blocks":[
+        {"p":"A time tracker is <strong>a log of time intervals attached to billable work, then rolled up and approved</strong>. The pressure: a timer can be <em>running</em> (no end yet), entries must not silently overlap, billing depends on rates and rounding rules, and timesheets flow through approval before invoicing."},
+        {"diagram":"User\n ├─ Projects ─► Tasks (billable?, rate)\n ├─ Time Entries (start, end|null, duration, billable, rate)\n │     └─ running entry = end IS NULL\n ├─ Timesheet (a period's entries) ─► approval workflow\n └─ Reports (hours by project/user/day, billable totals)"},
+        {"p":"The defining action — stopping a timer — closes the interval and computes billable value:"},
+        {"diagram":"Stop timer ──► PATCH /entries/{id}/stop\n   │ entry.end = now()\n   ▼ duration = end - start  (apply rounding rule)\n   ▼ billable_amount = round(duration) * rate  (if billable)\n   │\n   └─► update running-timer state; recompute day/period totals (cached)"},
+        {"ul":[
+          "<strong>Time entry model</strong> — intervals with a nullable end (running) tied to a task/project.",
+          "<strong>Integrity rules</strong> — one running timer per user, overlap detection, rounding.",
+          "<strong>Billing</strong> — billable flag, rate resolution, rounding policy → amount.",
+          "<strong>Approval & reporting</strong> — timesheet submission/approval and aggregate hours."
+        ]},
+        {"callout":"A time tracker is <em>an interval log with billing rules and an approval gate</em>. The hard parts are running-timer state, overlap/rounding correctness, and fast aggregation — not basic CRUD.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Time entries and the running timer"},
+        {"p":"A <strong>time entry</strong> has <code>started_at</code> and a nullable <code>ended_at</code>. A <strong>running timer</strong> is simply an entry with <code>ended_at = null</code>. Duration is computed (<code>ended_at - started_at</code>), or <code>now() - started_at</code> while running. Don't store a separate 'is_running' flag — the null end is the single source of truth."},
+        {"h3":"One running timer per user"},
+        {"p":"Most trackers enforce <strong>one active timer per user</strong>. Starting a new timer auto-stops the previous. Enforce with a guard (and ideally a partial unique index on <code>user_id where ended_at is null</code>) so concurrent start requests can't create two running entries."},
+        {"h3":"Overlap detection"},
+        {"p":"Manually-entered entries can overlap (logging 9–11 and 10–12). Decide policy: reject overlaps, or allow and flag. Detect with an interval query: two intervals overlap when <code>start &lt; other.end AND end &gt; other.start</code>. This must run on create/edit, scoped to the user."},
+        {"h3":"Rounding rules"},
+        {"p":"Billing often rounds durations — to the nearest 6 minutes (0.1h), 15 minutes, or up to a minimum. Rounding is a <strong>policy</strong> applied at calculation time, not stored raw. Keep the true duration and apply rounding when computing billable amounts so you can change the rule later."},
+        {"h3":"Rate resolution"},
+        {"p":"The billable rate can come from the task, the project, the user, or a client contract — with a precedence order. Resolve it explicitly (task rate ?? project rate ?? user default) at entry time, and <strong>snapshot</strong> it onto the entry so later rate changes don't rewrite history."},
+        {"h3":"Timesheet approval workflow"},
+        {"p":"Entries for a period form a <strong>timesheet</strong> that a user <em>submits</em>; a manager <em>approves</em> or <em>rejects</em> (back to draft). Lock approved entries against edits. This is a small state machine (draft → submitted → approved/rejected) gating downstream invoicing."},
+        {"h3":"Reporting"},
+        {"p":"Reports aggregate hours by project, user, day, and billable status. Aggregate in SQL (<code>sum</code>, <code>group by</code>) over an indexed entries table; cache heavy rollups. For a 'running total today' use a cheap query against today's entries plus the live timer delta computed in the app."},
+        {"callout":"Storing duration as a mutable field that you increment is the classic bug — clock skew, missed stops, and double counting corrupt it. Derive duration from started_at/ended_at; keep the running timer as a null end.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A time tracker logs intervals (running = null end), enforces one active timer and no silent overlaps, applies rounding and rate rules to compute billable amounts, and gates timesheets through approval before reporting/invoicing."},
+        {"h4":"Analogy — the parking meter"},
+        {"p":"A time entry is a <strong>parking session</strong>: it starts when you arrive and the duration is just arrival-to-departure — you wouldn't keep a running 'minutes' counter that could drift, you'd read the two clock stamps. You can only occupy <strong>one space at a time</strong> (one running timer); double-parking (overlap) is flagged. The <strong>fee</strong> rounds to the next block and uses the posted rate at the time you parked (rate snapshot). At month end the lot manager <strong>reviews and approves</strong> the tickets before billing."},
+        {"h4":"Comparison — duration storage"},
+        {"table":{"head":["Approach","Correctness","Running timer","Verdict"],
+          "rows":[
+            ["Derive from start/end","High","Null end","Recommended"],
+            ["Stored counter incremented","Low (drift/double count)","Flag field","Avoid"],
+            ["Event log (start/stop events)","High, auditable","Open event","Good for audit-heavy"]
+          ]}},
+        {"h4":"Diagram — overlap test"},
+        {"diagram":"Existing: 09:00 ───────── 11:00\nNew:           10:00 ───────── 12:00\nOverlap when  newStart < existEnd  AND  newEnd > existStart\n              10:00   < 11:00     AND  12:00  > 09:00  → OVERLAP"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative.","class":"kbd"},
+        {"h3":"Lesson 1 — Running timer = null end"},
+        {"code":"// time_entries: user_id, task_id, started_at, ended_at(nullable), rate, billable\nclass TimeEntry extends Model {\n    protected $casts = ['started_at'=>'datetime','ended_at'=>'datetime','billable'=>'boolean'];\n    public function getRunningAttribute(): bool { return $this->ended_at === null; }\n    public function durationSeconds(): int {\n        return ($this->ended_at ?? now())->diffInSeconds($this->started_at);\n    }\n}","lang":"php"},
+        {"h3":"Lesson 2 — Enforce one active timer"},
+        {"code":"public function start(StartTimer $r): TimeEntry {\n    DB::transaction(function () use ($r) {\n        TimeEntry::where('user_id',$r->user()->id)->whereNull('ended_at')\n            ->update(['ended_at'=>now()]); // auto-stop previous\n    });\n    return TimeEntry::create([...]);\n}\n// + partial unique index: (user_id) WHERE ended_at IS NULL","lang":"php"},
+        {"h3":"Lesson 3 — Detect overlaps on manual entry"},
+        {"code":"$overlap = TimeEntry::where('user_id',$userId)\n    ->where('started_at','<',$newEnd)\n    ->where('ended_at','>',$newStart)\n    ->exists();\nabort_if($overlap, 422, 'Time entry overlaps an existing one.');","lang":"php"},
+        {"h3":"Lesson 4 — Apply rounding at calc time"},
+        {"code":"function roundedHours(int $seconds, int $incrementMin = 6): float {\n    $hours = $seconds / 3600;\n    $step  = $incrementMin / 60;\n    return ceil($hours / $step) * $step; // round up to nearest increment\n}","lang":"php"},
+        {"h3":"Lesson 5 — Resolve and snapshot the rate"},
+        {"code":"$rate = $task->rate ?? $project->rate ?? $user->default_rate;\n$entry->rate = $rate;          // snapshot so future rate changes don't rewrite history\n$entry->billable = $task->billable;","lang":"php"},
+        {"h3":"Lesson 6 — Timesheet approval state machine"},
+        {"code":"enum Sheet: string { case Draft='draft'; case Submitted='submitted';\n    case Approved='approved'; case Rejected='rejected'; }\n// submit: draft->submitted; approve: submitted->approved (lock entries);\n// reject: submitted->rejected->draft (editable again)","lang":"php"},
+        {"h3":"Lesson 7 — Aggregate in SQL"},
+        {"code":"TimeEntry::whereBetween('started_at',[$from,$to])\n    ->selectRaw('project_id, SUM(TIMESTAMPDIFF(SECOND, started_at, COALESCE(ended_at, NOW()))) secs')\n    ->groupBy('project_id')->get();","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. How is a running timer represented, and why not an is_running flag?","a":"As a time entry with ended_at = null. The null end is the single source of truth; a separate flag can desync from reality (e.g. set true while end is also set). Duration derives from started_at to ended_at (or now)."},
+          {"q":"Q2. How do you guarantee only one active timer per user under concurrent requests?","a":"Auto-stop the previous running entry inside a transaction on start, backed by a partial unique index on user_id WHERE ended_at IS NULL so the database rejects a second concurrent running row."},
+          {"q":"Q3. State the interval-overlap condition.","a":"Two intervals overlap when newStart < existingEnd AND newEnd > existingStart. Run this query scoped to the user on create/edit of manual entries."},
+          {"q":"Q4. Why apply rounding at calculation time rather than storing rounded duration?","a":"Rounding is a billing policy that may change. Keep the true duration; apply the rounding rule when computing billable amounts so history isn't corrupted and the rule can be revised."},
+          {"q":"Q5. Why snapshot the rate onto the entry?","a":"So later changes to task/project/user rates don't retroactively rewrite past billable amounts. Resolve precedence (task ?? project ?? user) once and store it on the entry."},
+          {"q":"Q6. What does the timesheet approval workflow protect?","a":"It gates entries before invoicing: draft → submitted → approved/rejected. Approved entries are locked against edits, ensuring billed time isn't silently changed."},
+          {"q":"Q7. How should 'hours this week by project' be computed?","a":"In SQL with SUM of (ended_at - started_at), COALESCE-ing now() for running entries, grouped by project, over an indexed entries table — not by looping entries in PHP."}
+        ]}},
+        {"h3":"Code drill — overlap rejected (Pest)"},
+        {"code":"it('rejects an overlapping manual entry', function () {\n    $u = User::factory()->create();\n    entry($u, '09:00','11:00');\n    expect(fn() => createEntry($u, '10:00','12:00'))\n        ->toThrow(HttpException::class); // 422 overlap\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw the overlap test each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; restate running-timer = null end.","First retrieval."],
+            ["Day 3","Flashcards; explain rounding-at-calc-time aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the overlap query from blank.","Mix contexts."],
+            ["Day 16","Re-derive rate precedence + snapshot reasoning.","Widen interval."],
+            ["Day 35","Teach the approval state machine to someone.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. A user's totals are inflated; they have two running timers. How did it happen and how prevent it?","a":"Concurrent start requests both created entries with null end. Prevent with a transactional auto-stop on start plus a partial unique index on user_id WHERE ended_at IS NULL."},
+          {"q":"M2. Finance changed the project rate and last month's invoice totals changed too. Bug?","a":"Rate was read live instead of snapshotted. Store the resolved rate on each entry at creation so historical amounts are immutable."},
+          {"q":"M3. Reports are slow over a year of entries. Two fixes?","a":"(1) Aggregate in SQL (SUM/GROUP BY) with indexes on (user_id/project_id, started_at). (2) Cache or precompute period rollups; don't loop entries in PHP."},
+          {"q":"M4. Billable amounts are a few cents off expectations. Likely cause?","a":"Rounding applied inconsistently or to stored rounded durations. Keep true durations and apply one rounding policy at calculation time (e.g. ceil to nearest 6 min)."},
+          {"q":"M5. An approved timesheet got edited and re-billed. What was missing?","a":"A lock on approved entries. The approval state machine must forbid edits once approved (reopen only via reject → draft)."},
+          {"q":"M6. When is an event-log model (start/stop events) better than start/end columns?","a":"When you need a full audit trail of pauses/resumes and tamper evidence. It's more complex but reconstructs any state; for most apps start/end columns with derived duration are simpler and sufficient."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build duration two ways</strong> — derived from start/end vs a stored counter — and reproduce the drift/double-count bug.",
+          "<strong>Break the single-timer rule on purpose</strong> — remove the unique index, hammer the start endpoint concurrently, watch two running timers appear.",
+          "<strong>Write rounding + overlap tests first</strong> across edge cases (zero-length, midnight crossing, back-to-back).",
+          "<strong>Add idle detection</strong> — prompt to discard idle minutes on long-running timers.",
+          "<strong>Stretch goals:</strong> invoicing from approved timesheets, per-client contracts and rate cards, time-off/leave integration, and a 'pomodoro' running-timer UI fed by a single source-of-truth query."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The hard parts of a time tracker","Running-timer state, overlap/rounding correctness, and fast aggregation."],
+    ["How a running timer is stored","A time entry with ended_at = null — the single source of truth; duration is derived."],
+    ["Why not an is_running flag","It can desync from reality; the null end can't contradict itself."],
+    ["Enforcing one active timer","Transactional auto-stop on start + partial unique index on user_id WHERE ended_at IS NULL."],
+    ["Interval overlap condition","newStart < existingEnd AND newEnd > existingStart (scoped to the user)."],
+    ["Why round at calc time","Rounding is a changeable billing policy; keep true duration, apply the rule when computing amounts."],
+    ["Why snapshot the rate","So later rate changes don't rewrite historical billable amounts."],
+    ["Rate precedence example","task.rate ?? project.rate ?? user.default_rate, resolved once and stored."],
+    ["Timesheet states","draft → submitted → approved/rejected; approved entries locked against edits."],
+    ["Reporting rule","Aggregate in SQL (SUM/GROUP BY, COALESCE now() for running) with indexes; cache rollups."],
+    ["Computing live 'today' total","Cheap query over today's entries plus the running timer's now()-delta in the app."],
+    ["When to use an event log","Audit-heavy needs (pauses/resumes, tamper evidence); otherwise start/end columns suffice."]
+  ],
+  "glossary": [
+    ["Time entry","An interval of work with start, optional end, rate, and billable flag."],
+    ["Running timer","A time entry whose ended_at is null."],
+    ["Duration","Derived elapsed time = ended_at (or now) − started_at."],
+    ["Overlap","Two of a user's entries covering the same instant."],
+    ["Rounding rule","Policy mapping raw duration to billable units (e.g. nearest 6 min)."],
+    ["Rate snapshot","The rate stored on an entry at creation for immutable billing."],
+    ["Billable","Whether an entry contributes to invoiceable amounts."],
+    ["Timesheet","A period's entries moving through approval."],
+    ["Approval workflow","State machine gating entries before invoicing."],
+    ["Aggregation","SQL roll-up of hours by project/user/day."],
+    ["Idle detection","Spotting inactive time to discard from a running timer."],
+    ["Partial unique index","A DB constraint applying only to rows matching a condition."]
+  ]
+}

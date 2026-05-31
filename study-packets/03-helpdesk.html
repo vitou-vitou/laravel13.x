@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Packet — Building a Help Desk / Ticketing System in Laravel</title>
+<style>
+  :root{--bg:#0f1117;--panel:#171a23;--panel2:#1d212c;--ink:#e6e9ef;--muted:#9aa3b2;--accent:#7c9cff;--accent2:#5be0b3;--warn:#ffcc66;--danger:#ff7b72;--line:#2a2f3c;--code:#0b0d13;--radius:14px}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header.hero{padding:64px 20px 40px;text-align:center;background:radial-gradient(1200px 400px at 50% -120px,rgba(124,156,255,.18),transparent 70%);border-bottom:1px solid var(--line)}
+  header.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:-.5px}
+  header.hero .sub{color:var(--muted);max-width:680px;margin:0 auto;font-size:16px}
+  .badges{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:999px;font-size:13px}
+  nav.jump{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 20px}
+  nav.jump .inner{max-width:920px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  nav.jump a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border:1px solid transparent}
+  nav.jump a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{margin-top:46px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:rgba(124,156,255,.12);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .pill.step{color:var(--accent2);background:rgba(91,224,179,.12)}
+  h2{font-size:25px;margin:6px 0 14px;letter-spacing:-.3px}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  h4{font-size:16px;margin:18px 0 6px;color:var(--accent2)}
+  p{margin:10px 0}ul,ol{margin:10px 0;padding-left:22px}li{margin:5px 0}
+  .step-divider{display:flex;align-items:center;gap:14px;margin:60px 0 0}
+  .step-divider .bar{flex:1;height:1px;background:var(--line)}
+  .step-divider .lbl{color:var(--muted);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--panel2);padding:14px 18px;border-radius:8px;margin:16px 0}
+  .callout.warn{border-color:var(--warn)}.callout.danger{border-color:var(--danger)}
+  .callout .t{font-weight:700;margin-bottom:4px}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel2);padding:2px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.55;display:block;color:#cdd6f4}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .diagram{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto}
+  .diagram pre{background:none;border:none;margin:0;padding:0;color:#9fb4ff;font-size:12.5px;line-height:1.45}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+  .flip{perspective:1200px;height:170px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.flipped .flip-in{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);padding:16px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .flip-front{background:var(--panel2);font-weight:600}
+  .flip-back{background:linear-gradient(160deg,#1c2738,#15202e);transform:rotateY(180deg);color:#d7e4ff;font-size:14px;line-height:1.5}
+  .flip .hint{position:absolute;bottom:8px;right:12px;font-size:10.5px;color:var(--muted);font-weight:400}
+  .q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .q .qn{font-weight:600;margin-bottom:6px}
+  .reveal-btn{background:var(--panel2);color:var(--accent);border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+  .reveal-btn:hover{background:#222838}
+  .answer{display:none;margin-top:10px;border-left:3px solid var(--accent2);background:rgba(91,224,179,.07);padding:10px 14px;border-radius:6px;font-size:14.5px}
+  .answer.show{display:block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .toolbar button{background:var(--accent);color:#0b0d13;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .toolbar button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .sched td:first-child{white-space:nowrap;font-weight:600;color:var(--accent2)}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .kbd{font-size:12px;color:var(--muted)}
+  a.inlink{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Building a Help Desk / Ticketing System in Laravel</h1>
+  <p class="sub">Ticket lifecycle, SLA timers, queues and assignment, email-to-ticket threading, canned replies, and escalation — the Laravel architecture behind a support desk.</p>
+  <div class="badges">
+    <span class="badge">Level: Professional</span>
+    <span class="badge">Laravel 11/12 · PHP 8.2+</span>
+    <span class="badge">8-Principle Method</span>
+    <span class="badge">~90 min first pass</span>
+  </div>
+</header>
+<nav class="jump"><div class="inner">
+    <a href="#p1">Map</a>
+    <a href="#p2">Clear</a>
+    <a href="#p3">Different</a>
+    <a href="#p4">Short</a>
+    <a href="#p5">Test</a>
+    <a href="#p6">Wait</a>
+    <a href="#p7">Mix</a>
+    <a href="#p8">Don't</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#glossary">Glossary</a>
+</div></nav>
+<div class="wrap">
+<div class="step-divider"><span class="lbl">Step 1 — Understanding</span><span class="bar"></span></div>
+<section id="p1">
+  <span class="pill">Principle 1 — Map of the System</span>
+  <h2>How a help desk fits together</h2>
+  <p>A help desk is a <strong>state machine wrapped around a conversation, governed by time</strong>. Two forces shape it: tickets move through a strict lifecycle (open → pending → resolved → closed), and <em>SLA clocks</em> tick against them, triggering escalation when breached. Everything else — threading, assignment, canned replies — serves those two.</p>
+  <div class="diagram"><pre>Customer ──email/web/chat──► Ticket
+                                │
+   ┌────────────────────────────┼───────────────────────┐
+   ▼                            ▼                         ▼
+ Lifecycle state          SLA policy clock          Conversation
+ open→pending→resolved     first-response &amp;           (threaded
+ →closed (+reopen)         resolution timers          messages)
+                                │
+                                ▼  breach → escalate (notify, reassign)</pre></div>
+  <p>The defining action — an agent replying — advances state, stops the response clock, and threads the message:</p>
+  <div class="diagram"><pre>Agent replies
+   │ authorize (assigned/team)
+   ▼
+ Append Message (public)  ──► email customer (queued)
+   │
+   ▼ stop first-response SLA timer
+ Set status = pending (awaiting customer)
+   │
+   ▼ log activity / update metrics</pre></div>
+  <ul><li><strong>Ticket lifecycle</strong> — an explicit, enforced state machine with allowed transitions.</li><li><strong>SLA engine</strong> — first-response and resolution deadlines, business-hours aware, with breach escalation.</li><li><strong>Conversation threading</strong> — public replies + internal notes, often fed by inbound email.</li><li><strong>Routing</strong> — queues, teams, and assignment rules plus canned responses and macros.</li></ul>
+  <div class="callout"><div class="t">The mental model in one sentence</div>A help desk is a <em>time-governed state machine over a conversation</em>. The hard parts are correct SLA computation against business hours and reliable email-to-ticket threading.</div>
+</section>
+
+<section id="p2">
+  <span class="pill">Principle 2 — Clear Explanations</span>
+  <h2>The concepts, defined precisely</h2>
+  <h3>The ticket lifecycle</h3>
+  <p>A <strong>ticket</strong> has a <code>status</code> moving through defined states: <em>open</em> (needs agent), <em>pending</em> (awaiting customer), <em>on-hold</em>, <em>resolved</em>, <em>closed</em>, and <em>reopened</em>. Model transitions explicitly — only certain moves are legal (you can't close an open ticket without resolving). Enforce with a state-machine guard, not scattered <code>if</code>s.</p>
+  <h3>SLA policies and clocks</h3>
+  <p>An <strong>SLA</strong> (Service Level Agreement) sets deadlines: <em>first response</em> within X, <em>resolution</em> within Y, varying by priority. The clock starts when the ticket is created (or assigned) and <strong>pauses</strong> while pending on the customer. Crucially, time is measured against <strong>business hours</strong>, not wall-clock — a ticket opened Friday 5pm isn't breached over the weekend.</p>
+  <h3>Breach detection & escalation</h3>
+  <p>You can't rely on a request to notice a breach — nobody may be looking. A <strong>scheduled job</strong> (every minute) scans tickets whose deadline has passed and fires escalation: notify a manager, raise priority, or reassign. Store the computed <code>due_at</code> on the ticket so the scan is a cheap indexed query, not a recomputation.</p>
+  <h3>Conversation threading</h3>
+  <p>A ticket <code>hasMany</code> <strong>messages</strong>, each flagged <code>public</code> (visible to customer) or <strong>internal note</strong> (agents only). Order by time. The thread is the source of truth; the ticket row is a denormalized summary (status, last reply, counts).</p>
+  <h3>Email-to-ticket (inbound parsing)</h3>
+  <p>Customers reply by email. You ingest via a mailbox webhook (Postmark/Mailgun/SES). The hard part is <strong>threading</strong>: match the reply to its ticket using a token in the address (<code>support+T123@</code>) or the <code>In-Reply-To</code>/<code>References</code> headers, strip quoted history, and append as a public message — creating a new ticket only if no match.</p>
+  <h3>Assignment, queues, and teams</h3>
+  <p>Tickets land in <strong>queues</strong> (by product/channel) and route to <strong>teams</strong>; assignment can be manual, round-robin, or skill/load-based. Keep assignment in a service and record who/when for reporting.</p>
+  <h3>Canned responses & macros</h3>
+  <p><strong>Canned responses</strong> are reusable reply templates; <strong>macros</strong> bundle actions (reply + set status + assign + tag) applied in one click. Both reduce handle time; store as data, render with ticket variables.</p>
+  <div class="callout danger"><div class="t">Most common misconception</div>Computing SLA against wall-clock instead of business hours is the classic help-desk bug — it falsely breaches tickets overnight/weekends. Always measure elapsed time within the customer's business calendar.</div>
+</section>
+
+<section id="p3">
+  <span class="pill">Principle 3 — Different Media</span>
+  <h2>The same ideas, four ways</h2>
+  <h4>One-line summary</h4>
+  <p>A help desk moves tickets through an enforced lifecycle while business-hours SLA clocks tick toward escalation, with a threaded conversation fed by inbound email and sped up by canned replies.</p>
+  <h4>Analogy — the ER triage board</h4>
+  <p>Tickets are patients; the <strong>lifecycle</strong> is triage → treatment → discharge, and you can't discharge before treating (illegal transition). The <strong>SLA clock</strong> is the wait-time target — but it only counts while the department is open and the patient is actually waiting on staff, not while they're out getting a scan (pending). When a target is about to be missed, an alarm escalates to the charge nurse (manager). The <strong>thread</strong> is the patient chart: every note, in order, some visible to the patient, some staff-only.</p>
+  <h4>Comparison — email threading strategies</h4>
+  <table><thead><tr><th>Method</th><th>Reliability</th><th>Effort</th><th>Note</th></tr></thead><tbody><tr><td>Address token (support+T123@)</td><td>High</td><td>Low</td><td>Survives broken clients; needs plus-addressing</td></tr><tr><td>In-Reply-To / References headers</td><td>Medium</td><td>Medium</td><td>Standard but some clients drop them</td></tr><tr><td>Subject [#T123] tag</td><td>Low</td><td>Low</td><td>Easily edited/lost by users</td></tr><tr><td>Body fingerprint/match</td><td>Low</td><td>High</td><td>Last resort heuristic</td></tr></tbody></table>
+  <h4>Diagram — SLA clock pausing</h4>
+  <div class="diagram"><pre>created ──[open]── agent replies ──[pending]── customer replies ──[open]── resolved
+  │  clock RUNS         │  clock PAUSED        │  clock RUNS
+  └───────── elapsed counted only while OPEN &amp; within business hours ─────────┘</pre></div>
+</section>
+
+<section id="p4">
+  <span class="pill">Principle 4 — Short Lessons</span>
+  <h2>Bite-sized micro-lessons</h2>
+  <p>Each lesson is one idea. Code illustrative.</p>
+  <h3>Lesson 1 — Enforce the lifecycle</h3>
+  <pre><code>enum Status: string { case Open='open'; case Pending='pending';
+    case Resolved='resolved'; case Closed='closed'; }
+
+class TicketStateMachine {
+    private const ALLOWED = [
+        'open'=&gt;['pending','resolved'],
+        'pending'=&gt;['open','resolved'],
+        'resolved'=&gt;['closed','open'], // reopen
+    ];
+    public function transition(Ticket $t, Status $to): void {
+        abort_unless(in_array($to-&gt;value, self::ALLOWED[$t-&gt;status-&gt;value]), 422,'Illegal transition');
+        $t-&gt;update(['status'=&gt;$to]);
+    }
+}</code></pre>
+  <h3>Lesson 2 — Store computed due_at for cheap scans</h3>
+  <pre><code>// when SLA applies, precompute deadlines using a business calendar
+$ticket-&gt;update([
+    'first_response_due_at' =&gt; $calendar-&gt;add($ticket-&gt;created_at, $sla-&gt;firstResponse),
+    'resolution_due_at'     =&gt; $calendar-&gt;add($ticket-&gt;created_at, $sla-&gt;resolution),
+]);</code></pre>
+  <h3>Lesson 3 — Detect breaches on a schedule</h3>
+  <pre><code>// routes/console.php
+Schedule::job(new EscalateBreachedTickets)-&gt;everyMinute();
+
+class EscalateBreachedTickets implements ShouldQueue {
+    public function handle(): void {
+        Ticket::whereNull('first_responded_at')
+            -&gt;where('first_response_due_at','&lt;',now())
+            -&gt;where('status','open')
+            -&gt;each(fn($t) =&gt; Escalation::raise($t));
+    }
+}</code></pre>
+  <h3>Lesson 4 — Pause the clock when pending</h3>
+  <pre><code>// track SLA pauses as intervals; net elapsed = running intervals only
+SlaPause::create(['ticket_id'=&gt;$t-&gt;id,'paused_at'=&gt;now()]); // on -&gt; pending
+// on -&gt; open: close the interval, push due_at forward by the paused duration</code></pre>
+  <h3>Lesson 5 — Thread inbound email by token</h3>
+  <pre><code>// webhook from mail provider
+public function inbound(Request $r) {
+    if (preg_match('/support\+T(\d+)@/', $r-&gt;input('To'), $m)) {
+        $ticket = Ticket::find($m[1]);
+    }
+    $body = EmailParser::stripQuoted($r-&gt;input('TextBody'));
+    ($ticket ?? Ticket::open($r))-&gt;messages()-&gt;create([
+        'body'=&gt;$body,'public'=&gt;true,'via'=&gt;'email',
+    ]);
+}</code></pre>
+  <h3>Lesson 6 — Public reply vs internal note</h3>
+  <pre><code>$ticket-&gt;messages()-&gt;create(['body'=&gt;$text,'public'=&gt;false]); // internal note
+// public reply also emails the customer (queued) and stops the response clock</code></pre>
+  <h3>Lesson 7 — Macros bundle actions</h3>
+  <pre><code>class ApplyMacro {
+    public function __invoke(Ticket $t, Macro $m): void {
+        if ($m-&gt;reply)  $t-&gt;reply($m-&gt;renderedBody($t));
+        if ($m-&gt;status) app(TicketStateMachine::class)-&gt;transition($t, $m-&gt;status);
+        if ($m-&gt;assignee_id) $t-&gt;assignTo($m-&gt;assignee_id);
+        $t-&gt;tags()-&gt;syncWithoutDetaching($m-&gt;tags);
+    }
+}</code></pre>
+</section>
+
+<div class="step-divider"><span class="lbl">Step 2 — Automaticity</span><span class="bar"></span></div>
+<section id="p5">
+  <span class="pill step">Principle 5 — Test Yourself</span>
+  <h2>Retrieval-practice quiz</h2>
+  <p>Answer before revealing.</p>
+  <div class="toolbar"><button onclick="revealAll('p5',true)">Show all answers</button><button class="ghost" onclick="revealAll('p5',false)">Hide all</button></div><div class="q" data-sec="p5"><div class="qn">Q1. Why enforce ticket transitions with a state machine rather than free-form status updates?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Only certain moves are legal (e.g. you can't close without resolving, can't skip states). A central guard rejects illegal transitions consistently, instead of scattered conditionals that drift and allow invalid states.</div></div><div class="q" data-sec="p5"><div class="qn">Q2. Why must SLA elapsed time be measured against business hours?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Otherwise tickets falsely breach overnight and on weekends. Customers expect response within working time; the clock must only count hours the support team is actually operating.</div></div><div class="q" data-sec="p5"><div class="qn">Q3. Why store a computed due_at on the ticket instead of recomputing on each check?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Breach detection runs as a frequent scheduled scan; a stored due_at makes it a cheap indexed query (where due_at < now). Recomputing per ticket per scan is expensive and error-prone.</div></div><div class="q" data-sec="p5"><div class="qn">Q4. How does the SLA clock handle a ticket waiting on the customer?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">It pauses while status is pending. Track pause intervals; net elapsed counts only running time, and the deadline is pushed forward by paused durations so customer delays don't count against the agent.</div></div><div class="q" data-sec="p5"><div class="qn">Q5. Why can't breach escalation rely on request-time checks?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A breach can occur when no one is interacting with the ticket (overnight, idle). A scheduled job must actively scan for passed deadlines and escalate; otherwise breaches go unnoticed.</div></div><div class="q" data-sec="p5"><div class="qn">Q6. What's the most reliable way to thread an inbound email reply to its ticket, and why?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A token in the reply address (support+T123@). It survives clients that strip In-Reply-To/References headers or edit the subject. Headers are a good secondary; subject tags are unreliable.</div></div><div class="q" data-sec="p5"><div class="qn">Q7. What is a macro and how does it differ from a canned response?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A canned response is a reusable reply template (text). A macro bundles multiple actions — reply + set status + assign + tag — applied in one click. Macros automate workflow, not just wording.</div></div>
+  <h3>Code drill — illegal transition rejected (Pest)</h3>
+  <pre><code>it('forbids closing an open ticket directly', function () {
+    $t = Ticket::factory()-&gt;create(['status'=&gt;'open']);
+    expect(fn() =&gt; app(TicketStateMachine::class)-&gt;transition($t, Status::Closed))
+        -&gt;toThrow(HttpException::class); // 422 illegal transition
+});</code></pre>
+</section>
+
+<section id="p6">
+  <span class="pill step">Principle 6 — Wait to Review</span>
+  <h2>Spaced-repetition schedule</h2>
+  <p>Re-do the quiz from memory; redraw the SLA pause diagram each session.</p>
+  <table><thead><tr><th>When</th><th>Session (~10–15 min)</th><th>Goal</th></tr></thead><tbody><tr><td>Day 0</td><td>Read packet; quiz with answers open.</td><td>Build the model.</td></tr><tr><td>Day 1</td><td>Quiz closed-book; redraw the lifecycle + legal transitions.</td><td>First retrieval.</td></tr><tr><td>Day 3</td><td>Flashcards; explain business-hours SLA aloud.</td><td>Strengthen.</td></tr><tr><td>Day 7</td><td>Interleaved quiz; write the breach-scan job from blank.</td><td>Mix contexts.</td></tr><tr><td>Day 16</td><td>Re-derive email-threading options from memory.</td><td>Widen interval.</td></tr><tr><td>Day 35</td><td>Teach SLA pausing to someone in 5 minutes.</td><td>Consolidate.</td></tr><tr><td>Day 70</td><td>Closed-book interleaved pass; misses restart Day 1.</td><td>Long-term.</td></tr></tbody></table>
+  <div class="callout"><div class="t">Why the gaps grow</div>Retrieving just before you'd forget produces the strongest gain.</div>
+</section>
+
+<section id="p7">
+  <span class="pill step">Principle 7 — Mix It Up</span>
+  <h2>Interleaved quiz</h2>
+  <p>Topics shuffled to train choosing the right idea.</p>
+  <div class="toolbar"><button onclick="revealAll('p7',true)">Show all answers</button><button class="ghost" onclick="revealAll('p7',false)">Hide all</button></div><div class="q" data-sec="p7"><div class="qn">M1. Tickets are breaching SLA over weekends though the team is closed. Root cause and fix?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">SLA computed against wall-clock, not business hours. Fix: compute due_at and elapsed using a business calendar (working days/hours, holidays); pause outside operating time.</div></div><div class="q" data-sec="p7"><div class="qn">M2. Customer replies arrive as brand-new tickets instead of threading. Where do you look?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Inbound threading: the reply isn't being matched. Verify the address token (support+T123@) is present and parsed, fall back to In-Reply-To/References headers, and only open a new ticket when no match is found.</div></div><div class="q" data-sec="p7"><div class="qn">M3. The breach-escalation scan is slow at scale. Two fixes?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">(1) Query on a stored, indexed due_at (where status=open and first_response_due_at < now) rather than recomputing. (2) Limit/chunk and only scan candidate statuses; consider per-priority partial indexes.</div></div><div class="q" data-sec="p7"><div class="qn">M4. An agent closed a ticket that was never resolved, skewing metrics. Prevention?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Enforce legal transitions in a state machine — closing requires passing through resolved. Free-form status edits allow invalid jumps; centralize and test the allowed map.</div></div><div class="q" data-sec="p7"><div class="qn">M5. SLA timer kept running while waiting on the customer, unfairly breaching agents. Fix?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Pause the clock on transition to pending and resume on reply; track pause intervals and extend due_at by paused duration so customer delay isn't counted.</div></div><div class="q" data-sec="p7"><div class="qn">M6. Support wants 'reply + set pending + assign to tier-2 + tag billing' in one click. What feature, and how stored?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A macro: stored as data (actions: reply template, target status, assignee, tags) and applied by an ApplyMacro service that runs each action, reusing the state machine for the status change.</div></div>
+</section>
+
+<section id="p8">
+  <span class="pill step">Principle 8 — Don't Stop</span>
+  <h2>Overlearning plan</h2>
+  <ul><li><strong>Build the SLA engine twice</strong> — wall-clock vs business-hours — and watch the false weekend breaches disappear.</li><li><strong>Break threading on purpose</strong> — drop the address token and rely only on subject tags; reproduce the new-ticket-per-reply bug.</li><li><strong>Write the transition tests first</strong>: every illegal move rejected, every legal move allowed.</li><li><strong>Add CSAT</strong> — post-resolution satisfaction survey as a queued notification + metric.</li><li><strong>Stretch goals:</strong> multi-channel (chat/social) into one inbox, round-robin with skills/load, holiday calendars per customer, and a reporting suite (first-response time, resolution time, reopen rate).</li></ul>
+</section>
+
+
+<section id="cards">
+  <span class="pill step">Active Recall — Flashcards</span>
+  <h2>Click a card to flip</h2>
+  <p class="kbd">Prompt on the front, answer on the back. Say your answer before flipping.</p>
+  <div class="cards-grid" id="flashcards"></div>
+</section>
+<section id="glossary">
+  <span class="pill">Reference — Glossary</span>
+  <h2>Key terms</h2>
+  <table><tbody>
+      <tr><td><strong>Ticket</strong></td><td>A support request with a status, priority, and conversation.</td></tr>
+      <tr><td><strong>Lifecycle</strong></td><td>The set of statuses a ticket moves through (open→pending→resolved→closed).</td></tr>
+      <tr><td><strong>State machine</strong></td><td>A guard enforcing only legal status transitions.</td></tr>
+      <tr><td><strong>SLA</strong></td><td>Service Level Agreement: deadlines for response/resolution.</td></tr>
+      <tr><td><strong>First-response time</strong></td><td>Elapsed time until the first agent reply.</td></tr>
+      <tr><td><strong>Business hours</strong></td><td>The working calendar SLA elapsed time is measured against.</td></tr>
+      <tr><td><strong>Breach</strong></td><td>An SLA deadline passing without the required action.</td></tr>
+      <tr><td><strong>Escalation</strong></td><td>Action taken on breach: notify, raise priority, reassign.</td></tr>
+      <tr><td><strong>Internal note</strong></td><td>An agent-only message not shown to the customer.</td></tr>
+      <tr><td><strong>Inbound parsing</strong></td><td>Turning a received email into a threaded ticket message.</td></tr>
+      <tr><td><strong>Canned response</strong></td><td>A reusable reply template.</td></tr>
+      <tr><td><strong>Macro</strong></td><td>A reusable bundle of ticket actions applied together.</td></tr>
+  </tbody></table>
+</section>
+<footer>
+  <p>Study packet · 8-Principle Method · Building a Help Desk / Ticketing System in Laravel · Professional level</p>
+  <p class="kbd">Self-contained. No external resources, no tracking, no browser storage — works offline on any device.</p>
+</footer>
+</div>
+<script>
+  function tog(btn){var a=btn.parentElement.querySelector('.answer');var on=a.classList.toggle('show');btn.textContent=on?'Hide answer':'Reveal answer';}
+  function revealAll(sec,show){document.querySelectorAll('.q[data-sec="'+sec+'"]').forEach(function(q){var a=q.querySelector('.answer'),b=q.querySelector('.reveal-btn');if(show){a.classList.add('show');b.textContent='Hide answer';}else{a.classList.remove('show');b.textContent='Reveal answer';}});}
+  var CARDS=[["The two hard parts of a help desk","Correct business-hours SLA computation and reliable email-to-ticket threading."],["What a help desk fundamentally is","A time-governed state machine over a threaded conversation."],["Why a state machine for status","Only certain transitions are legal; a central guard rejects illegal moves consistently."],["The SLA wall-clock trap","Measuring elapsed time ignoring business hours falsely breaches tickets overnight/weekends."],["Why store computed due_at","Makes the frequent breach scan a cheap indexed query instead of recomputation."],["When the SLA clock pauses","While the ticket is pending on the customer; resume on their reply, extend due_at by paused time."],["Why escalation needs a scheduled job","Breaches happen when no one's interacting; a per-minute scan actively finds passed deadlines."],["Most reliable email threading","A token in the reply address (support+T123@); survives clients that strip headers."],["Public message vs internal note","Public is visible to the customer (and emailed); internal note is agents-only."],["Canned response vs macro","Canned = reusable reply text; macro = bundle of actions (reply+status+assign+tag) in one click."],["Ticket row vs message thread","Thread is source of truth; ticket row is a denormalized summary (status, counts, last reply)."],["First-response vs resolution SLA","Two separate clocks: time to first agent reply, and time to resolve — often per-priority."]];
+  (function(){var grid=document.getElementById('flashcards');CARDS.forEach(function(c){var el=document.createElement('div');el.className='flip';el.innerHTML='<div class="flip-in"><div class="flip-face flip-front">'+c[0]+'<span class="hint">click ↻</span></div><div class="flip-face flip-back">'+c[1]+'<span class="hint">click ↻</span></div></div>';el.addEventListener('click',function(){el.classList.toggle('flipped');});grid.appendChild(el);});})();
+</script>
+</body>
+</html>

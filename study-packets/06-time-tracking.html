@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Packet — Building a Time Tracking & Timesheets App in Laravel</title>
+<style>
+  :root{--bg:#0f1117;--panel:#171a23;--panel2:#1d212c;--ink:#e6e9ef;--muted:#9aa3b2;--accent:#7c9cff;--accent2:#5be0b3;--warn:#ffcc66;--danger:#ff7b72;--line:#2a2f3c;--code:#0b0d13;--radius:14px}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header.hero{padding:64px 20px 40px;text-align:center;background:radial-gradient(1200px 400px at 50% -120px,rgba(124,156,255,.18),transparent 70%);border-bottom:1px solid var(--line)}
+  header.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:-.5px}
+  header.hero .sub{color:var(--muted);max-width:680px;margin:0 auto;font-size:16px}
+  .badges{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:999px;font-size:13px}
+  nav.jump{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 20px}
+  nav.jump .inner{max-width:920px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  nav.jump a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border:1px solid transparent}
+  nav.jump a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{margin-top:46px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:rgba(124,156,255,.12);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .pill.step{color:var(--accent2);background:rgba(91,224,179,.12)}
+  h2{font-size:25px;margin:6px 0 14px;letter-spacing:-.3px}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  h4{font-size:16px;margin:18px 0 6px;color:var(--accent2)}
+  p{margin:10px 0}ul,ol{margin:10px 0;padding-left:22px}li{margin:5px 0}
+  .step-divider{display:flex;align-items:center;gap:14px;margin:60px 0 0}
+  .step-divider .bar{flex:1;height:1px;background:var(--line)}
+  .step-divider .lbl{color:var(--muted);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--panel2);padding:14px 18px;border-radius:8px;margin:16px 0}
+  .callout.warn{border-color:var(--warn)}.callout.danger{border-color:var(--danger)}
+  .callout .t{font-weight:700;margin-bottom:4px}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel2);padding:2px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.55;display:block;color:#cdd6f4}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .diagram{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto}
+  .diagram pre{background:none;border:none;margin:0;padding:0;color:#9fb4ff;font-size:12.5px;line-height:1.45}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+  .flip{perspective:1200px;height:170px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.flipped .flip-in{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);padding:16px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .flip-front{background:var(--panel2);font-weight:600}
+  .flip-back{background:linear-gradient(160deg,#1c2738,#15202e);transform:rotateY(180deg);color:#d7e4ff;font-size:14px;line-height:1.5}
+  .flip .hint{position:absolute;bottom:8px;right:12px;font-size:10.5px;color:var(--muted);font-weight:400}
+  .q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .q .qn{font-weight:600;margin-bottom:6px}
+  .reveal-btn{background:var(--panel2);color:var(--accent);border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+  .reveal-btn:hover{background:#222838}
+  .answer{display:none;margin-top:10px;border-left:3px solid var(--accent2);background:rgba(91,224,179,.07);padding:10px 14px;border-radius:6px;font-size:14.5px}
+  .answer.show{display:block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .toolbar button{background:var(--accent);color:#0b0d13;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .toolbar button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .sched td:first-child{white-space:nowrap;font-weight:600;color:var(--accent2)}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .kbd{font-size:12px;color:var(--muted)}
+  a.inlink{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Building a Time Tracking & Timesheets App in Laravel</h1>
+  <p class="sub">Running timers, time entries, overlap handling, billable rates and rounding, approval workflows, and reporting — the Laravel architecture behind a time-tracking tool.</p>
+  <div class="badges">
+    <span class="badge">Level: Professional</span>
+    <span class="badge">Laravel 11/12 · PHP 8.2+</span>
+    <span class="badge">8-Principle Method</span>
+    <span class="badge">~80 min first pass</span>
+  </div>
+</header>
+<nav class="jump"><div class="inner">
+    <a href="#p1">Map</a>
+    <a href="#p2">Clear</a>
+    <a href="#p3">Different</a>
+    <a href="#p4">Short</a>
+    <a href="#p5">Test</a>
+    <a href="#p6">Wait</a>
+    <a href="#p7">Mix</a>
+    <a href="#p8">Don't</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#glossary">Glossary</a>
+</div></nav>
+<div class="wrap">
+<div class="step-divider"><span class="lbl">Step 1 — Understanding</span><span class="bar"></span></div>
+<section id="p1">
+  <span class="pill">Principle 1 — Map of the System</span>
+  <h2>How a time tracker fits together</h2>
+  <p>A time tracker is <strong>a log of time intervals attached to billable work, then rolled up and approved</strong>. The pressure: a timer can be <em>running</em> (no end yet), entries must not silently overlap, billing depends on rates and rounding rules, and timesheets flow through approval before invoicing.</p>
+  <div class="diagram"><pre>User
+ ├─ Projects ─► Tasks (billable?, rate)
+ ├─ Time Entries (start, end|null, duration, billable, rate)
+ │     └─ running entry = end IS NULL
+ ├─ Timesheet (a period's entries) ─► approval workflow
+ └─ Reports (hours by project/user/day, billable totals)</pre></div>
+  <p>The defining action — stopping a timer — closes the interval and computes billable value:</p>
+  <div class="diagram"><pre>Stop timer ──► PATCH /entries/{id}/stop
+   │ entry.end = now()
+   ▼ duration = end - start  (apply rounding rule)
+   ▼ billable_amount = round(duration) * rate  (if billable)
+   │
+   └─► update running-timer state; recompute day/period totals (cached)</pre></div>
+  <ul><li><strong>Time entry model</strong> — intervals with a nullable end (running) tied to a task/project.</li><li><strong>Integrity rules</strong> — one running timer per user, overlap detection, rounding.</li><li><strong>Billing</strong> — billable flag, rate resolution, rounding policy → amount.</li><li><strong>Approval & reporting</strong> — timesheet submission/approval and aggregate hours.</li></ul>
+  <div class="callout"><div class="t">The mental model in one sentence</div>A time tracker is <em>an interval log with billing rules and an approval gate</em>. The hard parts are running-timer state, overlap/rounding correctness, and fast aggregation — not basic CRUD.</div>
+</section>
+
+<section id="p2">
+  <span class="pill">Principle 2 — Clear Explanations</span>
+  <h2>The concepts, defined precisely</h2>
+  <h3>Time entries and the running timer</h3>
+  <p>A <strong>time entry</strong> has <code>started_at</code> and a nullable <code>ended_at</code>. A <strong>running timer</strong> is simply an entry with <code>ended_at = null</code>. Duration is computed (<code>ended_at - started_at</code>), or <code>now() - started_at</code> while running. Don't store a separate 'is_running' flag — the null end is the single source of truth.</p>
+  <h3>One running timer per user</h3>
+  <p>Most trackers enforce <strong>one active timer per user</strong>. Starting a new timer auto-stops the previous. Enforce with a guard (and ideally a partial unique index on <code>user_id where ended_at is null</code>) so concurrent start requests can't create two running entries.</p>
+  <h3>Overlap detection</h3>
+  <p>Manually-entered entries can overlap (logging 9–11 and 10–12). Decide policy: reject overlaps, or allow and flag. Detect with an interval query: two intervals overlap when <code>start &lt; other.end AND end &gt; other.start</code>. This must run on create/edit, scoped to the user.</p>
+  <h3>Rounding rules</h3>
+  <p>Billing often rounds durations — to the nearest 6 minutes (0.1h), 15 minutes, or up to a minimum. Rounding is a <strong>policy</strong> applied at calculation time, not stored raw. Keep the true duration and apply rounding when computing billable amounts so you can change the rule later.</p>
+  <h3>Rate resolution</h3>
+  <p>The billable rate can come from the task, the project, the user, or a client contract — with a precedence order. Resolve it explicitly (task rate ?? project rate ?? user default) at entry time, and <strong>snapshot</strong> it onto the entry so later rate changes don't rewrite history.</p>
+  <h3>Timesheet approval workflow</h3>
+  <p>Entries for a period form a <strong>timesheet</strong> that a user <em>submits</em>; a manager <em>approves</em> or <em>rejects</em> (back to draft). Lock approved entries against edits. This is a small state machine (draft → submitted → approved/rejected) gating downstream invoicing.</p>
+  <h3>Reporting</h3>
+  <p>Reports aggregate hours by project, user, day, and billable status. Aggregate in SQL (<code>sum</code>, <code>group by</code>) over an indexed entries table; cache heavy rollups. For a 'running total today' use a cheap query against today's entries plus the live timer delta computed in the app.</p>
+  <div class="callout danger"><div class="t">Most common misconception</div>Storing duration as a mutable field that you increment is the classic bug — clock skew, missed stops, and double counting corrupt it. Derive duration from started_at/ended_at; keep the running timer as a null end.</div>
+</section>
+
+<section id="p3">
+  <span class="pill">Principle 3 — Different Media</span>
+  <h2>The same ideas, four ways</h2>
+  <h4>One-line summary</h4>
+  <p>A time tracker logs intervals (running = null end), enforces one active timer and no silent overlaps, applies rounding and rate rules to compute billable amounts, and gates timesheets through approval before reporting/invoicing.</p>
+  <h4>Analogy — the parking meter</h4>
+  <p>A time entry is a <strong>parking session</strong>: it starts when you arrive and the duration is just arrival-to-departure — you wouldn't keep a running 'minutes' counter that could drift, you'd read the two clock stamps. You can only occupy <strong>one space at a time</strong> (one running timer); double-parking (overlap) is flagged. The <strong>fee</strong> rounds to the next block and uses the posted rate at the time you parked (rate snapshot). At month end the lot manager <strong>reviews and approves</strong> the tickets before billing.</p>
+  <h4>Comparison — duration storage</h4>
+  <table><thead><tr><th>Approach</th><th>Correctness</th><th>Running timer</th><th>Verdict</th></tr></thead><tbody><tr><td>Derive from start/end</td><td>High</td><td>Null end</td><td>Recommended</td></tr><tr><td>Stored counter incremented</td><td>Low (drift/double count)</td><td>Flag field</td><td>Avoid</td></tr><tr><td>Event log (start/stop events)</td><td>High, auditable</td><td>Open event</td><td>Good for audit-heavy</td></tr></tbody></table>
+  <h4>Diagram — overlap test</h4>
+  <div class="diagram"><pre>Existing: 09:00 ───────── 11:00
+New:           10:00 ───────── 12:00
+Overlap when  newStart &lt; existEnd  AND  newEnd &gt; existStart
+              10:00   &lt; 11:00     AND  12:00  &gt; 09:00  → OVERLAP</pre></div>
+</section>
+
+<section id="p4">
+  <span class="pill">Principle 4 — Short Lessons</span>
+  <h2>Bite-sized micro-lessons</h2>
+  <p>Each lesson is one idea. Code illustrative.</p>
+  <h3>Lesson 1 — Running timer = null end</h3>
+  <pre><code>// time_entries: user_id, task_id, started_at, ended_at(nullable), rate, billable
+class TimeEntry extends Model {
+    protected $casts = ['started_at'=&gt;'datetime','ended_at'=&gt;'datetime','billable'=&gt;'boolean'];
+    public function getRunningAttribute(): bool { return $this-&gt;ended_at === null; }
+    public function durationSeconds(): int {
+        return ($this-&gt;ended_at ?? now())-&gt;diffInSeconds($this-&gt;started_at);
+    }
+}</code></pre>
+  <h3>Lesson 2 — Enforce one active timer</h3>
+  <pre><code>public function start(StartTimer $r): TimeEntry {
+    DB::transaction(function () use ($r) {
+        TimeEntry::where('user_id',$r-&gt;user()-&gt;id)-&gt;whereNull('ended_at')
+            -&gt;update(['ended_at'=&gt;now()]); // auto-stop previous
+    });
+    return TimeEntry::create([...]);
+}
+// + partial unique index: (user_id) WHERE ended_at IS NULL</code></pre>
+  <h3>Lesson 3 — Detect overlaps on manual entry</h3>
+  <pre><code>$overlap = TimeEntry::where('user_id',$userId)
+    -&gt;where('started_at','&lt;',$newEnd)
+    -&gt;where('ended_at','&gt;',$newStart)
+    -&gt;exists();
+abort_if($overlap, 422, 'Time entry overlaps an existing one.');</code></pre>
+  <h3>Lesson 4 — Apply rounding at calc time</h3>
+  <pre><code>function roundedHours(int $seconds, int $incrementMin = 6): float {
+    $hours = $seconds / 3600;
+    $step  = $incrementMin / 60;
+    return ceil($hours / $step) * $step; // round up to nearest increment
+}</code></pre>
+  <h3>Lesson 5 — Resolve and snapshot the rate</h3>
+  <pre><code>$rate = $task-&gt;rate ?? $project-&gt;rate ?? $user-&gt;default_rate;
+$entry-&gt;rate = $rate;          // snapshot so future rate changes don't rewrite history
+$entry-&gt;billable = $task-&gt;billable;</code></pre>
+  <h3>Lesson 6 — Timesheet approval state machine</h3>
+  <pre><code>enum Sheet: string { case Draft='draft'; case Submitted='submitted';
+    case Approved='approved'; case Rejected='rejected'; }
+// submit: draft-&gt;submitted; approve: submitted-&gt;approved (lock entries);
+// reject: submitted-&gt;rejected-&gt;draft (editable again)</code></pre>
+  <h3>Lesson 7 — Aggregate in SQL</h3>
+  <pre><code>TimeEntry::whereBetween('started_at',[$from,$to])
+    -&gt;selectRaw('project_id, SUM(TIMESTAMPDIFF(SECOND, started_at, COALESCE(ended_at, NOW()))) secs')
+    -&gt;groupBy('project_id')-&gt;get();</code></pre>
+</section>
+
+<div class="step-divider"><span class="lbl">Step 2 — Automaticity</span><span class="bar"></span></div>
+<section id="p5">
+  <span class="pill step">Principle 5 — Test Yourself</span>
+  <h2>Retrieval-practice quiz</h2>
+  <p>Answer before revealing.</p>
+  <div class="toolbar"><button onclick="revealAll('p5',true)">Show all answers</button><button class="ghost" onclick="revealAll('p5',false)">Hide all</button></div><div class="q" data-sec="p5"><div class="qn">Q1. How is a running timer represented, and why not an is_running flag?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">As a time entry with ended_at = null. The null end is the single source of truth; a separate flag can desync from reality (e.g. set true while end is also set). Duration derives from started_at to ended_at (or now).</div></div><div class="q" data-sec="p5"><div class="qn">Q2. How do you guarantee only one active timer per user under concurrent requests?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Auto-stop the previous running entry inside a transaction on start, backed by a partial unique index on user_id WHERE ended_at IS NULL so the database rejects a second concurrent running row.</div></div><div class="q" data-sec="p5"><div class="qn">Q3. State the interval-overlap condition.</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Two intervals overlap when newStart < existingEnd AND newEnd > existingStart. Run this query scoped to the user on create/edit of manual entries.</div></div><div class="q" data-sec="p5"><div class="qn">Q4. Why apply rounding at calculation time rather than storing rounded duration?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Rounding is a billing policy that may change. Keep the true duration; apply the rounding rule when computing billable amounts so history isn't corrupted and the rule can be revised.</div></div><div class="q" data-sec="p5"><div class="qn">Q5. Why snapshot the rate onto the entry?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">So later changes to task/project/user rates don't retroactively rewrite past billable amounts. Resolve precedence (task ?? project ?? user) once and store it on the entry.</div></div><div class="q" data-sec="p5"><div class="qn">Q6. What does the timesheet approval workflow protect?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">It gates entries before invoicing: draft → submitted → approved/rejected. Approved entries are locked against edits, ensuring billed time isn't silently changed.</div></div><div class="q" data-sec="p5"><div class="qn">Q7. How should 'hours this week by project' be computed?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">In SQL with SUM of (ended_at - started_at), COALESCE-ing now() for running entries, grouped by project, over an indexed entries table — not by looping entries in PHP.</div></div>
+  <h3>Code drill — overlap rejected (Pest)</h3>
+  <pre><code>it('rejects an overlapping manual entry', function () {
+    $u = User::factory()-&gt;create();
+    entry($u, '09:00','11:00');
+    expect(fn() =&gt; createEntry($u, '10:00','12:00'))
+        -&gt;toThrow(HttpException::class); // 422 overlap
+});</code></pre>
+</section>
+
+<section id="p6">
+  <span class="pill step">Principle 6 — Wait to Review</span>
+  <h2>Spaced-repetition schedule</h2>
+  <p>Re-do the quiz from memory; redraw the overlap test each session.</p>
+  <table><thead><tr><th>When</th><th>Session (~10–15 min)</th><th>Goal</th></tr></thead><tbody><tr><td>Day 0</td><td>Read packet; quiz with answers open.</td><td>Build the model.</td></tr><tr><td>Day 1</td><td>Quiz closed-book; restate running-timer = null end.</td><td>First retrieval.</td></tr><tr><td>Day 3</td><td>Flashcards; explain rounding-at-calc-time aloud.</td><td>Strengthen.</td></tr><tr><td>Day 7</td><td>Interleaved quiz; write the overlap query from blank.</td><td>Mix contexts.</td></tr><tr><td>Day 16</td><td>Re-derive rate precedence + snapshot reasoning.</td><td>Widen interval.</td></tr><tr><td>Day 35</td><td>Teach the approval state machine to someone.</td><td>Consolidate.</td></tr><tr><td>Day 70</td><td>Closed-book interleaved pass; misses restart Day 1.</td><td>Long-term.</td></tr></tbody></table>
+  <div class="callout"><div class="t">Why the gaps grow</div>Retrieving just before you'd forget produces the strongest gain.</div>
+</section>
+
+<section id="p7">
+  <span class="pill step">Principle 7 — Mix It Up</span>
+  <h2>Interleaved quiz</h2>
+  <p>Topics shuffled to train choosing the right idea.</p>
+  <div class="toolbar"><button onclick="revealAll('p7',true)">Show all answers</button><button class="ghost" onclick="revealAll('p7',false)">Hide all</button></div><div class="q" data-sec="p7"><div class="qn">M1. A user's totals are inflated; they have two running timers. How did it happen and how prevent it?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Concurrent start requests both created entries with null end. Prevent with a transactional auto-stop on start plus a partial unique index on user_id WHERE ended_at IS NULL.</div></div><div class="q" data-sec="p7"><div class="qn">M2. Finance changed the project rate and last month's invoice totals changed too. Bug?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Rate was read live instead of snapshotted. Store the resolved rate on each entry at creation so historical amounts are immutable.</div></div><div class="q" data-sec="p7"><div class="qn">M3. Reports are slow over a year of entries. Two fixes?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">(1) Aggregate in SQL (SUM/GROUP BY) with indexes on (user_id/project_id, started_at). (2) Cache or precompute period rollups; don't loop entries in PHP.</div></div><div class="q" data-sec="p7"><div class="qn">M4. Billable amounts are a few cents off expectations. Likely cause?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Rounding applied inconsistently or to stored rounded durations. Keep true durations and apply one rounding policy at calculation time (e.g. ceil to nearest 6 min).</div></div><div class="q" data-sec="p7"><div class="qn">M5. An approved timesheet got edited and re-billed. What was missing?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A lock on approved entries. The approval state machine must forbid edits once approved (reopen only via reject → draft).</div></div><div class="q" data-sec="p7"><div class="qn">M6. When is an event-log model (start/stop events) better than start/end columns?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">When you need a full audit trail of pauses/resumes and tamper evidence. It's more complex but reconstructs any state; for most apps start/end columns with derived duration are simpler and sufficient.</div></div>
+</section>
+
+<section id="p8">
+  <span class="pill step">Principle 8 — Don't Stop</span>
+  <h2>Overlearning plan</h2>
+  <ul><li><strong>Build duration two ways</strong> — derived from start/end vs a stored counter — and reproduce the drift/double-count bug.</li><li><strong>Break the single-timer rule on purpose</strong> — remove the unique index, hammer the start endpoint concurrently, watch two running timers appear.</li><li><strong>Write rounding + overlap tests first</strong> across edge cases (zero-length, midnight crossing, back-to-back).</li><li><strong>Add idle detection</strong> — prompt to discard idle minutes on long-running timers.</li><li><strong>Stretch goals:</strong> invoicing from approved timesheets, per-client contracts and rate cards, time-off/leave integration, and a 'pomodoro' running-timer UI fed by a single source-of-truth query.</li></ul>
+</section>
+
+
+<section id="cards">
+  <span class="pill step">Active Recall — Flashcards</span>
+  <h2>Click a card to flip</h2>
+  <p class="kbd">Prompt on the front, answer on the back. Say your answer before flipping.</p>
+  <div class="cards-grid" id="flashcards"></div>
+</section>
+<section id="glossary">
+  <span class="pill">Reference — Glossary</span>
+  <h2>Key terms</h2>
+  <table><tbody>
+      <tr><td><strong>Time entry</strong></td><td>An interval of work with start, optional end, rate, and billable flag.</td></tr>
+      <tr><td><strong>Running timer</strong></td><td>A time entry whose ended_at is null.</td></tr>
+      <tr><td><strong>Duration</strong></td><td>Derived elapsed time = ended_at (or now) − started_at.</td></tr>
+      <tr><td><strong>Overlap</strong></td><td>Two of a user's entries covering the same instant.</td></tr>
+      <tr><td><strong>Rounding rule</strong></td><td>Policy mapping raw duration to billable units (e.g. nearest 6 min).</td></tr>
+      <tr><td><strong>Rate snapshot</strong></td><td>The rate stored on an entry at creation for immutable billing.</td></tr>
+      <tr><td><strong>Billable</strong></td><td>Whether an entry contributes to invoiceable amounts.</td></tr>
+      <tr><td><strong>Timesheet</strong></td><td>A period's entries moving through approval.</td></tr>
+      <tr><td><strong>Approval workflow</strong></td><td>State machine gating entries before invoicing.</td></tr>
+      <tr><td><strong>Aggregation</strong></td><td>SQL roll-up of hours by project/user/day.</td></tr>
+      <tr><td><strong>Idle detection</strong></td><td>Spotting inactive time to discard from a running timer.</td></tr>
+      <tr><td><strong>Partial unique index</strong></td><td>A DB constraint applying only to rows matching a condition.</td></tr>
+  </tbody></table>
+</section>
+<footer>
+  <p>Study packet · 8-Principle Method · Building a Time Tracking & Timesheets App in Laravel · Professional level</p>
+  <p class="kbd">Self-contained. No external resources, no tracking, no browser storage — works offline on any device.</p>
+</footer>
+</div>
+<script>
+  function tog(btn){var a=btn.parentElement.querySelector('.answer');var on=a.classList.toggle('show');btn.textContent=on?'Hide answer':'Reveal answer';}
+  function revealAll(sec,show){document.querySelectorAll('.q[data-sec="'+sec+'"]').forEach(function(q){var a=q.querySelector('.answer'),b=q.querySelector('.reveal-btn');if(show){a.classList.add('show');b.textContent='Hide answer';}else{a.classList.remove('show');b.textContent='Reveal answer';}});}
+  var CARDS=[["The hard parts of a time tracker","Running-timer state, overlap/rounding correctness, and fast aggregation."],["How a running timer is stored","A time entry with ended_at = null — the single source of truth; duration is derived."],["Why not an is_running flag","It can desync from reality; the null end can't contradict itself."],["Enforcing one active timer","Transactional auto-stop on start + partial unique index on user_id WHERE ended_at IS NULL."],["Interval overlap condition","newStart < existingEnd AND newEnd > existingStart (scoped to the user)."],["Why round at calc time","Rounding is a changeable billing policy; keep true duration, apply the rule when computing amounts."],["Why snapshot the rate","So later rate changes don't rewrite historical billable amounts."],["Rate precedence example","task.rate ?? project.rate ?? user.default_rate, resolved once and stored."],["Timesheet states","draft → submitted → approved/rejected; approved entries locked against edits."],["Reporting rule","Aggregate in SQL (SUM/GROUP BY, COALESCE now() for running) with indexes; cache rollups."],["Computing live 'today' total","Cheap query over today's entries plus the running timer's now()-delta in the app."],["When to use an event log","Audit-heavy needs (pauses/resumes, tamper evidence); otherwise start/end columns suffice."]];
+  (function(){var grid=document.getElementById('flashcards');CARDS.forEach(function(c){var el=document.createElement('div');el.className='flip';el.innerHTML='<div class="flip-in"><div class="flip-face flip-front">'+c[0]+'<span class="hint">click ↻</span></div><div class="flip-face flip-back">'+c[1]+'<span class="hint">click ↻</span></div></div>';el.addEventListener('click',function(){el.classList.toggle('flipped');});grid.appendChild(el);});})();
+</script>
+</body>
+</html>

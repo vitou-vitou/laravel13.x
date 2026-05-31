@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Packet — Building a Form Builder in Laravel (Typeform-style)</title>
+<style>
+  :root{--bg:#0f1117;--panel:#171a23;--panel2:#1d212c;--ink:#e6e9ef;--muted:#9aa3b2;--accent:#7c9cff;--accent2:#5be0b3;--warn:#ffcc66;--danger:#ff7b72;--line:#2a2f3c;--code:#0b0d13;--radius:14px}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header.hero{padding:64px 20px 40px;text-align:center;background:radial-gradient(1200px 400px at 50% -120px,rgba(124,156,255,.18),transparent 70%);border-bottom:1px solid var(--line)}
+  header.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:-.5px}
+  header.hero .sub{color:var(--muted);max-width:680px;margin:0 auto;font-size:16px}
+  .badges{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:999px;font-size:13px}
+  nav.jump{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 20px}
+  nav.jump .inner{max-width:920px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  nav.jump a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border:1px solid transparent}
+  nav.jump a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{margin-top:46px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:rgba(124,156,255,.12);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .pill.step{color:var(--accent2);background:rgba(91,224,179,.12)}
+  h2{font-size:25px;margin:6px 0 14px;letter-spacing:-.3px}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  h4{font-size:16px;margin:18px 0 6px;color:var(--accent2)}
+  p{margin:10px 0}ul,ol{margin:10px 0;padding-left:22px}li{margin:5px 0}
+  .step-divider{display:flex;align-items:center;gap:14px;margin:60px 0 0}
+  .step-divider .bar{flex:1;height:1px;background:var(--line)}
+  .step-divider .lbl{color:var(--muted);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--panel2);padding:14px 18px;border-radius:8px;margin:16px 0}
+  .callout.warn{border-color:var(--warn)}.callout.danger{border-color:var(--danger)}
+  .callout .t{font-weight:700;margin-bottom:4px}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel2);padding:2px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.55;display:block;color:#cdd6f4}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .diagram{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto}
+  .diagram pre{background:none;border:none;margin:0;padding:0;color:#9fb4ff;font-size:12.5px;line-height:1.45}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+  .flip{perspective:1200px;height:170px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.flipped .flip-in{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);padding:16px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .flip-front{background:var(--panel2);font-weight:600}
+  .flip-back{background:linear-gradient(160deg,#1c2738,#15202e);transform:rotateY(180deg);color:#d7e4ff;font-size:14px;line-height:1.5}
+  .flip .hint{position:absolute;bottom:8px;right:12px;font-size:10.5px;color:var(--muted);font-weight:400}
+  .q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .q .qn{font-weight:600;margin-bottom:6px}
+  .reveal-btn{background:var(--panel2);color:var(--accent);border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+  .reveal-btn:hover{background:#222838}
+  .answer{display:none;margin-top:10px;border-left:3px solid var(--accent2);background:rgba(91,224,179,.07);padding:10px 14px;border-radius:6px;font-size:14.5px}
+  .answer.show{display:block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .toolbar button{background:var(--accent);color:#0b0d13;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .toolbar button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .sched td:first-child{white-space:nowrap;font-weight:600;color:var(--accent2)}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .kbd{font-size:12px;color:var(--muted)}
+  a.inlink{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Building a Form Builder in Laravel (Typeform-style)</h1>
+  <p class="sub">Forms as data-driven schemas, dynamic rendering, server-side validation generated from the schema, submission storage, conditional logic, and spam protection — the Laravel architecture behind a form builder.</p>
+  <div class="badges">
+    <span class="badge">Level: Professional</span>
+    <span class="badge">Laravel 11/12 · PHP 8.2+</span>
+    <span class="badge">8-Principle Method</span>
+    <span class="badge">~80 min first pass</span>
+  </div>
+</header>
+<nav class="jump"><div class="inner">
+    <a href="#p1">Map</a>
+    <a href="#p2">Clear</a>
+    <a href="#p3">Different</a>
+    <a href="#p4">Short</a>
+    <a href="#p5">Test</a>
+    <a href="#p6">Wait</a>
+    <a href="#p7">Mix</a>
+    <a href="#p8">Don't</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#glossary">Glossary</a>
+</div></nav>
+<div class="wrap">
+<div class="step-divider"><span class="lbl">Step 1 — Understanding</span><span class="bar"></span></div>
+<section id="p1">
+  <span class="pill">Principle 1 — Map of the System</span>
+  <h2>How a form builder fits together</h2>
+  <p>A form builder is a <strong>data-driven schema that generates UI, validation, and storage at runtime</strong>. The pressure: forms are defined by users (not developers), so fields are <em>data</em>; the same schema must render the form, validate submissions server-side, and shape how responses are stored and reported.</p>
+  <div class="diagram"><pre>User (form creator)
+ └─ Form (schema = ordered fields as JSON/rows)
+     ├─ Fields (type, label, required, options, rules, logic)
+     └─ Submissions (answers keyed by field)
+          └─ used for export, aggregation, webhooks
+ Public respondent ──► fills + submits ──► validated against schema</pre></div>
+  <p>The defining action — a submission — is validated against the schema, not hard-coded rules:</p>
+  <div class="diagram"><pre>Respondent submits answers
+   │
+   ▼ load form schema (fields + rules)
+   ▼ build validation rules dynamically from schema
+   ▼ validate ; on fail → errors keyed by field
+   │ on pass
+   ▼ store Submission (answers) ; fire webhooks/notifications (queued)
+   ▼ spam checks (honeypot, rate limit, captcha)</pre></div>
+  <ul><li><strong>Schema model</strong> — fields as data (type, options, required, validation, conditional logic).</li><li><strong>Dynamic validation</strong> — translate the schema into Laravel validation rules at request time.</li><li><strong>Submission storage</strong> — JSON answers vs normalized, and how that affects reporting.</li><li><strong>Logic & protection</strong> — conditional show/hide and spam defences.</li></ul>
+  <div class="callout"><div class="t">The mental model in one sentence</div>A form builder is a <em>runtime interpreter of a user-defined schema</em>: one schema drives rendering, validation, and storage. The hard part is generating trustworthy server-side validation from data.</div>
+</section>
+
+<section id="p2">
+  <span class="pill">Principle 2 — Clear Explanations</span>
+  <h2>The concepts, defined precisely</h2>
+  <h3>Fields are data, not code</h3>
+  <p>Each <strong>field</strong> is a record: <code>type</code> (text/email/select/checkbox/file/number/date), <code>label</code>, <code>required</code>, <code>options</code> (for choices), and <code>validation</code> rules. Store fields as ordered rows or a JSON array on the form. The application <em>interprets</em> this schema; it never hard-codes a specific form.</p>
+  <h3>Generating validation from the schema</h3>
+  <p>The critical security point: <strong>never trust the client</strong>. On submit, load the schema and <strong>build Laravel validation rules dynamically</strong> — e.g. a required email field becomes <code>['answers.fld_3' => 'required|email']</code>. Validation must derive from the server-side schema, not from client-sent rules, or attackers bypass it.</p>
+  <h3>Submission storage: JSON vs normalized</h3>
+  <p>Two patterns. <strong>JSON answers</strong>: one <code>submissions</code> row with an <code>answers</code> JSON keyed by field id — simple, flexible, but harder to aggregate/query per field. <strong>Normalized</strong>: an <code>answers</code> table (submission_id, field_id, value) — easier per-field reporting, more rows/joins. JSON is the common default; add normalization or a reporting projection when analytics demand it.</p>
+  <h3>Field identity and schema evolution</h3>
+  <p>Forms change over time. Key answers by a <strong>stable field id</strong> (not label or position), so renaming a field or reordering doesn't orphan past responses. Consider versioning the schema so a submission records which schema version it answered.</p>
+  <h3>Conditional logic</h3>
+  <p>Fields can show/hide based on earlier answers ('if country = US, show state'). Store logic as data (conditions referencing field ids). The client uses it for UX, but the server must <strong>re-evaluate</strong> it during validation — only require/accept fields that should be visible given the submitted answers.</p>
+  <h3>File uploads</h3>
+  <p>File fields need validated mime/size, storage on a disk (S3), and the stored path/URL recorded in the answer. Stream large files, scan if needed, and use signed/temporary URLs so responses aren't publicly guessable.</p>
+  <h3>Spam & abuse protection</h3>
+  <p>Public forms attract bots. Layer defences: a <strong>honeypot</strong> field (hidden; if filled, drop), <strong>rate limiting</strong> per IP, optional CAPTCHA, and timing checks. Keep them server-side; client-only checks are trivially bypassed.</p>
+  <div class="callout danger"><div class="t">Most common misconception</div>Trusting client-sent validation rules (or validating only in the browser) is the classic form-builder vulnerability. Always rebuild and run validation from the server-side schema on every submission.</div>
+</section>
+
+<section id="p3">
+  <span class="pill">Principle 3 — Different Media</span>
+  <h2>The same ideas, four ways</h2>
+  <h4>One-line summary</h4>
+  <p>A form builder stores forms as field schemas, interprets them at runtime to render UI and to generate server-side validation, then stores submissions keyed by stable field ids — with conditional logic re-evaluated and spam filtered on the server.</p>
+  <h4>Analogy — the recipe card</h4>
+  <p>A form is a <strong>recipe card</strong> (the schema) that the kitchen (server) follows to both cook (render) and inspect the dish (validate). You'd never let a diner hand you their own inspection checklist (client-sent rules) — the kitchen keeps the authoritative recipe. Ingredients are labelled by a fixed code, not their position on the card, so reordering the recipe doesn't ruin past meals (stable field ids). Some steps only apply under conditions ('if vegetarian, skip the stock') — and the kitchen re-checks those conditions itself.</p>
+  <h4>Comparison — submission storage</h4>
+  <table><thead><tr><th>Storage</th><th>Flexibility</th><th>Per-field reporting</th><th>When</th></tr></thead><tbody><tr><td>JSON answers column</td><td>High</td><td>Harder (JSON paths)</td><td>Default; most forms</td></tr><tr><td>Normalized answers table</td><td>Medium</td><td>Easy (group by field)</td><td>Analytics-heavy forms</td></tr><tr><td>JSON + reporting projection</td><td>High</td><td>Easy</td><td>Scale: write JSON, project for BI</td></tr></tbody></table>
+  <h4>Diagram — schema drives everything</h4>
+  <div class="diagram"><pre>           ┌──────────────┐
+           │  Form Schema │ (fields as data)
+           └──────┬───────┘
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+     Render   Validate   Store/shape
+      UI      (server)   submissions</pre></div>
+</section>
+
+<section id="p4">
+  <span class="pill">Principle 4 — Short Lessons</span>
+  <h2>Bite-sized micro-lessons</h2>
+  <p>Each lesson is one idea. Code illustrative.</p>
+  <h3>Lesson 1 — Model fields as data</h3>
+  <pre><code>// fields: id, form_id, type, label, required, options(json), rules(json), logic(json), position
+class Field extends Model {
+    protected $casts = ['options'=&gt;'array','rules'=&gt;'array','logic'=&gt;'array','required'=&gt;'boolean'];
+}</code></pre>
+  <h3>Lesson 2 — Build validation from the schema</h3>
+  <pre><code>public function rulesFor(Form $form, array $visible): array {
+    $rules = [];
+    foreach ($form-&gt;fields as $f) {
+        if (!in_array($f-&gt;id, $visible)) continue; // hidden by logic
+        $r = [];
+        if ($f-&gt;required) $r[] = 'required';
+        if ($f-&gt;type === 'email') $r[] = 'email';
+        if ($f-&gt;type === 'number') $r[] = 'numeric';
+        $rules["answers.{$f-&gt;id}"] = array_merge($r, $f-&gt;rules ?? []);
+    }
+    return $rules;
+}</code></pre>
+  <h3>Lesson 3 — Validate then store</h3>
+  <pre><code>public function submit(Request $r, Form $form) {
+    $visible = $this-&gt;resolveVisibleFields($form, $r-&gt;input('answers', []));
+    $data = $r-&gt;validate($this-&gt;rulesFor($form, $visible));
+    $form-&gt;submissions()-&gt;create(['answers'=&gt;$data['answers']]);
+    DispatchWebhooks::dispatch($form, $data['answers']); // queued
+}</code></pre>
+  <h3>Lesson 4 — Re-evaluate conditional logic server-side</h3>
+  <pre><code>function resolveVisibleFields(Form $form, array $answers): array {
+    return $form-&gt;fields-&gt;filter(function ($f) use ($answers) {
+        foreach ($f-&gt;logic ?? [] as $cond) {
+            if (($answers[$cond['field']] ?? null) !== $cond['equals']) return false;
+        }
+        return true;
+    })-&gt;pluck('id')-&gt;all();
+}</code></pre>
+  <h3>Lesson 5 — Key answers by stable field id</h3>
+  <pre><code>// answers: { "fld_8f3": "Alice", "fld_2a1": "US" }
+// renaming the label or reordering does NOT change the key → past responses stay valid</code></pre>
+  <h3>Lesson 6 — Honeypot + rate limit</h3>
+  <pre><code>// honeypot: a hidden field bots fill
+if ($r-&gt;filled('website_url')) abort(422); // drop silently
+RateLimiter::attempt('form:'.$form-&gt;id.':'.$r-&gt;ip(), 5, fn() =&gt; true, 60)
+    or abort(429, 'Too many submissions.');</code></pre>
+  <h3>Lesson 7 — File answers store a path</h3>
+  <pre><code>if ($f-&gt;type === 'file') {
+    $path = $r-&gt;file("answers.{$f-&gt;id}")-&gt;store('responses','s3');
+    $answers[$f-&gt;id] = ['path'=&gt;$path]; // serve later via temporary signed URL
+}</code></pre>
+</section>
+
+<div class="step-divider"><span class="lbl">Step 2 — Automaticity</span><span class="bar"></span></div>
+<section id="p5">
+  <span class="pill step">Principle 5 — Test Yourself</span>
+  <h2>Retrieval-practice quiz</h2>
+  <p>Answer before revealing.</p>
+  <div class="toolbar"><button onclick="revealAll('p5',true)">Show all answers</button><button class="ghost" onclick="revealAll('p5',false)">Hide all</button></div><div class="q" data-sec="p5"><div class="qn">Q1. Why are form fields modelled as data rather than code?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Forms are defined by users, not developers. Storing fields as records/JSON lets one application interpret any form — rendering, validating, and storing — without code changes per form.</div></div><div class="q" data-sec="p5"><div class="qn">Q2. Where must validation rules come from, and why?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">From the server-side schema, rebuilt on each submission — never from client-sent rules or browser-only checks. Otherwise an attacker simply omits or alters the rules and bypasses validation.</div></div><div class="q" data-sec="p5"><div class="qn">Q3. Compare JSON vs normalized submission storage.</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">JSON answers (one row, keyed by field id) is simple and flexible but harder to aggregate per field. A normalized answers table eases per-field reporting at the cost of rows/joins. JSON is the default; add normalization/projection for analytics.</div></div><div class="q" data-sec="p5"><div class="qn">Q4. Why key answers by a stable field id instead of label or position?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">So renaming a field or reordering the form doesn't orphan or misalign past responses. The id is the durable identity; labels and positions change.</div></div><div class="q" data-sec="p5"><div class="qn">Q5. How must conditional (show/hide) logic be handled on the server?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Re-evaluate it during validation: determine which fields should be visible given the submitted answers, and only require/accept those. Client-side logic is UX only and untrusted.</div></div><div class="q" data-sec="p5"><div class="qn">Q6. Name three server-side spam defences for a public form.</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Honeypot field (drop if filled), per-IP rate limiting, and optional CAPTCHA/timing checks. All enforced server-side; client-only checks are trivially bypassed.</div></div><div class="q" data-sec="p5"><div class="qn">Q7. How are file uploads handled in answers?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Validate mime/size, store on a disk (e.g. S3), record the path in the answer, and serve later via temporary signed URLs so responses aren't publicly guessable.</div></div>
+  <h3>Code drill — server validation can't be bypassed (Pest)</h3>
+  <pre><code>it('rejects a submission missing a required field regardless of client', function () {
+    $form = Form::factory()-&gt;withField(['type'=&gt;'email','required'=&gt;true,'id'=&gt;'fld_e'])-&gt;create();
+    $this-&gt;postJson("/f/{$form-&gt;id}", ['answers'=&gt;[]])
+        -&gt;assertStatus(422)-&gt;assertJsonValidationErrors('answers.fld_e');
+});</code></pre>
+</section>
+
+<section id="p6">
+  <span class="pill step">Principle 6 — Wait to Review</span>
+  <h2>Spaced-repetition schedule</h2>
+  <p>Re-do the quiz from memory; redraw 'schema drives everything' each session.</p>
+  <table><thead><tr><th>When</th><th>Session (~10–15 min)</th><th>Goal</th></tr></thead><tbody><tr><td>Day 0</td><td>Read packet; quiz with answers open.</td><td>Build the model.</td></tr><tr><td>Day 1</td><td>Quiz closed-book; restate schema→validation flow.</td><td>First retrieval.</td></tr><tr><td>Day 3</td><td>Flashcards; explain JSON vs normalized aloud.</td><td>Strengthen.</td></tr><tr><td>Day 7</td><td>Interleaved quiz; write rulesFor() from blank.</td><td>Mix contexts.</td></tr><tr><td>Day 16</td><td>Re-derive stable-field-id reasoning.</td><td>Widen interval.</td></tr><tr><td>Day 35</td><td>Teach server-side logic re-evaluation to someone.</td><td>Consolidate.</td></tr><tr><td>Day 70</td><td>Closed-book interleaved pass; misses restart Day 1.</td><td>Long-term.</td></tr></tbody></table>
+  <div class="callout"><div class="t">Why the gaps grow</div>Retrieving just before you'd forget produces the strongest gain.</div>
+</section>
+
+<section id="p7">
+  <span class="pill step">Principle 7 — Mix It Up</span>
+  <h2>Interleaved quiz</h2>
+  <p>Topics shuffled to train choosing the right idea.</p>
+  <div class="toolbar"><button onclick="revealAll('p7',true)">Show all answers</button><button class="ghost" onclick="revealAll('p7',false)">Hide all</button></div><div class="q" data-sec="p7"><div class="qn">M1. A pentester submits invalid data by editing the page and it saves. Root cause?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Validation was client-side or trusted client-sent rules. Rebuild validation from the server schema on every submission so the browser can't be the authority.</div></div><div class="q" data-sec="p7"><div class="qn">M2. After a form owner renamed a field, old responses show blanks for it. Why and fix?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Answers were keyed by label/position, which changed. Key answers by a stable field id (and version the schema) so renames/reorders don't orphan data.</div></div><div class="q" data-sec="p7"><div class="qn">M3. Analytics on a single question are painfully slow with JSON storage. Options?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Query JSON paths with an index/generated column, or maintain a normalized answers table / reporting projection populated on submit for per-field aggregation.</div></div><div class="q" data-sec="p7"><div class="qn">M4. A 'state' field is required even when the user picked a non-US country. Bug?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Conditional logic not re-evaluated server-side — the field should be hidden (and not required) given the answers. Compute visible fields from submitted answers before validating.</div></div><div class="q" data-sec="p7"><div class="qn">M5. Bots are flooding a public form. First, cheapest defences?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Add a honeypot field (drop if filled) and per-IP rate limiting; escalate to CAPTCHA/timing checks if needed. All server-side.</div></div><div class="q" data-sec="p7"><div class="qn">M6. When is a normalized answers table worth the extra complexity?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">When per-field reporting/aggregation/filtering is a core feature at scale, where JSON-path queries become too slow. For most forms, JSON answers (optionally with a projection) are simpler and enough.</div></div>
+</section>
+
+<section id="p8">
+  <span class="pill step">Principle 8 — Don't Stop</span>
+  <h2>Overlearning plan</h2>
+  <ul><li><strong>Build validation two ways</strong> — trusting client rules vs rebuilding from schema — and exploit the first to feel why the second is mandatory.</li><li><strong>Break field identity on purpose</strong> — key answers by label, rename a field, watch responses orphan.</li><li><strong>Write the bypass tests first</strong>: missing required, hidden-field injection, honeypot tripped.</li><li><strong>Add multi-page forms</strong> with partial saves and resume tokens.</li><li><strong>Stretch goals:</strong> answer-piping/personalization, calculated fields, webhook + Zapier delivery, response analytics dashboard, and schema versioning per submission.</li></ul>
+</section>
+
+
+<section id="cards">
+  <span class="pill step">Active Recall — Flashcards</span>
+  <h2>Click a card to flip</h2>
+  <p class="kbd">Prompt on the front, answer on the back. Say your answer before flipping.</p>
+  <div class="cards-grid" id="flashcards"></div>
+</section>
+<section id="glossary">
+  <span class="pill">Reference — Glossary</span>
+  <h2>Key terms</h2>
+  <table><tbody>
+      <tr><td><strong>Form schema</strong></td><td>The set of fields (as data) defining a form.</td></tr>
+      <tr><td><strong>Field</strong></td><td>A typed input definition: type, label, required, options, rules, logic.</td></tr>
+      <tr><td><strong>Dynamic validation</strong></td><td>Validation rules generated from the schema at request time.</td></tr>
+      <tr><td><strong>Submission</strong></td><td>A respondent's set of answers to a form.</td></tr>
+      <tr><td><strong>Answers JSON</strong></td><td>Submission storage keyed by field id in one column.</td></tr>
+      <tr><td><strong>Normalized answers</strong></td><td>A row-per-answer table for per-field reporting.</td></tr>
+      <tr><td><strong>Stable field id</strong></td><td>A durable key for an answer, independent of label/position.</td></tr>
+      <tr><td><strong>Conditional logic</strong></td><td>Rules showing/hiding fields based on other answers.</td></tr>
+      <tr><td><strong>Honeypot</strong></td><td>A hidden field used to catch bots.</td></tr>
+      <tr><td><strong>Rate limiting</strong></td><td>Capping submissions per IP/time window.</td></tr>
+      <tr><td><strong>Signed URL</strong></td><td>A temporary, authorized link to a stored file.</td></tr>
+      <tr><td><strong>Schema version</strong></td><td>A snapshot of the form structure a submission answered.</td></tr>
+  </tbody></table>
+</section>
+<footer>
+  <p>Study packet · 8-Principle Method · Building a Form Builder in Laravel (Typeform-style) · Professional level</p>
+  <p class="kbd">Self-contained. No external resources, no tracking, no browser storage — works offline on any device.</p>
+</footer>
+</div>
+<script>
+  function tog(btn){var a=btn.parentElement.querySelector('.answer');var on=a.classList.toggle('show');btn.textContent=on?'Hide answer':'Reveal answer';}
+  function revealAll(sec,show){document.querySelectorAll('.q[data-sec="'+sec+'"]').forEach(function(q){var a=q.querySelector('.answer'),b=q.querySelector('.reveal-btn');if(show){a.classList.add('show');b.textContent='Hide answer';}else{a.classList.remove('show');b.textContent='Reveal answer';}});}
+  var CARDS=[["What a form builder fundamentally is","A runtime interpreter of a user-defined field schema driving render, validation, and storage."],["Why fields are data not code","Users define forms; one app interprets any schema without per-form code."],["Where validation rules must come from","The server-side schema, rebuilt every submission — never client-sent rules or browser-only checks."],["The classic security flaw","Trusting client validation; attackers omit/alter rules to bypass it."],["JSON vs normalized submissions","JSON: simple/flexible, harder per-field reporting. Normalized: easy reporting, more joins. JSON is default."],["Why key answers by stable field id","Renames/reorders don't orphan past responses; id is durable identity."],["Server-side conditional logic","Re-evaluate visibility from submitted answers; only require/accept fields that should show."],["Three spam defences","Honeypot field, per-IP rate limiting, CAPTCHA/timing — all server-side."],["File answer handling","Validate mime/size, store on S3, save path, serve via temporary signed URLs."],["Schema versioning","Record which schema version a submission answered so old data stays interpretable."],["Honeypot mechanism","A hidden field bots fill; if filled, silently drop the submission."],["Reporting projection pattern","Write JSON answers, project into a normalized/BI store for fast per-field analytics."]];
+  (function(){var grid=document.getElementById('flashcards');CARDS.forEach(function(c){var el=document.createElement('div');el.className='flip';el.innerHTML='<div class="flip-in"><div class="flip-face flip-front">'+c[0]+'<span class="hint">click ↻</span></div><div class="flip-face flip-back">'+c[1]+'<span class="hint">click ↻</span></div></div>';el.addEventListener('click',function(){el.classList.toggle('flipped');});grid.appendChild(el);});})();
+</script>
+</body>
+</html>

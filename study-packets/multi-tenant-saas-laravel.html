@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Packet — Building a Multi-Tenant SaaS in Laravel</title>
+<style>
+  :root{
+    --bg:#0f1117; --panel:#171a23; --panel2:#1d212c; --ink:#e6e9ef; --muted:#9aa3b2;
+    --accent:#7c9cff; --accent2:#5be0b3; --warn:#ffcc66; --danger:#ff7b72; --line:#2a2f3c;
+    --code:#0b0d13; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header.hero{
+    padding:64px 20px 40px;text-align:center;
+    background:radial-gradient(1200px 400px at 50% -120px,rgba(124,156,255,.18),transparent 70%);
+    border-bottom:1px solid var(--line);
+  }
+  header.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:-.5px}
+  header.hero .sub{color:var(--muted);max-width:680px;margin:0 auto;font-size:16px}
+  .badges{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);color:var(--muted);
+    padding:5px 12px;border-radius:999px;font-size:13px}
+  nav.jump{
+    position:sticky;top:0;z-index:20;background:rgba(15,17,23,.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);padding:10px 20px;
+  }
+  nav.jump .inner{max-width:920px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  nav.jump a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border:1px solid transparent}
+  nav.jump a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{margin-top:46px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--accent);background:rgba(124,156,255,.12);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .pill.step{color:var(--accent2);background:rgba(91,224,179,.12)}
+  h2{font-size:25px;margin:6px 0 14px;letter-spacing:-.3px}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  h4{font-size:16px;margin:18px 0 6px;color:var(--accent2)}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  .step-divider{display:flex;align-items:center;gap:14px;margin:60px 0 0}
+  .step-divider .bar{flex:1;height:1px;background:var(--line)}
+  .step-divider .lbl{color:var(--muted);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--panel2);padding:14px 18px;border-radius:8px;margin:16px 0}
+  .callout.warn{border-color:var(--warn)}
+  .callout.danger{border-color:var(--danger)}
+  .callout .t{font-weight:700;margin-bottom:4px}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel2);
+    padding:2px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.55;display:block;color:#cdd6f4}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .diagram{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto}
+  .diagram pre{background:none;border:none;margin:0;padding:0;color:#9fb4ff;font-size:12.5px;line-height:1.45}
+  /* flashcards */
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+  .flip{perspective:1200px;height:170px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.flipped .flip-in{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);
+    padding:16px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .flip-front{background:var(--panel2);font-weight:600}
+  .flip-back{background:linear-gradient(160deg,#1c2738,#15202e);transform:rotateY(180deg);color:#d7e4ff;font-size:14px;line-height:1.5}
+  .flip .hint{position:absolute;bottom:8px;right:12px;font-size:10.5px;color:var(--muted);font-weight:400}
+  /* quiz */
+  .q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .q .qn{font-weight:600;margin-bottom:6px}
+  .q .opts{color:var(--muted);font-size:14.5px;margin:6px 0}
+  .reveal-btn{background:var(--panel2);color:var(--accent);border:1px solid var(--line);
+    padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+  .reveal-btn:hover{background:#222838}
+  .answer{display:none;margin-top:10px;border-left:3px solid var(--accent2);background:rgba(91,224,179,.07);
+    padding:10px 14px;border-radius:6px;font-size:14.5px}
+  .answer.show{display:block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .toolbar button{background:var(--accent);color:#0b0d13;border:none;padding:8px 14px;border-radius:8px;
+    cursor:pointer;font-weight:700;font-size:13px}
+  .toolbar button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .sched td:first-child{white-space:nowrap;font-weight:600;color:var(--accent2)}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .kbd{font-size:12px;color:var(--muted)}
+  a.inlink{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Building a Multi-Tenant SaaS in Laravel</h1>
+  <p class="sub">A complete study packet built on eight evidence-based learning principles — from tenancy architecture decisions through data isolation, tenant-aware queues, billing, and testing. Understand it, then make it stick.</p>
+  <div class="badges">
+    <span class="badge">Level: Professional</span>
+    <span class="badge">Laravel 11/12 · PHP 8.2+</span>
+    <span class="badge">8-Principle Method</span>
+    <span class="badge">~90–120 min first pass</span>
+  </div>
+</header>
+
+<nav class="jump">
+  <div class="inner">
+    <a href="#p1">1 · Map</a>
+    <a href="#p2">2 · Explain</a>
+    <a href="#p3">3 · Media</a>
+    <a href="#p4">4 · Lessons</a>
+    <a href="#p5">5 · Test</a>
+    <a href="#p6">6 · Spacing</a>
+    <a href="#p7">7 · Interleave</a>
+    <a href="#p8">8 · Overlearn</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#glossary">Glossary</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<div class="step-divider"><span class="lbl">Step 1 — Understanding</span><span class="bar"></span></div>
+
+<!-- ============ PRINCIPLE 1 ============ -->
+<section id="p1">
+  <span class="pill">Principle 1 — Map of the System</span>
+  <h2>How a multi-tenant SaaS fits together</h2>
+  <p><strong>Multi-tenancy</strong> means one running application serves many isolated customers (<em>tenants</em>) from shared infrastructure. The whole discipline reduces to one question repeated at every layer: <em>"whose data is this, and how do I guarantee it never leaks to another tenant?"</em></p>
+
+  <p>Every request flows through the same pipeline. The job of a tenancy system is to <strong>identify the tenant early</strong>, <strong>bootstrap a tenant context</strong>, and then make every downstream component — DB, cache, files, queues, mail — automatically scoped to that tenant.</p>
+
+  <div class="diagram">
+<pre>
+                 ┌──────────────────────────────────────────────┐
+   HTTP request  │  1. IDENTIFY     subdomain / domain / path /  │
+   ───────────►  │     TENANT       header / JWT claim           │
+                 └───────────────┬──────────────────────────────┘
+                                 ▼
+                 ┌──────────────────────────────────────────────┐
+                 │  2. BOOTSTRAP    swap DB connection, cache     │
+                 │     CONTEXT      prefix, filesystem root,      │
+                 │                  config, route key             │
+                 └───────────────┬──────────────────────────────┘
+                                 ▼
+   ┌───────────────┐   ┌───────────────┐   ┌────────────────────┐
+   │ CENTRAL DB    │   │  TENANT DB(s)  │   │ Per-tenant cache,  │
+   │ tenants,      │   │  app data,     │   │ storage, queue     │
+   │ domains,      │   │  isolated      │   │ payloads carry     │
+   │ subscriptions │   │  per customer  │   │ tenant id          │
+   └───────────────┘   └───────────────┘   └────────────────────┘
+                                 ▼
+                 ┌──────────────────────────────────────────────┐
+                 │  3. TEARDOWN  forget context after response /  │
+                 │               between queued jobs              │
+                 └──────────────────────────────────────────────┘
+</pre>
+  </div>
+
+  <p>The four pieces you will keep returning to:</p>
+  <ul>
+    <li><strong>Tenancy model</strong> — row-level (shared DB + <code>tenant_id</code>), database-per-tenant, or schema-per-tenant. This single choice drives everything else.</li>
+    <li><strong>Tenant identification</strong> — the middleware that turns an incoming request into "this is tenant X".</li>
+    <li><strong>Context bootstrapping &amp; isolation</strong> — making connections, cache, storage, and queries respect the active tenant automatically, not by hand.</li>
+    <li><strong>Central concerns</strong> — the tenant registry, custom domains, billing/subscriptions, provisioning, and cross-tenant admin.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="t">The mental model in one sentence</div>
+    A tenancy package is mostly <em>middleware that mutates global state (connections, config, cache prefix) for the lifetime of one request or one job, then cleans up</em>. Get the lifecycle right and the rest is detail.
+  </div>
+</section>
+
+<!-- ============ PRINCIPLE 2 ============ -->
+<section id="p2">
+  <span class="pill">Principle 2 — Clear Explanations</span>
+  <h2>The concepts, defined precisely</h2>
+
+  <h3>Tenant, central, and the two databases</h3>
+  <p>A <strong>tenant</strong> is one customer account with its own users and data. The <strong>central database</strong> (sometimes "landlord") holds records that exist <em>above</em> any tenant: the <code>tenants</code> table, <code>domains</code>, plans, and subscriptions. A <strong>tenant database</strong> (or tenant rows) holds the application data that belongs to exactly one customer. The reason for splitting them: "which tenants exist" must be answerable <em>before</em> any tenant context is active.</p>
+
+  <h3>The three isolation models</h3>
+  <p><strong>Row-level (single database).</strong> Every tenant-owned table carries a <code>tenant_id</code> column. Isolation is enforced in software via a global query scope. Cheapest to operate, easiest to query across tenants, but a single missing scope leaks data — isolation is only as strong as your discipline.</p>
+  <p><strong>Database-per-tenant.</strong> Each tenant gets its own database; a middleware swaps the default connection per request. Strong isolation, simple per-tenant backup/restore and export, but migrations and connection management get heavier and "all tenants" analytics is awkward.</p>
+  <p><strong>Schema-per-tenant.</strong> One database server, one schema (PostgreSQL) per tenant. A middle ground — strong-ish isolation with shared server resources. Postgres-specific and operationally fiddly.</p>
+
+  <h3>Tenant identification</h3>
+  <p>Turning a request into a tenant. Common strategies, often combined:</p>
+  <ul>
+    <li><strong>Subdomain</strong> — <code>acme.app.com</code> → tenant "acme". The default for most SaaS.</li>
+    <li><strong>Custom domain</strong> — <code>app.acme.com</code> mapped in a <code>domains</code> table. Premium-tier feature.</li>
+    <li><strong>Path</strong> — <code>app.com/acme/...</code>. Avoids wildcard DNS/TLS but pollutes every route.</li>
+    <li><strong>Header / API key / JWT claim</strong> — for stateless APIs and machine-to-machine.</li>
+  </ul>
+
+  <h3>Context bootstrapping &amp; teardown</h3>
+  <p><strong>Bootstrapping</strong> is everything that must change once the tenant is known: point the default DB connection at the tenant DB (or activate the row-level scope), prefix the cache store, root the filesystem disk under the tenant, and rebind tenant-specific config. <strong>Teardown</strong> reverses it. Teardown matters most in <em>long-lived processes</em> — Octane workers and queue workers reuse the same PHP process across many requests/jobs, so a forgotten reset means tenant B inherits tenant A's connection. This is the number-one source of cross-tenant bugs.</p>
+
+  <div class="callout danger">
+    <div class="t">The bug that defines the domain</div>
+    Cross-tenant data leakage. It happens when (a) a query runs without the tenant scope, or (b) context from a previous request/job is not torn down in a reused worker process. Treat both as security incidents, not bugs.
+  </div>
+
+  <h3>Provisioning</h3>
+  <p>Creating a tenant is a workflow, not an <code>INSERT</code>: write the central record, create the database (DB-per-tenant) or seed baseline rows, run tenant migrations, create the admin user, register the domain, and start the subscription/trial. Long and failure-prone — it belongs in a queued, idempotent job.</p>
+</section>
+
+<!-- ============ PRINCIPLE 3 ============ -->
+<section id="p3">
+  <span class="pill">Principle 3 — Different Media</span>
+  <h2>The same ideas, four ways</h2>
+
+  <h4>Summary</h4>
+  <p>A tenancy system identifies the tenant from the request, bootstraps a per-tenant context (DB, cache, storage), enforces isolation automatically, and tears the context down afterward. Pick the isolation model first; everything else follows from it.</p>
+
+  <h4>Analogy — the apartment building</h4>
+  <p>The <strong>building</strong> is your app; <strong>tenants</strong> are residents. <strong>Row-level</strong> is a shared loft where everyone's belongings sit in one room with name tags (<code>tenant_id</code>) — cheap, but mislabel one box and a stranger gets your stuff. <strong>Database-per-tenant</strong> gives each resident a locked apartment — strong walls, but the building manager needs a key ring (connection management) and must repair every unit separately (per-tenant migrations). The <strong>doorman</strong> is your identification middleware: he reads the name on the door (subdomain) and routes you to the right unit. The danger is a doorman who forgets to lock the previous apartment before opening the next — that is missing teardown in a reused worker.</p>
+
+  <h4>Comparison table — choosing an isolation model</h4>
+  <table>
+    <thead><tr><th>Dimension</th><th>Row-level (shared DB)</th><th>Database-per-tenant</th><th>Schema-per-tenant</th></tr></thead>
+    <tbody>
+      <tr><td>Isolation strength</td><td>Software only (weakest)</td><td>Strong</td><td>Strong-ish</td></tr>
+      <tr><td>Operating cost</td><td>Lowest</td><td>Highest</td><td>Medium</td></tr>
+      <tr><td>Cross-tenant analytics</td><td>Easy (one query)</td><td>Hard (loop/ETL)</td><td>Hard</td></tr>
+      <tr><td>Per-tenant backup/export</td><td>Hard (filtered dump)</td><td>Easy (dump the DB)</td><td>Medium</td></tr>
+      <tr><td>Migration cost</td><td>Once</td><td>×N tenants</td><td>×N tenants</td></tr>
+      <tr><td>Blast radius of a bug</td><td>All tenants</td><td>One tenant</td><td>One tenant</td></tr>
+      <tr><td>Best for</td><td>Many small tenants, B2C-ish</td><td>Fewer, larger, compliance-sensitive tenants</td><td>Postgres shops wanting a middle ground</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Diagram — the two-database split</h4>
+  <div class="diagram">
+<pre>
+  CENTRAL (always reachable)          TENANT (active only inside context)
+  ┌─────────────────────────┐        ┌─────────────────────────┐
+  │ tenants    id, data      │        │ users                    │
+  │ domains    domain→tenant │  swap  │ projects                 │
+  │ plans                    │ ─────► │ invoices                 │
+  │ subscriptions            │        │ ...all app tables        │
+  └─────────────────────────┘        └─────────────────────────┘
+        ▲ queried to FIND tenant            ▲ queried AFTER bootstrap
+</pre>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLE 4 ============ -->
+<section id="p4">
+  <span class="pill">Principle 4 — Short Lessons</span>
+  <h2>Bite-sized micro-lessons</h2>
+  <p class="kbd">Each lesson is one idea you can hold in your head. Build mentally as you read; the code is illustrative, not copy-paste production.</p>
+
+  <h3>Lesson 1 — Decide the isolation model before writing code</h3>
+  <p>This is an architecture decision, not a coding one. Ask: How many tenants? How large each? Compliance requirements (data residency, "delete my data")? Need for cross-tenant reporting? Default for most B2B SaaS: <strong>database-per-tenant</strong> for isolation, or <strong>row-level</strong> when you expect thousands of small tenants and need easy aggregate analytics. Packages: <a class="inlink" href="#">stancl/tenancy</a> (most popular, supports both) or <a class="inlink" href="#">spatie/laravel-multitenancy</a> (lean, opinionated).</p>
+
+  <h3>Lesson 2 — Identify the tenant in middleware, early</h3>
+  <p>Identification must run before any tenant query. Resolve from the request, then initialize the tenant.</p>
+  <pre><code>// routes/web.php — tenant routes grouped behind identification
+Route::middleware([
+    InitializeTenancyByDomain::class,   // resolve tenant from host
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::get('/', DashboardController::class);
+});
+
+// Conceptually, the middleware does:
+$tenant = Tenant::on('central')->whereHas('domains',
+    fn ($q) => $q->where('domain', $request->getHost()))->firstOrFail();
+tenancy()->initialize($tenant);   // bootstrap context (Lesson 3)</code></pre>
+
+  <h3>Lesson 3 — Bootstrapping swaps global state</h3>
+  <p>Initializing a tenant runs a set of <em>bootstrappers</em>. Each mutates one global concern:</p>
+  <ul>
+    <li><strong>Database</strong> — set the default connection to the tenant DB (or fill the <code>tenant</code> connection's <code>database</code> name).</li>
+    <li><strong>Cache</strong> — prefix every key with the tenant id so <code>Cache::get('stats')</code> can't collide.</li>
+    <li><strong>Filesystem</strong> — root the <code>local</code>/<code>public</code> disk at <code>storage/tenant{id}/</code>.</li>
+    <li><strong>Queue</strong> — inject the tenant id into every dispatched job's payload.</li>
+  </ul>
+  <pre><code>// Spatie style: a task implementing TenancyBootstrapper
+public function bootstrap(Tenant $tenant): void {
+    config(['cache.prefix' => 'tenant_'.$tenant->id]);
+    Cache::forgetDriver(config('cache.default')); // rebuild with new prefix
+}
+public function revert(): void { /* restore central prefix */ }</code></pre>
+
+  <h3>Lesson 4 — Enforce row-level isolation with a global scope</h3>
+  <p>In the row-level model, never hand-write <code>where('tenant_id', …)</code>. Attach it once, globally, so it's impossible to forget.</p>
+  <pre><code>trait BelongsToTenant {
+    protected static function bootBelongsToTenant(): void {
+        static::creating(fn ($m) => $m->tenant_id ??= tenant()->id);
+        static::addGlobalScope('tenant', function (Builder $b) {
+            if (tenancy()->initialized) {
+                $b->where($b->getModel()->getTable().'.tenant_id', tenant()->id);
+            }
+        });
+    }
+}</code></pre>
+  <div class="callout warn">
+    <div class="t">Watch the gaps a global scope can't cover</div>
+    <code>whereHas</code> on a non-scoped relation, raw queries, <code>DB::table()</code> (bypasses Eloquent entirely), and <code>firstOrCreate</code> race conditions. Add a unique index on <code>(tenant_id, …)</code> as a database-level backstop.
+  </div>
+
+  <h3>Lesson 5 — Migrations: central vs tenant</h3>
+  <p>Keep two migration paths. <code>database/migrations/</code> for central tables; <code>database/migrations/tenant/</code> for per-tenant schema. Run tenant migrations across all tenants — and make new-tenant provisioning run them automatically.</p>
+  <pre><code>php artisan migrate                 # central
+php artisan tenants:migrate         # loop every tenant's DB (stancl)
+php artisan tenants:migrate --tenants=acme   # one tenant</code></pre>
+
+  <h3>Lesson 6 — Make queues tenant-aware</h3>
+  <p>A queued job runs later, in a different process, with <em>no</em> tenant context. You must carry the tenant id in the payload and re-initialize on the worker — and tear down after, because the worker process is reused for the next job (which may be another tenant or a central job).</p>
+  <pre><code>// stancl tags jobs automatically when dispatched in tenant context,
+// and a QueueTenancyBootstrapper re-initializes + reverts per job.
+// Manual pattern if rolling your own:
+class GenerateInvoice implements ShouldQueue {
+    public function __construct(public int $tenantId, public int $invoiceId) {}
+    public function handle(): void {
+        tenancy()->initialize(Tenant::find($this->tenantId));
+        try { /* ... tenant-scoped work ... */ }
+        finally { tenancy()->end(); } // ALWAYS revert
+    }
+}</code></pre>
+
+  <h3>Lesson 7 — Isolate cache, storage, and mail too</h3>
+  <p>Data isolation isn't only the DB. A shared cache key, a shared storage path, or a queued mail rendered in the wrong context all leak. Cache: tenant-prefixed (Lesson 3). Storage: tenant-rooted disk, and never serve another tenant's files via a guessable URL — generate signed/temporary URLs. Mail: render inside tenant context so branding, locale, and "from" address are correct.</p>
+
+  <h3>Lesson 8 — Billing &amp; subscriptions live centrally</h3>
+  <p>Subscriptions belong to the tenant record in the <strong>central</strong> DB (you must bill a suspended tenant whose tenant DB you might have archived). Use <strong>Laravel Cashier</strong> (Stripe/Paddle) on the <code>Tenant</code> model. Gate access by subscription state in middleware: past-due → grace banner; canceled → read-only or lockout. Handle webhooks centrally (no tenant context) and map the customer back to a tenant.</p>
+
+  <h3>Lesson 9 — Provision tenants with an idempotent job</h3>
+  <pre><code>class CreateTenant implements ShouldQueue {
+    public function handle(): void {
+        $tenant = Tenant::create([...]);          // central row
+        $tenant->domains()->create(['domain'=>...]);
+        $tenant->run(function () {                 // inside tenant context
+            Artisan::call('migrate', ['--path'=>'database/migrations/tenant']);
+            User::create([...]);                  // admin
+            (new SeedDefaults)->__invoke();
+        });
+        $tenant->newSubscription('default', $priceId)->trialDays(14)->create();
+    }
+}</code></pre>
+
+  <h3>Lesson 10 — Test isolation as a first-class concern</h3>
+  <p>Your most important test is not "feature works" — it's "tenant B cannot see tenant A's data". Write that test before the feature. (Code in Principle 5.)</p>
+</section>
+
+<div class="step-divider"><span class="lbl">Step 2 — Automaticity</span><span class="bar"></span></div>
+
+<!-- ============ PRINCIPLE 5 ============ -->
+<section id="p5">
+  <span class="pill step">Principle 5 — Test Yourself</span>
+  <h2>Retrieval-practice quiz</h2>
+  <p>Answer out loud or on paper <em>before</em> revealing. Recall effort is what builds memory — peeking early wastes the rep.</p>
+
+  <div class="toolbar">
+    <button onclick="revealAll('p5',true)">Show all answers</button>
+    <button class="ghost" onclick="revealAll('p5',false)">Hide all</button>
+  </div>
+
+  <div class="q" data-sec="p5">
+    <div class="qn">Q1. You choose database-per-tenant. Name the two operational costs you've just signed up for.</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">(1) Migrations now run ×N — every schema change loops over all tenant databases, and provisioning must migrate new tenants automatically. (2) Connection management + cross-tenant analytics become hard — "all tenants" reporting needs a loop or separate ETL, since there is no single table to aggregate.</div>
+  </div>
+
+  <div class="q" data-sec="p5">
+    <div class="qn">Q2. In a row-level model, why is a global query scope safer than adding <code>where('tenant_id', …)</code> in each query?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Because isolation then can't be forgotten. A per-query filter relies on every developer remembering it on every query forever; one omission leaks data across tenants. A global scope applies automatically to all Eloquent queries on the model. (Still back it with a DB unique index and watch raw/<code>DB::table</code> queries the scope can't reach.)</div>
+  </div>
+
+  <div class="q" data-sec="p5">
+    <div class="qn">Q3. Why does a queued job risk cross-tenant leakage even when your HTTP middleware is correct?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">The job runs later in a separate, long-lived worker process with no inherited tenant context. You must serialize the tenant id into the payload and re-initialize tenancy in <code>handle()</code> — and tear it down in a <code>finally</code> block, because the same worker process then picks up the next job (possibly a different tenant or a central job).</div>
+  </div>
+
+  <div class="q" data-sec="p5">
+    <div class="qn">Q4. Where do subscription/billing records live, and why there rather than in the tenant DB?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">In the central database, on the tenant record (via Cashier). You must be able to bill, suspend, or read the state of a tenant whose tenant database may be archived, locked, or not yet provisioned. Billing exists "above" the tenant, and Stripe/Paddle webhooks arrive with no tenant context.</div>
+  </div>
+
+  <div class="q" data-sec="p5">
+    <div class="qn">Q5. Beyond the database, name three resources that must be isolated per tenant, and the failure if you don't.</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">(1) <strong>Cache</strong> — without a per-tenant key prefix, <code>Cache::get('stats')</code> returns another tenant's value. (2) <strong>Filesystem/storage</strong> — without a tenant-rooted disk + signed URLs, files collide or are guessable across tenants. (3) <strong>Queued mail / rendered views</strong> — rendered in the wrong context they ship the wrong branding, locale, or data. (Also: full-text/search indexes, broadcasting channels.)</div>
+  </div>
+
+  <div class="q" data-sec="p5">
+    <div class="qn">Q6. Write (in words) the single most important test of a multi-tenant system.</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Create tenant A with a record; create tenant B; initialize B's context; assert the model query returns zero of A's records (and that fetching A's record by id from B throws/404s). Isolation is the property under test, not the feature.</div>
+  </div>
+
+  <h3>Code drill — the isolation test (Pest)</h3>
+  <pre><code>it('does not leak records across tenants', function () {
+    $a = Tenant::factory()->create();
+    $b = Tenant::factory()->create();
+
+    tenancy()->initialize($a);
+    Project::factory()->count(3)->create();
+    tenancy()->end();
+
+    tenancy()->initialize($b);
+    expect(Project::count())->toBe(0);          // B sees none of A's
+    tenancy()->end();
+});</code></pre>
+</section>
+
+<!-- ============ PRINCIPLE 6 ============ -->
+<section id="p6">
+  <span class="pill step">Principle 6 — Wait to Review</span>
+  <h2>Spaced-repetition schedule</h2>
+  <p>Understanding fades within days unless you retrieve it on a widening schedule. Each session below is short — re-do the Principle&nbsp;5 quiz from memory and re-derive the diagram in Principle&nbsp;1. Tick a box when done.</p>
+  <table class="sched">
+    <thead><tr><th>When</th><th>Session (≈10–15 min)</th><th>Goal</th></tr></thead>
+    <tbody>
+      <tr><td>Day 0</td><td>Read the full packet; do quiz once with answers open.</td><td>Build the model.</td></tr>
+      <tr><td>Day 1</td><td>Quiz closed-book. Re-draw the request → identify → bootstrap → teardown flow from memory.</td><td>First retrieval.</td></tr>
+      <tr><td>Day 3</td><td>Flashcards (all). Explain the three isolation models aloud, including cost trade-offs.</td><td>Strengthen.</td></tr>
+      <tr><td>Day 7</td><td>Interleaved quiz (Principle 7). Write the tenant-aware job from blank.</td><td>Mix contexts.</td></tr>
+      <tr><td>Day 16</td><td>Flashcards you missed + re-derive the global-scope trait from memory.</td><td>Widen interval.</td></tr>
+      <tr><td>Day 35</td><td>Teach it: explain the whole system to someone (or rubber duck) in 5 minutes.</td><td>Consolidate.</td></tr>
+      <tr><td>Day 70</td><td>Final closed-book pass on interleaved quiz. Anything missed → restart that item at Day 1.</td><td>Long-term.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><div class="t">Why the gaps grow</div>Retrieving just before you'd forget produces the strongest memory gain (the "desirable difficulty"). Easy, too-frequent review feels productive but builds little.</div>
+</section>
+
+<!-- ============ PRINCIPLE 7 ============ -->
+<section id="p7">
+  <span class="pill step">Principle 7 — Mix It Up</span>
+  <h2>Interleaved quiz</h2>
+  <p>Topics deliberately shuffled — identification, isolation, queues, billing, testing jump around so you practise <em>choosing</em> the right idea, not pattern-matching a section.</p>
+
+  <div class="toolbar">
+    <button onclick="revealAll('p7',true)">Show all answers</button>
+    <button class="ghost" onclick="revealAll('p7',false)">Hide all</button>
+  </div>
+
+  <div class="q" data-sec="p7">
+    <div class="qn">M1. A tenant on a custom domain <code>app.acme.com</code> reports they sometimes see a different company's dashboard after deploys. Octane is enabled. First hypothesis?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Missing teardown in the long-lived Octane worker — tenant context from a previous request bled into the next because the process is reused. Ensure tenancy is reverted between requests (Octane needs explicit context reset; verify the tenancy package's Octane integration/listener is registered).</div>
+  </div>
+
+  <div class="q" data-sec="p7">
+    <div class="qn">M2. You need a nightly "total revenue across all tenants" report. Which isolation model makes this easy, which makes it painful, and what's the workaround for the painful one?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Easy: row-level (one query, group by tenant). Painful: database-per-tenant — no single table to aggregate. Workaround: loop tenants and accumulate, or run an ETL that copies metrics into a central reporting store/warehouse.</div>
+  </div>
+
+  <div class="q" data-sec="p7">
+    <div class="qn">M3. <code>DB::table('projects')->get()</code> returns rows from all tenants in your row-level app despite the global scope. Why, and the fix?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer"><code>DB::table()</code> uses the query builder directly and bypasses Eloquent global scopes entirely. Fix: go through the Eloquent model, or if you must use the builder, add the <code>tenant_id</code> filter manually — and add a unique/composite index so the DB enforces tenant ownership where possible.</div>
+  </div>
+
+  <div class="q" data-sec="p7">
+    <div class="qn">M4. New-tenant signup occasionally creates the central record but leaves the tenant with no schema. Where's the design flaw?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Provisioning isn't atomic/idempotent. Steps after the central INSERT (create DB, migrate, seed admin) failed and weren't retried. Move provisioning into a single queued, idempotent job with retries; mark the tenant <code>status=provisioning</code> until all steps succeed, and don't route traffic to it until <code>active</code>.</div>
+  </div>
+
+  <div class="q" data-sec="p7">
+    <div class="qn">M5. A Stripe webhook arrives. There's no subdomain, no tenant context. How do you apply it to the right tenant?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Handle webhooks on the central domain/connection. Map the event's Stripe customer id back to the tenant record (Cashier stores it centrally), update the subscription state there. No tenant context needed — billing state lives centrally on purpose.</div>
+  </div>
+
+  <div class="q" data-sec="p7">
+    <div class="qn">M6. When would you deliberately choose row-level over database-per-tenant despite weaker isolation?</div>
+    <button class="reveal-btn" onclick="tog(this)">Reveal answer</button>
+    <div class="answer">Many small tenants (thousands+), low per-tenant data volume, heavy need for cross-tenant analytics, and a small ops team — the ×N migration/connection/backup overhead of DB-per-tenant would dominate, and the cost of strong isolation isn't justified. Compensate with global scopes + DB constraints + isolation tests.</div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLE 8 ============ -->
+<section id="p8">
+  <span class="pill step">Principle 8 — Don't Stop</span>
+  <h2>Overlearning plan</h2>
+  <p>Past the point of "I get it" is where durable, fast recall is built. Pick from these to keep the system live in your hands:</p>
+  <ul>
+    <li><strong>Build it twice.</strong> Implement a tiny tenant app once with <code>stancl/tenancy</code> (DB-per-tenant) and once with <code>spatie/laravel-multitenancy</code> (row-level). Feeling both clarifies the trade-offs better than any table.</li>
+    <li><strong>Break it on purpose.</strong> Remove the queue tenancy bootstrapper and watch a job write to the wrong tenant. Remove a global scope and watch the isolation test fail. Knowing the failure mode beats memorising the fix.</li>
+    <li><strong>Write the isolation test suite first</strong> on your next real feature. Make "no cross-tenant leak" a CI gate.</li>
+    <li><strong>Read the source.</strong> Read <code>stancl/tenancy</code>'s bootstrappers and Octane/queue listeners. It's the canonical reference for lifecycle correctness.</li>
+    <li><strong>Teach it.</strong> Write a 1-page internal doc: "How tenancy works in our app, and the three ways to leak data." If you can write it cleanly, you own it.</li>
+    <li><strong>Stretch goals:</strong> custom-domain onboarding with automated TLS; per-tenant feature flags &amp; plan limits; tenant data export ("download all my data"); tenant deletion/GDPR erasure; per-tenant Scout/search indexes; cross-tenant impersonation for support with an audit log.</li>
+  </ul>
+</section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section id="cards">
+  <span class="pill step">Active Recall — Flashcards</span>
+  <h2>Click a card to flip</h2>
+  <p class="kbd">Prompt on the front, answer on the back. Say your answer before flipping.</p>
+  <div class="cards-grid" id="flashcards">
+    <!-- cards injected by JS -->
+  </div>
+</section>
+
+<!-- ============ GLOSSARY ============ -->
+<section id="glossary">
+  <span class="pill">Reference — Glossary</span>
+  <h2>Key terms</h2>
+  <table>
+    <tbody>
+      <tr><td><strong>Tenant</strong></td><td>One isolated customer account with its own users and data.</td></tr>
+      <tr><td><strong>Central / landlord DB</strong></td><td>Database holding records above any tenant: tenants, domains, plans, subscriptions.</td></tr>
+      <tr><td><strong>Row-level tenancy</strong></td><td>Single shared DB; isolation via a <code>tenant_id</code> column + global scope.</td></tr>
+      <tr><td><strong>Database-per-tenant</strong></td><td>Each tenant has its own database; connection swapped per request.</td></tr>
+      <tr><td><strong>Identification</strong></td><td>Middleware that resolves the tenant from subdomain/domain/path/header.</td></tr>
+      <tr><td><strong>Bootstrapping</strong></td><td>Mutating global state (DB, cache, storage, config) for the active tenant.</td></tr>
+      <tr><td><strong>Teardown / revert</strong></td><td>Restoring central state after a request/job — critical in reused worker processes.</td></tr>
+      <tr><td><strong>Global scope</strong></td><td>Eloquent constraint applied automatically to every query on a model.</td></tr>
+      <tr><td><strong>Provisioning</strong></td><td>The multi-step workflow of creating a usable tenant (record, DB, migrate, seed, subscribe).</td></tr>
+      <tr><td><strong>Cashier</strong></td><td>Laravel's billing package for Stripe/Paddle subscriptions, here on the Tenant model.</td></tr>
+      <tr><td><strong>Octane</strong></td><td>Long-lived application server (Swoole/RoadRunner/FrankenPHP); reuses processes, so teardown matters.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>Study packet · 8-Principle Method · Building a Multi-Tenant SaaS in Laravel · Professional level</p>
+  <p class="kbd">Self-contained. No external resources, no tracking, no browser storage — works offline on any device.</p>
+</footer>
+
+</div>
+
+<script>
+  // --- single-answer reveal ---
+  function tog(btn){
+    var a = btn.parentElement.querySelector('.answer');
+    var on = a.classList.toggle('show');
+    btn.textContent = on ? 'Hide answer' : 'Reveal answer';
+  }
+  // --- reveal/hide all in a section ---
+  function revealAll(sec, show){
+    document.querySelectorAll('.q[data-sec="'+sec+'"]').forEach(function(q){
+      var a = q.querySelector('.answer'), b = q.querySelector('.reveal-btn');
+      if(show){ a.classList.add('show'); b.textContent='Hide answer'; }
+      else    { a.classList.remove('show'); b.textContent='Reveal answer'; }
+    });
+  }
+  // --- flashcards (in-memory only, no storage APIs) ---
+  var CARDS = [
+    ["The one question that defines all multi-tenancy","\"Whose data is this, and how do I guarantee it never leaks to another tenant?\""],
+    ["Row-level isolation, in one line","Shared DB; every tenant table has tenant_id; a global scope enforces it. Cheapest, weakest isolation."],
+    ["Database-per-tenant trade-off","Strong isolation + easy per-tenant backup, but migrations/connections ×N and cross-tenant analytics is hard."],
+    ["Three+ tenant identification strategies","Subdomain, custom domain, URL path, header/API key/JWT claim."],
+    ["What 'bootstrapping' mutates","Default DB connection, cache prefix, filesystem root, tenant-specific config."],
+    ["Why teardown matters most in Octane/queues","Worker processes are reused; without revert, the next request/job inherits the previous tenant's context → leak."],
+    ["Safer than per-query where(tenant_id)","A global scope — can't be forgotten. Back it with a DB unique index."],
+    ["What a global scope can't protect","DB::table()/raw queries, whereHas on unscoped relations — they bypass Eloquent scopes."],
+    ["Making a queued job tenant-safe","Serialize tenant id in payload, re-initialize tenancy in handle(), revert in a finally block."],
+    ["Where billing/subscriptions live & why","Central DB on the tenant record (Cashier) — must bill/suspend even when tenant DB is archived; webhooks have no tenant context."],
+    ["Beyond the DB, what else to isolate","Cache (key prefix), storage (tenant-rooted disk + signed URLs), queued mail/rendered views, search indexes."],
+    ["The most important multi-tenant test","Create tenant A data, switch to tenant B, assert B sees zero of A's records."],
+    ["Why provisioning is a queued job","It's multi-step and failure-prone (create DB, migrate, seed admin, subscribe); needs idempotency + retries + a provisioning status."]
+  ];
+  (function(){
+    var grid = document.getElementById('flashcards');
+    CARDS.forEach(function(c){
+      var el = document.createElement('div');
+      el.className = 'flip';
+      el.innerHTML =
+        '<div class="flip-in">'+
+          '<div class="flip-face flip-front">'+c[0]+'<span class="hint">click ↻</span></div>'+
+          '<div class="flip-face flip-back">'+c[1]+'<span class="hint">click ↻</span></div>'+
+        '</div>';
+      el.addEventListener('click', function(){ el.classList.toggle('flipped'); });
+      grid.appendChild(el);
+    });
+  })();
+</script>
+</body>
+</html>

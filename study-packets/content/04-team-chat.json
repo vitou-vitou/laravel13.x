@@ -1,0 +1,177 @@
+{
+  "title": "Building a Team Chat / Messaging App in Laravel",
+  "subtitle": "Channels and DMs, real-time delivery over WebSockets, message ordering and cursor pagination, unread counts, read receipts, presence, and fan-out — the Laravel architecture behind a Slack-style chat.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "Reverb / Broadcasting", "8-Principle Method"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a chat app fits together",
+      "blocks":[
+        {"p":"A chat app is a <strong>real-time fan-out problem over an append-only message log</strong>. The pressure: one message must reach every channel member <em>instantly</em>, history must paginate cleanly while new messages keep arriving, and each user needs an accurate <em>unread</em> count. Persistence is easy; delivery and counting are hard."},
+        {"diagram":"Workspace\n ├─ Users\n ├─ Channels (public / private)  ── members (pivot, last_read_at)\n │   └─ Messages (append-only, ordered)\n │       ├─ Reactions\n │       ├─ Thread replies\n │       └─ Attachments\n └─ Direct Messages (a channel of 2+, no name)"},
+        {"p":"The defining action — sending a message — persists, then fans out over WebSockets:"},
+        {"diagram":"User sends ──► POST /channels/{id}/messages\n   │ authorize (member?)\n   ▼\n Persist Message (gets id + created_at)   ◄ source of truth\n   │\n   ▼ broadcast MessageSent to presence channel chat.{id}\n   │     (all connected members receive instantly via Reverb)\n   ▼\n Queue: push notifications to offline members, bump unread"},
+        {"ul":[
+          "<strong>Data model</strong> — workspaces, channels (incl. DMs as nameless channels), append-only messages, membership pivot.",
+          "<strong>Real-time delivery</strong> — broadcasting MessageSent to a per-channel channel via Reverb/Pusher.",
+          "<strong>Ordering & pagination</strong> — cursor (keyset) pagination so infinite scroll is stable as new messages arrive.",
+          "<strong>Unread & presence</strong> — last_read_at per member for counts; presence channels for who's online."
+        ]},
+        {"callout":"A chat app is <em>fan-out delivery over an append-only log</em>. The hard parts are real-time delivery to all members, stable cursor pagination, and accurate per-user unread counts — not storing the message.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Channels, DMs, and membership"},
+        {"p":"A <strong>channel</strong> groups messages and has members through a pivot. A <strong>direct message</strong> is just a channel with no name and a fixed membership — modelling DMs as channels avoids a parallel message table. The pivot row per member carries <code>last_read_at</code>, the key to unread counts and read receipts."},
+        {"h3":"Messages are append-only"},
+        {"p":"Messages are an <strong>immutable log</strong>: you insert, rarely update (edits keep an <code>edited_at</code>), and soft-delete. Order by <code>(id)</code> or <code>(created_at, id)</code>. Treating the table as a log — not mutable rows — is what makes pagination and real-time consistent."},
+        {"h3":"Real-time delivery via broadcasting"},
+        {"p":"When a message is saved, you <code>broadcast(new MessageSent($message))</code> to a channel named <code>chat.{channelId}</code>. <strong>Laravel Reverb</strong> (a first-party WebSocket server) or Pusher/Ably delivers it to every connected member's browser. The HTTP response and the broadcast are separate paths — the sender sees their own message from the response (or echo), others from the broadcast."},
+        {"h3":"Why cursor pagination, not offset"},
+        {"p":"Offset pagination (<code>LIMIT 50 OFFSET 100</code>) breaks in chat: new messages arriving shift every offset, causing duplicates or skips, and large offsets are slow. <strong>Cursor / keyset</strong> pagination (<code>where id < :lastSeenId order by id desc limit 50</code>) is stable regardless of inserts and uses the index directly. Essential for infinite scroll."},
+        {"h3":"Unread counts"},
+        {"p":"Per member, unread = messages in the channel newer than their <code>last_read_at</code>. Don't recount the whole table on every request — maintain a counter or compute with an indexed <code>count where created_at &gt; last_read_at</code>. Mark-as-read updates <code>last_read_at</code> when the user views the channel."},
+        {"h3":"Read receipts & presence"},
+        {"p":"<strong>Read receipts</strong> derive from each member's <code>last_read_at</code> vs a message's timestamp. <strong>Presence</strong> (who's online/typing) uses a <strong>presence channel</strong> — a broadcast channel that tracks subscribers; typing indicators are ephemeral client events, never persisted."},
+        {"h3":"Notifications & fan-out to the offline"},
+        {"p":"Connected users get the WebSocket broadcast. <strong>Offline</strong> members need push/email — dispatched from a queued job after the message saves, respecting mute settings. Separate the two paths: real-time for present users, queued notifications for absent ones."},
+        {"callout":"Offset pagination is the classic chat bug: as messages arrive, offsets shift and users see duplicates or gaps. Use cursor/keyset pagination keyed on message id.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"Chat persists an append-only message log, broadcasts each new message to all channel members over WebSockets, paginates history by cursor, and tracks unread via each member's last_read_at."},
+        {"h4":"Analogy — the bulletin board with a town crier"},
+        {"p":"The <strong>message log</strong> is a bulletin board where notices are only ever pinned (append-only), never reordered. The <strong>broadcast</strong> is a town crier who, the instant a notice goes up, shouts it to everyone currently in the square (connected members) — but people who went home (offline) get a letter later (queued notification). <strong>Unread</strong> is each person remembering the time they last read the board; anything newer is unread. <strong>Cursor pagination</strong> is reading the board from a remembered notice downward, so newly pinned notices at the top never make you lose your place."},
+        {"h4":"Comparison — pagination strategies"},
+        {"table":{"head":["Strategy","Stable under inserts?","Speed at depth","Fit for chat"],
+          "rows":[
+            ["Offset (LIMIT/OFFSET)","No — shifts","Slow (scans)","Poor"],
+            ["Cursor / keyset (id < x)","Yes","Fast (index)","Ideal"],
+            ["Time-window","Mostly","Fast","OK for archives"]
+          ]}},
+        {"h4":"Diagram — two delivery paths"},
+        {"diagram":"Message saved\n   ├─ ONLINE members  ─► Reverb broadcast (instant, in-memory)\n   └─ OFFLINE members ─► queued job ─► push / email (mute-aware)"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative.","class":"kbd"},
+        {"h3":"Lesson 1 — DMs are channels"},
+        {"code":"// channels: id, workspace_id, name(nullable), is_private\n// channel_user pivot: channel_id, user_id, last_read_at, muted_at\n// A DM = channel with name=null and exactly the two users as members","lang":"php"},
+        {"h3":"Lesson 2 — Send = persist then broadcast"},
+        {"code":"public function store(SendMessage $r, Channel $channel) {\n    $this->authorize('post', $channel);\n    $msg = $channel->messages()->create([\n        'user_id'=>$r->user()->id, 'body'=>$r->body,\n    ]);\n    broadcast(new MessageSent($msg))->toOthers();\n    NotifyAbsentMembers::dispatch($msg);   // queued\n    return new MessageResource($msg);\n}","lang":"php"},
+        {"h3":"Lesson 3 — Broadcast on a presence channel"},
+        {"code":"// routes/channels.php\nBroadcast::channel('chat.{channel}', function ($user, Channel $channel) {\n    return $channel->members()->whereKey($user->id)->exists()\n        ? ['id'=>$user->id,'name'=>$user->name] // presence payload\n        : false;\n});\n\nclass MessageSent implements ShouldBroadcast {\n    public function __construct(public Message $message) {}\n    public function broadcastOn(): PresenceChannel {\n        return new PresenceChannel('chat.'.$this->message->channel_id);\n    }\n}","lang":"php"},
+        {"h3":"Lesson 4 — Cursor pagination for history"},
+        {"code":"// older messages above the current view\n$messages = $channel->messages()\n    ->when($cursor, fn($q) => $q->where('id','<',$cursor))\n    ->orderByDesc('id')\n    ->limit(50)->get();\n$nextCursor = $messages->last()?->id;","lang":"php"},
+        {"h3":"Lesson 5 — Unread count from last_read_at"},
+        {"code":"$unread = $channel->messages()\n    ->where('created_at','>', $membership->last_read_at ?? '1970-01-01')\n    ->count(); // index on (channel_id, created_at)","lang":"php"},
+        {"h3":"Lesson 6 — Mark as read"},
+        {"code":"// when the user opens/scrolls the channel to bottom\n$user->channels()->updateExistingPivot($channel->id, [\n    'last_read_at' => now(),\n]);\n// optionally broadcast a ReadReceipt event to update others' UI","lang":"php"},
+        {"h3":"Lesson 7 — Typing indicators are ephemeral"},
+        {"code":"// client-only whisper, never persisted\nEcho.join('chat.'+channelId)\n   .whisper('typing', { user: me })\n   .listenForWhisper('typing', e => showTyping(e.user));","lang":"js"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why model direct messages as channels rather than a separate table?","a":"A DM is structurally a channel with no name and fixed membership. Reusing channels avoids a parallel message table, duplicated pagination/broadcast logic, and special-casing — DMs and group chats share one code path."},
+          {"q":"Q2. Why is offset pagination wrong for chat history?","a":"New messages arriving shift every offset, so paging produces duplicates or skipped messages, and deep offsets scan many rows. Cursor/keyset pagination (id < lastSeen) is stable under inserts and uses the index."},
+          {"q":"Q3. What are the two separate delivery paths for a new message?","a":"(1) Real-time broadcast over WebSockets (Reverb/Pusher) to currently connected members. (2) A queued job sending push/email to offline members (respecting mutes). Present vs absent users are served differently."},
+          {"q":"Q4. How is a per-user unread count computed, and what makes it cheap?","a":"Count messages in the channel newer than the member's last_read_at (from the pivot). An index on (channel_id, created_at) keeps it fast; mark-as-read updates last_read_at when the user views the channel."},
+          {"q":"Q5. Why are messages treated as append-only?","a":"An immutable log makes ordering, cursor pagination, and real-time consistency simple. Edits keep an edited_at and deletes are soft — the sequence of ids/timestamps never changes underneath readers."},
+          {"q":"Q6. What kind of broadcast channel powers presence and why?","a":"A presence channel — it tracks who is subscribed, so you get the online roster for free and can layer typing indicators. Channel auth returns a user payload for members, false for non-members."},
+          {"q":"Q7. Why should typing indicators not be persisted?","a":"They're ephemeral, high-frequency, and worthless after the moment. Send them as client whispers/whisper events over the socket; persisting would hammer the DB for no value."}
+        ]}},
+        {"h3":"Code drill — stable cursor paging (Pest)"},
+        {"code":"it('does not duplicate messages when new ones arrive mid-scroll', function () {\n    $c = Channel::factory()->create();\n    $first = makeMessages($c, 50);          // ids 1..50\n    $page1 = paginate($c, cursor:null);     // newest 50\n    makeMessages($c, 5);                      // ids 51..55 arrive now\n    $page2 = paginate($c, cursor:$page1->last()->id); // older than page1\n    expect($page2->pluck('id')->intersect($page1->pluck('id')))->toBeEmpty();\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw the two delivery paths each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; redraw send→persist→broadcast flow.","First retrieval."],
+            ["Day 3","Flashcards; explain cursor vs offset aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the unread-count query from blank.","Mix contexts."],
+            ["Day 16","Re-derive presence-channel auth from memory.","Widen interval."],
+            ["Day 35","Teach the fan-out problem to someone in 5 minutes.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. Users scrolling up sometimes see the same message twice. Cause and fix?","a":"Offset pagination shifting as new messages arrive. Switch to cursor/keyset pagination keyed on message id (where id < lastSeenId order by id desc)."},
+          {"q":"M2. Messages save fine but other members don't see them live. Where do you look first?","a":"Broadcasting, not the DB. Check the WebSocket server (Reverb running), the channel authorization callback for chat.{id}, that MessageSent implements ShouldBroadcast, and the client Echo subscription."},
+          {"q":"M3. Unread badges are slow on busy workspaces. Two fixes?","a":"(1) Index (channel_id, created_at) and count against last_read_at rather than scanning. (2) Maintain a denormalized unread counter per membership updated on send/read, or compute counts in a batched query."},
+          {"q":"M4. Offline users miss messages entirely — no push, no email. What's missing?","a":"The second delivery path. Dispatch a queued job after save to notify absent members (push/email), mute-aware. Real-time broadcast only reaches connected clients."},
+          {"q":"M5. A non-member connected to a channel's socket and received messages. Security flaw?","a":"Presence/private channel authorization not enforcing membership. The Broadcast::channel callback must return false for non-members; never trust the client's channel name alone."},
+          {"q":"M6. Typing indicators are flooding the database with writes. Redesign?","a":"Don't persist them. Send as client whispers over the existing socket connection (ephemeral); they never touch the DB."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build pagination twice</strong> — offset vs cursor — and reproduce the duplicate-message bug, then watch cursor fix it.",
+          "<strong>Break delivery on purpose</strong> — disable the queued notify job and confirm offline users get nothing; then restore it.",
+          "<strong>Write the membership/auth tests first</strong>: non-members can't subscribe, can't post, can't read.",
+          "<strong>Add threads</strong> — replies referencing a parent message id, with a per-thread unread.",
+          "<strong>Stretch goals:</strong> message search (Scout/Meilisearch), reactions, edit/delete with live sync, presence-based online roster, and horizontal scaling of Reverb behind a load balancer."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The three hard parts of chat","Real-time fan-out delivery, stable cursor pagination, accurate per-user unread counts."],
+    ["What a chat app fundamentally is","Fan-out delivery over an append-only message log."],
+    ["Why DMs are modelled as channels","A DM is a nameless channel with fixed membership; reuse avoids a parallel message table and duplicate logic."],
+    ["Why offset pagination fails in chat","Arriving messages shift offsets → duplicates/skips; deep offsets are slow."],
+    ["Cursor pagination query","where id < :lastSeenId order by id desc limit N — stable and index-backed."],
+    ["Two delivery paths for a message","Reverb broadcast to online members; queued push/email to offline members (mute-aware)."],
+    ["How unread is computed","Count messages newer than the member's last_read_at (pivot), with index on (channel_id, created_at)."],
+    ["Mark-as-read mechanism","Update last_read_at on the channel_user pivot when the user views the channel."],
+    ["Why messages are append-only","Immutable log keeps ordering, pagination, and real-time consistent; edits/deletes are flags."],
+    ["Channel type for presence/typing","Presence channel — tracks subscribers (online roster) and carries whisper events."],
+    ["Where typing indicators live","Ephemeral client whispers over the socket — never persisted."],
+    ["Broadcasting ->toOthers()","Skips echoing the message back to the sender, who already has it from the response."]
+  ],
+  "glossary": [
+    ["Channel","A container of messages with members; a DM is a nameless channel."],
+    ["Message log","The append-only, ordered table of messages."],
+    ["Broadcasting","Pushing server events to clients over WebSockets."],
+    ["Reverb","Laravel's first-party WebSocket server."],
+    ["Presence channel","A broadcast channel that tracks who is subscribed."],
+    ["Cursor pagination","Keyset paging using a stable key (message id) instead of offset."],
+    ["last_read_at","Per-member timestamp marking how far they've read."],
+    ["Unread count","Messages newer than a member's last_read_at."],
+    ["Read receipt","Derived from comparing last_read_at to a message timestamp."],
+    ["Whisper","An ephemeral client-to-client socket event (e.g. typing)."],
+    ["Fan-out","Delivering one message to many recipients."],
+    ["Mute","A member setting suppressing notifications for a channel."]
+  ]
+}

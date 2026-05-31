@@ -1,0 +1,178 @@
+{
+  "title": "Building an Invoicing & Billing App in Laravel",
+  "subtitle": "Invoices and line items, tax calculation, gapless numbering, statuses and payments, recurring billing, and PDF generation — the Laravel architecture behind an invoicing tool.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~80 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How an invoicing app fits together",
+      "blocks":[
+        {"p":"An invoicing app is a <strong>money document that must total correctly, number sequentially, and track payment</strong>. The pressure: monetary math must be exact (never floats), invoice numbers must be gapless for compliance, an invoice is immutable once issued, and partial/late payments change its status."},
+        {"diagram":"Customer\n └─ Invoice (number, status, currency, totals)\n     ├─ Line Items (qty, unit_price, tax_rate, line_total)\n     ├─ Payments (amount, method, date) ─► partial/full\n     └─ PDF snapshot\n Recurring profile ─► generates Invoices on schedule"},
+        {"p":"The defining action — issuing an invoice — assigns a number, freezes totals, and starts the dunning clock:"},
+        {"diagram":"Issue invoice ──► assign next gapless number (atomic)\n   │ compute line totals + tax + grand total (integer cents)\n   ▼ status: draft → sent ; due_at set\n   ▼ render + store PDF snapshot ; email customer (queued)\n   └─► scheduled job flips to overdue past due_at if unpaid"},
+        {"ul":[
+          "<strong>Document model</strong> — invoice + line items, totals computed and frozen on issue.",
+          "<strong>Money & tax</strong> — integer minor units, exact tax rounding per line vs total.",
+          "<strong>Numbering & status</strong> — atomic gapless sequence; draft→sent→paid/overdue lifecycle.",
+          "<strong>Payments & recurring</strong> — partial payments, reconciliation, and scheduled generation."
+        ]},
+        {"callout":"An invoice is an <em>immutable, exactly-totalled, sequentially-numbered money document</em>. The hard parts are precise money/tax math and gapless numbering under concurrency — not the form.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Never use floats for money"},
+        {"p":"Floating point can't represent 0.10 exactly, so sums drift by cents. Store money as <strong>integer minor units</strong> (cents) or use a decimal/money library (e.g. brick/money). All arithmetic happens in integers; format to currency only at display."},
+        {"h3":"Line items and totals"},
+        {"p":"An invoice <code>hasMany</code> <strong>line items</strong> (description, quantity, unit price, tax rate). Line total = qty × unit price; tax = line total × rate. The invoice subtotal, tax, and grand total are <strong>sums of line values</strong>, computed once and <strong>stored</strong> on the invoice at issue so the document is self-consistent forever."},
+        {"h3":"Per-line vs per-invoice tax rounding"},
+        {"p":"Rounding tax per line then summing can differ by a cent from taxing the subtotal. Jurisdictions specify which is correct. Pick a documented rule (commonly round each line, then sum) and apply it consistently — this is a frequent source of off-by-a-cent disputes."},
+        {"h3":"Gapless invoice numbering"},
+        {"p":"Many tax regimes require <strong>sequential, gapless</strong> invoice numbers. You cannot use the DB auto-increment id (gaps from deletes/rollbacks) or compute max()+1 (races). Use an atomic counter: a dedicated sequence row locked in a transaction (<code>SELECT ... FOR UPDATE</code>) so two concurrent issues can't claim the same or skip a number."},
+        {"h3":"Immutability after issue"},
+        {"p":"Once <em>sent</em>, an invoice must not change — you issue a <strong>credit note</strong> or a new invoice instead of editing. Lock line items and totals after issue; only status and payments evolve. This is both a legal and trust requirement."},
+        {"h3":"Status lifecycle & dunning"},
+        {"p":"<em>draft → sent → (partially_paid) → paid</em>, or <em>sent → overdue</em> past the due date if unpaid. A <strong>scheduled job</strong> flips unpaid sent invoices to overdue and can send reminders (dunning). Status is derived from payments + due date, recorded explicitly for querying."},
+        {"h3":"Payments & recurring"},
+        {"p":"A <strong>payment</strong> records amount/method/date; an invoice is paid when payments sum to the total (handle partials and overpayment). <strong>Recurring</strong> billing stores a profile (interval, template) and a scheduled job generates the next invoice — idempotently, so a double-run doesn't bill twice."},
+        {"callout":"Using floats for money or max(number)+1 for numbering are the two classic invoicing bugs — one drifts cents, the other duplicates/skips legally-required sequence. Use integer cents and an atomic counter.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"An invoicing app builds immutable money documents from line items, totals them in integer cents with a defined tax-rounding rule, assigns gapless numbers atomically, and tracks payments to drive status."},
+        {"h4":"Analogy — the cash register receipt"},
+        {"p":"An issued invoice is a <strong>printed receipt</strong>: once it prints you can't scribble on it — a mistake means a refund slip (credit note), not an edit. The register counts in <strong>whole pennies</strong>, never fuzzy fractions. Receipts come off the roll in <strong>strict order with no missing numbers</strong> — you can't have receipt 1002 without 1001. And the till is balanced by matching <strong>payments</strong> to receipts."},
+        {"h4":"Comparison — numbering strategies"},
+        {"table":{"head":["Strategy","Gapless?","Concurrency-safe?","Verdict"],
+          "rows":[
+            ["DB auto-increment id","No (delete gaps)","Yes","Not legal-compliant"],
+            ["max(number)+1","No (races)","No","Avoid"],
+            ["Locked sequence row (FOR UPDATE)","Yes","Yes","Recommended"],
+            ["Per-year reset sequence","Yes","Yes","Common for tax years"]
+          ]}},
+        {"h4":"Diagram — atomic number claim"},
+        {"diagram":"BEGIN\n  SELECT value FROM sequences WHERE key='invoice' FOR UPDATE; -- locks row\n  next = value + 1\n  UPDATE sequences SET value = next WHERE key='invoice';\nCOMMIT  -- no other tx can read the row until commit → gapless"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative.","class":"kbd"},
+        {"h3":"Lesson 1 — Money in integer cents"},
+        {"code":"// store amounts as integers (cents); cast helper for display\nclass Invoice extends Model {\n    protected $casts = ['total_cents'=>'integer'];\n    public function totalFormatted(): string {\n        return number_format($this->total_cents / 100, 2);\n    }\n}","lang":"php"},
+        {"h3":"Lesson 2 — Compute and freeze totals on issue"},
+        {"code":"$subtotal = $items->sum(fn($i) => $i->qty * $i->unit_price_cents);\n$tax = $items->sum(fn($i) => intdiv($i->qty * $i->unit_price_cents * $i->tax_bp, 10000));\n$invoice->update(['subtotal_cents'=>$subtotal,'tax_cents'=>$tax,\n    'total_cents'=>$subtotal + $tax]); // frozen at issue","lang":"php"},
+        {"h3":"Lesson 3 — Atomic gapless number"},
+        {"code":"$number = DB::transaction(function () {\n    $seq = Sequence::where('key','invoice')->lockForUpdate()->first();\n    $seq->increment('value');\n    return $seq->value; // formatted e.g. INV-2026-000123\n});","lang":"php"},
+        {"h3":"Lesson 4 — Lock the document after issue"},
+        {"code":"public function update(Request $r, Invoice $invoice) {\n    abort_if($invoice->status !== 'draft', 422, 'Issued invoices are immutable; issue a credit note.');\n    // ... only drafts editable\n}","lang":"php"},
+        {"h3":"Lesson 5 — Mark overdue on schedule"},
+        {"code":"// routes/console.php\nSchedule::call(function () {\n    Invoice::where('status','sent')->where('due_at','<',now())\n        ->update(['status'=>'overdue']);\n})->dailyAt('02:00');","lang":"php"},
+        {"h3":"Lesson 6 — Record payments, derive paid"},
+        {"code":"$invoice->payments()->create(['amount_cents'=>$amt,'method'=>$m,'paid_at'=>now()]);\n$paid = $invoice->payments()->sum('amount_cents');\n$invoice->update(['status' => $paid >= $invoice->total_cents ? 'paid'\n    : ($paid > 0 ? 'partially_paid' : $invoice->status)]);","lang":"php"},
+        {"h3":"Lesson 7 — Recurring generation, idempotent"},
+        {"code":"// guard against double-run: unique (profile_id, period)\nRecurringProfile::due()->each(function ($p) {\n    Invoice::firstOrCreate(\n        ['profile_id'=>$p->id,'period'=>$p->currentPeriod()],\n        $p->buildInvoiceAttributes(),\n    );\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why must money never be stored as a float?","a":"Floats can't represent decimals like 0.10 exactly, so sums drift by cents over many operations. Store integer minor units (cents) or use a money library; format to currency only at display."},
+          {"q":"Q2. Why can't you use the DB auto-increment id or max(number)+1 for invoice numbers?","a":"Auto-increment leaves gaps (deletes/rollbacks), violating gapless-sequence tax rules; max()+1 races under concurrency, producing duplicates or skips. Use an atomic locked sequence row."},
+          {"q":"Q3. Describe the atomic gapless-numbering technique.","a":"In a transaction, SELECT the sequence row FOR UPDATE (locking it), increment, and commit. Concurrent issuers block until the lock releases, so each gets a unique consecutive number with no gaps."},
+          {"q":"Q4. Why are totals computed once and stored on the invoice at issue?","a":"So the document is self-consistent and immutable: later price/tax changes can't alter a sent invoice. The stored subtotal/tax/total are the legal record."},
+          {"q":"Q5. What's the per-line vs per-invoice tax-rounding issue?","a":"Rounding tax on each line then summing can differ by a cent from taxing the subtotal once. Jurisdictions mandate one; pick and document a consistent rule to avoid off-by-a-cent disputes."},
+          {"q":"Q6. How should you correct an error on an issued invoice?","a":"Don't edit it — issue a credit note or a corrective invoice. Issued invoices are immutable for legal and trust reasons; only status and payments may change."},
+          {"q":"Q7. How is recurring billing made safe against double runs?","a":"Idempotent generation: firstOrCreate keyed on (profile_id, period) with a unique constraint, so a re-run of the scheduler can't create two invoices for the same period."}
+        ]}},
+        {"h3":"Code drill — gapless under concurrency (Pest)"},
+        {"code":"it('never issues duplicate invoice numbers concurrently', function () {\n    $numbers = collect(range(1,20))->map(fn() => nextInvoiceNumber()); // simulate parallel\n    expect($numbers->unique()->count())->toBe(20)\n        ->and($numbers->max() - $numbers->min())->toBe(19); // no gaps\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw the atomic-number-claim each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; restate integer-cents + gapless rules.","First retrieval."],
+            ["Day 3","Flashcards; explain per-line vs per-invoice tax aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the locked-sequence code from blank.","Mix contexts."],
+            ["Day 16","Re-derive immutability + credit-note reasoning.","Widen interval."],
+            ["Day 35","Teach gapless numbering to someone in 5 minutes.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. Customers report totals occasionally off by a cent. Two likely causes?","a":"(1) Float money arithmetic drifting. (2) Inconsistent tax rounding (per-line vs per-invoice). Fix: integer cents everywhere and one documented rounding rule."},
+          {"q":"M2. An auditor finds invoice numbers 1001, 1003, 1004 — 1002 missing. How did it happen and how prevent?","a":"A number was claimed then the transaction rolled back, or numbers come from auto-increment with a deleted row. Prevent by claiming the number only on successful issue via a locked sequence committed atomically with the invoice."},
+          {"q":"M3. Two staff issue invoices at the same instant and get the same number. Fix?","a":"Replace max()+1 with SELECT ... FOR UPDATE on a sequence row inside a transaction so concurrent issuers serialize and each gets a unique consecutive number."},
+          {"q":"M4. A sent invoice was edited to change an amount. What should the system have done?","a":"Blocked the edit (immutable once sent) and required a credit note / corrective invoice. Only drafts are editable."},
+          {"q":"M5. The recurring scheduler ran twice after a deploy and billed some customers twice. Root cause?","a":"Non-idempotent generation. Use firstOrCreate keyed on (profile_id, period) with a unique index so re-runs are no-ops."},
+          {"q":"M6. When would you store money as a decimal column instead of integer cents?","a":"When using a money library/DB DECIMAL with controlled scale and you need fractional minor units (e.g. unit prices at 4 dp for some currencies/commodities). Either is fine if arithmetic is exact and rounding is explicit — the cardinal rule is no binary floats."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build totals two ways</strong> — float vs integer cents — and watch the float version drift over many lines.",
+          "<strong>Break numbering on purpose</strong> — use max()+1 and fire concurrent issues to reproduce duplicates.",
+          "<strong>Write immutability + gapless tests first</strong> before the UI.",
+          "<strong>Add PDF generation</strong> — render an immutable PDF snapshot stored per invoice.",
+          "<strong>Stretch goals:</strong> multi-currency with FX snapshots, partial-payment allocation, dunning email sequences, credit notes, and Stripe/Paddle reconciliation via webhooks."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The two hard parts of invoicing","Exact money/tax math and gapless invoice numbering under concurrency."],
+    ["Why never floats for money","0.10 isn't exact in binary; sums drift by cents. Use integer minor units."],
+    ["Why not auto-increment id for invoice numbers","Deletes/rollbacks leave gaps, violating gapless-sequence tax rules."],
+    ["Why not max(number)+1","It races under concurrency → duplicate or skipped numbers."],
+    ["Atomic gapless numbering","SELECT sequence row FOR UPDATE in a transaction, increment, commit — serializes issuers."],
+    ["Why freeze totals on issue","Makes the invoice self-consistent and immutable; later price/tax changes can't alter it."],
+    ["Per-line vs per-invoice tax","Rounding per line then summing can differ a cent from taxing the subtotal; pick one documented rule."],
+    ["Correcting an issued invoice","Issue a credit note / corrective invoice — never edit; issued invoices are immutable."],
+    ["Invoice status lifecycle","draft → sent → partially_paid → paid, or sent → overdue past due_at."],
+    ["Deriving 'paid'","Sum payments; paid when ≥ total, partially_paid when >0, handle overpayment."],
+    ["Idempotent recurring billing","firstOrCreate keyed on (profile_id, period) with a unique index prevents double billing."],
+    ["Marking overdue","A scheduled job flips unpaid sent invoices past due_at to overdue (and can send dunning)."]
+  ],
+  "glossary": [
+    ["Invoice","An immutable money document billing a customer."],
+    ["Line item","A billed row: quantity × unit price, plus tax."],
+    ["Minor units","Integer cents — the safe representation of money."],
+    ["Gapless numbering","Strictly sequential invoice numbers with no missing values."],
+    ["Sequence row","A locked counter row used to claim numbers atomically."],
+    ["Credit note","A document reversing/correcting an issued invoice."],
+    ["Dunning","Automated reminders for overdue invoices."],
+    ["Partial payment","A payment less than the invoice total."],
+    ["Recurring profile","A template + schedule generating invoices periodically."],
+    ["Tax rounding rule","The documented method for rounding tax (per line/total)."],
+    ["Overdue","An unpaid invoice past its due date."],
+    ["Reconciliation","Matching recorded payments to gateway/bank events."]
+  ]
+}

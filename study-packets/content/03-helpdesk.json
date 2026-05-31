@@ -1,0 +1,178 @@
+{
+  "title": "Building a Help Desk / Ticketing System in Laravel",
+  "subtitle": "Ticket lifecycle, SLA timers, queues and assignment, email-to-ticket threading, canned replies, and escalation — the Laravel architecture behind a support desk.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~90 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a help desk fits together",
+      "blocks":[
+        {"p":"A help desk is a <strong>state machine wrapped around a conversation, governed by time</strong>. Two forces shape it: tickets move through a strict lifecycle (open → pending → resolved → closed), and <em>SLA clocks</em> tick against them, triggering escalation when breached. Everything else — threading, assignment, canned replies — serves those two."},
+        {"diagram":"Customer ──email/web/chat──► Ticket\n                                │\n   ┌────────────────────────────┼───────────────────────┐\n   ▼                            ▼                         ▼\n Lifecycle state          SLA policy clock          Conversation\n open→pending→resolved     first-response &           (threaded\n →closed (+reopen)         resolution timers          messages)\n                                │\n                                ▼  breach → escalate (notify, reassign)"},
+        {"p":"The defining action — an agent replying — advances state, stops the response clock, and threads the message:"},
+        {"diagram":"Agent replies\n   │ authorize (assigned/team)\n   ▼\n Append Message (public)  ──► email customer (queued)\n   │\n   ▼ stop first-response SLA timer\n Set status = pending (awaiting customer)\n   │\n   ▼ log activity / update metrics"},
+        {"ul":[
+          "<strong>Ticket lifecycle</strong> — an explicit, enforced state machine with allowed transitions.",
+          "<strong>SLA engine</strong> — first-response and resolution deadlines, business-hours aware, with breach escalation.",
+          "<strong>Conversation threading</strong> — public replies + internal notes, often fed by inbound email.",
+          "<strong>Routing</strong> — queues, teams, and assignment rules plus canned responses and macros."
+        ]},
+        {"callout":"A help desk is a <em>time-governed state machine over a conversation</em>. The hard parts are correct SLA computation against business hours and reliable email-to-ticket threading.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"The ticket lifecycle"},
+        {"p":"A <strong>ticket</strong> has a <code>status</code> moving through defined states: <em>open</em> (needs agent), <em>pending</em> (awaiting customer), <em>on-hold</em>, <em>resolved</em>, <em>closed</em>, and <em>reopened</em>. Model transitions explicitly — only certain moves are legal (you can't close an open ticket without resolving). Enforce with a state-machine guard, not scattered <code>if</code>s."},
+        {"h3":"SLA policies and clocks"},
+        {"p":"An <strong>SLA</strong> (Service Level Agreement) sets deadlines: <em>first response</em> within X, <em>resolution</em> within Y, varying by priority. The clock starts when the ticket is created (or assigned) and <strong>pauses</strong> while pending on the customer. Crucially, time is measured against <strong>business hours</strong>, not wall-clock — a ticket opened Friday 5pm isn't breached over the weekend."},
+        {"h3":"Breach detection & escalation"},
+        {"p":"You can't rely on a request to notice a breach — nobody may be looking. A <strong>scheduled job</strong> (every minute) scans tickets whose deadline has passed and fires escalation: notify a manager, raise priority, or reassign. Store the computed <code>due_at</code> on the ticket so the scan is a cheap indexed query, not a recomputation."},
+        {"h3":"Conversation threading"},
+        {"p":"A ticket <code>hasMany</code> <strong>messages</strong>, each flagged <code>public</code> (visible to customer) or <strong>internal note</strong> (agents only). Order by time. The thread is the source of truth; the ticket row is a denormalized summary (status, last reply, counts)."},
+        {"h3":"Email-to-ticket (inbound parsing)"},
+        {"p":"Customers reply by email. You ingest via a mailbox webhook (Postmark/Mailgun/SES). The hard part is <strong>threading</strong>: match the reply to its ticket using a token in the address (<code>support+T123@</code>) or the <code>In-Reply-To</code>/<code>References</code> headers, strip quoted history, and append as a public message — creating a new ticket only if no match."},
+        {"h3":"Assignment, queues, and teams"},
+        {"p":"Tickets land in <strong>queues</strong> (by product/channel) and route to <strong>teams</strong>; assignment can be manual, round-robin, or skill/load-based. Keep assignment in a service and record who/when for reporting."},
+        {"h3":"Canned responses & macros"},
+        {"p":"<strong>Canned responses</strong> are reusable reply templates; <strong>macros</strong> bundle actions (reply + set status + assign + tag) applied in one click. Both reduce handle time; store as data, render with ticket variables."},
+        {"callout":"Computing SLA against wall-clock instead of business hours is the classic help-desk bug — it falsely breaches tickets overnight/weekends. Always measure elapsed time within the customer's business calendar.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A help desk moves tickets through an enforced lifecycle while business-hours SLA clocks tick toward escalation, with a threaded conversation fed by inbound email and sped up by canned replies."},
+        {"h4":"Analogy — the ER triage board"},
+        {"p":"Tickets are patients; the <strong>lifecycle</strong> is triage → treatment → discharge, and you can't discharge before treating (illegal transition). The <strong>SLA clock</strong> is the wait-time target — but it only counts while the department is open and the patient is actually waiting on staff, not while they're out getting a scan (pending). When a target is about to be missed, an alarm escalates to the charge nurse (manager). The <strong>thread</strong> is the patient chart: every note, in order, some visible to the patient, some staff-only."},
+        {"h4":"Comparison — email threading strategies"},
+        {"table":{"head":["Method","Reliability","Effort","Note"],
+          "rows":[
+            ["Address token (support+T123@)","High","Low","Survives broken clients; needs plus-addressing"],
+            ["In-Reply-To / References headers","Medium","Medium","Standard but some clients drop them"],
+            ["Subject [#T123] tag","Low","Low","Easily edited/lost by users"],
+            ["Body fingerprint/match","Low","High","Last resort heuristic"]
+          ]}},
+        {"h4":"Diagram — SLA clock pausing"},
+        {"diagram":"created ──[open]── agent replies ──[pending]── customer replies ──[open]── resolved\n  │  clock RUNS         │  clock PAUSED        │  clock RUNS\n  └───────── elapsed counted only while OPEN & within business hours ─────────┘"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative.","class":"kbd"},
+        {"h3":"Lesson 1 — Enforce the lifecycle"},
+        {"code":"enum Status: string { case Open='open'; case Pending='pending';\n    case Resolved='resolved'; case Closed='closed'; }\n\nclass TicketStateMachine {\n    private const ALLOWED = [\n        'open'=>['pending','resolved'],\n        'pending'=>['open','resolved'],\n        'resolved'=>['closed','open'], // reopen\n    ];\n    public function transition(Ticket $t, Status $to): void {\n        abort_unless(in_array($to->value, self::ALLOWED[$t->status->value]), 422,'Illegal transition');\n        $t->update(['status'=>$to]);\n    }\n}","lang":"php"},
+        {"h3":"Lesson 2 — Store computed due_at for cheap scans"},
+        {"code":"// when SLA applies, precompute deadlines using a business calendar\n$ticket->update([\n    'first_response_due_at' => $calendar->add($ticket->created_at, $sla->firstResponse),\n    'resolution_due_at'     => $calendar->add($ticket->created_at, $sla->resolution),\n]);","lang":"php"},
+        {"h3":"Lesson 3 — Detect breaches on a schedule"},
+        {"code":"// routes/console.php\nSchedule::job(new EscalateBreachedTickets)->everyMinute();\n\nclass EscalateBreachedTickets implements ShouldQueue {\n    public function handle(): void {\n        Ticket::whereNull('first_responded_at')\n            ->where('first_response_due_at','<',now())\n            ->where('status','open')\n            ->each(fn($t) => Escalation::raise($t));\n    }\n}","lang":"php"},
+        {"h3":"Lesson 4 — Pause the clock when pending"},
+        {"code":"// track SLA pauses as intervals; net elapsed = running intervals only\nSlaPause::create(['ticket_id'=>$t->id,'paused_at'=>now()]); // on -> pending\n// on -> open: close the interval, push due_at forward by the paused duration","lang":"php"},
+        {"h3":"Lesson 5 — Thread inbound email by token"},
+        {"code":"// webhook from mail provider\npublic function inbound(Request $r) {\n    if (preg_match('/support\\+T(\\d+)@/', $r->input('To'), $m)) {\n        $ticket = Ticket::find($m[1]);\n    }\n    $body = EmailParser::stripQuoted($r->input('TextBody'));\n    ($ticket ?? Ticket::open($r))->messages()->create([\n        'body'=>$body,'public'=>true,'via'=>'email',\n    ]);\n}","lang":"php"},
+        {"h3":"Lesson 6 — Public reply vs internal note"},
+        {"code":"$ticket->messages()->create(['body'=>$text,'public'=>false]); // internal note\n// public reply also emails the customer (queued) and stops the response clock","lang":"php"},
+        {"h3":"Lesson 7 — Macros bundle actions"},
+        {"code":"class ApplyMacro {\n    public function __invoke(Ticket $t, Macro $m): void {\n        if ($m->reply)  $t->reply($m->renderedBody($t));\n        if ($m->status) app(TicketStateMachine::class)->transition($t, $m->status);\n        if ($m->assignee_id) $t->assignTo($m->assignee_id);\n        $t->tags()->syncWithoutDetaching($m->tags);\n    }\n}","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why enforce ticket transitions with a state machine rather than free-form status updates?","a":"Only certain moves are legal (e.g. you can't close without resolving, can't skip states). A central guard rejects illegal transitions consistently, instead of scattered conditionals that drift and allow invalid states."},
+          {"q":"Q2. Why must SLA elapsed time be measured against business hours?","a":"Otherwise tickets falsely breach overnight and on weekends. Customers expect response within working time; the clock must only count hours the support team is actually operating."},
+          {"q":"Q3. Why store a computed due_at on the ticket instead of recomputing on each check?","a":"Breach detection runs as a frequent scheduled scan; a stored due_at makes it a cheap indexed query (where due_at < now). Recomputing per ticket per scan is expensive and error-prone."},
+          {"q":"Q4. How does the SLA clock handle a ticket waiting on the customer?","a":"It pauses while status is pending. Track pause intervals; net elapsed counts only running time, and the deadline is pushed forward by paused durations so customer delays don't count against the agent."},
+          {"q":"Q5. Why can't breach escalation rely on request-time checks?","a":"A breach can occur when no one is interacting with the ticket (overnight, idle). A scheduled job must actively scan for passed deadlines and escalate; otherwise breaches go unnoticed."},
+          {"q":"Q6. What's the most reliable way to thread an inbound email reply to its ticket, and why?","a":"A token in the reply address (support+T123@). It survives clients that strip In-Reply-To/References headers or edit the subject. Headers are a good secondary; subject tags are unreliable."},
+          {"q":"Q7. What is a macro and how does it differ from a canned response?","a":"A canned response is a reusable reply template (text). A macro bundles multiple actions — reply + set status + assign + tag — applied in one click. Macros automate workflow, not just wording."}
+        ]}},
+        {"h3":"Code drill — illegal transition rejected (Pest)"},
+        {"code":"it('forbids closing an open ticket directly', function () {\n    $t = Ticket::factory()->create(['status'=>'open']);\n    expect(fn() => app(TicketStateMachine::class)->transition($t, Status::Closed))\n        ->toThrow(HttpException::class); // 422 illegal transition\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw the SLA pause diagram each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; redraw the lifecycle + legal transitions.","First retrieval."],
+            ["Day 3","Flashcards; explain business-hours SLA aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the breach-scan job from blank.","Mix contexts."],
+            ["Day 16","Re-derive email-threading options from memory.","Widen interval."],
+            ["Day 35","Teach SLA pausing to someone in 5 minutes.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. Tickets are breaching SLA over weekends though the team is closed. Root cause and fix?","a":"SLA computed against wall-clock, not business hours. Fix: compute due_at and elapsed using a business calendar (working days/hours, holidays); pause outside operating time."},
+          {"q":"M2. Customer replies arrive as brand-new tickets instead of threading. Where do you look?","a":"Inbound threading: the reply isn't being matched. Verify the address token (support+T123@) is present and parsed, fall back to In-Reply-To/References headers, and only open a new ticket when no match is found."},
+          {"q":"M3. The breach-escalation scan is slow at scale. Two fixes?","a":"(1) Query on a stored, indexed due_at (where status=open and first_response_due_at < now) rather than recomputing. (2) Limit/chunk and only scan candidate statuses; consider per-priority partial indexes."},
+          {"q":"M4. An agent closed a ticket that was never resolved, skewing metrics. Prevention?","a":"Enforce legal transitions in a state machine — closing requires passing through resolved. Free-form status edits allow invalid jumps; centralize and test the allowed map."},
+          {"q":"M5. SLA timer kept running while waiting on the customer, unfairly breaching agents. Fix?","a":"Pause the clock on transition to pending and resume on reply; track pause intervals and extend due_at by paused duration so customer delay isn't counted."},
+          {"q":"M6. Support wants 'reply + set pending + assign to tier-2 + tag billing' in one click. What feature, and how stored?","a":"A macro: stored as data (actions: reply template, target status, assignee, tags) and applied by an ApplyMacro service that runs each action, reusing the state machine for the status change."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build the SLA engine twice</strong> — wall-clock vs business-hours — and watch the false weekend breaches disappear.",
+          "<strong>Break threading on purpose</strong> — drop the address token and rely only on subject tags; reproduce the new-ticket-per-reply bug.",
+          "<strong>Write the transition tests first</strong>: every illegal move rejected, every legal move allowed.",
+          "<strong>Add CSAT</strong> — post-resolution satisfaction survey as a queued notification + metric.",
+          "<strong>Stretch goals:</strong> multi-channel (chat/social) into one inbox, round-robin with skills/load, holiday calendars per customer, and a reporting suite (first-response time, resolution time, reopen rate)."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The two hard parts of a help desk","Correct business-hours SLA computation and reliable email-to-ticket threading."],
+    ["What a help desk fundamentally is","A time-governed state machine over a threaded conversation."],
+    ["Why a state machine for status","Only certain transitions are legal; a central guard rejects illegal moves consistently."],
+    ["The SLA wall-clock trap","Measuring elapsed time ignoring business hours falsely breaches tickets overnight/weekends."],
+    ["Why store computed due_at","Makes the frequent breach scan a cheap indexed query instead of recomputation."],
+    ["When the SLA clock pauses","While the ticket is pending on the customer; resume on their reply, extend due_at by paused time."],
+    ["Why escalation needs a scheduled job","Breaches happen when no one's interacting; a per-minute scan actively finds passed deadlines."],
+    ["Most reliable email threading","A token in the reply address (support+T123@); survives clients that strip headers."],
+    ["Public message vs internal note","Public is visible to the customer (and emailed); internal note is agents-only."],
+    ["Canned response vs macro","Canned = reusable reply text; macro = bundle of actions (reply+status+assign+tag) in one click."],
+    ["Ticket row vs message thread","Thread is source of truth; ticket row is a denormalized summary (status, counts, last reply)."],
+    ["First-response vs resolution SLA","Two separate clocks: time to first agent reply, and time to resolve — often per-priority."]
+  ],
+  "glossary": [
+    ["Ticket","A support request with a status, priority, and conversation."],
+    ["Lifecycle","The set of statuses a ticket moves through (open→pending→resolved→closed)."],
+    ["State machine","A guard enforcing only legal status transitions."],
+    ["SLA","Service Level Agreement: deadlines for response/resolution."],
+    ["First-response time","Elapsed time until the first agent reply."],
+    ["Business hours","The working calendar SLA elapsed time is measured against."],
+    ["Breach","An SLA deadline passing without the required action."],
+    ["Escalation","Action taken on breach: notify, raise priority, reassign."],
+    ["Internal note","An agent-only message not shown to the customer."],
+    ["Inbound parsing","Turning a received email into a threaded ticket message."],
+    ["Canned response","A reusable reply template."],
+    ["Macro","A reusable bundle of ticket actions applied together."]
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "title": "Building a Document Collaboration App in Laravel (Notion-style)",
+  "subtitle": "Block-based documents, a nested block tree, real-time collaborative editing, sharing and permissions, and version history — the Laravel architecture behind a Notion-style workspace.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "Broadcasting", "8-Principle Method"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a block-based editor fits together",
+      "blocks":[
+        {"p":"A Notion-style app is a <strong>tree of typed blocks, edited concurrently, that must merge without losing work</strong>. The pressure: a document is not a string but a nested structure of blocks (paragraph, heading, list, table, embed); many people type at once; and every change should sync live and be recoverable."},
+        {"diagram":"Workspace\n └─ Page (a document, itself a block)\n     └─ Blocks (ordered tree)\n         ├─ Heading\n         ├─ Paragraph\n         ├─ Toggle ─► child blocks (nesting)\n         ├─ List item ─► child blocks\n         └─ Embed / Table / Image\n   + Permissions (page-level share)\n   + Versions (snapshots / op log)"},
+        {"p":"The defining action — editing a block — persists a granular change and syncs it:"},
+        {"diagram":"User edits block ──► PATCH /blocks/{id} {content, op}\n   │ authorize (can edit page?)\n   ▼\n Apply change to block (content JSON) — granular, not whole-page\n   │\n   ├─► broadcast BlockUpdated to page.{id}  (others merge live)\n   └─► append to version/op log (queued)"},
+        {"ul":[
+          "<strong>Block model</strong> — a page is a block; blocks form an ordered, nested tree with typed content.",
+          "<strong>Concurrent editing</strong> — granular block-level changes + a conflict strategy (block-locking, OT, or CRDT).",
+          "<strong>Real-time sync</strong> — broadcasting per-block changes to all viewers.",
+          "<strong>Sharing & versions</strong> — page-level permissions and a recoverable history."
+        ]},
+        {"callout":"A block editor is an <em>ordered nested tree of typed blocks edited concurrently</em>. The hard parts are the block tree (ordering + nesting) and merging simultaneous edits without clobbering.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Everything is a block"},
+        {"p":"A <strong>block</strong> has a <code>type</code> (heading/paragraph/list/table/embed), a JSON <code>content</code>, a <code>parent_id</code> (for nesting), and a <code>position</code> (for ordering among siblings). A <strong>page</strong> is itself a block. This uniform model lets any block contain any block."},
+        {"h3":"Ordering + nesting in one table"},
+        {"p":"Blocks form a tree via <code>parent_id</code> and order among siblings via <code>position</code> (use fractional/lexorank, as in a Kanban board, so inserting a block is one write). Rendering = recursively fetch children ordered by position. Beware deep recursion; cap nesting or load lazily."},
+        {"h3":"Granular edits, not whole-page saves"},
+        {"p":"Saving the entire document on each keystroke is catastrophic for collaboration — two users overwrite each other. Instead persist <strong>per-block</strong> changes: a PATCH touches one block's content. Smaller writes mean smaller conflict windows."},
+        {"h3":"The concurrency strategy spectrum"},
+        {"p":"Three options, increasing complexity: (1) <strong>Block-level locking / last-write-wins</strong> — simplest, occasional lost edits within a block; fine for light collaboration. (2) <strong>Operational Transformation (OT)</strong> — transform concurrent ops against each other; powers Google Docs, complex. (3) <strong>CRDTs</strong> (e.g. Yjs) — conflict-free merge by construction; increasingly the default for rich editors, with the server as a relay/persistence layer."},
+        {"h3":"Server's role with CRDTs"},
+        {"p":"With a CRDT the heavy merge logic lives client-side; Laravel's job is to <strong>relay updates</strong> over WebSockets and <strong>persist the document state/op log</strong> so a new client can load and catch up. The server becomes an authority for permissions and storage, not text merging."},
+        {"h3":"Sharing & permissions"},
+        {"p":"Permissions are <strong>per page</strong>, often inherited down a page tree: a user/group has a role (view/comment/edit/full). Resolve effective access by walking up to the nearest explicit grant. Public share links are tokens with a scope and optional expiry."},
+        {"h3":"Version history"},
+        {"p":"Recoverability comes from either periodic <strong>snapshots</strong> of the block tree or replaying the <strong>op log</strong> to a point in time. Snapshots are simple to restore; op logs are granular but heavier to replay. Many apps snapshot periodically and keep recent ops."},
+        {"callout":"Saving the whole document per change is the classic block-editor mistake — it guarantees lost edits under collaboration. Persist granular per-block changes and choose an explicit merge strategy.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A block editor stores documents as an ordered nested tree of typed blocks, persists granular per-block edits, merges concurrent changes via locking/OT/CRDT, and syncs everything live."},
+        {"h4":"Analogy — LEGO instructions edited by a team"},
+        {"p":"A page is a model built from <strong>LEGO bricks</strong> (blocks); each brick has a type and can have bricks stacked on it (nesting). Editing one brick doesn't require rebuilding the whole model (granular edits). When several people build at once, you need a rule for who places a brick in a contested spot — a <strong>lock</strong> (one at a time), a <strong>referee transforming moves</strong> (OT), or magic bricks that always click together regardless of order (CRDT). A <strong>snapshot</strong> is photographing the build so you can rebuild it exactly later."},
+        {"h4":"Comparison — concurrency strategies"},
+        {"table":{"head":["Strategy","Merge quality","Complexity","When"],
+          "rows":[
+            ["Last-write-wins / lock","Lossy on conflict","Low","Light collaboration, MVP"],
+            ["Operational Transformation","Strong","High","Real-time text, large teams"],
+            ["CRDT (Yjs etc.)","Conflict-free","Medium-high","Modern default; server relays"]
+          ]}},
+        {"h4":"Diagram — the block tree"},
+        {"diagram":"Page (block)\n ├─ H1   pos 1.0\n ├─ P    pos 2.0\n └─ Toggle pos 3.0\n     ├─ P  pos 1.0  (child of toggle)\n     └─ List pos 2.0\n         └─ Item pos 1.0\n parent_id + position = order within nesting"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative.","class":"kbd"},
+        {"h3":"Lesson 1 — One uniform block model"},
+        {"code":"// blocks: id, page_id, parent_id(nullable), type, content(json), position(float)\nclass Block extends Model {\n    protected $casts = ['content'=>'array','position'=>'float'];\n    public function children(): HasMany {\n        return $this->hasMany(Block::class,'parent_id')->orderBy('position');\n    }\n}","lang":"php"},
+        {"h3":"Lesson 2 — Insert a block with fractional position"},
+        {"code":"$block = Block::create([\n    'page_id'=>$page->id,'parent_id'=>$parentId,'type'=>'paragraph',\n    'content'=>['text'=>''],\n    'position'=>positionBetween($prevPos,$nextPos), // single write, no renumber\n]);","lang":"php"},
+        {"h3":"Lesson 3 — Patch one block, not the page"},
+        {"code":"public function update(Request $r, Block $block) {\n    $this->authorize('edit', $block->page);\n    $block->update(['content'=>$r->input('content')]);\n    broadcast(new BlockUpdated($block))->toOthers();\n    return new BlockResource($block);\n}","lang":"php"},
+        {"h3":"Lesson 4 — Relay CRDT updates"},
+        {"code":"// server stores the opaque CRDT update and rebroadcasts it\nclass DocUpdated implements ShouldBroadcast {\n    public function __construct(public int $pageId, public string $update) {}\n    public function broadcastOn(): PrivateChannel {\n        return new PrivateChannel('page.'.$this->pageId);\n    }\n}\n// persist updates (append) for late joiners to replay","lang":"php"},
+        {"h3":"Lesson 5 — Resolve inherited permissions"},
+        {"code":"public function effectiveRole(User $u, Page $page): ?string {\n    for ($p = $page; $p; $p = $p->parent) {\n        if ($grant = $p->grants()->forUser($u)->first()) return $grant->role;\n    }\n    return null; // no access\n}","lang":"php"},
+        {"h3":"Lesson 6 — Snapshot for version history"},
+        {"code":"class SnapshotPage implements ShouldQueue {\n    public function handle(Page $page): void {\n        PageVersion::create([\n            'page_id'=>$page->id,\n            'tree'=>$page->loadTree()->toArray(), // serialized block tree\n            'created_by'=>auth()->id(),\n        ]);\n    }\n} // scheduled or on significant change","lang":"php"},
+        {"h3":"Lesson 7 — Public share links are scoped tokens"},
+        {"code":"$link = $page->shareLinks()->create([\n    'token'=>Str::random(40),'role'=>'view','expires_at'=>now()->addDays(7),\n]);\n// middleware resolves token -> grants read-only access to that page subtree","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why model a page and its contents as one uniform block type?","a":"A block has type + content + parent_id + position, so any block can contain any block. Treating a page as a block lets nesting, ordering, and rendering use a single recursive model rather than special cases per content type."},
+          {"q":"Q2. How is ordering-with-nesting represented in one table?","a":"parent_id gives the tree; position (fractional/lexorank) orders siblings. Rendering recursively fetches children ordered by position; inserting a block is a single write at the midpoint."},
+          {"q":"Q3. Why persist per-block edits instead of saving the whole document?","a":"Whole-document saves overwrite concurrent edits, guaranteeing lost work. Per-block PATCHes shrink the write and the conflict window, enabling real collaboration."},
+          {"q":"Q4. Compare last-write-wins, OT, and CRDT.","a":"LWW/lock: simplest, lossy on conflict, fine for light use. OT: transforms concurrent ops, strong but complex (Google Docs). CRDT: conflict-free merge by construction, medium-high complexity, modern default with the server as relay/persistence."},
+          {"q":"Q5. With a CRDT, what is Laravel's role?","a":"Relay opaque updates over WebSockets and persist the state/op log so late joiners can catch up. The merge logic is client-side; the server owns permissions and storage, not text merging."},
+          {"q":"Q6. How are effective page permissions resolved when grants are inherited?","a":"Walk up the page tree from the page to the root, returning the role from the nearest explicit grant for the user/group; no grant means no access."},
+          {"q":"Q7. Two ways to implement version history, and their trade-off?","a":"Periodic snapshots of the block tree (simple to restore, coarser) vs replaying an append-only op log (granular, heavier to reconstruct). Many apps combine periodic snapshots with recent ops."}
+        ]}},
+        {"h3":"Code drill — concurrent block edits don't clobber the page (Pest)"},
+        {"code":"it('edits to different blocks both persist', function () {\n    $page = Page::factory()->withBlocks(2)->create();\n    [$b1,$b2] = $page->blocks;\n    patchBlock($b1, ['text'=>'A']);\n    patchBlock($b2, ['text'=>'B']); // concurrent-ish, different rows\n    expect($b1->fresh()->content['text'])->toBe('A')\n        ->and($b2->fresh()->content['text'])->toBe('B');\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw the block tree each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; redraw parent_id+position tree.","First retrieval."],
+            ["Day 3","Flashcards; explain LWW vs OT vs CRDT aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the per-block PATCH from blank.","Mix contexts."],
+            ["Day 16","Re-derive inherited-permission resolution.","Widen interval."],
+            ["Day 35","Teach the concurrency spectrum to someone.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. Two users typing in the same paragraph keep overwriting each other. Diagnosis and options?","a":"Whole-block last-write-wins with no merge. Options in order of effort: block-level locking, character-level OT, or a CRDT (Yjs) where the server relays/persists opaque updates and clients merge."},
+          {"q":"M2. Rendering a deeply nested page is slow / stack-overflows. Two fixes?","a":"(1) Cap nesting depth or load child blocks lazily on expand. (2) Fetch the whole tree in one query and build it in memory (avoid per-node N+1 recursion); index (page_id, parent_id, position)."},
+          {"q":"M3. Inserting a block at the top renumbers all siblings. Better approach?","a":"Use fractional/lexorank positions: new position = midpoint of neighbours, a single write. Same technique as Kanban card ordering."},
+          {"q":"M4. A shared-link recipient can edit though the link was 'view only'. Flaw?","a":"Share token scope not enforced server-side. The token must map to a role (view) and the policy must check it on every mutation; never trust the client to honour read-only."},
+          {"q":"M5. A user moved to a sub-page they shouldn't access. How should permission have resolved?","a":"By walking up the page tree to the nearest explicit grant; if none grants the user access, deny. Inherited permissions must be resolved server-side per request."},
+          {"q":"M6. When is a CRDT overkill?","a":"For light, mostly single-editor documents or an MVP. Block-level locking or last-write-wins is far simpler and adequate; adopt CRDT/OT when true simultaneous co-editing of the same text is a core requirement."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build the editor twice</strong> — last-write-wins vs a CRDT (Yjs) relayed by Laravel — and feel where each breaks.",
+          "<strong>Break collaboration on purpose</strong> — switch to whole-page saves and watch two editors clobber each other.",
+          "<strong>Write permission tests first</strong>: inherited grants, share-link scope, denied sub-pages.",
+          "<strong>Add comments & mentions</strong> anchored to specific blocks.",
+          "<strong>Stretch goals:</strong> block-level version diffing, offline editing with later sync, slash-command block insertion, and full-text search across pages (Scout)."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The two hard parts of a block editor","The ordered nested block tree, and merging concurrent edits without clobbering."],
+    ["Everything-is-a-block model","Block = type + content(JSON) + parent_id + position; a page is itself a block."],
+    ["Ordering + nesting representation","parent_id for the tree, fractional/lexorank position for sibling order."],
+    ["Why per-block edits not whole-page saves","Whole-page saves overwrite concurrent edits; granular PATCHes shrink the conflict window."],
+    ["Concurrency spectrum","Last-write-wins/lock → OT → CRDT, increasing merge quality and complexity."],
+    ["Laravel's role with a CRDT","Relay opaque updates over WebSockets and persist state/op log for late joiners; merge is client-side."],
+    ["Resolving inherited permissions","Walk up the page tree to the nearest explicit grant; none = no access."],
+    ["Two version-history strategies","Periodic tree snapshots (simple restore) or op-log replay (granular, heavier)."],
+    ["Public share link","A scoped token (role + expiry) granting access to a page subtree, enforced server-side."],
+    ["Inserting a block cheaply","Fractional position = midpoint of neighbours; one write, no sibling renumber."],
+    ["When CRDT is overkill","Light/single-editor docs or MVPs — locking or LWW is simpler and enough."],
+    ["Rendering a page","Recursively fetch children ordered by position; load whole tree in one query to avoid N+1."]
+  ],
+  "glossary": [
+    ["Block","A typed unit of content with JSON content, a parent, and a position."],
+    ["Page","A document, itself modelled as a block."],
+    ["Block tree","The nested structure of blocks via parent_id."],
+    ["Position","Fractional/lexorank order among sibling blocks."],
+    ["Granular edit","A change persisted at block level, not whole-document."],
+    ["Last-write-wins","Simplest merge: latest save overwrites; lossy on conflict."],
+    ["Operational Transformation","Transforming concurrent ops to merge edits (OT)."],
+    ["CRDT","Conflict-free Replicated Data Type; merges by construction."],
+    ["Op log","Append-only record of edit operations."],
+    ["Snapshot","A saved copy of the block tree at a point in time."],
+    ["Grant","An explicit permission (role) on a page for a user/group."],
+    ["Share link","A tokenised, scoped public access URL."]
+  ]
+}

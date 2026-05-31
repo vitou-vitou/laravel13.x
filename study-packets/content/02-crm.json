@@ -1,0 +1,178 @@
+{
+  "title": "Building a CRM (Sales Pipeline) in Laravel",
+  "subtitle": "Leads, contacts, deals through configurable pipeline stages, an activity timeline, assignment rules, and reporting — the Laravel architecture behind a sales CRM.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~90 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a sales CRM fits together",
+      "blocks":[
+        {"p":"A CRM is a <strong>system of record for relationships and the deals that flow through stages</strong>. The design pressure: the pipeline must be <em>configurable per team</em>, every touch must be captured on a unified <em>timeline</em>, and managers need <em>aggregated reporting</em> across thousands of records without N+1 collapse."},
+        {"diagram":"Organization\n ├─ Users (sales reps, managers)\n ├─ Contacts ──┐\n ├─ Companies ─┤ (people & accounts)\n ├─ Pipeline\n │   └─ Stages (Lead → Qualified → Proposal → Won/Lost)\n ├─ Deals (value, stage, owner, contact)\n │   └─ Activities (calls, emails, notes, tasks)  ◄ the timeline\n └─ Custom Fields (per-entity, per-org)"},
+        {"p":"The core action — moving a deal through the pipeline — drives stage history, forecasting, and notifications:"},
+        {"diagram":"Rep drags deal Qualified → Proposal\n        │\n        ▼  authorize (owns deal / manager)\n  Update deal.stage_id + record StageTransition (history)\n        │\n   ┌────┴─────┐\n   ▼          ▼\n Activity   Recompute forecast (queued)\n timeline   + notify manager if value > threshold"},
+        {"ul":[
+          "<strong>Entity model</strong> — contacts, companies, deals, with custom fields per organization.",
+          "<strong>Configurable pipeline</strong> — stages are data, not enums, so each team defines its own.",
+          "<strong>Activity timeline</strong> — a polymorphic stream of every interaction on a deal/contact.",
+          "<strong>Assignment & reporting</strong> — routing leads to reps and aggregating pipeline value."
+        ]},
+        {"callout":"A CRM is a <em>configurable pipeline over a relationship graph, with a unified activity timeline</em>. The hard parts are user-defined stages/fields (data, not code) and fast aggregate reporting.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Contacts, companies, and deals"},
+        {"p":"A <strong>contact</strong> is a person; a <strong>company</strong> is an account; a contact <code>belongsTo</code> a company. A <strong>deal</strong> (opportunity) <code>belongsTo</code> a contact/company and an owner, and carries a monetary value and a current stage. These three are the spine of every CRM."},
+        {"h3":"Pipeline stages as data, not enums"},
+        {"p":"Stages must be configurable per team, so model them as a <code>stages</code> table (name, order, probability%) belonging to a <code>pipeline</code>. A deal references <code>stage_id</code>. Never hard-code stages as a PHP enum — different orgs need different funnels, and admins reorder them at runtime."},
+        {"h3":"Stage history & forecasting"},
+        {"p":"Each move appends a <strong>stage transition</strong> row (deal, from, to, at, by). This history powers <em>velocity</em> metrics (time in stage) and <em>forecasting</em>: expected revenue = Σ(deal value × stage probability). Without history you can only see the current state, not the trend."},
+        {"h3":"The activity timeline (polymorphic)"},
+        {"p":"Calls, emails, notes, and tasks all appear on one timeline. Model an <code>activities</code> table with a <strong>polymorphic subject</strong> (<code>subject_type</code>, <code>subject_id</code>) so an activity can attach to a deal, contact, or company. The timeline is a single ordered query, not a union of many tables."},
+        {"h3":"Custom fields"},
+        {"p":"Orgs add their own fields (e.g. \"industry\", \"lead source\"). Two patterns: an <strong>EAV</strong> table (<code>custom_field_values</code>: entity, field_id, value) — flexible but query-heavy; or a <strong>JSON column</strong> (<code>meta</code>) with a field-definition table for the UI — simpler, queryable via JSON paths in modern MySQL/Postgres. JSON column is usually the right default."},
+        {"h3":"Lead assignment"},
+        {"p":"New leads route to reps by rule: <strong>round-robin</strong>, by territory, or by load. Implement as a queued job that picks the next owner; keep the algorithm in a service so it's testable and swappable."},
+        {"h3":"Reporting without N+1"},
+        {"p":"Dashboards aggregate: pipeline value by stage, deals won per rep, conversion rates. Use database aggregation (<code>selectRaw('stage_id, sum(value)')->groupBy</code>), eager-load relations for lists, and cache expensive rollups. Never loop deals in PHP to sum — push it to SQL."},
+        {"callout":"Hard-coding pipeline stages as an enum is the classic CRM mistake — it makes the product un-configurable. Stages, fields, and assignment rules must be data the admin controls.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A CRM tracks contacts, companies, and deals moving through configurable pipeline stages, records every interaction on a polymorphic timeline, and aggregates it all into reports."},
+        {"h4":"Analogy — the sales relay race"},
+        {"p":"A deal is a baton passed down a track of <strong>stages</strong>. Each lane (pipeline) can have a different number of hurdles because teams sell differently — so the track is built from movable pieces (data), not poured concrete (enums). The <strong>timeline</strong> is the race commentary: every call, email, and note logged in order. The <strong>forecast</strong> is the bookmaker's odds: each stage has a probability, and expected revenue weights deal value by how far down the track it is."},
+        {"h4":"Comparison — custom field strategies"},
+        {"table":{"head":["Approach","Flexibility","Query cost","When"],
+          "rows":[
+            ["Fixed columns","Low","Cheap","Fields known up front, rarely change"],
+            ["JSON meta column","High","Medium (JSON paths)","Default — admin-defined fields, light filtering"],
+            ["EAV table","Highest","High (joins)","Heavy per-field reporting/filtering at scale"]
+          ]}},
+        {"h4":"Diagram — the polymorphic timeline"},
+        {"diagram":"activities\n ┌───────────────────────────────────────┐\n │ id  verb    subject_type  subject_id   │\n │ 1   called   Deal          42           │\n │ 2   noted    Contact       7            │\n │ 3   emailed  Deal          42           │\n └───────────────────────────────────────┘\n  Deal 42 timeline = where subject=Deal,42 order by created_at"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative, not production.","class":"kbd"},
+        {"h3":"Lesson 1 — Stages are rows, deals reference them"},
+        {"code":"Schema::create('stages', function (Blueprint $t) {\n    $t->id();\n    $t->foreignId('pipeline_id')->constrained();\n    $t->string('name');\n    $t->unsignedInteger('order');\n    $t->unsignedTinyInteger('probability'); // 0-100 for forecasting\n});\n// deals.stage_id -> stages.id",
+        "lang":"php"},
+        {"h3":"Lesson 2 — Record every transition"},
+        {"code":"public function moveStage(Deal $deal, Stage $to): void {\n    $from = $deal->stage_id;\n    $deal->update(['stage_id' => $to->id]);\n    StageTransition::create([\n        'deal_id'=>$deal->id,'from_stage_id'=>$from,\n        'to_stage_id'=>$to->id,'moved_by'=>auth()->id(),\n    ]);\n}","lang":"php"},
+        {"h3":"Lesson 3 — One polymorphic timeline"},
+        {"code":"class Activity extends Model {\n    public function subject(): MorphTo { return $this->morphTo(); }\n}\n// log:\n$deal->activities()->create(['verb'=>'called','user_id'=>auth()->id(),'body'=>$note]);\n// (Deal hasMany activities via morphMany)","lang":"php"},
+        {"h3":"Lesson 4 — Forecast in SQL, not PHP"},
+        {"code":"$forecast = Deal::query()\n    ->join('stages','stages.id','=','deals.stage_id')\n    ->where('deals.status','open')\n    ->selectRaw('SUM(deals.value * stages.probability / 100) as expected')\n    ->value('expected');","lang":"php"},
+        {"h3":"Lesson 5 — Round-robin assignment as a service"},
+        {"code":"class RoundRobinAssigner {\n    public function next(Team $team): User {\n        return $team->reps()\n            ->orderBy('open_deals_count') // least loaded first\n            ->first();\n    }\n}\n// called from a queued AssignLead job","lang":"php"},
+        {"h3":"Lesson 6 — Custom fields via JSON + definitions"},
+        {"code":"// deals.meta is cast to array; field defs drive the UI + validation\n$deal->meta = [...$deal->meta, 'lead_source' => $request->lead_source];\n$deal->save();\n// filter (MySQL/Postgres JSON):\nDeal::whereJsonContains('meta->lead_source','webinar')->get();","lang":"php"},
+        {"h3":"Lesson 7 — List deals without N+1"},
+        {"code":"Deal::with(['contact:id,name','owner:id,name','stage:id,name'])\n    ->where('status','open')->latest()->paginate(50);","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why model pipeline stages as a table rather than a PHP enum?","a":"Stages must be configurable per team — different orgs have different funnels and reorder/add stages at runtime. An enum bakes them into code, making the product un-configurable and every change a deploy."},
+          {"q":"Q2. What does a stage-transition history table enable that a single stage_id cannot?","a":"Trend and velocity analysis: time-in-stage, conversion rates between stages, and historical forecasting. A bare stage_id shows only the current state, not how the deal got there."},
+          {"q":"Q3. How does one timeline hold calls, notes, and emails for both deals and contacts?","a":"A polymorphic activities table (subject_type, subject_id via morphTo). Any entity can have a timeline, and it's a single ordered query rather than a union across separate tables."},
+          {"q":"Q4. Give the forecasting formula and where it should run.","a":"Expected revenue = Σ(deal.value × stage.probability/100) over open deals. Run it in SQL with SUM/JOIN/GROUP BY — never loop deals in PHP to sum."},
+          {"q":"Q5. When would you choose a JSON meta column over an EAV table for custom fields?","a":"Default to JSON meta when fields are admin-defined and filtering is light — it's simpler and queryable via JSON paths. Reach for EAV only when you need heavy per-field reporting/filtering at scale."},
+          {"q":"Q6. A deal list page is slow with many rows. First fix?","a":"Eliminate N+1 by eager-loading contact, owner, and stage (with select of only needed columns) and paginating. Then index foreign keys/status used for filtering."},
+          {"q":"Q7. Where does lead-assignment logic belong and why?","a":"In a dedicated service (e.g. RoundRobinAssigner) called from a queued job — so the algorithm is testable, swappable (round-robin/territory/load), and off the request hot path."}
+        ]}},
+        {"h3":"Code drill — forecast aggregation (Pest)"},
+        {"code":"it('weights pipeline value by stage probability', function () {\n    $s50 = Stage::factory()->create(['probability'=>50]);\n    $s100 = Stage::factory()->create(['probability'=>100]);\n    Deal::factory()->create(['value'=>1000,'stage_id'=>$s50->id,'status'=>'open']);\n    Deal::factory()->create(['value'=>2000,'stage_id'=>$s100->id,'status'=>'open']);\n    expect(forecast())->toBe(2500.0); // 500 + 2000\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory and re-derive the timeline + forecast at each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; redraw the polymorphic timeline.","First retrieval."],
+            ["Day 3","Flashcards; explain stages-as-data vs enum aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the forecast query from blank.","Mix contexts."],
+            ["Day 16","Re-derive custom-field trade-offs from memory.","Widen interval."],
+            ["Day 35","Teach the pipeline/forecast model to someone.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. A manager wants 'average days a deal spends in Proposal'. Which table answers it and how?","a":"The stage-transition history: for each deal, diff timestamps of entering and leaving the Proposal stage, then average. Impossible with only the current stage_id."},
+          {"q":"M2. Reporting dashboard times out on a large org. Two architectural fixes?","a":"(1) Aggregate in SQL with GROUP BY and proper indexes (stage_id, owner_id, status, created_at). (2) Cache/precompute rollups (scheduled job or materialized summary table) instead of recomputing per request."},
+          {"q":"M3. Admins ask to add a 'Renewal' stage between Won and Closed mid-quarter. What breaks if stages were an enum?","a":"A code change + migration + deploy, and existing forecasts/history keyed to enum values get messy. With stages-as-data it's an insert and a reorder — no deploy."},
+          {"q":"M4. Sales wants to filter deals by a custom 'industry' field. You used a JSON meta column — how, and the caveat?","a":"whereJsonContains('meta->industry', ...) (MySQL/Postgres JSON path). Caveat: JSON-path filters are slower and may not use ordinary indexes — add a generated/virtual column + index, or move hot filters to real columns."},
+          {"q":"M5. Two reps both 'claim' the same inbound lead simultaneously. How prevent double assignment?","a":"Make assignment atomic: a queued job with a DB transaction + row lock (or a unique constraint on lead+owner / a status flag updated conditionally) so only the first claim wins."},
+          {"q":"M6. When is EAV worth its join cost over a JSON column?","a":"When you need heavy, indexed per-field querying/reporting across many admin-defined fields at scale — EAV lets you index field values relationally, whereas JSON paths get expensive. For most CRMs, JSON wins on simplicity."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build the pipeline twice</strong> — stages as enum vs stages as data — and feel why data wins the moment an admin reorders.",
+          "<strong>Break reporting on purpose</strong> — sum deals in PHP across 50k rows, watch it crawl, then move it to SQL aggregation.",
+          "<strong>Write velocity tests first</strong> on stage history before building the dashboard.",
+          "<strong>Add email integration</strong> — log inbound/outbound email as timeline activities (mailbox parsing or webhook).",
+          "<strong>Stretch goals:</strong> deal forecasting by close date, lead deduplication/merge, territory-based assignment, custom-field validation rules, and a saved-views/filters system."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The two hard parts of a CRM","User-defined pipeline stages/fields (data not code) and fast aggregate reporting over many records."],
+    ["Why stages must be a table","Teams have different funnels and reorder stages at runtime; an enum forces a deploy for every change."],
+    ["What stage-transition history enables","Velocity (time-in-stage), conversion rates, and historical forecasting — invisible to a bare stage_id."],
+    ["Forecast formula","Σ(deal.value × stage.probability/100) over open deals — computed in SQL."],
+    ["How one timeline serves many entities","Polymorphic activities table (subject_type/subject_id via morphTo)."],
+    ["Default custom-field strategy","JSON meta column + a field-definition table for UI/validation; EAV only for heavy per-field reporting."],
+    ["Filter a JSON custom field","whereJsonContains('meta->key', value) — add a generated column + index for hot filters."],
+    ["Reporting rule of thumb","Aggregate in SQL (SUM/GROUP BY) with indexes; cache expensive rollups; never sum in PHP loops."],
+    ["Lead assignment placement","A service (round-robin/territory/load) invoked from a queued job — testable and swappable."],
+    ["Preventing double lead assignment","Atomic claim: transaction + row lock or conditional status update so only the first wins."],
+    ["List deals without N+1","Eager-load contact/owner/stage with selected columns, then paginate."],
+    ["Contact vs company vs deal","Contact = person, company = account, deal = opportunity with value + stage; deal belongs to contact/company + owner."]
+  ],
+  "glossary": [
+    ["Contact","A person in the CRM, usually belonging to a company."],
+    ["Company / Account","An organization that contacts and deals attach to."],
+    ["Deal / Opportunity","A potential sale with a value, owner, and current stage."],
+    ["Pipeline","An ordered set of stages a deal moves through."],
+    ["Stage","A step in the pipeline with an order and win-probability."],
+    ["Stage transition","A history row recording a deal moving from one stage to another."],
+    ["Forecast","Expected revenue = value weighted by stage probability."],
+    ["Activity","A logged interaction (call/email/note/task) on the timeline."],
+    ["Polymorphic relation","One relation (morphTo) letting activities attach to any entity."],
+    ["Custom field","An admin-defined attribute stored in JSON meta or EAV."],
+    ["EAV","Entity-Attribute-Value table pattern for flexible fields."],
+    ["Round-robin","Assignment rotating leads evenly across reps."]
+  ]
+}

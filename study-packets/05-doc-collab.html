@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Packet — Building a Document Collaboration App in Laravel (Notion-style)</title>
+<style>
+  :root{--bg:#0f1117;--panel:#171a23;--panel2:#1d212c;--ink:#e6e9ef;--muted:#9aa3b2;--accent:#7c9cff;--accent2:#5be0b3;--warn:#ffcc66;--danger:#ff7b72;--line:#2a2f3c;--code:#0b0d13;--radius:14px}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header.hero{padding:64px 20px 40px;text-align:center;background:radial-gradient(1200px 400px at 50% -120px,rgba(124,156,255,.18),transparent 70%);border-bottom:1px solid var(--line)}
+  header.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px;letter-spacing:-.5px}
+  header.hero .sub{color:var(--muted);max-width:680px;margin:0 auto;font-size:16px}
+  .badges{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .badge{background:var(--panel2);border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:999px;font-size:13px}
+  nav.jump{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:10px 20px}
+  nav.jump .inner{max-width:920px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  nav.jump a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border:1px solid transparent}
+  nav.jump a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+  section{margin-top:46px}
+  .pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:rgba(124,156,255,.12);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+  .pill.step{color:var(--accent2);background:rgba(91,224,179,.12)}
+  h2{font-size:25px;margin:6px 0 14px;letter-spacing:-.3px}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  h4{font-size:16px;margin:18px 0 6px;color:var(--accent2)}
+  p{margin:10px 0}ul,ol{margin:10px 0;padding-left:22px}li{margin:5px 0}
+  .step-divider{display:flex;align-items:center;gap:14px;margin:60px 0 0}
+  .step-divider .bar{flex:1;height:1px;background:var(--line)}
+  .step-divider .lbl{color:var(--muted);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--panel2);padding:14px 18px;border-radius:8px;margin:16px 0}
+  .callout.warn{border-color:var(--warn)}.callout.danger{border-color:var(--danger)}
+  .callout .t{font-weight:700;margin-bottom:4px}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;background:var(--panel2);padding:2px 6px;border-radius:5px;color:#cdd6f4}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:auto;margin:14px 0}
+  pre code{background:none;padding:0;font-size:13px;line-height:1.55;display:block;color:#cdd6f4}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#fff;font-weight:600}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .diagram{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:18px;overflow:auto}
+  .diagram pre{background:none;border:none;margin:0;padding:0;color:#9fb4ff;font-size:12.5px;line-height:1.45}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:16px 0}
+  .flip{perspective:1200px;height:170px;cursor:pointer}
+  .flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.flipped .flip-in{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;border:1px solid var(--line);padding:16px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .flip-front{background:var(--panel2);font-weight:600}
+  .flip-back{background:linear-gradient(160deg,#1c2738,#15202e);transform:rotateY(180deg);color:#d7e4ff;font-size:14px;line-height:1.5}
+  .flip .hint{position:absolute;bottom:8px;right:12px;font-size:10.5px;color:var(--muted);font-weight:400}
+  .q{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;background:var(--panel)}
+  .q .qn{font-weight:600;margin-bottom:6px}
+  .reveal-btn{background:var(--panel2);color:var(--accent);border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+  .reveal-btn:hover{background:#222838}
+  .answer{display:none;margin-top:10px;border-left:3px solid var(--accent2);background:rgba(91,224,179,.07);padding:10px 14px;border-radius:6px;font-size:14.5px}
+  .answer.show{display:block}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 4px}
+  .toolbar button{background:var(--accent);color:#0b0d13;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .toolbar button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .sched td:first-child{white-space:nowrap;font-weight:600;color:var(--accent2)}
+  footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  .kbd{font-size:12px;color:var(--muted)}
+  a.inlink{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Building a Document Collaboration App in Laravel (Notion-style)</h1>
+  <p class="sub">Block-based documents, a nested block tree, real-time collaborative editing, sharing and permissions, and version history — the Laravel architecture behind a Notion-style workspace.</p>
+  <div class="badges">
+    <span class="badge">Level: Professional</span>
+    <span class="badge">Laravel 11/12 · PHP 8.2+</span>
+    <span class="badge">Broadcasting</span>
+    <span class="badge">8-Principle Method</span>
+  </div>
+</header>
+<nav class="jump"><div class="inner">
+    <a href="#p1">Map</a>
+    <a href="#p2">Clear</a>
+    <a href="#p3">Different</a>
+    <a href="#p4">Short</a>
+    <a href="#p5">Test</a>
+    <a href="#p6">Wait</a>
+    <a href="#p7">Mix</a>
+    <a href="#p8">Don't</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#glossary">Glossary</a>
+</div></nav>
+<div class="wrap">
+<div class="step-divider"><span class="lbl">Step 1 — Understanding</span><span class="bar"></span></div>
+<section id="p1">
+  <span class="pill">Principle 1 — Map of the System</span>
+  <h2>How a block-based editor fits together</h2>
+  <p>A Notion-style app is a <strong>tree of typed blocks, edited concurrently, that must merge without losing work</strong>. The pressure: a document is not a string but a nested structure of blocks (paragraph, heading, list, table, embed); many people type at once; and every change should sync live and be recoverable.</p>
+  <div class="diagram"><pre>Workspace
+ └─ Page (a document, itself a block)
+     └─ Blocks (ordered tree)
+         ├─ Heading
+         ├─ Paragraph
+         ├─ Toggle ─► child blocks (nesting)
+         ├─ List item ─► child blocks
+         └─ Embed / Table / Image
+   + Permissions (page-level share)
+   + Versions (snapshots / op log)</pre></div>
+  <p>The defining action — editing a block — persists a granular change and syncs it:</p>
+  <div class="diagram"><pre>User edits block ──► PATCH /blocks/{id} {content, op}
+   │ authorize (can edit page?)
+   ▼
+ Apply change to block (content JSON) — granular, not whole-page
+   │
+   ├─► broadcast BlockUpdated to page.{id}  (others merge live)
+   └─► append to version/op log (queued)</pre></div>
+  <ul><li><strong>Block model</strong> — a page is a block; blocks form an ordered, nested tree with typed content.</li><li><strong>Concurrent editing</strong> — granular block-level changes + a conflict strategy (block-locking, OT, or CRDT).</li><li><strong>Real-time sync</strong> — broadcasting per-block changes to all viewers.</li><li><strong>Sharing & versions</strong> — page-level permissions and a recoverable history.</li></ul>
+  <div class="callout"><div class="t">The mental model in one sentence</div>A block editor is an <em>ordered nested tree of typed blocks edited concurrently</em>. The hard parts are the block tree (ordering + nesting) and merging simultaneous edits without clobbering.</div>
+</section>
+
+<section id="p2">
+  <span class="pill">Principle 2 — Clear Explanations</span>
+  <h2>The concepts, defined precisely</h2>
+  <h3>Everything is a block</h3>
+  <p>A <strong>block</strong> has a <code>type</code> (heading/paragraph/list/table/embed), a JSON <code>content</code>, a <code>parent_id</code> (for nesting), and a <code>position</code> (for ordering among siblings). A <strong>page</strong> is itself a block. This uniform model lets any block contain any block.</p>
+  <h3>Ordering + nesting in one table</h3>
+  <p>Blocks form a tree via <code>parent_id</code> and order among siblings via <code>position</code> (use fractional/lexorank, as in a Kanban board, so inserting a block is one write). Rendering = recursively fetch children ordered by position. Beware deep recursion; cap nesting or load lazily.</p>
+  <h3>Granular edits, not whole-page saves</h3>
+  <p>Saving the entire document on each keystroke is catastrophic for collaboration — two users overwrite each other. Instead persist <strong>per-block</strong> changes: a PATCH touches one block's content. Smaller writes mean smaller conflict windows.</p>
+  <h3>The concurrency strategy spectrum</h3>
+  <p>Three options, increasing complexity: (1) <strong>Block-level locking / last-write-wins</strong> — simplest, occasional lost edits within a block; fine for light collaboration. (2) <strong>Operational Transformation (OT)</strong> — transform concurrent ops against each other; powers Google Docs, complex. (3) <strong>CRDTs</strong> (e.g. Yjs) — conflict-free merge by construction; increasingly the default for rich editors, with the server as a relay/persistence layer.</p>
+  <h3>Server's role with CRDTs</h3>
+  <p>With a CRDT the heavy merge logic lives client-side; Laravel's job is to <strong>relay updates</strong> over WebSockets and <strong>persist the document state/op log</strong> so a new client can load and catch up. The server becomes an authority for permissions and storage, not text merging.</p>
+  <h3>Sharing & permissions</h3>
+  <p>Permissions are <strong>per page</strong>, often inherited down a page tree: a user/group has a role (view/comment/edit/full). Resolve effective access by walking up to the nearest explicit grant. Public share links are tokens with a scope and optional expiry.</p>
+  <h3>Version history</h3>
+  <p>Recoverability comes from either periodic <strong>snapshots</strong> of the block tree or replaying the <strong>op log</strong> to a point in time. Snapshots are simple to restore; op logs are granular but heavier to replay. Many apps snapshot periodically and keep recent ops.</p>
+  <div class="callout danger"><div class="t">Most common misconception</div>Saving the whole document per change is the classic block-editor mistake — it guarantees lost edits under collaboration. Persist granular per-block changes and choose an explicit merge strategy.</div>
+</section>
+
+<section id="p3">
+  <span class="pill">Principle 3 — Different Media</span>
+  <h2>The same ideas, four ways</h2>
+  <h4>One-line summary</h4>
+  <p>A block editor stores documents as an ordered nested tree of typed blocks, persists granular per-block edits, merges concurrent changes via locking/OT/CRDT, and syncs everything live.</p>
+  <h4>Analogy — LEGO instructions edited by a team</h4>
+  <p>A page is a model built from <strong>LEGO bricks</strong> (blocks); each brick has a type and can have bricks stacked on it (nesting). Editing one brick doesn't require rebuilding the whole model (granular edits). When several people build at once, you need a rule for who places a brick in a contested spot — a <strong>lock</strong> (one at a time), a <strong>referee transforming moves</strong> (OT), or magic bricks that always click together regardless of order (CRDT). A <strong>snapshot</strong> is photographing the build so you can rebuild it exactly later.</p>
+  <h4>Comparison — concurrency strategies</h4>
+  <table><thead><tr><th>Strategy</th><th>Merge quality</th><th>Complexity</th><th>When</th></tr></thead><tbody><tr><td>Last-write-wins / lock</td><td>Lossy on conflict</td><td>Low</td><td>Light collaboration, MVP</td></tr><tr><td>Operational Transformation</td><td>Strong</td><td>High</td><td>Real-time text, large teams</td></tr><tr><td>CRDT (Yjs etc.)</td><td>Conflict-free</td><td>Medium-high</td><td>Modern default; server relays</td></tr></tbody></table>
+  <h4>Diagram — the block tree</h4>
+  <div class="diagram"><pre>Page (block)
+ ├─ H1   pos 1.0
+ ├─ P    pos 2.0
+ └─ Toggle pos 3.0
+     ├─ P  pos 1.0  (child of toggle)
+     └─ List pos 2.0
+         └─ Item pos 1.0
+ parent_id + position = order within nesting</pre></div>
+</section>
+
+<section id="p4">
+  <span class="pill">Principle 4 — Short Lessons</span>
+  <h2>Bite-sized micro-lessons</h2>
+  <p>Each lesson is one idea. Code illustrative.</p>
+  <h3>Lesson 1 — One uniform block model</h3>
+  <pre><code>// blocks: id, page_id, parent_id(nullable), type, content(json), position(float)
+class Block extends Model {
+    protected $casts = ['content'=&gt;'array','position'=&gt;'float'];
+    public function children(): HasMany {
+        return $this-&gt;hasMany(Block::class,'parent_id')-&gt;orderBy('position');
+    }
+}</code></pre>
+  <h3>Lesson 2 — Insert a block with fractional position</h3>
+  <pre><code>$block = Block::create([
+    'page_id'=&gt;$page-&gt;id,'parent_id'=&gt;$parentId,'type'=&gt;'paragraph',
+    'content'=&gt;['text'=&gt;''],
+    'position'=&gt;positionBetween($prevPos,$nextPos), // single write, no renumber
+]);</code></pre>
+  <h3>Lesson 3 — Patch one block, not the page</h3>
+  <pre><code>public function update(Request $r, Block $block) {
+    $this-&gt;authorize('edit', $block-&gt;page);
+    $block-&gt;update(['content'=&gt;$r-&gt;input('content')]);
+    broadcast(new BlockUpdated($block))-&gt;toOthers();
+    return new BlockResource($block);
+}</code></pre>
+  <h3>Lesson 4 — Relay CRDT updates</h3>
+  <pre><code>// server stores the opaque CRDT update and rebroadcasts it
+class DocUpdated implements ShouldBroadcast {
+    public function __construct(public int $pageId, public string $update) {}
+    public function broadcastOn(): PrivateChannel {
+        return new PrivateChannel('page.'.$this-&gt;pageId);
+    }
+}
+// persist updates (append) for late joiners to replay</code></pre>
+  <h3>Lesson 5 — Resolve inherited permissions</h3>
+  <pre><code>public function effectiveRole(User $u, Page $page): ?string {
+    for ($p = $page; $p; $p = $p-&gt;parent) {
+        if ($grant = $p-&gt;grants()-&gt;forUser($u)-&gt;first()) return $grant-&gt;role;
+    }
+    return null; // no access
+}</code></pre>
+  <h3>Lesson 6 — Snapshot for version history</h3>
+  <pre><code>class SnapshotPage implements ShouldQueue {
+    public function handle(Page $page): void {
+        PageVersion::create([
+            'page_id'=&gt;$page-&gt;id,
+            'tree'=&gt;$page-&gt;loadTree()-&gt;toArray(), // serialized block tree
+            'created_by'=&gt;auth()-&gt;id(),
+        ]);
+    }
+} // scheduled or on significant change</code></pre>
+  <h3>Lesson 7 — Public share links are scoped tokens</h3>
+  <pre><code>$link = $page-&gt;shareLinks()-&gt;create([
+    'token'=&gt;Str::random(40),'role'=&gt;'view','expires_at'=&gt;now()-&gt;addDays(7),
+]);
+// middleware resolves token -&gt; grants read-only access to that page subtree</code></pre>
+</section>
+
+<div class="step-divider"><span class="lbl">Step 2 — Automaticity</span><span class="bar"></span></div>
+<section id="p5">
+  <span class="pill step">Principle 5 — Test Yourself</span>
+  <h2>Retrieval-practice quiz</h2>
+  <p>Answer before revealing.</p>
+  <div class="toolbar"><button onclick="revealAll('p5',true)">Show all answers</button><button class="ghost" onclick="revealAll('p5',false)">Hide all</button></div><div class="q" data-sec="p5"><div class="qn">Q1. Why model a page and its contents as one uniform block type?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">A block has type + content + parent_id + position, so any block can contain any block. Treating a page as a block lets nesting, ordering, and rendering use a single recursive model rather than special cases per content type.</div></div><div class="q" data-sec="p5"><div class="qn">Q2. How is ordering-with-nesting represented in one table?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">parent_id gives the tree; position (fractional/lexorank) orders siblings. Rendering recursively fetches children ordered by position; inserting a block is a single write at the midpoint.</div></div><div class="q" data-sec="p5"><div class="qn">Q3. Why persist per-block edits instead of saving the whole document?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Whole-document saves overwrite concurrent edits, guaranteeing lost work. Per-block PATCHes shrink the write and the conflict window, enabling real collaboration.</div></div><div class="q" data-sec="p5"><div class="qn">Q4. Compare last-write-wins, OT, and CRDT.</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">LWW/lock: simplest, lossy on conflict, fine for light use. OT: transforms concurrent ops, strong but complex (Google Docs). CRDT: conflict-free merge by construction, medium-high complexity, modern default with the server as relay/persistence.</div></div><div class="q" data-sec="p5"><div class="qn">Q5. With a CRDT, what is Laravel's role?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Relay opaque updates over WebSockets and persist the state/op log so late joiners can catch up. The merge logic is client-side; the server owns permissions and storage, not text merging.</div></div><div class="q" data-sec="p5"><div class="qn">Q6. How are effective page permissions resolved when grants are inherited?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Walk up the page tree from the page to the root, returning the role from the nearest explicit grant for the user/group; no grant means no access.</div></div><div class="q" data-sec="p5"><div class="qn">Q7. Two ways to implement version history, and their trade-off?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Periodic snapshots of the block tree (simple to restore, coarser) vs replaying an append-only op log (granular, heavier to reconstruct). Many apps combine periodic snapshots with recent ops.</div></div>
+  <h3>Code drill — concurrent block edits don't clobber the page (Pest)</h3>
+  <pre><code>it('edits to different blocks both persist', function () {
+    $page = Page::factory()-&gt;withBlocks(2)-&gt;create();
+    [$b1,$b2] = $page-&gt;blocks;
+    patchBlock($b1, ['text'=&gt;'A']);
+    patchBlock($b2, ['text'=&gt;'B']); // concurrent-ish, different rows
+    expect($b1-&gt;fresh()-&gt;content['text'])-&gt;toBe('A')
+        -&gt;and($b2-&gt;fresh()-&gt;content['text'])-&gt;toBe('B');
+});</code></pre>
+</section>
+
+<section id="p6">
+  <span class="pill step">Principle 6 — Wait to Review</span>
+  <h2>Spaced-repetition schedule</h2>
+  <p>Re-do the quiz from memory; redraw the block tree each session.</p>
+  <table><thead><tr><th>When</th><th>Session (~10–15 min)</th><th>Goal</th></tr></thead><tbody><tr><td>Day 0</td><td>Read packet; quiz with answers open.</td><td>Build the model.</td></tr><tr><td>Day 1</td><td>Quiz closed-book; redraw parent_id+position tree.</td><td>First retrieval.</td></tr><tr><td>Day 3</td><td>Flashcards; explain LWW vs OT vs CRDT aloud.</td><td>Strengthen.</td></tr><tr><td>Day 7</td><td>Interleaved quiz; write the per-block PATCH from blank.</td><td>Mix contexts.</td></tr><tr><td>Day 16</td><td>Re-derive inherited-permission resolution.</td><td>Widen interval.</td></tr><tr><td>Day 35</td><td>Teach the concurrency spectrum to someone.</td><td>Consolidate.</td></tr><tr><td>Day 70</td><td>Closed-book interleaved pass; misses restart Day 1.</td><td>Long-term.</td></tr></tbody></table>
+  <div class="callout"><div class="t">Why the gaps grow</div>Retrieving just before you'd forget produces the strongest gain.</div>
+</section>
+
+<section id="p7">
+  <span class="pill step">Principle 7 — Mix It Up</span>
+  <h2>Interleaved quiz</h2>
+  <p>Topics shuffled to train choosing the right idea.</p>
+  <div class="toolbar"><button onclick="revealAll('p7',true)">Show all answers</button><button class="ghost" onclick="revealAll('p7',false)">Hide all</button></div><div class="q" data-sec="p7"><div class="qn">M1. Two users typing in the same paragraph keep overwriting each other. Diagnosis and options?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Whole-block last-write-wins with no merge. Options in order of effort: block-level locking, character-level OT, or a CRDT (Yjs) where the server relays/persists opaque updates and clients merge.</div></div><div class="q" data-sec="p7"><div class="qn">M2. Rendering a deeply nested page is slow / stack-overflows. Two fixes?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">(1) Cap nesting depth or load child blocks lazily on expand. (2) Fetch the whole tree in one query and build it in memory (avoid per-node N+1 recursion); index (page_id, parent_id, position).</div></div><div class="q" data-sec="p7"><div class="qn">M3. Inserting a block at the top renumbers all siblings. Better approach?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Use fractional/lexorank positions: new position = midpoint of neighbours, a single write. Same technique as Kanban card ordering.</div></div><div class="q" data-sec="p7"><div class="qn">M4. A shared-link recipient can edit though the link was 'view only'. Flaw?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">Share token scope not enforced server-side. The token must map to a role (view) and the policy must check it on every mutation; never trust the client to honour read-only.</div></div><div class="q" data-sec="p7"><div class="qn">M5. A user moved to a sub-page they shouldn't access. How should permission have resolved?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">By walking up the page tree to the nearest explicit grant; if none grants the user access, deny. Inherited permissions must be resolved server-side per request.</div></div><div class="q" data-sec="p7"><div class="qn">M6. When is a CRDT overkill?</div><button class="reveal-btn" onclick="tog(this)">Reveal answer</button><div class="answer">For light, mostly single-editor documents or an MVP. Block-level locking or last-write-wins is far simpler and adequate; adopt CRDT/OT when true simultaneous co-editing of the same text is a core requirement.</div></div>
+</section>
+
+<section id="p8">
+  <span class="pill step">Principle 8 — Don't Stop</span>
+  <h2>Overlearning plan</h2>
+  <ul><li><strong>Build the editor twice</strong> — last-write-wins vs a CRDT (Yjs) relayed by Laravel — and feel where each breaks.</li><li><strong>Break collaboration on purpose</strong> — switch to whole-page saves and watch two editors clobber each other.</li><li><strong>Write permission tests first</strong>: inherited grants, share-link scope, denied sub-pages.</li><li><strong>Add comments & mentions</strong> anchored to specific blocks.</li><li><strong>Stretch goals:</strong> block-level version diffing, offline editing with later sync, slash-command block insertion, and full-text search across pages (Scout).</li></ul>
+</section>
+
+
+<section id="cards">
+  <span class="pill step">Active Recall — Flashcards</span>
+  <h2>Click a card to flip</h2>
+  <p class="kbd">Prompt on the front, answer on the back. Say your answer before flipping.</p>
+  <div class="cards-grid" id="flashcards"></div>
+</section>
+<section id="glossary">
+  <span class="pill">Reference — Glossary</span>
+  <h2>Key terms</h2>
+  <table><tbody>
+      <tr><td><strong>Block</strong></td><td>A typed unit of content with JSON content, a parent, and a position.</td></tr>
+      <tr><td><strong>Page</strong></td><td>A document, itself modelled as a block.</td></tr>
+      <tr><td><strong>Block tree</strong></td><td>The nested structure of blocks via parent_id.</td></tr>
+      <tr><td><strong>Position</strong></td><td>Fractional/lexorank order among sibling blocks.</td></tr>
+      <tr><td><strong>Granular edit</strong></td><td>A change persisted at block level, not whole-document.</td></tr>
+      <tr><td><strong>Last-write-wins</strong></td><td>Simplest merge: latest save overwrites; lossy on conflict.</td></tr>
+      <tr><td><strong>Operational Transformation</strong></td><td>Transforming concurrent ops to merge edits (OT).</td></tr>
+      <tr><td><strong>CRDT</strong></td><td>Conflict-free Replicated Data Type; merges by construction.</td></tr>
+      <tr><td><strong>Op log</strong></td><td>Append-only record of edit operations.</td></tr>
+      <tr><td><strong>Snapshot</strong></td><td>A saved copy of the block tree at a point in time.</td></tr>
+      <tr><td><strong>Grant</strong></td><td>An explicit permission (role) on a page for a user/group.</td></tr>
+      <tr><td><strong>Share link</strong></td><td>A tokenised, scoped public access URL.</td></tr>
+  </tbody></table>
+</section>
+<footer>
+  <p>Study packet · 8-Principle Method · Building a Document Collaboration App in Laravel (Notion-style) · Professional level</p>
+  <p class="kbd">Self-contained. No external resources, no tracking, no browser storage — works offline on any device.</p>
+</footer>
+</div>
+<script>
+  function tog(btn){var a=btn.parentElement.querySelector('.answer');var on=a.classList.toggle('show');btn.textContent=on?'Hide answer':'Reveal answer';}
+  function revealAll(sec,show){document.querySelectorAll('.q[data-sec="'+sec+'"]').forEach(function(q){var a=q.querySelector('.answer'),b=q.querySelector('.reveal-btn');if(show){a.classList.add('show');b.textContent='Hide answer';}else{a.classList.remove('show');b.textContent='Reveal answer';}});}
+  var CARDS=[["The two hard parts of a block editor","The ordered nested block tree, and merging concurrent edits without clobbering."],["Everything-is-a-block model","Block = type + content(JSON) + parent_id + position; a page is itself a block."],["Ordering + nesting representation","parent_id for the tree, fractional/lexorank position for sibling order."],["Why per-block edits not whole-page saves","Whole-page saves overwrite concurrent edits; granular PATCHes shrink the conflict window."],["Concurrency spectrum","Last-write-wins/lock → OT → CRDT, increasing merge quality and complexity."],["Laravel's role with a CRDT","Relay opaque updates over WebSockets and persist state/op log for late joiners; merge is client-side."],["Resolving inherited permissions","Walk up the page tree to the nearest explicit grant; none = no access."],["Two version-history strategies","Periodic tree snapshots (simple restore) or op-log replay (granular, heavier)."],["Public share link","A scoped token (role + expiry) granting access to a page subtree, enforced server-side."],["Inserting a block cheaply","Fractional position = midpoint of neighbours; one write, no sibling renumber."],["When CRDT is overkill","Light/single-editor docs or MVPs — locking or LWW is simpler and enough."],["Rendering a page","Recursively fetch children ordered by position; load whole tree in one query to avoid N+1."]];
+  (function(){var grid=document.getElementById('flashcards');CARDS.forEach(function(c){var el=document.createElement('div');el.className='flip';el.innerHTML='<div class="flip-in"><div class="flip-face flip-front">'+c[0]+'<span class="hint">click ↻</span></div><div class="flip-face flip-back">'+c[1]+'<span class="hint">click ↻</span></div></div>';el.addEventListener('click',function(){el.classList.toggle('flipped');});grid.appendChild(el);});})();
+</script>
+</body>
+</html>

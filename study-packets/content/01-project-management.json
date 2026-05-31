@@ -1,0 +1,184 @@
+{
+  "title": "Building a Project Management / Kanban App in Laravel",
+  "subtitle": "Boards, cards, drag-and-drop ordering, real-time collaboration, and an activity feed — the Laravel architecture behind a Jira/Trello-style tool.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~90 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a Kanban app fits together",
+      "blocks":[
+        {"p":"A project-management app is a <strong>hierarchy of orderable things that many people edit at once</strong>. The entire design pressure comes from two facts: cards must keep a stable, user-defined <em>order</em>, and several users drag them around <em>simultaneously</em>. Get ordering and concurrency right and the rest is CRUD."},
+        {"p":"The canonical hierarchy:"},
+        {"diagram":"Workspace\n └─ Project (members, roles)\n     └─ Board (a Kanban view)\n         └─ Column / List  (\"To Do\", \"In Progress\", \"Done\")\n             └─ Card / Issue  (title, assignees, labels, position)\n                 ├─ Comments\n                 ├─ Checklist items\n                 ├─ Attachments\n                 └─ Activity log entries"},
+        {"p":"The request lifecycle for the one action that matters most — moving a card:"},
+        {"diagram":"User drags card  ──►  PATCH /cards/{id}/move {column_id, after_id}\n                         │\n                         ▼\n          Policy: can user edit this board?\n                         │\n                         ▼\n          Compute new position (fractional / lexorank)\n                         │\n                         ▼\n          Persist column_id + position  (single UPDATE)\n                         │\n             ┌───────────┴───────────┐\n             ▼                       ▼\n     Broadcast CardMoved        Write ActivityLog\n     to board channel           (queued)\n             ▼\n     Other users' boards update live"},
+        {"p":"The four subsystems you keep returning to:"},
+        {"ul":[
+          "<strong>Domain model</strong> — workspace → project → board → column → card, plus labels, comments, attachments.",
+          "<strong>Ordering</strong> — how a card knows it sits between two others, cheaply, under concurrent moves.",
+          "<strong>Authorization</strong> — project membership and roles decide who can see/edit what.",
+          "<strong>Real-time + activity</strong> — broadcasting changes to other viewers and recording an audit trail."
+        ]},
+        {"callout":"A Kanban app is an <em>ordered tree edited concurrently</em>. The defining engineering problem is card ordering under simultaneous drag-and-drop — solve that with fractional/lexorank positions and you avoid full-column renumbering and most race conditions.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"The core data model"},
+        {"p":"A <strong>board</strong> belongs to a project and <code>hasMany</code> <strong>columns</strong>; a column <code>hasMany</code> <strong>cards</strong>. A card belongs to a column and carries a <code>position</code>. Cards relate to users through an <code>assignees</code> pivot and to labels through a pivot. This is a straightforward relational tree — the subtlety is entirely in <code>position</code>."},
+        {"h3":"Why integer positions hurt"},
+        {"p":"The naive approach gives each card an integer 1,2,3… Dropping a card at the top means renumbering every card below it — many writes, and two concurrent moves easily produce duplicate or conflicting numbers. It does not scale and races badly."},
+        {"h3":"Fractional / lexorank ordering"},
+        {"p":"Instead, store a <strong>position</strong> that lets you insert <em>between</em> two neighbours without touching anyone else. Two common schemes: (1) <strong>fractional float</strong> — new position = midpoint of the neighbours' positions (e.g. between 1.0 and 2.0 → 1.5); (2) <strong>lexorank</strong> — a base-N string (e.g. <code>\"aaa\"</code>, <code>\"aam\"</code>, <code>\"aaz\"</code>) where you generate a string lexicographically between two others. A move becomes a single UPDATE of one row. Periodic rebalancing handles precision exhaustion."},
+        {"h3":"Authorization model"},
+        {"p":"Access is driven by <strong>project membership</strong> with a <strong>role</strong> (owner/admin/member/viewer). A Laravel <strong>Policy</strong> on the Board/Card models checks the acting user's role on the parent project. Centralize it: every board/card query is scoped to projects the user belongs to, and every mutating route runs through the policy."},
+        {"h3":"Real-time collaboration"},
+        {"p":"When one user moves a card, others watching the board should see it move. Laravel <strong>broadcasting</strong> (Reverb/Pusher/Ably) pushes a <code>CardMoved</code> event to a <strong>private channel</strong> named per board (e.g. <code>board.42</code>); the channel authorization callback re-uses the same membership check. The frontend listens and reorders locally."},
+        {"h3":"Optimistic UI vs server truth"},
+        {"p":"The drag feels instant because the frontend moves the card immediately (<strong>optimistic update</strong>) then sends the request. If the server rejects it (lost permission, stale board) the UI rolls back. The server is the source of truth for final position; the broadcast reconciles everyone."},
+        {"h3":"Activity log / audit trail"},
+        {"p":"Every meaningful change (card created, moved, assigned, commented) appends an immutable <strong>activity</strong> row: actor, verb, subject, and a small JSON payload. Write it from model events or explicitly, and <em>queue</em> it so it never slows the user's action. The feed is just a paginated query of this table."},
+        {"h3":"Comments, mentions, notifications"},
+        {"p":"Comments <code>belongTo</code> a card and a user. An <code>@mention</code> parses usernames, links them, and fires a Laravel <strong>Notification</strong> (database + mail/broadcast) to the mentioned user. Notifications are queued."},
+        {"callout":"The number-one mistake is integer positions with renumber-on-insert: it generates O(n) writes per move and races under concurrency. Use fractional or lexorank positions so a move is a single-row update.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A Kanban app is an ordered tree of cards in columns, edited by many users at once; fractional/lexorank positions make moves cheap, policies guard access, and broadcasting keeps everyone's board in sync."},
+        {"h4":"Analogy — the shared whiteboard"},
+        {"p":"Picture a physical whiteboard with sticky notes in columns. Many people stand at it moving notes. <strong>Integer positions</strong> are like numbering every note and rewriting all the numbers whenever one moves — chaos when two hands move at once. <strong>Fractional positions</strong> are like saying \"put it halfway between these two\" — you only touch the one note. The <strong>policy</strong> is the room's lock: only team members get in. <strong>Broadcasting</strong> is everyone seeing the same board update the instant a note moves."},
+        {"h4":"Comparison — ordering strategies"},
+        {"table":{"head":["Strategy","Move cost","Concurrency","Downside"],
+          "rows":[
+            ["Integer + renumber","O(n) writes","Races, duplicates","Doesn't scale"],
+            ["Gapped integers (10,20,30)","O(1) usually","OK until gap fills","Periodic renumber"],
+            ["Fractional float","O(1) single write","Good","Float precision runs out → rebalance"],
+            ["Lexorank string","O(1) single write","Good","String grows → rebalance; more code"]
+          ]}},
+        {"h4":"Diagram — inserting between neighbours"},
+        {"diagram":"Column \"To Do\"      position\n ┌──────────┐\n │ Card A    │  1.0\n │ Card B    │  2.0   ◄── drop new card here, between A and B\n │ Card C    │  3.0\n └──────────┘\n new position = (1.0 + 2.0) / 2 = 1.5    → one UPDATE, nobody else touched"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code is illustrative, not copy-paste production.","class":"kbd"},
+        {"h3":"Lesson 1 — Model the tree with clear relationships"},
+        {"code":"final class Card extends Model {\n    protected $casts = ['position' => 'float', 'meta' => 'array'];\n    public function column(): BelongsTo { return $this->belongsTo(Column::class); }\n    public function assignees(): BelongsToMany { return $this->belongsToMany(User::class, 'card_user'); }\n    public function labels(): BelongsToMany { return $this->belongsToMany(Label::class); }\n    public function comments(): HasMany { return $this->hasMany(Comment::class); }\n}","lang":"php"},
+        {"h3":"Lesson 2 — Order with fractional positions"},
+        {"p":"Compute the midpoint of the neighbours at the drop target. New top = first/2; new bottom = last+1; between = (prev+next)/2."},
+        {"code":"public function positionBetween(?float $prev, ?float $next): float {\n    if ($prev === null && $next === null) return 1.0;\n    if ($prev === null) return $next / 2;\n    if ($next === null) return $prev + 1;\n    return ($prev + $next) / 2;\n}","lang":"php"},
+        {"h3":"Lesson 3 — Move = one authorized UPDATE"},
+        {"code":"public function move(MoveCardRequest $r, Card $card) {\n    $this->authorize('update', $card);              // policy\n    $pos = $this->positionBetween($r->prevPos, $r->nextPos);\n    $card->update(['column_id' => $r->column_id, 'position' => $pos]);\n    broadcast(new CardMoved($card))->toOthers();    // skip the actor\n    return new CardResource($card);\n}","lang":"php"},
+        {"h3":"Lesson 4 — Guard with a policy + scoped queries"},
+        {"code":"class CardPolicy {\n    public function update(User $u, Card $card): bool {\n        return $card->column->board->project\n            ->members()->whereKey($u->id)\n            ->wherePivotIn('role', ['owner','admin','member'])->exists();\n    }\n}","lang":"php"},
+        {"h3":"Lesson 5 — Broadcast on a private board channel"},
+        {"code":"// routes/channels.php\nBroadcast::channel('board.{board}', function ($user, Board $board) {\n    return $board->project->members()->whereKey($user->id)->exists();\n});\n\nclass CardMoved implements ShouldBroadcast {\n    public function __construct(public Card $card) {}\n    public function broadcastOn(): PrivateChannel {\n        return new PrivateChannel('board.'.$this->card->column->board_id);\n    }\n}","lang":"php"},
+        {"h3":"Lesson 6 — Queue the activity log so it never blocks"},
+        {"code":"// fire-and-forget audit trail\nActivity::queue(\n    actor: $r->user(),\n    verb: 'moved_card',\n    subject: $card,\n    payload: ['to_column' => $card->column_id],\n);  // dispatched to a queue; the user's move already returned","lang":"php"},
+        {"h3":"Lesson 7 — Rebalance when precision runs out"},
+        {"p":"After many midpoint inserts, floats converge (1.5, 1.25, 1.125…). When the gap between neighbours falls below a threshold, run a queued job that rewrites the whole column's positions to clean integers (1,2,3…). Rare, cheap, invisible to users."}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing — recall effort builds memory."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. Why are integer positions with renumber-on-insert a poor ordering strategy?","a":"Inserting at the top renumbers every card below (O(n) writes), and two concurrent moves can produce duplicate or conflicting numbers. It neither scales nor handles concurrency."},
+          {"q":"Q2. How does a fractional position make a move cheap?","a":"You set the moved card's position to the midpoint of its two new neighbours — a single-row UPDATE that touches no other card. Order is preserved by the numeric value."},
+          {"q":"Q3. What is the failure mode of fractional positions, and the fix?","a":"Repeated midpoint inserts exhaust float precision (1.5 → 1.25 → 1.125 …). Fix: when the neighbour gap is below a threshold, run a queued rebalance job that rewrites the column's positions to clean integers."},
+          {"q":"Q4. Where does authorization live for moving a card, and what does it check?","a":"In a Policy (e.g. CardPolicy@update) invoked by the controller. It checks that the user is a member of the card's board's project with a role that permits editing (owner/admin/member, not viewer)."},
+          {"q":"Q5. How do other users see a card move in real time, and how is the channel secured?","a":"The server broadcasts a CardMoved event to a private channel named per board (board.{id}). The channel authorization callback re-uses the project-membership check, so only members receive it. Use ->toOthers() to skip the actor who already updated optimistically."},
+          {"q":"Q6. Why queue the activity-log write instead of doing it inline?","a":"The audit entry isn't needed for the user's action to succeed; queuing it keeps the move response fast and decouples the feed from the hot path. The feed is then a paginated read of the activity table."},
+          {"q":"Q7. What is optimistic UI here, and what must the client handle?","a":"The frontend moves the card immediately, then sends the request. It must roll back if the server rejects (lost permission, stale state) and reconcile with the authoritative broadcast/response."}
+        ]}},
+        {"h3":"Code drill — concurrent move safety (Pest)"},
+        {"code":"it('keeps order stable when two cards move into the same gap', function () {\n    [$a,$b,$c] = makeCards([1.0, 2.0, 3.0]);\n    // two users both drop between A and B\n    moveBetween($b, prev:1.0, next:2.0); // -> 1.5\n    moveBetween($c, prev:1.0, next:2.0); // -> 1.25 (recomputed from current neighbours)\n    expect(orderedTitles())->toBe(['A','C','B']); // deterministic, no duplicates\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the Principle 5 quiz from memory and re-derive the move diagram at each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; redraw the card-move request flow.","First retrieval."],
+            ["Day 3","Flashcards; explain fractional vs lexorank aloud with trade-offs.","Strengthen."],
+            ["Day 7","Interleaved quiz; write the move() controller from blank.","Mix contexts."],
+            ["Day 16","Re-derive the policy + broadcast channel from memory.","Widen interval."],
+            ["Day 35","Teach the ordering problem to someone in 5 minutes.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; missed items restart at Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain. Easy, too-frequent review feels productive but builds little.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled so you practise choosing the right idea, not pattern-matching a section."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. A user reports cards occasionally jump to the wrong order after a teammate drags at the same moment. Likely cause?","a":"Positions computed from stale client-sent neighbour values, or integer renumbering racing. Recompute the midpoint from current DB neighbours inside the move handler (ideally in a transaction), and prefer fractional/lexorank so concurrent inserts don't collide."},
+          {"q":"M2. Board updates stop appearing live for one user but moves still save. Where do you look first?","a":"Broadcasting/channel auth, not the database. Check the private channel authorization for board.{id} (membership callback), the websocket connection (Reverb/Pusher), and that CardMoved implements ShouldBroadcast and is dispatched."},
+          {"q":"M3. The activity feed is slow and the board feels laggy on busy projects. Two fixes?","a":"(1) Queue activity writes so they're off the move hot path. (2) Paginate/limit and index the activity table (board_id, created_at); consider a separate read model. Don't eager-load the whole history."},
+          {"q":"M4. After months, one column's cards refuse to reorder cleanly. Diagnosis?","a":"Float precision exhausted from repeated midpoint inserts — neighbour gap underflowed. Run the queued rebalance job to rewrite that column's positions to clean integers; lower the rebalance threshold."},
+          {"q":"M5. A viewer-role user can move cards via the API though the UI hides the control. Flaw?","a":"Authorization enforced only in the UI. The move route must call the Policy server-side; never rely on hidden frontend controls. Add a policy test for the viewer role."},
+          {"q":"M6. When would lexorank be worth its extra complexity over fractional floats?","a":"Very long-lived columns with extremely frequent reordering where float precision would exhaust quickly, or when you want human-inspectable, collision-resistant string ranks and controlled rebalancing. For most apps, fractional floats + occasional rebalance are simpler and sufficient."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build the move endpoint twice</strong> — once with fractional floats, once with a lexorank library. Feeling both teaches the trade-off better than the table.",
+          "<strong>Break it on purpose</strong> — switch to integer renumbering and reproduce the concurrency bug; then watch fractional positions fix it.",
+          "<strong>Write the authorization tests first</strong> on your next feature: viewer cannot move, non-member cannot subscribe to the channel.",
+          "<strong>Add real-time presence</strong> — show who's viewing the board (presence channels) and live cursors.",
+          "<strong>Stretch goals:</strong> swimlanes, WIP limits per column, card dependencies, full-text search (Scout), saved filters, and an undo built on the activity log."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["The defining engineering problem of a Kanban app","Card ordering under concurrent drag-and-drop. Solve with fractional/lexorank positions so a move is one UPDATE."],
+    ["Why integer positions fail","Insert-at-top renumbers everything below (O(n) writes) and races to duplicate numbers under concurrency."],
+    ["Fractional position for a new top card","first_position / 2"],
+    ["Fractional position between two cards","(prev_position + next_position) / 2 — single-row update, nobody else touched."],
+    ["Failure mode of fractional floats + fix","Precision exhausts after repeated midpoints; run a queued rebalance to rewrite the column to clean integers."],
+    ["Lexorank, in one line","Base-N string ranks (\"aaa\",\"aam\",\"aaz\") generated lexicographically between neighbours; rebalance when strings grow."],
+    ["Where card authorization lives","A Policy checking project membership + role on the card's board's project — enforced server-side, not in the UI."],
+    ["How others see a card move live","Broadcast CardMoved to a private per-board channel (board.{id}); channel auth re-uses the membership check."],
+    ["Purpose of ->toOthers()","Skip broadcasting back to the actor, who already updated optimistically."],
+    ["Optimistic UI + its obligation","Move the card immediately client-side; roll back if the server rejects and reconcile with the authoritative result."],
+    ["Why queue the activity log","Audit entry isn't needed for the action to succeed; queuing keeps the move fast and decouples the feed."],
+    ["@mention → notification path","Parse mention, link the user, fire a queued Laravel Notification (database + mail/broadcast)."],
+    ["When to choose lexorank over floats","Very long-lived, heavily reordered columns or when you want collision-resistant, inspectable string ranks."]
+  ],
+  "glossary": [
+    ["Board","A Kanban view belonging to a project; has many columns."],
+    ["Column / List","An ordered bucket of cards (e.g. To Do, Done)."],
+    ["Card / Issue","A unit of work with title, assignees, labels, and a position."],
+    ["Position","The orderable value (float or lexorank string) that places a card among its siblings."],
+    ["Fractional indexing","Ordering by inserting at the numeric midpoint between neighbours."],
+    ["Lexorank","String-based rank scheme allowing insertion between two ranks lexicographically."],
+    ["Rebalance","Periodic rewrite of a column's positions to restore spacing/precision."],
+    ["Policy","Laravel authorization class deciding if a user may act on a model."],
+    ["Private channel","A broadcast channel requiring server-side authorization to subscribe."],
+    ["Optimistic UI","Applying a change on the client before the server confirms, rolling back on failure."],
+    ["Activity log","Immutable audit trail of actor/verb/subject/payload rows powering the feed."],
+    ["Presence channel","A broadcast channel that also tracks who is currently subscribed."]
+  ]
+}
