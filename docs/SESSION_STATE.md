@@ -149,4 +149,5 @@ POST /api/logout
 
 - `LARAVEL_SPECIALIST_CAPABILITIES.md`
 - `docs/study/180-laravel-project-types-study-packet.md`
+- `docs/CURSOR_SKILLS_SYNC.md` — Spec-Kit / OpenSpec / Superpowers skills on any PC (same Cursor account)
 - Skill: Spec-Kit + Superpowers (not Spec-Kit + OpenSpec together at init)
