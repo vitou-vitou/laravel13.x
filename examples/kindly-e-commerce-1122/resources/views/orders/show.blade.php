@@ -14,8 +14,30 @@
         @endforeach
     </ul>
 
+    <div class="bg-white rounded-lg shadow p-6 text-sm mb-6">
+        <h2 class="font-semibold mb-2">Timeline</h2>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li>Placed: {{ $order->created_at->format('M j, Y g:i A') }}</li>
+            @if ($order->paid_at)
+                <li>Paid: {{ $order->paid_at->format('M j, Y g:i A') }}</li>
+            @endif
+            @if ($order->shipped_at)
+                <li>Shipped: {{ $order->shipped_at->format('M j, Y g:i A') }}</li>
+            @endif
+        </ul>
+    </div>
+
     @if ($order->isPending())
         <p class="text-sm text-gray-600">Payment is pending. Complete checkout via Stripe from your cart if you did not finish paying.</p>
+    @endif
+
+    @if (auth()->user()->is_admin && $order->isPaid())
+        <form method="POST" action="{{ route('admin.orders.ship', $order) }}" class="mt-4">
+            @csrf
+            <button type="submit" class="rounded bg-gray-900 text-white text-sm px-4 py-2">
+                Mark as shipped
+            </button>
+        </form>
     @endif
 
     <p class="mt-4"><a href="{{ route('orders.index') }}" class="text-sm underline">← All orders</a></p>

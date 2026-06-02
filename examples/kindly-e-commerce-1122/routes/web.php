@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\OrderShipmentController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DevStripeSimulateController;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('products', AdminProductController::class)->except(['show']);
+        Route::post('orders/{order}/ship', [OrderShipmentController::class, 'store'])->name('orders.ship');
     });
 
     Route::get('/dashboard', function () {

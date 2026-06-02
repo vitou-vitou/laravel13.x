@@ -17,6 +17,13 @@ class Order extends Model
         'total_cents',
         'stripe_checkout_session_id',
         'stripe_payment_intent_id',
+        'paid_at',
+        'shipped_at',
+    ];
+
+    protected $casts = [
+        'paid_at' => 'datetime',
+        'shipped_at' => 'datetime',
     ];
 
     public function isPending(): bool
@@ -27,6 +34,11 @@ class Order extends Model
     public function isPaid(): bool
     {
         return $this->status === 'paid';
+    }
+
+    public function isShipped(): bool
+    {
+        return $this->status === 'shipped';
     }
 
     public function user(): BelongsTo

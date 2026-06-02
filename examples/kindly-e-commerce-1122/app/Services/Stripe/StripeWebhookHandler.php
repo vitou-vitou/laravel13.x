@@ -3,12 +3,17 @@
 namespace App\Services\Stripe;
 
 use App\Models\Order;
+use App\Services\OrderLifecycleService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Stripe\Event;
 
 class StripeWebhookHandler
 {
+    public function __construct(private readonly OrderLifecycleService $lifecycle)
+    {
+    }
+
     public function handle(Event $event): void
     {
         match ($event->type) {
@@ -60,12 +65,13 @@ class StripeWebhookHandler
         }
 
         $order->update([
-            'status' => 'paid',
             'stripe_checkout_session_id' => $session->id,
-            'stripe_payment_intent_id' => is_string($session->payment_intent ?? null)
-                ? $session->payment_intent
-                : null,
         ]);
+
+        $this->lifecycle->markPaid(
+            $order,
+            is_string($session->payment_intent ?? null) ? $session->payment_intent : null,
+        );
     }
 
     private function handleCheckoutExpired(Event $event): void

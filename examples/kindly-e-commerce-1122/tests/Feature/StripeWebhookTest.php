@@ -6,7 +6,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use App\Mail\OrderPaidMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\Support\SendsStripeWebhooks;
 use Tests\TestCase;
 
@@ -17,6 +19,8 @@ class StripeWebhookTest extends TestCase
 
     public function test_webhook_marks_order_paid_on_checkout_session_completed(): void
     {
+        Mail::fake();
+
         $user = User::factory()->create();
         $product = Product::factory()->create(['stock_quantity' => 5]);
         $order = Order::query()->create([
@@ -39,7 +43,9 @@ class StripeWebhookTest extends TestCase
 
         $order->refresh();
         $this->assertTrue($order->isPaid());
+        $this->assertNotNull($order->paid_at);
         $this->assertSame('pi_test_abc', $order->stripe_payment_intent_id);
+        Mail::assertQueued(OrderPaidMail::class, 1);
     }
 
     public function test_duplicate_completed_webhooks_are_idempotent(): void
