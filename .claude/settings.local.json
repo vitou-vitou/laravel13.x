@@ -20,7 +20,21 @@
       "Bash(sqlite3 *)",
       "Bash(curl -s -X POST http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"test@example.com\",\"password\":\"password\"}')",
       "Skill(agent-browser)",
-      "Skill(agent-browser:*)"
+      "Skill(agent-browser:*)",
+      "Read(//c/Users/vitou/.claude/**)",
+      "Read(//c/Users/vitou/.claude/plugins/**)",
+      "Read(//c/Users/vitou/.claude/skills/**)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.claude\" -Directory -ErrorAction SilentlyContinue | Select-Object Name; \"---PLUGINS---\"; Get-ChildItem \"$env:USERPROFILE\\\\.claude\\\\plugins\" -ErrorAction SilentlyContinue | Select-Object Name; \"---SKILLS---\"; Get-ChildItem \"$env:USERPROFILE\\\\.claude\\\\skills\" -ErrorAction SilentlyContinue | Select-Object Name)",
+      "PowerShell(\"---CURSOR HOME---\"; Get-ChildItem \"$env:USERPROFILE\\\\.cursor\" -ErrorAction SilentlyContinue | Select-Object Name; \"---CURSOR PROJECT---\"; Get-ChildItem \"d:\\\\laravel13.x\\\\.cursor\" -Recurse -ErrorAction SilentlyContinue | Select-Object FullName | Select-Object -First 50)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.claude\" -Directory | Select-Object Name)",
+      "PowerShell(Test-Path \"$env:USERPROFILE\\\\.claude\"; $env:USERPROFILE; Get-ChildItem \"$env:USERPROFILE\\\\.claude\" -Force | Format-Table Name,Mode -AutoSize)",
+      "PowerShell(Write-Output \"test123\"; \\(Get-Location\\).Path)",
+      "Bash(agent-browser --version)",
+      "Bash(agent-browser skills *)",
+      "Bash(agent-browser open *)",
+      "Bash(agent-browser snapshot *)",
+      "Bash(agent-browser screenshot *)",
+      "Bash(agent-browser get *)"
     ]
   }
 }
