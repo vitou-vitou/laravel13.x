@@ -8,32 +8,44 @@
 
 | Skill folder | Role | Triggers |
 |--------------|------|----------|
-| `spec-kit-openspec-superpowers/` | Triad guide + laravel13.x policy | spec-driven, speckit, opsx, superpowers |
-| `system-study-packet/` | 8-principle + decomposition MD | study packet, system map |
-| `openspec-apply-change/` | Implement OpenSpec change | `/opsx:apply`, continue implementation |
-| `openspec-archive-change/` | Archive completed change | `/opsx:archive` |
-| `openspec-explore/` | Explore before committing | `/opsx:explore` |
-| `openspec-propose/` | One-shot proposal | `/opsx:ff`, new change |
-| `speckit-git-commit/` | Commit after speckit | post `/speckit.*` |
-| `speckit-git-feature/` | Feature branch naming | new feature branch |
-| `speckit-git-initialize/` | Init repo | new repo |
-| `speckit-git-remote/` | Remote detection | GitHub setup |
-| `speckit-git-validate/` | Branch name validation | branch check |
+| `spec-kit/` | Spec-Kit SDD + git extensions | `/speckit.*`, greenfield MVP, specify CLI |
+| `openspec/` | OpenSpec OPSX workflow | `/opsx:*`, post-MVP changes |
+| `superpowers/` | TDD, debugging, plans, review | implement, bugfix, verify, brainstorm |
+| `spec-kit-openspec-superpowers/` | Triad router (when to use which) | spec-driven, triad setup |
+| `system-study-packet/` | Repo-specific 8-principle + decomposition MD | study packet, system map, learn codebase |
+| `8-principle-study/` | General topic study packets (docx/PDF/HTML/MD) | help me learn, flashcards, quiz, revise |
+| `laravel-specialist/` | Laravel 10+ models, APIs, queues, Livewire, tests | Laravel, Eloquent, Sanctum, Pest |
+| `impeccable/` | Frontend UI design, polish, audit | design, polish, `$impeccable` |
 
 **Do not** write to `~/.cursor/skills-cursor/` (Cursor built-ins only).
 
+### Sub-reference files (inside each skill)
+
+| Skill | `reference/` contents |
+|-------|----------------------|
+| `spec-kit/` | git-commit, git-feature, git-initialize, git-remote, git-validate, laravel13-x-policy |
+| `openspec/` | apply-change, archive-change, explore, propose |
+| `superpowers/` | 14 sub-skills (TDD, brainstorming, debugging, plans, etc.) |
+| `8-principle-study/` | packet-structure + `scripts/` (docx builder) |
+| `laravel-specialist/` | eloquent, routing, queues, livewire, testing |
+| `impeccable/` | craft, audit, live, … + `scripts/` |
+
 ---
 
-## Git mirror (this repo)
+## Local mirror (this repo)
 
 Copy of personal skills for backup and new machines:
 
 ```
 .cursor/skills/
+├── spec-kit/
+├── openspec/
+├── superpowers/
 ├── spec-kit-openspec-superpowers/
 ├── system-study-packet/
-├── openspec-*/
-└── speckit-git-*/
+├── 8-principle-study/
+├── laravel-specialist/
+└── impeccable/
 ```
 
 After clone on a new PC:
@@ -53,19 +65,19 @@ cp -r .cursor/skills/* "$USERPROFILE/.cursor/skills/"
 
 ---
 
-## Superpowers (plugin — not in `~/.cursor/skills/`)
+## Superpowers plugin (optional extra)
 
 1. Cursor → **Plugins** → install **Superpowers** (obra/superpowers).
 2. Same Cursor account + **Settings Sync** on each PC.
-3. Skills auto-load: `brainstorming`, `test-driven-development`, `verification-before-completion`, etc.
+3. Personal skill `superpowers/` syncs even without the plugin.
 
-Deprecated slash commands → use skills instead:
+Deprecated slash commands → use **superpowers** reference:
 
-| Old command | Use skill |
-|-------------|-----------|
-| `/brainstorm` | `brainstorming` |
-| `/write-plan` | `writing-plans` |
-| `/execute-plan` | `executing-plans` |
+| Old command | Use |
+|-------------|-----|
+| `/brainstorm` | superpowers → brainstorming |
+| `/write-plan` | superpowers → writing-plans |
+| `/execute-plan` | superpowers → executing-plans |
 
 ---
 
@@ -83,13 +95,13 @@ Deprecated slash commands → use skills instead:
 
 ```
 GREENFIELD (examples/* MVP)
-  Spec-Kit: /speckit.constitution → specify → plan → tasks → implement
-  Superpowers: TDD + verification on every task
+  spec-kit: /speckit.constitution → specify → plan → tasks → implement
+  superpowers: TDD + verification on every task
   NO openspec init at greenfield
 
 POST-MVP (laravel13.x repo)
-  OpenSpec: /opsx:new → /opsx:continue or /opsx:ff → /opsx:apply → /opsx:archive
-  Superpowers: same TDD loop during apply
+  openspec: /opsx:new → /opsx:continue or /opsx:ff → /opsx:apply → /opsx:archive
+  superpowers: same TDD loop during apply
 
 SESSION RESUME
   User says "continue" → read docs/SESSION_STATE.md
@@ -101,11 +113,10 @@ SESSION RESUME
 
 - [ ] Signed into same Cursor account
 - [ ] Settings Sync enabled (if available in your Cursor version)
-- [ ] Superpowers plugin installed
-- [ ] `~/.cursor/skills/` populated (from sync or `cp` from repo)
+- [ ] `~/.cursor/skills/` has spec-kit, openspec, superpowers, 8-principle-study, laravel-specialist
+- [ ] Optional: Superpowers plugin installed
 - [ ] `specify` and `openspec` CLIs installed
 - [ ] Repo cloned; `docs/SESSION_STATE.md` present
-- [ ] Optional: study packets under `examples/*/docs/study-packets/`
 
 ---
 
@@ -116,7 +127,27 @@ Use spec-kit-openspec-superpowers: verify my triad setup for laravel13.x on this
 ```
 
 ```text
-Use system-study-packet: list what study docs exist for kindly-e-commerce.
+Use spec-kit: validate the current feature branch.
+```
+
+```text
+Use openspec: list active changes.
+```
+
+```text
+Use superpowers: implement the next task with TDD.
+```
+
+```text
+Use impeccable: audit the checkout page UX in kindly-e-commerce.
+```
+
+```text
+Use 8-principle-study: build a Markdown study packet on JWT auth for a student.
+```
+
+```text
+Use laravel-specialist: review Eloquent relationships in examples/jwt.
 ```
 
 ---
