@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Fix APP_KEY corrupted by artisan --show ANSI codes (RuntimeException: Unsupported cipher)
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PHP="${PHP:-/c/Users/vitou/.config/herd/bin/php84/php.exe}"
+export PATH="$REPO_ROOT/bin:${PATH:-}"
+
+[[ $# -ge 1 ]] || { echo "Usage: fix-example-app-key <slug> [slug2 ...]"; exit 1; }
+
+for SLUG in "$@"; do
+  TARGET="$REPO_ROOT/examples/$SLUG"
+  [[ -f "$TARGET/.env" ]] || { echo "Skip: no $TARGET/.env"; continue; }
+  cd "$TARGET"
+  echo "==> $SLUG"
+  "$PHP" artisan key:generate --force --no-ansi >/dev/null
+  APP_KEY="$(grep -m1 '^APP_KEY=' .env | cut -d= -f2- | tr -d '\r')"
+  export APP_KEY
+  if grep -q 'name="APP_KEY"' phpunit.xml 2>/dev/null; then
+    node -e "
+      const fs=require('fs');
+      const k=process.env.APP_KEY;
+      let x=fs.readFileSync('phpunit.xml','utf8');
+      x=x.replace(/<env name=\"APP_KEY\" value=\"[^\"]*\"\/>/, '<env name=\"APP_KEY\" value=\"'+k+'\"/>');
+      fs.writeFileSync('phpunit.xml', x);
+    "
+  fi
+  cp .env .env.example
+  "$PHP" artisan config:clear --no-ansi >/dev/null
+  echo "    APP_KEY ok"
+done

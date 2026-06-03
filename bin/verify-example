@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# Post-scaffold / health check for examples/<slug> — fail loud before user hits browser
+set -euo pipefail
+
+[[ $# -ge 1 ]] || { echo "Usage: verify-example <slug>"; exit 1; }
+
+SLUG="$1"
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+TARGET="$REPO_ROOT/examples/$SLUG"
+PHP="${PHP:-/c/Users/vitou/.config/herd/bin/php84/php.exe}"
+export PATH="$REPO_ROOT/bin:${PATH:-}"
+
+FAIL=0
+ok() { echo "  OK: $1"; }
+bad() { echo "  FAIL: $1"; FAIL=1; }
+
+[[ -d "$TARGET" ]] || { echo "No directory: $TARGET"; exit 1; }
+cd "$TARGET"
+
+echo "==> verify-example: $SLUG"
+
+# APP_KEY — no ANSI / Symfony color garbage
+if [[ -f .env ]]; then
+  KEY="$(grep -m1 '^APP_KEY=' .env | cut -d= -f2- | tr -d '\r')"
+  if [[ -z "$KEY" ]]; then
+    bad "APP_KEY empty"
+  elif [[ "$KEY" == *'['* ]] || [[ "$KEY" != base64:* ]]; then
+    bad "APP_KEY invalid (run: ./bin/fix-example-app-key $SLUG)"
+  else
+    ok "APP_KEY format"
+  fi
+  URL="$(grep -m1 '^APP_URL=' .env | cut -d= -f2- | tr -d '\r')"
+  if [[ "$URL" == *".test"* ]]; then
+    ok "APP_URL Herd ($URL)"
+  else
+    bad "APP_URL not .test ($URL) — herd link?"
+  fi
+else
+  bad ".env missing"
+fi
+
+# phpunit.xml APP_KEY must match .env
+if [[ -f phpunit.xml ]] && grep -q 'name="APP_KEY"' phpunit.xml; then
+  PU="$(grep -o 'name="APP_KEY" value="[^"]*"' phpunit.xml | head -1 | sed 's/.*value="//;s/"$//')"
+  if [[ "$PU" != "$KEY" ]] || [[ "$PU" == *'['* ]]; then
+    bad "phpunit.xml APP_KEY mismatch (run: ./bin/fix-example-app-key $SLUG)"
+  else
+    ok "phpunit.xml APP_KEY matches .env"
+  fi
+fi
+
+# Tests
+if "$PHP" artisan test --no-ansi >/tmp/verify-example-test.txt 2>&1; then
+  ok "$(tail -1 /tmp/verify-example-test.txt | tr -d '\r')"
+else
+  bad "php artisan test"
+  tail -8 /tmp/verify-example-test.txt
+fi
+
+# HTTP (optional if Herd/nginx up)
+if [[ -n "${URL:-}" ]] && command -v curl >/dev/null 2>&1; then
+  CODE="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 "$URL/" 2>/dev/null || echo 000)"
+  if [[ "$CODE" == "200" ]]; then
+    ok "HTTP $URL → $CODE"
+  else
+    bad "HTTP $URL → $CODE (check Herd running + APP_KEY)"
+  fi
+fi
+
+# dev.sh sanity
+if [[ -f dev.sh ]] && grep -q '\.test' dev.sh; then
+  ok "dev.sh Herd-aware"
+else
+  bad "dev.sh missing or not Herd-aware"
+fi
+
+if [[ "$FAIL" -eq 0 ]]; then
+  echo "==> All checks passed for $SLUG"
+  exit 0
+fi
+echo "==> Fix failures, then re-run: ./bin/verify-example $SLUG"
+exit 1

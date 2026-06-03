@@ -1,0 +1,211 @@
+#!/usr/bin/env bash
+# Scaffold examples/<slug> — Laravel 13 + Spec-Kit + Herd link + dev ergonomics
+set -euo pipefail
+
+usage() {
+  echo "Usage: new-example <slug> [\"App Display Name\"]"
+  echo "Example: new-example my-app-33 \"My App 3344\""
+  exit 1
+}
+
+[[ $# -ge 1 ]] || usage
+SLUG="$1"
+APP_NAME="${2:-$(echo "$SLUG" | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2); print}')}"
+FEATURE="$(echo "$SLUG" | sed 's/-/_/g')"
+DATE="$(date +%Y-%m-%d)"
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+TARGET="$REPO_ROOT/examples/$SLUG"
+TPL="$REPO_ROOT/examples/_scaffold/templates"
+PHP="${PHP:-/c/Users/vitou/.config/herd/bin/php84/php.exe}"
+HERD="${HERD:-/c/Users/vitou/.config/herd/bin/herd.bat}"
+COMPOSER="$PHP ${COMPOSER_PHAR:-/c/ProgramData/ComposerSetup/bin/composer.phar}"
+
+export PATH="$REPO_ROOT/bin:${PATH:-}"
+export PYTHONIOENCODING=utf-8
+
+if [[ ! "$SLUG" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+  echo "Error: slug must be kebab-case (e.g. my-new-app)"
+  exit 1
+fi
+
+if [[ -e "$TARGET" ]]; then
+  echo "Error: $TARGET already exists"
+  exit 1
+fi
+
+command -v specify >/dev/null 2>&1 || {
+  echo "Error: specify CLI not found. Install: uv tool install specify-cli --from git+https://github.com/github/spec-kit.git"
+  exit 1
+}
+
+echo "==> Creating Laravel app at examples/$SLUG"
+mkdir -p "$REPO_ROOT/examples"
+cd "$REPO_ROOT/examples"
+$COMPOSER create-project laravel/laravel "$SLUG" --prefer-dist --no-interaction
+
+cd "$TARGET"
+echo "==> Spec-Kit init"
+specify init . --here --integration cursor-agent --force
+
+echo "==> Dev ergonomics (dev.sh, npm scripts)"
+cp "$TPL/dev.sh" ./dev.sh
+chmod +x ./dev.sh
+npm install --ignore-scripts 2>/dev/null || npm install
+node <<'NODE'
+const fs = require('fs');
+const p = 'package.json';
+const j = JSON.parse(fs.readFileSync(p, 'utf8'));
+j.scripts = { ...j.scripts, dev: 'bash dev.sh', vite: 'vite', start: 'bash dev.sh' };
+if (!j.devDependencies?.concurrently) {
+  j.devDependencies = { ...j.devDependencies, concurrently: '^9.0.1' };
+}
+fs.writeFileSync(p, JSON.stringify(j, null, 4) + '\n');
+NODE
+npm install
+
+echo "==> .env (committed dev key + Herd APP_URL)"
+cp .env.example .env
+# --force writes .env directly (avoid --show ANSI color codes breaking APP_KEY)
+"$PHP" artisan key:generate --force --no-ansi >/dev/null
+APP_KEY="$(grep -m1 '^APP_KEY=' .env | cut -d= -f2- | tr -d '\r')"
+export APP_KEY TPL SLUG APP_NAME
+node <<'NODE'
+const fs=require('fs');
+let tail=fs.readFileSync(process.env.TPL+'/env.tail','utf8');
+tail=tail.replaceAll('__APP_NAME__', process.env.APP_NAME).replaceAll('__SLUG__', process.env.SLUG);
+let env=fs.readFileSync('.env','utf8');
+for (const line of tail.split('\n')) {
+  if (!line.trim() || line.startsWith('#')) continue;
+  const k=line.split('=')[0];
+  const re=new RegExp('^'+k+'=.*','m');
+  if (re.test(env)) env=env.replace(re, line);
+  else env+='\n'+line;
+}
+fs.writeFileSync('.env', env);
+NODE
+
+echo "==> Herd link ($SLUG.test)"
+HERD_URL="http://${SLUG}.test"
+if [[ -x "$HERD" ]] || [[ -f "$HERD" ]]; then
+  if "$HERD" link "$SLUG" --update-env -n 2>&1; then
+    HERD_URL="$(grep -m1 '^APP_URL=' .env | cut -d= -f2- | tr -d '\r')"
+    echo "    OK: $HERD_URL"
+  else
+    echo "    Warning: herd link failed — fallback to artisan serve"
+    HERD_URL="http://127.0.0.1:8000"
+    export APP_URL="$HERD_URL"
+    node -e "const fs=require('fs');let e=fs.readFileSync('.env','utf8');e=e.replace(/^APP_URL=.*/m,'APP_URL='+process.env.APP_URL);fs.writeFileSync('.env',e);" APP_URL="$HERD_URL"
+  fi
+else
+  echo "    Warning: herd not found at $HERD — fallback to artisan serve"
+  HERD_URL="http://127.0.0.1:8000"
+  export APP_URL="$HERD_URL"
+  node -e "const fs=require('fs');let e=fs.readFileSync('.env','utf8');e=e.replace(/^APP_URL=.*/m,'APP_URL='+process.env.APP_URL);fs.writeFileSync('.env',e);" APP_URL="$HERD_URL"
+fi
+APP_URL="$(grep -m1 '^APP_URL=' .env | cut -d= -f2- | tr -d '\r')"
+cp .env .env.example
+
+node -e "
+  const fs=require('fs');
+  let g=fs.readFileSync('.gitignore','utf8');
+  if (!g.includes('env committed')) {
+    g=g.replace(/^\\.env$/m,'# .env committed (dev key) — see .env.example');
+    fs.writeFileSync('.gitignore', g);
+  }
+"
+
+if ! grep -q 'name="APP_KEY"' phpunit.xml; then
+  node -e "
+    const fs=require('fs');
+    const k=process.env.APP_KEY;
+    let x=fs.readFileSync('phpunit.xml','utf8');
+    x=x.replace(
+      '<env name=\"APP_ENV\" value=\"testing\"/>',
+      '<env name=\"APP_ENV\" value=\"testing\"/>\n        <env name=\"APP_KEY\" value=\"'+k+'\"/>'
+    );
+    fs.writeFileSync('phpunit.xml', x);
+  " APP_KEY="$APP_KEY"
+fi
+
+ROOT_GITIGNORE="$REPO_ROOT/.gitignore"
+EXCEPTION="!examples/${SLUG}/.env"
+if ! grep -qF "$EXCEPTION" "$ROOT_GITIGNORE" 2>/dev/null; then
+  echo "$EXCEPTION" >> "$ROOT_GITIGNORE"
+fi
+
+substitute() {
+  export SLUG FEATURE DATE APP_NAME APP_URL HERD_URL
+  node -e "
+    const fs=require('fs');
+    let t=fs.readFileSync(process.argv[1],'utf8');
+    for (const [k,v] of Object.entries({
+      SLUG:process.env.SLUG, FEATURE:process.env.FEATURE, DATE:process.env.DATE,
+      APP_NAME:process.env.APP_NAME, APP_URL:process.env.APP_URL, HERD_URL:process.env.HERD_URL
+    })) { t=t.replaceAll('__'+k+'__', v); }
+    fs.writeFileSync(process.argv[2], t);
+  " "$1" "$2"
+}
+
+mkdir -p docs ".specify/specs/001-${FEATURE}"
+substitute "$TPL/NEXT_SESSION.md" docs/NEXT_SESSION.md
+substitute "$TPL/constitution.md" .specify/memory/constitution.md
+mkdir -p ".specify/specs/001-${FEATURE}"
+cat > ".specify/specs/001-${FEATURE}/spec.md" <<EOF
+# Feature Specification: $APP_NAME
+
+**Feature Branch**: \`001-${FEATURE}\`
+
+**Created**: $DATE
+
+**Status**: Scaffold only — fill user stories before implement
+
+**Input**: Pick requirements from \`docs/study/180-laravel-project-types-study-packet.md\` or product brief.
+
+## User Scenarios & Testing *(mandatory)*
+
+<!-- Add P1 stories. Implement with Superpowers TDD. -->
+
+## Functional Requirements
+
+- FR-001: TBD
+
+## Out of Scope (MVP)
+
+- TBD
+EOF
+cat > ".specify/specs/001-${FEATURE}/plan.md" <<EOF
+# Implementation Plan: $APP_NAME
+
+**Branch**: \`001-${FEATURE}\` | **Date**: $DATE
+
+## Summary
+
+TBD after spec is written.
+
+## Technical Context
+
+- PHP 8.3+, Laravel 13.x, Blade + Tailwind 4 + Vite
+- Tests: \`tests/Feature/\`
+- Herd: \`$APP_URL\` — \`npm run dev\` runs Vite only
+EOF
+cat > ".specify/specs/001-${FEATURE}/tasks.md" <<EOF
+# Tasks: 001-${FEATURE}
+
+- [ ] T001 Complete spec.md
+- [ ] T002 Complete plan.md
+- [ ] T003 Write feature tests (red)
+- [ ] T004 Implement (green)
+- [ ] T005 \`php artisan test\` + update docs/NEXT_SESSION.md + SESSION_STATE.md
+EOF
+
+echo "==> Verify"
+"$PHP" artisan config:clear --no-ansi 2>/dev/null || true
+"$REPO_ROOT/bin/verify-example" "$SLUG"
+
+echo ""
+echo "Done: examples/$SLUG"
+echo "  Herd:     $APP_URL"
+echo "  Dev:      npm run dev   (Vite; PHP via Herd)"
+echo "  Spec:     .specify/specs/001-${FEATURE}/spec.md"
+echo "  Handoff:  docs/NEXT_SESSION.md"

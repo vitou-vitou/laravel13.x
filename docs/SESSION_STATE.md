@@ -30,15 +30,37 @@
 | `examples/kindly-login-1122` | **Complete (100%)** | 30/30 | Breeze session (web) | Arena A+B done; browser verified (`docs/BROWSER_VERIFICATION.md`) |
 | `examples/kindly-e-commerce-1122` | **MVP + Phase 2 + 3a Stripe** | 49/49 | Breeze session (web) | Stripe Checkout + webhooks; stub pay removed; :8012 |
 | `examples/booking-v1` | **Complete** | 15/15 | Sanctum Bearer API | Grok A+B done; Prompt C optional |
+| `examples/clone-the-fb-nav` | **MVP complete** | 6/6 | None (static UI) | FB desktop top-nav study; Spec-Kit `001-fb-top-nav` |
 
 ---
 
 ## Environment (Windows + Herd)
 
+**Git Bash:** `php` is not on PATH by default. Either:
+
+```bash
+# One-time per terminal (from repo root)
+export PATH="/d/laravel13.x/bin:$PATH"
+php -v
+php artisan test
+```
+
+Or full paths:
+
 ```bash
 PHP=/c/Users/vitou/.config/herd/bin/php.bat
 COMPOSER="/c/Users/vitou/.config/herd/bin/php.bat /c/ProgramData/ComposerSetup/bin/composer.phar"
+```
 
+**Permanent (recommended):** add to `~/.bashrc`:
+
+```bash
+export PATH="/d/laravel13.x/bin:$PATH"
+```
+
+Full troubleshooting: **`docs/WINDOWS_HERD_GITBASH.md`**. **Lessons / pitfalls:** **`docs/EXAMPLE_DEV_LESSONS.md`**. Cursor rule: `.cursor/rules/windows-herd-gitbash.mdc`.
+
+```bash
 # Spec-Kit on Windows
 export PYTHONIOENCODING=utf-8
 ```
@@ -49,6 +71,7 @@ Verify both apps:
 cd d:/laravel13.x/examples/kindly-login-1122 && $PHP artisan test
 cd d:/laravel13.x/examples/kindly-e-commerce-1122 && $PHP artisan test
 cd d:/laravel13.x/examples/booking-v1 && $PHP artisan test
+cd d:/laravel13.x/examples/clone-the-fb-nav && $PHP artisan test
 ```
 
 ---
@@ -135,7 +158,29 @@ POST /api/logout
 
 3. **booking-v1:** Grok **Prompt C** (`docs/GROK_LOOP.md`) → merge into `tasks.md`; or start **OpenSpec** change for Filament provider UI.
 
-4. **Do not** start another greenfield app without explicit user pick from 180+ catalog.
+4. **clone-the-fb-nav:** MVP done — pixel polish or OpenSpec only if user asks.
+
+5. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+
+6. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
+
+---
+
+## `examples/clone-the-fb-nav`
+
+**What it is:** Laravel 13 + Blade + Tailwind 4 — educational clone of Facebook desktop top navigation (dark bar).
+
+**Spec-Kit:** `.specify/specs/001-fb-top-nav/` (MVP complete)
+
+**Key tests:** `tests/Feature/FbTopNavTest.php` (nav structure, active tab, a11y labels)
+
+**Reference:** `docs/reference/fb-desktop-top-nav.png`
+
+**Do not redo:** Spec-Kit init, five tab routes, route-based `aria-current`.
+
+**Post-MVP only:** Icon pixel tuning, responsive tab strip, OpenSpec changes.
+
+**Detail file:** `examples/clone-the-fb-nav/docs/NEXT_SESSION.md`
 
 ---
 
