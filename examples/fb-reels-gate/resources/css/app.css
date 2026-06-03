@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+
+@theme {
+    --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-fb-blue: #1877f2;
+    --color-fb-green: #42b72a;
+    --color-fb-page: #f0f2f5;
+    --color-fb-text: #1c1e21;
+    --color-fb-muted: #65676b;
+    --color-fb-border: #dddfe2;
+}

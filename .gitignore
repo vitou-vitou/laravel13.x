@@ -15,6 +15,10 @@
 /.vscode
 /.zed
 /auth.json
+# agent-browser session secrets (never commit)
+.agent-browser-secrets/
+*.auth-state.json
+auth-state.json
 /node_modules
 /public/build
 /public/fonts-manifest.dev.json
@@ -42,3 +46,4 @@ Thumbs.db
 !examples/my-app-33/.env
 !examples/my-app-55/.env
 !examples/my-app-77/.env
+!examples/fb-reels-gate/.env
