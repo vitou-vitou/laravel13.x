@@ -19,6 +19,38 @@
 
 **Do not** write to `~/.cursor/skills-cursor/` (Cursor built-ins only).
 
+---
+
+## Two skill paths (do not confuse)
+
+| Path | What lives here | Synced by Cursor account? |
+|------|-----------------|---------------------------|
+| `~/.cursor/skills/` | Personal triad + study-packet skills (this repo’s `.cursor/skills/` mirror) | Partially — copy from repo or Settings Sync; see checklist below |
+| `~/.agents/skills/` | **claude-skills** bulk pack (~100+ community skills) | **No** — install manually on **each PC** |
+
+These are separate directories. Cursor does **not** auto-sync `~/.agents/skills/` when you sign in.
+
+### claude-skills bulk install (every new PC)
+
+```bash
+npx skills add alirezarezvani/claude-skills -g -y
+```
+
+- `-g` → global install into `~/.agents/skills/`
+- `-y` → non-interactive (no prompts)
+
+**Verify** (expect ~100+ folders):
+
+```bash
+ls ~/.agents/skills | wc -l
+```
+
+Windows (Git Bash): same paths under `$HOME/.agents/skills/`.
+
+**Updates:** re-run the same `npx` command on each machine when the upstream pack changes.
+
+---
+
 ### Sub-reference files (inside each skill)
 
 | Skill | `reference/` contents |
@@ -114,6 +146,7 @@ SESSION RESUME
 - [ ] Signed into same Cursor account
 - [ ] Settings Sync enabled (if available in your Cursor version)
 - [ ] `~/.cursor/skills/` has spec-kit, openspec, superpowers, 8-principle-study, laravel-specialist
+- [ ] `~/.agents/skills/` installed via `npx skills add alirezarezvani/claude-skills -g -y` (each PC)
 - [ ] Optional: Superpowers plugin installed
 - [ ] `specify` and `openspec` CLIs installed
 - [ ] Repo cloned; `docs/SESSION_STATE.md` present
