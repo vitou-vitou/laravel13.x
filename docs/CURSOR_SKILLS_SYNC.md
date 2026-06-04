@@ -113,6 +113,54 @@ Deprecated slash commands → use **superpowers** reference:
 
 ---
 
+## Caveman plugin (optional — token compression)
+
+Caveman is a **Cursor plugin**, not a repo-mirrored personal skill. On this PC it lives at `~/.cursor/plugins/cache/caveman/` (not in `~/.cursor/skills/` or `.cursor/skills/`).
+
+### Install (every new PC)
+
+**Preferred — Cursor plugin marketplace:**
+
+1. Cursor → **Plugins** → install **caveman** (`JuliusBrussee/caveman`).
+2. Same Cursor account + **Settings Sync** (plugin list may sync; re-install manually if missing).
+
+**Alternative — skills CLI** (copies skill folders into `~/.agents/skills/`):
+
+```bash
+npx skills add JuliusBrussee/caveman -a cursor
+```
+
+**All agents on one machine** (Git Bash or PowerShell):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.sh | bash
+# Windows PowerShell: irm .../install.ps1 | iex
+```
+
+### Bundled skills (via plugin or `npx`)
+
+| Skill | Triggers |
+|-------|----------|
+| `caveman/` | `/caveman`, "talk like caveman", "less tokens" |
+| `caveman-commit/` | commit message, `/commit` |
+| `caveman-review/` | PR review, `/review` |
+| `caveman-compress/` | compress memory files |
+| `caveman-help/` | command reference |
+| `caveman-stats/` | session token savings |
+| `cavecrew/` | compressed subagents (investigator/builder/reviewer) |
+
+**Verify** (plugin cache present):
+
+```bash
+ls ~/.cursor/plugins/cache/caveman/caveman/*/skills/caveman/SKILL.md
+```
+
+Or after `npx` install: `ls ~/.agents/skills/caveman/SKILL.md`.
+
+**Updates:** re-install plugin or re-run `npx skills add JuliusBrussee/caveman -a cursor`.
+
+---
+
 ## CLI tools (install per machine)
 
 | Tool | Install | Verify |
@@ -148,6 +196,7 @@ SESSION RESUME
 - [ ] `~/.cursor/skills/` has spec-kit, openspec, superpowers, 8-principle-study, laravel-specialist
 - [ ] `~/.agents/skills/` installed via `npx skills add alirezarezvani/claude-skills -g -y` (each PC)
 - [ ] Optional: Superpowers plugin installed
+- [ ] Optional: Caveman plugin installed (or `npx skills add JuliusBrussee/caveman -a cursor`)
 - [ ] `specify` and `openspec` CLIs installed
 - [ ] Repo cloned; `docs/SESSION_STATE.md` present
 
@@ -181,6 +230,10 @@ Use 8-principle-study: build a Markdown study packet on JWT auth for a student.
 
 ```text
 Use laravel-specialist: review Eloquent relationships in examples/jwt.
+```
+
+```text
+Use caveman: talk like caveman for the rest of this session.
 ```
 
 ---
