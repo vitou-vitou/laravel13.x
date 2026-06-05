@@ -12,6 +12,7 @@
 | `openspec/` | OpenSpec OPSX workflow | `/opsx:*`, post-MVP changes |
 | `superpowers/` | TDD, debugging, plans, review | implement, bugfix, verify, brainstorm |
 | `spec-kit-openspec-superpowers/` | Triad router (+ optional Caveman voice) | spec-driven, triad setup |
+| `caveman-spec-triad/` | Caveman voice + triad stack preset (no auto SDD) | `/Caveman spec kit Openspec Superpower`, `Use caveman spec kit openspec superpower:` |
 | `system-study-packet/` | Repo-specific 8-principle + decomposition MD | study packet, system map, learn codebase |
 | `8-principle-study/` | General topic study packets (docx/PDF/HTML/MD) | help me learn, flashcards, quiz, revise |
 | `laravel-specialist/` | Laravel 10+ models, APIs, queues, Livewire, tests | Laravel, Eloquent, Sanctum, Pest |
@@ -74,6 +75,7 @@ Copy of personal skills for backup and new machines:
 ├── openspec/
 ├── superpowers/
 ├── spec-kit-openspec-superpowers/
+├── caveman-spec-triad/
 ├── system-study-packet/
 ├── 8-principle-study/
 ├── laravel-specialist/
@@ -237,6 +239,12 @@ Use laravel-specialist: review Eloquent relationships in examples/jwt.
 ```text
 Use caveman: talk like caveman for the rest of this session.
 ```
+
+```text
+/Caveman spec kit Openspec Superpower
+```
+
+(or `Use caveman spec kit openspec superpower:` — loads **caveman-spec-triad**: caveman voice + triad manuals; does not auto-run SDD)
 
 ---
 

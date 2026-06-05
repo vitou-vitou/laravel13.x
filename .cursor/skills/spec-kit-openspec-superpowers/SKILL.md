@@ -117,9 +117,25 @@ See [laravel13-x-policy.md](laravel13-x-policy.md). Summary:
 
 ## Invocation
 
+### Full stack (Caveman + triad manuals — no auto SDD)
+
+```text
+/Caveman spec kit Openspec Superpower
+```
+
+```text
+Use caveman spec kit openspec superpower:
+```
+
+Loads **caveman-spec-triad** skill: persistent caveman voice + triad router + laravel13.x policy. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
+
+### Router only
+
 ```text
 Use spec-kit-openspec-superpowers: verify my triad setup on this machine.
 ```
+
+### Single tools
 
 ```text
 Use spec-kit: /speckit.tasks in the current project.
