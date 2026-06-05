@@ -11,7 +11,7 @@
 | `spec-kit/` | Spec-Kit SDD + git extensions | `/speckit.*`, greenfield MVP, specify CLI |
 | `openspec/` | OpenSpec OPSX workflow | `/opsx:*`, post-MVP changes |
 | `superpowers/` | TDD, debugging, plans, review | implement, bugfix, verify, brainstorm |
-| `spec-kit-openspec-superpowers/` | Triad router (when to use which) | spec-driven, triad setup |
+| `spec-kit-openspec-superpowers/` | Triad router (+ optional Caveman voice) | spec-driven, triad setup |
 | `system-study-packet/` | Repo-specific 8-principle + decomposition MD | study packet, system map, learn codebase |
 | `8-principle-study/` | General topic study packets (docx/PDF/HTML/MD) | help me learn, flashcards, quiz, revise |
 | `laravel-specialist/` | Laravel 10+ models, APIs, queues, Livewire, tests | Laravel, Eloquent, Sanctum, Pest |
@@ -177,11 +177,13 @@ Or after `npx` install: `ls ~/.agents/skills/caveman/SKILL.md`.
 GREENFIELD (examples/* MVP)
   spec-kit: /speckit.constitution → specify → plan → tasks → implement
   superpowers: TDD + verification on every task
+  caveman (optional): terse voice — does not replace SDD or Superpowers
   NO openspec init at greenfield
 
 POST-MVP (laravel13.x repo)
   openspec: /opsx:new → /opsx:continue or /opsx:ff → /opsx:apply → /opsx:archive
   superpowers: same TDD loop during apply
+  caveman (optional): same voice layer as greenfield
 
 SESSION RESUME
   User says "continue" → read docs/SESSION_STATE.md
