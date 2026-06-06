@@ -19,6 +19,21 @@ class PasswordResetTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_forgot_password_form_has_submit_guard_and_loading_state(): void
+    {
+        $response = $this->get('/forgot-password');
+
+        $response->assertOk();
+        $response->assertSee(__('Reset password'), false);
+        $response->assertSee('x-model="email"', false);
+        $response->assertSee('submitting: false', false);
+        $response->assertSee('x-on:submit="submitting = true"', false);
+        $response->assertSee('submitting || ! email.trim()', false);
+        $response->assertSee('x-bind:aria-busy="submitting"', false);
+        $response->assertSee(__('Sending link…'), false);
+        $response->assertSee(__('Back to sign in'), false);
+    }
+
     public function test_reset_password_link_can_be_requested(): void
     {
         Notification::fake();

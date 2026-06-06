@@ -1,4 +1,5 @@
 
+import './theme';
 
 import Alpine from 'alpinejs';
 

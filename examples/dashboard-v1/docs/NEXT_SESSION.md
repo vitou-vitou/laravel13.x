@@ -4,7 +4,7 @@
 **URL**: http://dashboard-v1.test  
 **Admin**: http://dashboard-v1.test/admin  
 **Shop**: http://dashboard-v1.test/shop  
-**Tests**: 100/100 passing  
+**Tests**: 115/115 passing  
 
 ## What it is
 
@@ -17,7 +17,7 @@ Laravel 13 + Breeze + Livewire 4 + Filament v5 + Reverb + Socialite + Spatie (pe
 
 ## OpenSpec
 
-All changes archived under `openspec/changes/archive/2026-06-06-*`.
+All changes archived under `openspec/changes/archive/2026-06-06-*` (includes `add-theme-mode`).
 
 ## Key paths
 
@@ -83,6 +83,11 @@ php artisan queue:work
 ```
 
 `.env`: `BROADCAST_CONNECTION=reverb` (already set). Place an order from `/shop` in another tab while an admin watches `/dashboard` — KPIs and notifications update instantly.
+
+## Theme
+
+- **Light / Dark / Auto** toggle in nav (auth) and top-right on login/register
+- Persists in `localStorage.theme` (`light` | `dark` | `system`) — shared with Filament `/admin`
 
 ## Next (optional)
 

@@ -7,24 +7,24 @@
     $config = match ($provider) {
         'google' => [
             'label' => __('Sign in with Google'),
-            'border' => 'border-[#747775]',
-            'text' => 'text-[#1F1F1F]',
-            'focus' => 'focus-visible:border-[#1f1f1f] focus-visible:ring-[#1f1f1f]/20',
-            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#f8f9fa]',
+            'border' => 'border-[#747775] dark:border-[#8e918f]',
+            'text' => 'text-[#1F1F1F] dark:text-[#e3e3e3]',
+            'focus' => 'focus-visible:border-[#1f1f1f] focus-visible:ring-[#1f1f1f]/20 dark:focus-visible:border-[#c4c7c5] dark:focus-visible:ring-[#c4c7c5]/20',
+            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#f8f9fa] [@media(hover:hover)_and_(pointer:fine)]:dark:hover:bg-[#292a2d]',
         ],
         'microsoft' => [
             'label' => __('Sign in with Microsoft'),
-            'border' => 'border-[#8c8c8c]',
-            'text' => 'text-[#5e5e5e]',
-            'focus' => 'focus-visible:border-[#5e5e5e] focus-visible:ring-[#5e5e5e]/20',
-            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#f8f8f8]',
+            'border' => 'border-[#8c8c8c] dark:border-[#6e6e6e]',
+            'text' => 'text-[#5e5e5e] dark:text-[#e3e3e3]',
+            'focus' => 'focus-visible:border-[#5e5e5e] focus-visible:ring-[#5e5e5e]/20 dark:focus-visible:border-[#adadad] dark:focus-visible:ring-[#adadad]/20',
+            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#f8f8f8] [@media(hover:hover)_and_(pointer:fine)]:dark:hover:bg-gray-700',
         ],
         default => [
             'label' => __('Sign in with :provider', ['provider' => ucfirst($provider)]),
-            'border' => 'border-gray-300',
-            'text' => 'text-gray-700',
-            'focus' => 'focus-visible:border-gray-500 focus-visible:ring-gray-500/20',
-            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-gray-50',
+            'border' => 'border-gray-300 dark:border-gray-600',
+            'text' => 'text-gray-700 dark:text-gray-200',
+            'focus' => 'focus-visible:border-gray-500 focus-visible:ring-gray-500/20 dark:focus-visible:border-gray-400 dark:focus-visible:ring-gray-400/20',
+            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-gray-50 [@media(hover:hover)_and_(pointer:fine)]:dark:hover:bg-gray-700',
         ],
     };
 
@@ -39,8 +39,8 @@
     x-bind:class="{ 'pointer-events-none opacity-50 cursor-wait': navigating }"
     {{ $attributes->merge([
         'class' => implode(' ', [
-            'group flex min-h-[41px] w-full touch-manipulation items-center justify-center gap-3 rounded border bg-white px-3 py-2 shadow-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out',
-            'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:bg-gray-100 active:scale-[0.97] motion-reduce:transition-none',
+            'group flex min-h-[41px] w-full touch-manipulation items-center justify-center gap-3 rounded border bg-white dark:bg-gray-800 px-3 py-2 shadow-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 active:bg-gray-100 dark:active:bg-gray-700 active:scale-[0.97] motion-reduce:transition-none',
             $config['border'],
             $config['text'],
             $config['focus'],

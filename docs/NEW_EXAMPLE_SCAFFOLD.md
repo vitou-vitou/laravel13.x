@@ -35,6 +35,7 @@ Example:
 
 - Does not implement product features (spec/tasks are stubs)
 - Does not add Breeze/Sanctum/Stripe unless you specify later
+- Does not add ngrok/OAuth tunnel files — when the spec needs GitHub/Google OAuth or HTTPS webhooks on Herd, copy `ngrok-traffic-policy.yml` + `trustProxies(at: '*')` from `examples/dashboard-v1` or `dashboard-v2` (see `docs/EXAMPLE_DEV_LESSONS.md` § OAuth / webhooks via ngrok)
 - Does not update `docs/SESSION_STATE.md` until you mark MVP complete
 
 ## After scaffold

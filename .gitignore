@@ -44,3 +44,4 @@ Thumbs.db
 
 # Misnamed env (use .env); never commit
 examples/dashboard-v1/env
+!examples/dashboard-v2/.env

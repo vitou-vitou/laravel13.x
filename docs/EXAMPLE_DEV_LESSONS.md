@@ -17,6 +17,40 @@
 | `No application encryption key` | Missing `.env` on fresh clone | `new-example` commits `.env`; else `cp .env.example .env` + fix script |
 | `artisan test` OK but browser 500 | Web uses bad `APP_KEY`; tests use `phpunit.xml` | Align both via `fix-example-app-key` |
 | Site not found / connection refused | Herd not linked | `cd examples/<slug> && herd link <slug> --update-env` |
+| Herd **404 Site not found** through ngrok (OAuth/webhook callback) | `ngrok http http://<slug>.test` forwards ngrok hostname as `Host`; Herd has no matching site | See **OAuth / webhooks via ngrok** below — traffic policy + `127.0.0.1:80` |
+
+---
+
+## OAuth / webhooks via ngrok (Herd)
+
+**When:** GitHub/Google OAuth, Stripe webhooks, or any provider that needs a public HTTPS callback while PHP stays on Herd.
+
+**Pattern (copy from `examples/dashboard-v1` or `dashboard-v2`):**
+
+| Piece | Purpose |
+|-------|---------|
+| `ngrok-traffic-policy.yml` | Rewrites `Host` to `<slug>.test` so Herd routes correctly |
+| `bootstrap/app.php` → `trustProxies(at: '*')` | Laravel trusts ngrok `X-Forwarded-*` for HTTPS URLs |
+| `.env` | Keep **`APP_URL=http://<slug>.test`**; set provider **`*_REDIRECT_URI`** to ngrok HTTPS callback only |
+
+```bash
+cd examples/<slug>
+npm run build   # avoid Vite :5173 through tunnel
+
+ngrok http 127.0.0.1:80 --traffic-policy-file ngrok-traffic-policy.yml
+```
+
+```env
+APP_URL=http://<slug>.test
+GITHUB_REDIRECT_URI=https://YOUR-SUBDOMAIN.ngrok-free.app/auth/github/callback
+# or GOOGLE_REDIRECT_URI=…/auth/google/callback
+```
+
+Open **`https://YOUR-SUBDOMAIN.ngrok-free.app/login`** for OAuth (not `.test`).
+
+**Do not:** `ngrok http http://<slug>.test` — causes Herd 404, not Laravel.
+
+**Reference:** `examples/dashboard-v2/docs/NEXT_SESSION.md` (GitHub), `dashboard-v1/docs/NEXT_SESSION.md` (Google).
 
 ---
 
@@ -88,4 +122,4 @@ npm run dev
 - `docs/NEW_EXAMPLE_SCAFFOLD.md` — scaffold command  
 - `.cursor/rules/windows-herd-gitbash.mdc` — agent always-on rule  
 
-**Last consolidated:** 2026-06-03 (my-app-33/55, APP_KEY ANSI, Herd link)
+**Last consolidated:** 2026-06-06 (ngrok + Herd Host header, dashboard-v2 GitHub OAuth)

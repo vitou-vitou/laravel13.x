@@ -38,5 +38,6 @@ Browser: **__APP_URL__** (Herd — no `artisan serve` needed)
 - Opened :5173 instead of **__APP_URL__**
 - 500 Unsupported cipher → `./bin/fix-example-app-key __SLUG__` (bad APP_KEY / ANSI)
 - Health check → `./bin/verify-example __SLUG__`
+- OAuth/ngrok on Herd → traffic policy + `127.0.0.1:80` (not `ngrok http http://__SLUG__.test`) — `docs/EXAMPLE_DEV_LESSONS.md`
 
 See `docs/EXAMPLE_DEV_LESSONS.md`.

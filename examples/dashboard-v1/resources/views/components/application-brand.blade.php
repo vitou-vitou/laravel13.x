@@ -18,12 +18,12 @@
     <div {{ $attributes->merge(['class' => $tagClass]) }}>
 @endif
         <span @class([
-            'inline-flex shrink-0 items-center justify-center bg-amber-500/10 text-amber-600',
+            'inline-flex shrink-0 items-center justify-center bg-amber-500/10 text-amber-600 dark:bg-amber-500/15 dark:text-amber-400',
             $iconWrapperClass,
         ])>
             <x-icons.chart-dashboard class="{{ $iconClass }}" />
         </span>
-        <span @class([$textClass, 'text-gray-900'])>{{ $name }}</span>
+        <span @class([$textClass, 'text-gray-900 dark:text-gray-100'])>{{ $name }}</span>
 @if ($href)
     </a>
 @else

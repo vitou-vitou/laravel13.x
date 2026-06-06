@@ -31,7 +31,8 @@
 | `examples/kindly-e-commerce-1122` | **MVP + Phase 2 + 3a Stripe** | 49/49 | Breeze session (web) | Stripe Checkout + webhooks; stub pay removed; :8012 |
 | `examples/booking-v1` | **Complete** | 15/15 | Sanctum Bearer API | Grok A+B done; Prompt C optional |
 | `examples/clone-the-fb-nav` | **MVP complete** | 6/6 | None (static UI) | FB desktop top-nav study; Spec-Kit `001-fb-top-nav` |
-| `examples/dashboard-v1` | **MVP complete** | 100/100 | Breeze + Filament + Reverb + Socialite | Commerce + email + Echo + Google SSO |
+| `examples/dashboard-v1` | **MVP complete** | 115/115 | Breeze + Filament + Reverb + Socialite | Commerce + email + Echo + Google SSO + theme modes |
+| `examples/dashboard-v2` | **GitHub OAuth MVP** | 35/35 | Breeze + GitHub Socialite | Session auth + optional GitHub login |
 
 ---
 
@@ -74,6 +75,7 @@ cd d:/laravel13.x/examples/kindly-e-commerce-1122 && $PHP artisan test
 cd d:/laravel13.x/examples/booking-v1 && $PHP artisan test
 cd d:/laravel13.x/examples/clone-the-fb-nav && $PHP artisan test
 cd d:/laravel13.x/examples/dashboard-v1 && $PHP artisan test
+cd d:/laravel13.x/examples/dashboard-v2 && $PHP artisan test
 ```
 
 ---
@@ -164,9 +166,11 @@ POST /api/logout
 
 5. **dashboard-v1:** Google SSO done (100/100) — optional customer receipt email.
 
-6. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+6. **dashboard-v2:** GitHub OAuth MVP — Breeze + Socialite; set `GITHUB_CLIENT_*` for live login.
 
-7. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
+7. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+
+8. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
 
 ---
 
@@ -199,6 +203,24 @@ POST /api/logout
 **Post-MVP only:** Cart checkout → order + payment; archive OpenSpec changes.
 
 **Detail file:** `examples/dashboard-v1/docs/NEXT_SESSION.md`
+
+---
+
+## `examples/dashboard-v2`
+
+**What it is:** Laravel 13 + Breeze — session auth with optional GitHub OAuth (Socialite). Dashboard shows profile avatar when signed in via GitHub.
+
+**Spec-Kit:** `.specify/specs/001-dashboard_v2/` (GitHub OAuth MVP)
+
+**Key tests:** `tests/Feature/Auth/GitHubLoginTest.php`, Breeze auth tests
+
+**Browser:** http://dashboard-v2.test · `/login` · `/dashboard`
+
+**Env:** `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` (button hidden until both set)
+
+**OAuth via ngrok:** `ngrok-traffic-policy.yml` + `trustProxies` — **not** `ngrok http http://dashboard-v2.test`. See `docs/NEXT_SESSION.md` § GitHub OAuth via ngrok and `docs/EXAMPLE_DEV_LESSONS.md`.
+
+**Detail file:** `examples/dashboard-v2/docs/NEXT_SESSION.md`
 
 ---
 
