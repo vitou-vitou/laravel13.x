@@ -10,8 +10,10 @@ class DashboardController extends Controller
     public function __invoke(DashboardMetricsService $metrics): View
     {
         return view('dashboard', [
-            'kpis' => $metrics->getKpis(),
-            'recentOrders' => $metrics->getRecentOrders(),
+            'chartData' => [
+                'revenueTrend' => $metrics->getRevenueTrend(),
+                'statusBreakdown' => $metrics->getStatusBreakdown(),
+            ],
         ]);
     }
 }

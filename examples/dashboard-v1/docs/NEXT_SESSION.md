@@ -2,43 +2,37 @@
 
 **App**: Analytics Dashboard  
 **URL**: http://dashboard-v1.test  
-**Tests**: 29/29 passing  
-**MVP**: Complete (2026-06-06)
+**Tests**: 40/40 passing  
+**Post-MVP:** metrics, charts, Livewire polling complete
 
 ## What it is
 
-Laravel 13 + Breeze — authenticated KPI dashboard with four metric cards and a recent orders table. Demo data from `DashboardMetricsService` (no DB metrics yet).
+Laravel 13 + Breeze + Livewire 4 — KPI cards and recent orders auto-refresh every 30s; Chart.js charts on initial load.
 
-## Spec-Kit
+## OpenSpec (archive when ready)
 
-`.specify/specs/001-dashboard-v1/` — all tasks T001–T009 checked
+- `add-order-metrics`
+- `add-dashboard-charts`
+- `add-livewire-polling`
 
 ## Key files
 
 | Path | Purpose |
 |------|---------|
-| `app/Services/DashboardMetricsService.php` | Demo KPIs + recent orders |
-| `app/Http/Controllers/DashboardController.php` | Dashboard invokable controller |
-| `resources/views/dashboard.blade.php` | KPI grid + orders table |
-| `tests/Feature/DashboardTest.php` | Guest redirect, KPIs, table, welcome |
+| `resources/views/components/⚡dashboard-metrics.blade.php` | Livewire SFC, `wire:poll.30s` |
+| `app/Services/DashboardMetricsService.php` | All metric/chart queries |
+| `resources/js/dashboard-charts.js` | Static Chart.js on page load |
 
 ## Dev
 
 ```bash
 export PATH="/d/laravel13.x/bin:$PATH"
 cd examples/dashboard-v1
-npm run dev   # Vite; browse http://dashboard-v1.test
+php artisan migrate --seed
+npm run dev
 php artisan test
 ```
 
-Register or use factory user; login → `/dashboard`.
+## Next (OpenSpec)
 
-## Do not redo
-
-- Breeze scaffold, KPI service, dashboard view, feature tests
-
-## Post-MVP only
-
-- Chart.js / Livewire polling
-- Database-backed metrics (Order model, aggregates)
-- Filament admin, OpenSpec change orders
+- Filament admin for orders CRUD
