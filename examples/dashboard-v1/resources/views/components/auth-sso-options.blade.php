@@ -1,5 +1,3 @@
-@php($enabledSso = app(\App\Services\SsoAuthenticator::class)->enabledProviders())
-
 @if (count($enabledSso) > 0)
     <div class="mb-4 flex flex-col gap-3" role="group" aria-label="{{ __('Sign-in options') }}">
         @foreach ($enabledSso as $provider)

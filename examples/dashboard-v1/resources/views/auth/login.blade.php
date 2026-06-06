@@ -12,8 +12,6 @@
 
     <x-auth-sso-options />
 
-    @php($hasSso = count(app(\App\Services\SsoAuthenticator::class)->enabledProviders()) > 0)
-
     <form
         method="POST"
         action="{{ route('login') }}"

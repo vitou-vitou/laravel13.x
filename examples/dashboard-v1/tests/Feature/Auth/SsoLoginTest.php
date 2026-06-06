@@ -33,10 +33,63 @@ class SsoLoginTest extends TestCase
             ->assertSee('#4285F4', false);
     }
 
-    public function test_sso_buttons_prevent_duplicate_navigation(): void
+    public function test_register_page_shows_google_button_when_configured(): void
     {
         $this->enableGoogleSso();
+
+        $this->get(route('register'))
+            ->assertOk()
+            ->assertSee('Sign in with Google', false)
+            ->assertSee('Sign-in options', false);
+    }
+
+    public function test_register_page_shows_microsoft_button_when_configured(): void
+    {
         $this->enableMicrosoftSso();
+
+        $this->get(route('register'))
+            ->assertOk()
+            ->assertSee('Sign in with Microsoft', false);
+    }
+
+    public function test_register_page_hides_sso_buttons_when_not_configured(): void
+    {
+        config([
+            'services.google.client_id' => null,
+            'services.google.client_secret' => null,
+            'services.microsoft.client_id' => null,
+            'services.microsoft.client_secret' => null,
+        ]);
+
+        $this->get(route('register'))
+            ->assertOk()
+            ->assertDontSee('Sign in with Google', false)
+            ->assertDontSee('Sign in with Microsoft', false);
+    }
+
+    public function test_register_page_autofocuses_name_when_sso_not_configured(): void
+    {
+        config(['services.google.client_id' => null, 'services.microsoft.client_id' => null]);
+
+        $this->get(route('register'))
+            ->assertOk()
+            ->assertSee('id="name"', false)
+            ->assertSee('autofocus', false);
+    }
+
+    public function test_register_page_skips_name_autofocus_when_sso_configured(): void
+    {
+        $this->enableGoogleSso();
+
+        $html = $this->get(route('register'))->assertOk()->getContent();
+
+        $this->assertDoesNotMatchRegularExpression('/id="name"[^>]*autofocus/', $html);
+        $this->assertMatchesRegularExpression('/id="email"[^>]*autofocus/', $html);
+    }
+
+    public function test_sso_buttons_prevent_duplicate_navigation(): void
+    {
+        $this->enableBothSsoProviders();
 
         $response = $this->get(route('login'));
 
@@ -96,8 +149,7 @@ class SsoLoginTest extends TestCase
 
     public function test_login_page_shows_microsoft_before_google_when_both_configured(): void
     {
-        $this->enableGoogleSso();
-        $this->enableMicrosoftSso();
+        $this->enableBothSsoProviders();
 
         $html = $this->get(route('login'))->assertOk()->getContent();
         $microsoftPos = strpos($html, 'Sign in with Microsoft');
@@ -276,5 +328,11 @@ class SsoLoginTest extends TestCase
                 'tenant' => 'common',
             ],
         ]);
+    }
+
+    private function enableBothSsoProviders(): void
+    {
+        $this->enableGoogleSso();
+        $this->enableMicrosoftSso();
     }
 }

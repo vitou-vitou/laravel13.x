@@ -34,7 +34,15 @@
       "Bash(agent-browser open *)",
       "Bash(agent-browser snapshot *)",
       "Bash(agent-browser screenshot *)",
-      "Bash(agent-browser get *)"
+      "Bash(agent-browser get *)",
+      "Bash(curl -s -o nul -w \"no-host: %{http_code}\\\\n\" http://dashboard-v1.test/)",
+      "Bash(curl -s -o nul -w \"with-host: %{http_code}\\\\n\" -H \"Host: dashboard-v1.test\" http://127.0.0.1:80/)",
+      "Bash(curl -s -o nul -w \"ngrok-host-sim: %{http_code}\\\\n\" -H \"Host: 94fd-203-147-139-254.ngrok-free.app\" http://127.0.0.1:80/)",
+      "Bash(powershell -Command \"Start-Process 'http://dashboard-v1.test'\")",
+      "Bash(bash scripts/ngrok-vitou-dev-http.sh)",
+      "Bash(bash examples/dashboard-v1/scripts/ngrok-vitou-dev-http.sh)",
+      "Bash(./scripts/ngrok-vitou-dev-http.sh)",
+      "Bash(ngrok http *)"
     ]
   }
 }
