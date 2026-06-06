@@ -12,14 +12,15 @@ class DashboardMetricsComponentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_component_renders_kpis_with_poll_directive(): void
+    public function test_component_renders_kpis_without_poll_directive(): void
     {
         User::factory()->create();
 
         Livewire::test('dashboard-metrics')
             ->assertSee('Total Revenue')
             ->assertSee('Recent Orders')
-            ->assertSeeHtml('wire:poll.30s');
+            ->assertSee('Updates in real time via Echo')
+            ->assertDontSeeHtml('wire:poll');
     }
 
     public function test_component_reflects_new_orders_after_refresh(): void

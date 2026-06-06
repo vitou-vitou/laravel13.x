@@ -9,7 +9,8 @@
     <form
         method="POST"
         action="{{ route('login') }}"
-        x-data="{ email: @js(old('email', '')), password: '', showPassword: false }"
+        x-data="{ email: @js(old('email', '')), password: '', showPassword: false, submitting: false }"
+        x-on:submit="submitting = true"
     >
         @csrf
 
@@ -62,8 +63,29 @@
                     x-on:click="showPassword = ! showPassword"
                     x-bind:aria-label="showPassword ? @js(__('Hide password')) : @js(__('Show password'))"
                 >
-                    <x-icons.eye x-show="! showPassword" x-cloak class="h-5 w-5 block" />
-                    <x-icons.eye-off x-show="showPassword" x-cloak class="h-5 w-5 block" style="display: none;" />
+                    <x-icons.eye
+                        x-show="! showPassword"
+                        x-cloak
+                        x-transition:enter="transition ease-out duration-[120ms]"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-[120ms]"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="h-5 w-5 block"
+                    />
+                    <x-icons.eye-off
+                        x-show="showPassword"
+                        x-cloak
+                        x-transition:enter="transition ease-out duration-[120ms]"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-[120ms]"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="h-5 w-5 block"
+                        style="display: none;"
+                    />
                 </button>
             </div>
 
@@ -72,8 +94,9 @@
 
         <div class="mt-4">
             <x-primary-button
-                class="w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                x-bind:disabled="! email.trim() || ! password.trim()"
+                class="w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-opacity duration-150 ease-out"
+                x-bind:disabled="submitting || ! email.trim() || ! password.trim()"
+                x-bind:class="{ 'pointer-events-none': submitting }"
             >
                 {{ __('Log in') }}
             </x-primary-button>

@@ -15,7 +15,17 @@ new class extends Component
 };
 ?>
 
-<div wire:poll.30s class="space-y-8">
+<div class="space-y-8">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-gray-500">{{ __('Desktop alerts when a new order arrives (requires browser permission).') }}</p>
+        <button type="button"
+                id="enable-order-notifications"
+                data-enabled-label="{{ __('Notifications enabled') }}"
+                class="inline-flex items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-gray-200 hover:bg-gray-50">
+            {{ __('Enable order notifications') }}
+        </button>
+    </div>
+
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         @foreach ($kpis as $kpi)
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -39,7 +49,7 @@ new class extends Component
         <div class="p-6">
             <div class="flex items-center justify-between gap-4">
                 <h3 class="text-lg font-semibold text-gray-900">{{ __('Recent Orders') }}</h3>
-                <p class="text-xs text-gray-400">{{ __('Auto-refreshes every 30s') }}</p>
+                <p class="text-xs text-gray-400">{{ __('Updates in real time via Echo') }}</p>
             </div>
             <div class="mt-4 overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -53,7 +63,7 @@ new class extends Component
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse ($recentOrders as $order)
-                            <tr wire:key="order-{{ $order['customer'] }}-{{ $order['date'] }}">
+                            <tr wire:key="order-{{ $order['id'] }}">
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">{{ $order['customer'] }}</td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">{{ $order['amount'] }}</td>
                                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">{{ $order['status'] }}</td>

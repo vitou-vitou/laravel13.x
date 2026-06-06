@@ -1,5 +1,10 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form
+        method="POST"
+        action="{{ route('register') }}"
+        x-data="{ submitting: false }"
+        x-on:submit="submitting = true"
+    >
         @csrf
 
         <!-- Name -->
@@ -39,14 +44,21 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
+        <div class="mt-4">
+            <x-primary-button
+                class="w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-opacity duration-150 ease-out"
+                x-bind:disabled="submitting"
+                x-bind:class="{ 'pointer-events-none': submitting }"
+            >
                 {{ __('Register') }}
             </x-primary-button>
+
+            @if (Route::has('login'))
+                <p class="mt-3 text-sm text-center text-gray-600">
+                    {{ __('Already have an account?') }}
+                    <a class="font-medium text-blue-600 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm no-underline hover:no-underline" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </p>
+            @endif
         </div>
     </form>
 </x-guest-layout>

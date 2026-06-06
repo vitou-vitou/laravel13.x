@@ -33,6 +33,19 @@ class SsoLoginTest extends TestCase
             ->assertSee('#4285F4', false);
     }
 
+    public function test_sso_buttons_prevent_duplicate_navigation(): void
+    {
+        $this->enableGoogleSso();
+        $this->enableMicrosoftSso();
+
+        $response = $this->get(route('login'));
+
+        $response->assertOk();
+        $response->assertSee('navigating: false', false);
+        $response->assertSee('if (navigating) { $event.preventDefault(); return; } navigating = true', false);
+        $response->assertSee("'pointer-events-none opacity-50 cursor-wait': navigating", false);
+    }
+
     public function test_login_page_shows_microsoft_button_when_configured(): void
     {
         $this->enableMicrosoftSso();

@@ -20,6 +20,8 @@
         "vite": "^8.0.0"
     },
     "dependencies": {
-        "chart.js": "^4.5.1"
+        "chart.js": "^4.5.1",
+        "laravel-echo": "^2.3.7",
+        "pusher-js": "^8.5.0"
     }
 }

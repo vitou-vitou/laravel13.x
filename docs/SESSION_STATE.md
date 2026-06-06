@@ -31,7 +31,7 @@
 | `examples/kindly-e-commerce-1122` | **MVP + Phase 2 + 3a Stripe** | 49/49 | Breeze session (web) | Stripe Checkout + webhooks; stub pay removed; :8012 |
 | `examples/booking-v1` | **Complete** | 15/15 | Sanctum Bearer API | Grok A+B done; Prompt C optional |
 | `examples/clone-the-fb-nav` | **MVP complete** | 6/6 | None (static UI) | FB desktop top-nav study; Spec-Kit `001-fb-top-nav` |
-| `examples/dashboard-v1` | **MVP complete** | 40/40 | Breeze + Livewire | DB metrics, Chart.js, 30s KPI poll |
+| `examples/dashboard-v1` | **MVP complete** | 100/100 | Breeze + Filament + Reverb + Socialite | Commerce + email + Echo + Google SSO |
 
 ---
 
@@ -162,7 +162,7 @@ POST /api/logout
 
 4. **clone-the-fb-nav:** MVP done — pixel polish or OpenSpec only if user asks.
 
-5. **dashboard-v1:** Livewire polling done (40/40) — Filament admin next.
+5. **dashboard-v1:** Google SSO done (100/100) — optional customer receipt email.
 
 6. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
 
@@ -190,13 +190,13 @@ POST /api/logout
 
 ## `examples/dashboard-v1`
 
-**What it is:** Laravel 13 + Breeze — authenticated analytics dashboard with four KPI cards and recent orders table backed by the `orders` table.
+**What it is:** Analytics dashboard + commerce admin — categories/products (translatable en/es), cart, payments, Spatie roles/permissions, Filament CRUD, optional Google SSO.
 
-**OpenSpec:** `add-order-metrics`, `add-dashboard-charts`, `add-livewire-polling` — archive when ready
+**Tests:** 100/100 · **OpenSpec:** archived under `openspec/changes/archive/2026-06-06-*`
 
-**Browser:** http://dashboard-v1.test — KPIs poll every 30s; charts on first load
+**Browser:** http://dashboard-v1.test · `/cart` · `/admin`
 
-**Post-MVP only:** Filament admin for orders.
+**Post-MVP only:** Cart checkout → order + payment; archive OpenSpec changes.
 
 **Detail file:** `examples/dashboard-v1/docs/NEXT_SESSION.md`
 

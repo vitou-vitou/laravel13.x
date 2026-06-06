@@ -85,15 +85,35 @@ class DashboardMetricsService
     public function getRecentOrders(): array
     {
         return Order::query()
+            ->with('customer')
             ->orderByDesc('ordered_at')
             ->limit(10)
             ->get()
             ->map(fn (Order $order) => [
-                'customer' => $order->customer_name,
+                'id' => $order->id,
+                'customer' => $order->customer->name,
                 'amount' => $order->formattedAmount(),
                 'status' => $order->statusLabel(),
                 'date' => $order->ordered_at->format('M j, Y'),
             ])
+            ->all();
+    }
+
+    public function getLatestOrderId(): int
+    {
+        return (int) (Order::query()->max('id') ?? 0);
+    }
+
+    /**
+     * @return list<Order>
+     */
+    public function getOrdersNewerThan(int $orderId): array
+    {
+        return Order::query()
+            ->with('customer')
+            ->where('id', '>', $orderId)
+            ->orderBy('id')
+            ->get()
             ->all();
     }
 

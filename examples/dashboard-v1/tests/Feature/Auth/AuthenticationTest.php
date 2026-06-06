@@ -27,6 +27,17 @@ class AuthenticationTest extends TestCase
         $response->assertSee('x-bind:disabled', false);
     }
 
+    public function test_login_form_prevents_duplicate_submissions(): void
+    {
+        $response = $this->get('/login');
+
+        $response->assertOk();
+        $response->assertSee('submitting: false', false);
+        $response->assertSee('x-on:submit="submitting = true"', false);
+        $response->assertSee('submitting || ! email.trim() || ! password.trim()', false);
+        $response->assertSee("'pointer-events-none': submitting", false);
+    }
+
     public function test_login_password_field_has_show_hide_toggle(): void
     {
         $response = $this->get('/login');

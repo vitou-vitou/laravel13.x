@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,7 +38,7 @@ class DashboardTest extends TestCase
         $user = User::factory()->create();
 
         Order::factory()->create([
-            'customer_name' => 'Acme Corp',
+            'customer_id' => Customer::factory()->create(['name' => 'Acme Corp'])->id,
             'ordered_at' => now(),
         ]);
 
@@ -74,6 +75,31 @@ class DashboardTest extends TestCase
         $response->assertSee('Welcome back, Alex Rivera');
     }
 
+    public function test_dashboard_links_to_filament_orders_admin(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/dashboard');
+
+        $response->assertOk();
+        $response->assertSee('Manage Orders');
+        $response->assertSee('/admin/orders', false);
+    }
+
+    public function test_authenticated_user_can_reach_filament_orders_without_extra_login(): void
+    {
+        $user = $this->adminUser();
+
+        $customer = Customer::factory()->create(['name' => 'Sidebar Order']);
+
+        Order::factory()->forCustomer($customer)->create();
+
+        $this->actingAs($user)
+            ->get('/admin/orders')
+            ->assertOk()
+            ->assertSee('Sidebar Order');
+    }
+
     public function test_dashboard_includes_chart_sections_and_data(): void
     {
         $user = User::factory()->create();
@@ -88,6 +114,7 @@ class DashboardTest extends TestCase
         $response->assertSee('id="order-status-chart"', false);
         $response->assertSee('id="dashboard-charts-data"', false);
         $response->assertSee('"labels"', false);
-        $response->assertSeeHtml('wire:poll.30s');
+        $response->assertSee('Updates in real time via Echo', false);
+        $response->assertDontSeeHtml('wire:poll');
     }
 }

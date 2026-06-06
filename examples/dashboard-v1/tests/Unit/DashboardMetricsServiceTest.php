@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\DashboardMetricsService;
@@ -63,12 +64,13 @@ class DashboardMetricsServiceTest extends TestCase
 
     public function test_recent_orders_returns_latest_ten_by_date(): void
     {
-        Order::factory()->create([
-            'customer_name' => 'Older Customer',
+        $recentCustomer = Customer::factory()->create(['name' => 'Acme Corp']);
+        $olderCustomer = Customer::factory()->create(['name' => 'Older Customer']);
+
+        Order::factory()->forCustomer($olderCustomer)->create([
             'ordered_at' => now()->subDays(5),
         ]);
-        Order::factory()->create([
-            'customer_name' => 'Acme Corp',
+        Order::factory()->forCustomer($recentCustomer)->create([
             'ordered_at' => now(),
         ]);
 
@@ -107,5 +109,21 @@ class DashboardMetricsServiceTest extends TestCase
 
         $this->assertSame(['Paid', 'Pending', 'Refunded'], $breakdown['labels']);
         $this->assertSame([2, 1, 1], $breakdown['values']);
+    }
+
+    public function test_get_latest_order_id_returns_zero_when_empty(): void
+    {
+        $this->assertSame(0, (new DashboardMetricsService)->getLatestOrderId());
+    }
+
+    public function test_get_orders_newer_than_returns_only_new_orders(): void
+    {
+        $first = Order::factory()->create();
+        $second = Order::factory()->create();
+
+        $orders = (new DashboardMetricsService)->getOrdersNewerThan($first->id);
+
+        $this->assertCount(1, $orders);
+        $this->assertSame($second->id, $orders[0]->id);
     }
 }

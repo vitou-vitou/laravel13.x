@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +19,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_name' => fake()->name(),
+            'customer_id' => Customer::factory(),
             'amount_cents' => fake()->numberBetween(1_000, 50_000),
             'status' => fake()->randomElement(['paid', 'pending', 'refunded']),
             'ordered_at' => fake()->dateTimeBetween('-30 days', 'now'),
@@ -43,6 +44,13 @@ class OrderFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => 'refunded',
+        ]);
+    }
+
+    public function forCustomer(Customer $customer): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'customer_id' => $customer->id,
         ]);
     }
 }
