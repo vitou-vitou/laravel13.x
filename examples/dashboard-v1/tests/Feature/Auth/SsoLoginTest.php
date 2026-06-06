@@ -59,6 +59,8 @@ class SsoLoginTest extends TestCase
             'services.google.client_secret' => null,
             'services.microsoft.client_id' => null,
             'services.microsoft.client_secret' => null,
+            'services.github.client_id' => null,
+            'services.github.client_secret' => null,
         ]);
 
         $this->get(route('register'))
@@ -69,7 +71,11 @@ class SsoLoginTest extends TestCase
 
     public function test_register_page_autofocuses_name_when_sso_not_configured(): void
     {
-        config(['services.google.client_id' => null, 'services.microsoft.client_id' => null]);
+        config([
+            'services.google.client_id' => null,
+            'services.microsoft.client_id' => null,
+            'services.github.client_id' => null,
+        ]);
 
         $this->get(route('register'))
             ->assertOk()
@@ -122,7 +128,11 @@ class SsoLoginTest extends TestCase
 
     public function test_login_page_autofocuses_email_when_sso_not_configured(): void
     {
-        config(['services.google.client_id' => null, 'services.microsoft.client_id' => null]);
+        config([
+            'services.google.client_id' => null,
+            'services.microsoft.client_id' => null,
+            'services.github.client_id' => null,
+        ]);
 
         $this->get(route('login'))
             ->assertOk()
@@ -145,6 +155,25 @@ class SsoLoginTest extends TestCase
         $this->get(route('login'))
             ->assertOk()
             ->assertDontSee('Sign in with Microsoft', false);
+    }
+
+    public function test_login_page_shows_github_button_when_configured(): void
+    {
+        $this->enableGitHubSso();
+
+        $this->get(route('login'))
+            ->assertOk()
+            ->assertSee('Sign in with GitHub', false)
+            ->assertSee('aria-label="Sign in with GitHub"', false);
+    }
+
+    public function test_login_page_hides_github_button_when_not_configured(): void
+    {
+        config(['services.github.client_id' => null]);
+
+        $this->get(route('login'))
+            ->assertOk()
+            ->assertDontSee('Sign in with GitHub', false);
     }
 
     public function test_login_page_shows_microsoft_before_google_when_both_configured(): void
@@ -334,5 +363,16 @@ class SsoLoginTest extends TestCase
     {
         $this->enableGoogleSso();
         $this->enableMicrosoftSso();
+    }
+
+    private function enableGitHubSso(): void
+    {
+        config([
+            'services.github' => [
+                'client_id' => 'test-github-client-id',
+                'client_secret' => 'test-github-client-secret',
+                'redirect' => 'http://dashboard-v1.test/auth/github/callback',
+            ],
+        ]);
     }
 }

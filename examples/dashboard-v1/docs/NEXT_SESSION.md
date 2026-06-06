@@ -4,7 +4,7 @@
 **URL**: http://dashboard-v1.test  
 **Admin**: http://dashboard-v1.test/admin  
 **Shop**: http://dashboard-v1.test/shop  
-**Tests**: 115/115 passing  
+**Tests**: 131/131 passing
 
 ## What it is
 
@@ -13,11 +13,11 @@ Laravel 13 + Breeze + Livewire 4 + Filament v5 + Reverb + Socialite + Spatie (pe
 - **Dashboard:** KPIs, charts, **Echo real-time** order updates (no poll)
 - **Shop → Cart → Checkout:** line items, desktop alerts, admin email, **`NewOrderCreated` broadcast**
 - **Admin:** Full CRUD + relation managers
-- **Auth:** Email/password + optional **Google** / **Microsoft 365** SSO (`GOOGLE_*`, `MICROSOFT_*` in `.env`)
+- **Auth:** Email/password + optional **Google** / **Microsoft 365** / **GitHub** SSO (`GOOGLE_*`, `MICROSOFT_*`, `GITHUB_*` in `.env`)
 
 ## OpenSpec
 
-All changes archived under `openspec/changes/archive/2026-06-06-*` (includes `add-theme-mode`).
+All changes archived under `openspec/changes/archive/2026-06-06-*` (includes `add-theme-mode`, `add-github-sso`).
 
 ## Key paths
 
@@ -27,7 +27,7 @@ All changes archived under `openspec/changes/archive/2026-06-06-*` (includes `ad
 | `routes/channels.php` | Private `orders` channel (admin/staff) |
 | `resources/js/echo.js` | Laravel Echo + Reverb client |
 | `resources/js/order-notifications.js` | Echo listener + desktop alerts |
-| `app/Services/SsoAuthenticator.php` | Google + Microsoft OAuth find/create/link |
+| `app/Services/SsoAuthenticator.php` | Google + Microsoft + GitHub OAuth find/create/link |
 | `app/Http/Controllers/Auth/SsoController.php` | SSO redirect + callback |
 
 ## Dev
@@ -41,7 +41,9 @@ php artisan test
 
 **Login:** `test@example.com` / `password`  
 
-**Google / Microsoft SSO (optional):** set client ID + secret in `.env`. Google rejects `.test` / `localhost` origins — use **ngrok** for OAuth testing only.
+**Google / Microsoft / GitHub SSO (optional):** set client ID + secret in `.env`. Google rejects `.test` / `localhost` origins — use **ngrok** for OAuth testing only.
+
+**GitHub:** create an OAuth App at https://github.com/settings/developers — callback `http://dashboard-v1.test/auth/github/callback` (local) or ngrok HTTPS for tunnel testing. Set `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Button hidden until both are set.
 
 **Microsoft:** register an app in [Entra admin center](https://entra.microsoft.com/) → App registrations. Redirect URI: `https://YOUR-NGROK/auth/microsoft/callback`. `MICROSOFT_TENANT_ID=common` for work + personal accounts; use your tenant ID for single-tenant only.
 
@@ -65,6 +67,14 @@ GOOGLE_REDIRECT_URI=https://YOUR-SUBDOMAIN.ngrok-free.app/auth/google/callback
 ```
 
 Google Console: same ngrok URL for **origins** + **redirect**. Open **`https://YOUR-SUBDOMAIN.ngrok-free.app/login`** for SSO (not `.test`). After login you redirect back to `.test` — normal speed.
+
+For GitHub OAuth via ngrok, keep `APP_URL=http://dashboard-v1.test` and set only:
+
+```env
+GITHUB_REDIRECT_URI=https://YOUR-SUBDOMAIN.ngrok-free.app/auth/github/callback
+```
+
+GitHub OAuth App callback URL must match. Open ngrok `/login` for the SSO flow.
 
 **Why it felt slow:** `APP_URL` set to ngrok while browsing `.test` routed every link/asset through the tunnel; dev Vite (`:5173`) also times out from ngrok. ngrok itself adds ~300–500ms vs local.
 

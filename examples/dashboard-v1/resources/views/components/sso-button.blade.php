@@ -19,6 +19,14 @@
             'focus' => 'focus-visible:border-[#5e5e5e] focus-visible:ring-[#5e5e5e]/20 dark:focus-visible:border-[#adadad] dark:focus-visible:ring-[#adadad]/20',
             'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#f8f8f8] [@media(hover:hover)_and_(pointer:fine)]:dark:hover:bg-gray-700',
         ],
+        'github' => [
+            'label' => __('Sign in with GitHub'),
+            'border' => 'border-[#24292f]',
+            'text' => 'text-white',
+            'focus' => 'focus-visible:border-[#24292f] focus-visible:ring-[#24292f]/30',
+            'hover' => '[@media(hover:hover)_and_(pointer:fine)]:hover:bg-[#1b1f23]',
+            'background' => 'bg-[#24292f]',
+        ],
         default => [
             'label' => __('Sign in with :provider', ['provider' => ucfirst($provider)]),
             'border' => 'border-gray-300 dark:border-gray-600',
@@ -39,7 +47,8 @@
     x-bind:class="{ 'pointer-events-none opacity-50 cursor-wait': navigating }"
     {{ $attributes->merge([
         'class' => implode(' ', [
-            'group flex min-h-[41px] w-full touch-manipulation items-center justify-center gap-3 rounded border bg-white dark:bg-gray-800 px-3 py-2 shadow-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out',
+            'group flex min-h-[41px] w-full touch-manipulation items-center justify-center gap-3 rounded border px-3 py-2 shadow-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-150 ease-out',
+            $config['background'] ?? 'bg-white dark:bg-gray-800',
             'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-800 active:bg-gray-100 dark:active:bg-gray-700 active:scale-[0.97] motion-reduce:transition-none',
             $config['border'],
             $config['text'],
@@ -48,10 +57,12 @@
         ]),
     ]) }}
 >
-    @if ($provider === 'microsoft' || $provider === 'google')
+    @if (in_array($provider, ['microsoft', 'google', 'github'], true))
         <span class="pointer-events-none flex shrink-0 items-center justify-center" aria-hidden="true">
             @if ($provider === 'microsoft')
                 <x-microsoft-icon class="block h-5 w-5 sm:h-[18px] sm:w-[18px]" />
+            @elseif ($provider === 'github')
+                <x-github-icon class="block h-5 w-5 sm:h-[18px] sm:w-[18px]" />
             @else
                 <x-google-icon class="block h-5 w-5 sm:h-[18px] sm:w-[18px]" />
             @endif

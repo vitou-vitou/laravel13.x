@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 class SsoAuthenticator
 {
     /** @var list<string> */
-    private const PROVIDERS = ['microsoft', 'google'];
+    private const PROVIDERS = ['microsoft', 'google', 'github'];
 
     /** @return list<string> */
     public function enabledProviders(): array
