@@ -31,6 +31,7 @@
 | `examples/kindly-e-commerce-1122` | **MVP + Phase 2 + 3a Stripe** | 49/49 | Breeze session (web) | Stripe Checkout + webhooks; stub pay removed; :8012 |
 | `examples/booking-v1` | **Complete** | 15/15 | Sanctum Bearer API | Grok A+B done; Prompt C optional |
 | `examples/clone-the-fb-nav` | **MVP complete** | 6/6 | None (static UI) | FB desktop top-nav study; Spec-Kit `001-fb-top-nav` |
+| `examples/dashboard-v1` | **MVP complete** | 29/29 | Breeze session (web) | KPI widgets + recent orders table; demo metrics service |
 
 ---
 
@@ -72,6 +73,7 @@ cd d:/laravel13.x/examples/kindly-login-1122 && $PHP artisan test
 cd d:/laravel13.x/examples/kindly-e-commerce-1122 && $PHP artisan test
 cd d:/laravel13.x/examples/booking-v1 && $PHP artisan test
 cd d:/laravel13.x/examples/clone-the-fb-nav && $PHP artisan test
+cd d:/laravel13.x/examples/dashboard-v1 && $PHP artisan test
 ```
 
 ---
@@ -160,9 +162,11 @@ POST /api/logout
 
 4. **clone-the-fb-nav:** MVP done — pixel polish or OpenSpec only if user asks.
 
-5. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+5. **dashboard-v1:** MVP complete (29/29) — charts, DB metrics, or OpenSpec only if user asks.
 
-6. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
+6. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+
+7. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
 
 ---
 
@@ -181,6 +185,24 @@ POST /api/logout
 **Post-MVP only:** Icon pixel tuning, responsive tab strip, OpenSpec changes.
 
 **Detail file:** `examples/clone-the-fb-nav/docs/NEXT_SESSION.md`
+
+---
+
+## `examples/dashboard-v1`
+
+**What it is:** Laravel 13 + Breeze — authenticated analytics dashboard with four KPI cards (revenue, users, orders, conversion) and a recent orders table.
+
+**Spec-Kit:** `.specify/specs/001-dashboard-v1/` — **all tasks T001–T009 checked**
+
+**Key tests:** `tests/Feature/DashboardTest.php`
+
+**Browser:** http://dashboard-v1.test — register/login → `/dashboard`
+
+**Do not redo:** Breeze scaffold, `DashboardMetricsService`, dashboard view.
+
+**Post-MVP only:** Chart.js, DB-backed metrics, Livewire polling, OpenSpec.
+
+**Detail file:** `examples/dashboard-v1/docs/NEXT_SESSION.md`
 
 ---
 
