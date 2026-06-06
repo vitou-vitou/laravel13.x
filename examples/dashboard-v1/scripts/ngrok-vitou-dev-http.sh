@@ -2,56 +2,75 @@
 #
 # ngrok-vitou-dev-http.sh
 #
-# Expose the local dashboard-v1 app (.test vhost) through ngrok.
-#
-# Fixes the "404 Not Found" problem: ngrok forwards the public
-# *.ngrok-free.app hostname as the HTTP Host header. The local web
-# server (Laragon/Valet/nginx/apache) routes by Host header, finds no
-# vhost matching the ngrok domain, and returns 404. --host-header=rewrite
-# rewrites the Host to the local .test domain so the vhost matches.
+# Expose dashboard-v1 on Herd through ngrok using your *static* dev domain so
+# GitHub / Google / Microsoft OAuth callbacks stay valid across restarts.
 #
 # Usage:
 #   ./scripts/ngrok-vitou-dev-http.sh
 #
-# Requires: ngrok (authed), bash, the .env file with APP_URL set.
+# One-time setup:
+#   1. Claim your dev domain: https://dashboard.ngrok.com/domains
+#   2. ./scripts/sync-ngrok-oauth-env.sh --domain YOUR-DOMAIN.ngrok-free.dev
+#   3. Update OAuth provider consoles with the printed URLs (once)
+#
+# Requires: ngrok (authed), NGROK_DEV_DOMAIN in .env, ngrok-traffic-policy.yml
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENV_FILE="${SCRIPT_DIR}/../.env"
+APP_DIR="${SCRIPT_DIR}/.."
+ENV_FILE="${APP_DIR}/.env"
+POLICY_FILE="${APP_DIR}/ngrok-traffic-policy.yml"
 
 if [[ ! -f "${ENV_FILE}" ]]; then
   echo "Error: .env not found at ${ENV_FILE}" >&2
   exit 1
 fi
 
-# Read APP_URL from .env (strip quotes and surrounding whitespace).
-APP_URL="$(grep -E '^APP_URL=' "${ENV_FILE}" | head -n1 | cut -d'=' -f2- | tr -d '"'"'"' \r')"
-
-if [[ -z "${APP_URL}" ]]; then
-  echo "Error: APP_URL not set in ${ENV_FILE}" >&2
+if [[ ! -f "${POLICY_FILE}" ]]; then
+  echo "Error: traffic policy not found at ${POLICY_FILE}" >&2
   exit 1
 fi
 
-# Strip scheme -> host[:port]. Default port 80 if none present.
-HOST_PORT="${APP_URL#http://}"
-HOST_PORT="${HOST_PORT#https://}"
-HOST_PORT="${HOST_PORT%/}"
-if [[ "${HOST_PORT}" != *:* ]]; then
-  HOST_PORT="${HOST_PORT}:80"
+read_env() {
+  local key="$1"
+  grep -E "^${key}=" "${ENV_FILE}" | head -n1 | cut -d'=' -f2- | tr -d '"'"'"' \r' || true
+}
+
+NGROK_DEV_DOMAIN="$(read_env NGROK_DEV_DOMAIN)"
+
+if [[ -z "${NGROK_DEV_DOMAIN}" ]]; then
+  cat >&2 <<'EOF'
+Error: NGROK_DEV_DOMAIN is not set in .env.
+
+Dynamic ngrok URLs break OAuth (GitHub, Google, Microsoft) on every restart.
+
+Fix (one-time):
+  1. https://dashboard.ngrok.com/domains — copy your assigned dev domain
+  2. ./scripts/sync-ngrok-oauth-env.sh --domain YOUR-DOMAIN.ngrok-free.dev
+  3. Update provider consoles with the printed callback URLs
+EOF
+  exit 1
 fi
 
-HOST="${HOST_PORT%%:*}"
+PUBLIC_URL="https://${NGROK_DEV_DOMAIN}"
 
-APP_DIR="${SCRIPT_DIR}/.."
+# ngrok + Vite dev (:5173) breaks SSO: mixed content, unreachable HMR, manifest errors.
+if pgrep -f "[v]ite" >/dev/null 2>&1 || pgrep -f "npm run dev" >/dev/null 2>&1; then
+  cat >&2 <<'EOF'
+Error: Vite dev server is running (npm run dev).
 
-# Over an https ngrok tunnel, the Vite dev server (public/hot -> http://[::1]:5173)
-# causes mixed-content blocks and unreachable HMR, so the browser hangs "loading".
-# Force built assets: ensure a build exists, then move the hot file aside.
-if [[ ! -f "${APP_DIR}/public/build/manifest.json" ]]; then
-  echo "No Vite build found; running 'npm run build'..."
-  ( cd "${APP_DIR}" && npm run build )
+Stop it before ngrok SSO — otherwise public/hot points at :5173 and login/dashboard fail
+through the HTTPS tunnel (Vite manifest / mixed-content errors).
+
+  Ctrl+C in the Vite terminal, then re-run:
+    ./scripts/ngrok-vitou-dev-http.sh
+EOF
+  exit 1
 fi
+
+echo "Building assets for ngrok (production bundle, not Vite dev)..."
+( cd "${APP_DIR}" && npm run build )
 
 HOT_RESTORED=0
 if [[ -f "${APP_DIR}/public/hot" ]]; then
@@ -60,7 +79,6 @@ if [[ -f "${APP_DIR}/public/hot" ]]; then
   HOT_RESTORED=1
 fi
 
-# Restore dev mode on exit so local `npm run dev` keeps working.
 cleanup() {
   if [[ "${HOT_RESTORED}" -eq 1 && -f "${APP_DIR}/public/hot.disabled" ]]; then
     mv "${APP_DIR}/public/hot.disabled" "${APP_DIR}/public/hot"
@@ -69,12 +87,15 @@ cleanup() {
 }
 trap cleanup EXIT INT TERM
 
-echo "Forwarding ngrok -> ${HOST_PORT} (Host header rewritten to ${HOST})"
+# Warn if redirect URIs still point at a different host (common after dynamic tunnels).
+for key in GOOGLE_REDIRECT_URI MICROSOFT_REDIRECT_URI GITHUB_REDIRECT_URI; do
+  uri="$(read_env "${key}")"
+  if [[ -n "${uri}" && "${uri}" != "${PUBLIC_URL}"* ]]; then
+    echo "Warning: ${key} is ${uri}"
+    echo "         Run ./scripts/sync-ngrok-oauth-env.sh to align with ${PUBLIC_URL}"
+  fi
+done
 
-# ngrok web-inspect API (used to discover the public URL once the tunnel is up).
-API="http://127.0.0.1:4040/api/tunnels"
-
-# Open a URL in the default browser, cross-platform.
 open_url() {
   local url="$1"
   if command -v powershell.exe >/dev/null 2>&1; then
@@ -90,18 +111,29 @@ open_url() {
   fi
 }
 
-# Poll the API in the background, then open the public URL in the browser.
+echo "Static ngrok URL: ${PUBLIC_URL}"
+echo "Forwarding 127.0.0.1:80 -> Herd (Host: dashboard-v1.test via traffic policy)"
+echo "SSO login: ${PUBLIC_URL}/login"
+echo ""
+
+API="http://127.0.0.1:4040/api/tunnels"
+
 (
   for _ in $(seq 1 30); do
     sleep 1
-    public_url="$(curl -s "${API}" | grep -oE '"public_url":"https://[^"]+"' | head -n1 | cut -d'"' -f4)"
+    public_url="$(curl -s "${API}" 2>/dev/null | grep -oE '"public_url":"https://[^"]+"' | head -n1 | cut -d'"' -f4)"
     if [[ -n "${public_url}" ]]; then
-      echo "Public URL: ${public_url}"
-      open_url "${public_url}"
+      if [[ "${public_url}" != "${PUBLIC_URL}" ]]; then
+        echo "Warning: tunnel URL is ${public_url}, expected ${PUBLIC_URL}" >&2
+      fi
+      open_url "${public_url}/login"
       exit 0
     fi
   done
   echo "Timed out waiting for ngrok tunnel; check ${API}" >&2
 ) &
 
-ngrok http --host-header=rewrite "${HOST_PORT}"
+exec ngrok http 127.0.0.1:80 \
+  --url "${PUBLIC_URL}" \
+  --traffic-policy-file "${POLICY_FILE}" \
+  --pooling-enabled

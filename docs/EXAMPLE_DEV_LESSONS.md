@@ -37,16 +37,19 @@
 cd examples/<slug>
 npm run build   # avoid Vite :5173 through tunnel
 
-ngrok http 127.0.0.1:80 --traffic-policy-file ngrok-traffic-policy.yml
+# Static dev domain (free, one per account) — claim at https://dashboard.ngrok.com/domains
+# dashboard-v1: ./scripts/sync-ngrok-oauth-env.sh --domain YOUR-NAME.ngrok-free.dev
+ngrok http 127.0.0.1:80 --url https://YOUR-NAME.ngrok-free.dev --traffic-policy-file ngrok-traffic-policy.yml
 ```
 
 ```env
 APP_URL=http://<slug>.test
-GITHUB_REDIRECT_URI=https://YOUR-SUBDOMAIN.ngrok-free.app/auth/github/callback
+NGROK_DEV_DOMAIN=YOUR-NAME.ngrok-free.dev
+GITHUB_REDIRECT_URI=https://YOUR-NAME.ngrok-free.dev/auth/github/callback
 # or GOOGLE_REDIRECT_URI=…/auth/google/callback
 ```
 
-Open **`https://YOUR-SUBDOMAIN.ngrok-free.app/login`** for OAuth (not `.test`).
+Open **`https://YOUR-NAME.ngrok-free.dev/login`** for OAuth (not `.test`). **Do not** use random `ngrok http` without `--url` — URL changes every restart and breaks OAuth.
 
 **Do not:** `ngrok http http://<slug>.test` — causes Herd 404, not Laravel.
 

@@ -47,36 +47,38 @@ php artisan test
 
 **Microsoft:** register an app in [Entra admin center](https://entra.microsoft.com/) → App registrations. Redirect URI: `https://YOUR-NGROK/auth/microsoft/callback`. `MICROSOFT_TENANT_ID=common` for work + personal accounts; use your tenant ID for single-tenant only.
 
-### Google SSO via ngrok (local OAuth)
+### SSO via ngrok (static dev domain — required for GitHub / Google / Microsoft)
 
-Keep **`APP_URL=http://dashboard-v1.test`** (fast Herd). Only **`GOOGLE_REDIRECT_URI`** uses the ngrok HTTPS URL.
+**Problem:** Random ngrok URLs (`8262-203-…ngrok-free.app`) change every restart → OAuth apps reject callbacks.
+
+**Fix:** Use your free **static dev domain** (one per ngrok account). Claim it once at https://dashboard.ngrok.com/domains.
+
+Keep **`APP_URL=http://dashboard-v1.test`** (fast Herd). Only `*_REDIRECT_URI` values use the ngrok HTTPS URL.
 
 ```bash
-# 1 — built assets (avoids Vite :5173 timeouts through ngrok)
+# 1 — one-time: set domain + sync OAuth redirect URIs in .env
+./scripts/sync-ngrok-oauth-env.sh --domain YOUR-NAME.ngrok-free.dev
+
+# 2 — update Google / Microsoft / GitHub consoles with the printed URLs (once)
+
+# 3 — start tunnel (builds assets, disables Vite hot file, opens /login)
+./scripts/ngrok-vitou-dev-http.sh
+```
+
+Manual equivalent:
+
+```bash
 npm run build
-
-# 2 — tunnel with Herd host rewrite
-ngrok http 127.0.0.1:80 --traffic-policy-file ngrok-traffic-policy.yml
+ngrok http 127.0.0.1:80 --url https://YOUR-NAME.ngrok-free.dev --traffic-policy-file ngrok-traffic-policy.yml
 ```
 
-`.env`:
+Open **`https://YOUR-NAME.ngrok-free.dev/login`** for SSO (not `.test`). After login you redirect back to `.test` — normal speed.
 
-```env
-APP_URL=http://dashboard-v1.test
-GOOGLE_REDIRECT_URI=https://YOUR-SUBDOMAIN.ngrok-free.app/auth/google/callback
-```
+**Do not** use `ngrok http http://dashboard-v1.test` or dynamic URLs without `--url` — Herd 404 or OAuth mismatch.
 
-Google Console: same ngrok URL for **origins** + **redirect**. Open **`https://YOUR-SUBDOMAIN.ngrok-free.app/login`** for SSO (not `.test`). After login you redirect back to `.test` — normal speed.
+**Vite + ngrok:** Stop `npm run dev` before SSO testing. Dev mode writes `public/hot` → assets load from `http://[::1]:5173`, which breaks on the HTTPS tunnel (`Vite manifest` / blank page after login). Use `./scripts/ngrok-vitou-dev-http.sh` (runs `npm run build` automatically).
 
-For GitHub OAuth via ngrok, keep `APP_URL=http://dashboard-v1.test` and set only:
-
-```env
-GITHUB_REDIRECT_URI=https://YOUR-SUBDOMAIN.ngrok-free.app/auth/github/callback
-```
-
-GitHub OAuth App callback URL must match. Open ngrok `/login` for the SSO flow.
-
-**Why it felt slow:** `APP_URL` set to ngrok while browsing `.test` routed every link/asset through the tunnel; dev Vite (`:5173`) also times out from ngrok. ngrok itself adds ~300–500ms vs local.
+**Why it felt slow:** `APP_URL` set to ngrok while browsing `.test` routed every link/asset through the tunnel; dev Vite (`:5173`) also times out from ngrok.
 
 
 Three terminals:
