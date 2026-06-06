@@ -4,7 +4,7 @@
 **URL**: http://dashboard-v1.test  
 **Admin**: http://dashboard-v1.test/admin  
 **Shop**: http://dashboard-v1.test/shop  
-**Tests**: 131/131 passing
+**Tests**: run `php artisan test` (140+ with tunnel profiles)
 
 ## What it is
 
@@ -12,12 +12,12 @@ Laravel 13 + Breeze + Livewire 4 + Filament v5 + Reverb + Socialite + Spatie (pe
 
 - **Dashboard:** KPIs, charts, **Echo real-time** order updates (no poll)
 - **Shop → Cart → Checkout:** line items, desktop alerts, admin email, **`NewOrderCreated` broadcast**
-- **Admin:** Full CRUD + relation managers
+- **Admin:** Full CRUD + relation managers + **dev tunnel profiles** (`manage_dev_tunnels`)
 - **Auth:** Email/password + optional **Google** / **Microsoft 365** / **GitHub** SSO (`GOOGLE_*`, `MICROSOFT_*`, `GITHUB_*` in `.env`)
 
 ## OpenSpec
 
-All changes archived under `openspec/changes/archive/2026-06-06-*` (includes `add-theme-mode`, `add-github-sso`).
+Active: `openspec/changes/add-dev-tunnel-profiles`. Prior changes archived under `openspec/changes/archive/2026-06-06-*`.
 
 ## Key paths
 
@@ -48,6 +48,8 @@ php artisan test
 **Microsoft:** register an app in [Entra admin center](https://entra.microsoft.com/) → App registrations. Redirect URI: `https://YOUR-NGROK/auth/microsoft/callback`. `MICROSOFT_TENANT_ID=common` for work + personal accounts; use your tenant ID for single-tenant only.
 
 ### SSO via ngrok (static dev domain — required for GitHub / Google / Microsoft)
+
+**Admin UI:** `/admin` → **Development → Tunnels** (requires `manage_dev_tunnels`, local only). Create named profiles, **Activate** to sync `.env`, **Verify** to probe `/login`. Then start ngrok with the script below.
 
 **Problem:** Random ngrok URLs (`8262-203-…ngrok-free.app`) change every restart → OAuth apps reject callbacks.
 
@@ -97,6 +99,16 @@ php artisan queue:work
 ```
 
 `.env`: `BROADCAST_CONNECTION=reverb` (already set). Place an order from `/shop` in another tab while an admin watches `/dashboard` — KPIs and notifications update instantly.
+
+### Vite HMR (local `.test` only — not ngrok)
+
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Start Vite; browse **`APP_URL`** (not `:5173`) |
+| `./scripts/verify-vite-dev.sh` | Smoke: `public/hot`, `@vite/client`, dev URLs in login HTML |
+| `./scripts/live-test-hmr-headed.sh` | Visible Chrome — auto CSS patch, watch magenta outline via HMR |
+
+Tunnel/SSO uses **`npm run build`** (see ngrok section above). Do not run HMR scripts while `ngrok-vitou-dev-http.sh` has disabled `public/hot`.
 
 ## Theme
 

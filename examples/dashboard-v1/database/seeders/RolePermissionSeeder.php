@@ -19,6 +19,7 @@ class RolePermissionSeeder extends Seeder
             'manage_users',
             'manage_roles',
             'manage_permissions',
+            'manage_dev_tunnels',
         ];
 
         foreach ($permissions as $permission) {

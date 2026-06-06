@@ -29,4 +29,21 @@ class RolePermissionTest extends TestCase
         $this->assertFalse($user->can('access_admin'));
         $this->assertFalse($user->canAccessPanel(Filament::getPanel('admin')));
     }
+
+    public function test_admin_has_manage_dev_tunnels_permission(): void
+    {
+        $admin = $this->adminUser();
+
+        $this->assertTrue($admin->can('manage_dev_tunnels'));
+    }
+
+    public function test_staff_does_not_have_manage_dev_tunnels_permission(): void
+    {
+        $this->seedRoles();
+
+        $user = User::factory()->create();
+        $user->assignRole('staff');
+
+        $this->assertFalse($user->can('manage_dev_tunnels'));
+    }
 }

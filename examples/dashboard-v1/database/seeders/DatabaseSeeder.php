@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CatalogSeeder::class,
             OrderSeeder::class,
+            TunnelSeeder::class,
         ]);
     }
 }
