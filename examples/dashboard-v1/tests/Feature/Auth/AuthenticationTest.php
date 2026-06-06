@@ -17,6 +17,27 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_login_submit_button_is_disabled_until_form_is_filled(): void
+    {
+        $response = $this->get('/login');
+
+        $response->assertOk();
+        $response->assertSee('x-model="email"', false);
+        $response->assertSee('x-model="password"', false);
+        $response->assertSee('x-bind:disabled', false);
+    }
+
+    public function test_login_password_field_has_show_hide_toggle(): void
+    {
+        $response = $this->get('/login');
+
+        $response->assertOk();
+        $response->assertSee('showPassword', false);
+        $response->assertSee('x-bind:type="showPassword ? \'text\' : \'password\'"', false);
+        $response->assertSee('type="button"', false);
+        $response->assertSee('x-bind:aria-label', false);
+    }
+
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
         $user = User::factory()->create();

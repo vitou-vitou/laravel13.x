@@ -2,13 +2,42 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <x-auth-sso-options />
+
+    @php($hasSso = count(app(\App\Services\SsoAuthenticator::class)->enabledProviders()) > 0)
+
+    <form
+        method="POST"
+        action="{{ route('login') }}"
+        x-data="{ email: @js(old('email', '')), password: '', showPassword: false }"
+    >
         @csrf
 
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            @if ($hasSso)
+                <x-text-input
+                    id="email"
+                    class="block mt-1 w-full"
+                    type="email"
+                    name="email"
+                    x-model="email"
+                    required
+                    autocomplete="username"
+                />
+            @else
+                <x-text-input
+                    id="email"
+                    class="block mt-1 w-full"
+                    type="email"
+                    name="email"
+                    x-model="email"
+                    required
+                    autofocus
+                    autocomplete="username"
+                />
+            @endif
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -16,32 +45,54 @@
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <div class="relative mt-1 w-full">
+                <input
+                    id="password"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block w-full pe-10"
+                    x-bind:type="showPassword ? 'text' : 'password'"
+                    name="password"
+                    x-model="password"
+                    required
+                    autocomplete="current-password"
+                />
+
+                <button
+                    type="button"
+                    class="absolute inset-y-0 right-0 flex items-center pe-3 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+                    x-on:click="showPassword = ! showPassword"
+                    x-bind:aria-label="showPassword ? @js(__('Hide password')) : @js(__('Show password'))"
+                >
+                    <x-icons.eye x-show="! showPassword" x-cloak class="h-5 w-5 block" />
+                    <x-icons.eye-off x-show="showPassword" x-cloak class="h-5 w-5 block" style="display: none;" />
+                </button>
+            </div>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
+        <div class="mt-4">
+            <x-primary-button
+                class="w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                x-bind:disabled="! email.trim() || ! password.trim()"
+            >
                 {{ __('Log in') }}
             </x-primary-button>
+
+            <div class="mt-3 space-y-1">
+                @if (Route::has('register'))
+                    <p class="text-sm text-center text-gray-600">
+                        {{ __("Don't have an account?") }}
+                        <a class="text-blue-600 no-underline hover:no-underline hover:text-blue-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" href="{{ route('register') }}">{{ __('Sign up') }}</a>
+                    </p>
+                @endif
+
+                @if (Route::has('password.request'))
+                    <p class="text-sm text-center text-gray-600">
+                        {{ __('Forgot your') }}
+                        <a class="font-medium text-blue-600 no-underline hover:no-underline hover:text-blue-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" href="{{ route('password.request') }}">{{ __('password?') }}</a>
+                    </p>
+                @endif
+            </div>
         </div>
     </form>
 </x-guest-layout>
