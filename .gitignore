@@ -3,8 +3,8 @@
 .env
 .env.backup
 .env.production
-# Example apps: committed dev .env so clone + artisan works without key:generate
-!examples/clone-the-fb-nav/.env
+# Example apps: ignore local .env ( .env.example stays tracked )
+examples/**/.env
 .phpactor.json
 .phpunit.result.cache
 /.codex
@@ -41,10 +41,6 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
-!examples/my-app/.env
-!examples/my-app-22/.env
-!examples/my-app-33/.env
-!examples/my-app-55/.env
-!examples/my-app-77/.env
-!examples/fb-reels-gate/.env
-!examples/dashboard-v1/.env
+
+# Misnamed env (use .env); never commit
+examples/dashboard-v1/env
