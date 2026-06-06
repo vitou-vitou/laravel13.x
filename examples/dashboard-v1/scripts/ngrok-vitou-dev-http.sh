@@ -111,21 +111,51 @@ open_url() {
   fi
 }
 
+# Probe the public URL; 200 = Herd/Laravel, 400 ERR_NGROK_3801 = stale pooled endpoint elsewhere.
+tunnel_probe_ok() {
+  local code
+  code="$(curl -s -o /dev/null -w '%{http_code}' \
+    -H 'ngrok-skip-browser-warning: true' \
+    --max-time 5 \
+    "${PUBLIC_URL}/login" 2>/dev/null || echo '000')"
+  [[ "${code}" == "200" ]]
+}
+
 echo "Static ngrok URL: ${PUBLIC_URL}"
 echo "Forwarding 127.0.0.1:80 -> Herd (Host: dashboard-v1.test via traffic policy)"
 echo "SSO login: ${PUBLIC_URL}/login"
+echo ""
+echo "Note: do NOT use --pooling-enabled — a second endpoint on this domain causes"
+echo "      intermittent ERR_NGROK_3801 (refresh fixes ~50% of loads). Stop other agents:"
+echo "      https://dashboard.ngrok.com/endpoints"
 echo ""
 
 API="http://127.0.0.1:4040/api/tunnels"
 
 (
-  for _ in $(seq 1 30); do
+  for _ in $(seq 1 45); do
     sleep 1
     public_url="$(curl -s "${API}" 2>/dev/null | grep -oE '"public_url":"https://[^"]+"' | head -n1 | cut -d'"' -f4)"
     if [[ -n "${public_url}" ]]; then
       if [[ "${public_url}" != "${PUBLIC_URL}" ]]; then
         echo "Warning: tunnel URL is ${public_url}, expected ${PUBLIC_URL}" >&2
       fi
+      ok_streak=0
+      for _ in $(seq 1 20); do
+        if tunnel_probe_ok; then
+          ok_streak=$((ok_streak + 1))
+          if [[ "${ok_streak}" -ge 3 ]]; then
+            open_url "${public_url}/login"
+            exit 0
+          fi
+        else
+          ok_streak=0
+        fi
+        sleep 1
+      done
+      echo "Warning: tunnel is up but ${PUBLIC_URL}/login still returns errors." >&2
+      echo "         Another ngrok agent may be pooled on this domain — stop it at:" >&2
+      echo "         https://dashboard.ngrok.com/endpoints" >&2
       open_url "${public_url}/login"
       exit 0
     fi
@@ -135,5 +165,4 @@ API="http://127.0.0.1:4040/api/tunnels"
 
 exec ngrok http 127.0.0.1:80 \
   --url "${PUBLIC_URL}" \
-  --traffic-policy-file "${POLICY_FILE}" \
-  --pooling-enabled
+  --traffic-policy-file "${POLICY_FILE}"

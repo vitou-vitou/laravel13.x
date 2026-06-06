@@ -42,6 +42,8 @@ npm run build   # avoid Vite :5173 through tunnel
 ngrok http 127.0.0.1:80 --url https://YOUR-NAME.ngrok-free.dev --traffic-policy-file ngrok-traffic-policy.yml
 ```
 
+**ERR_NGROK_3801 (first visit fails, refresh OK):** Two endpoints pooled on the same static domain — stop extras at https://dashboard.ngrok.com/endpoints. Do not use `--pooling-enabled`.
+
 ```env
 APP_URL=http://<slug>.test
 NGROK_DEV_DOMAIN=YOUR-NAME.ngrok-free.dev

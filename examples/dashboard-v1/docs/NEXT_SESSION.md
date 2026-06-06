@@ -74,6 +74,8 @@ ngrok http 127.0.0.1:80 --url https://YOUR-NAME.ngrok-free.dev --traffic-policy-
 
 Open **`https://YOUR-NAME.ngrok-free.dev/login`** for SSO (not `.test`). After login you redirect back to `.test` — normal speed.
 
+**ERR_NGROK_3801 on first load (refresh works):** Usually **two ngrok endpoints** share the same static domain (`--pooling-enabled` or a stale cloud agent). One pool member is broken → ~50% of requests fail. Fix: open https://dashboard.ngrok.com/endpoints → **stop** every endpoint except your local `ngrok-vitou-dev-http.sh` tunnel. Do **not** use `--pooling-enabled`.
+
 **Do not** use `ngrok http http://dashboard-v1.test` or dynamic URLs without `--url` — Herd 404 or OAuth mismatch.
 
 **Vite + ngrok:** Stop `npm run dev` before SSO testing. Dev mode writes `public/hot` → assets load from `http://[::1]:5173`, which breaks on the HTTPS tunnel (`Vite manifest` / blank page after login). Use `./scripts/ngrok-vitou-dev-http.sh` (runs `npm run build` automatically).
