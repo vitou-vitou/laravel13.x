@@ -8,6 +8,16 @@ use Filament\Schemas\Components\Component;
 
 class Login extends BaseLogin
 {
+    public function getHeading(): string
+    {
+        return 'Admin sign in';
+    }
+
+    public function getSubHeading(): ?string
+    {
+        return 'Manage catalog, orders, tunnels, and access for '.config('app.name').'.';
+    }
+
     public function mount(): void
     {
         if (Filament::auth()->check()) {
