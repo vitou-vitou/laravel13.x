@@ -72,4 +72,8 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
 
 EXPOSE 80 8080
 
+# Healthcheck is role-specific (web=HTTP/up, reverb=ws port) so it lives in
+# docker-compose.yml per service, not here — an image-level check would wrongly
+# flag the worker/scheduler roles (no HTTP listener) as unhealthy.
+
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

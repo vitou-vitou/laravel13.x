@@ -33,7 +33,8 @@ php artisan view:cache     || true
 # Only the web role runs migrations + storage link (avoids races)
 if [ "$ROLE" = "web" ]; then
   php artisan storage:link || true
-  php artisan migrate --force || true
+  # Fail the boot if migrations fail — don't serve against a broken schema.
+  php artisan migrate --force
 fi
 
 case "$ROLE" in

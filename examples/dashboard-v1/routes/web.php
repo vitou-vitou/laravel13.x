@@ -6,11 +6,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/login');
+
+Route::get('/', function () {
+    return 'hello';
+})->name('home');
 
 Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('/hello', function () {
+    return 'hello';
+})->name('hello');
 
 Route::middleware('auth')->group(function () {
     Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
