@@ -8,16 +8,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return 'hello';
+    return 'hello33';
 })->name('home');
 
 Route::get('/dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-
-Route::get('/hello', function () {
-    return 'hello';
-})->name('hello');
 
 Route::middleware('auth')->group(function () {
     Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
