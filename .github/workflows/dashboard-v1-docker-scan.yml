@@ -1,0 +1,40 @@
+name: dashboard-v1 docker scan
+
+# Risk #4: build the dashboard-v1 image and scan it for known CVEs.
+# Scoped via paths so it only runs when the example app changes — it does not
+# affect the framework's other workflows.
+
+on:
+  push:
+    paths:
+      - "examples/dashboard-v1/**"
+    branches:
+      - "**"
+  pull_request:
+    paths:
+      - "examples/dashboard-v1/**"
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/dashboard-v1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t dashboard-v1:scan .
+
+      - name: Trivy vulnerability scan (HIGH, CRITICAL)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: dashboard-v1:scan
+          format: table
+          exit-code: "1"          # fail the build on findings
+          ignore-unfixed: true     # only flag CVEs with an available fix
+          severity: HIGH,CRITICAL
+          vuln-type: os,library
