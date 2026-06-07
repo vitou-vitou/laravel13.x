@@ -11,6 +11,18 @@ RUN composer install \
 # --- Stage 2: Frontend assets (Vite) ---
 FROM node:22-alpine AS assets
 WORKDIR /app
+# Vite bakes VITE_* into the bundle at build time (see resources/js/echo.js).
+# Pass these via Coolify build args so the Reverb websocket client has real values.
+ARG VITE_APP_NAME="Analytics Dashboard"
+ARG VITE_REVERB_APP_KEY
+ARG VITE_REVERB_HOST
+ARG VITE_REVERB_PORT=443
+ARG VITE_REVERB_SCHEME=https
+ENV VITE_APP_NAME=${VITE_APP_NAME} \
+    VITE_REVERB_APP_KEY=${VITE_REVERB_APP_KEY} \
+    VITE_REVERB_HOST=${VITE_REVERB_HOST} \
+    VITE_REVERB_PORT=${VITE_REVERB_PORT} \
+    VITE_REVERB_SCHEME=${VITE_REVERB_SCHEME}
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
@@ -24,7 +36,9 @@ FROM php:8.3-fpm-alpine AS runtime
 # System deps + PHP extensions
 RUN apk add --no-cache \
         nginx supervisor bash \
-        postgresql-dev libpng-dev libzip-dev icu-dev oniguruma-dev \
+        postgresql-dev libpng-dev libzip-dev icu-dev \
+        freetype-dev libjpeg-turbo-dev libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install \
         pdo_pgsql pgsql bcmath pcntl gd zip intl \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \

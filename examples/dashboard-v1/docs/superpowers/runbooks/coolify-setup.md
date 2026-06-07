@@ -32,6 +32,14 @@ Set in Coolify → Environment Variables (mark as secret), using
 `APP_KEY` (generate: `php artisan key:generate --show`), `DB_PASSWORD`,
 `REVERB_APP_ID/KEY/SECRET`, plus the production values from that template.
 
+### 5a. Build-time args for the frontend (REQUIRED)
+
+Vite bakes `VITE_*` into the JS bundle at build time, so these must be set as
+**build arguments** (Coolify → app → Build → Build Variables), NOT just runtime env.
+Without them the Reverb websocket client connects to nothing.
+Set: `VITE_REVERB_APP_KEY` (= `REVERB_APP_KEY`), `VITE_REVERB_HOST` (= `ws.yourdomain.com`),
+`VITE_REVERB_PORT=443`, `VITE_REVERB_SCHEME=https`, `VITE_APP_NAME`.
+
 ## 6. Create staging application
 Repeat step 4 with branch `staging`, domains `staging.yourdomain.com` +
 `ws-staging.yourdomain.com`, and its own secret set.

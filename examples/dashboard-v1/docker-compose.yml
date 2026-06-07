@@ -10,40 +10,51 @@ services:
       postgres:
         condition: service_healthy
       redis:
-        condition: service_started
+        condition: service_healthy
     ports:
       - "8080:80"
     restart: unless-stopped
 
   reverb:
+    build:
+      context: .
     image: dashboard-v1
     environment:
       CONTAINER_ROLE: reverb
     env_file: .env
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
     ports:
       - "8081:8080"
     restart: unless-stopped
 
   worker:
+    build:
+      context: .
     image: dashboard-v1
     environment:
       CONTAINER_ROLE: worker
     env_file: .env
     depends_on:
-      - redis
-      - postgres
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
   scheduler:
+    build:
+      context: .
     image: dashboard-v1
     environment:
       CONTAINER_ROLE: scheduler
     env_file: .env
     depends_on:
-      - redis
-      - postgres
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
 
   postgres:
@@ -66,6 +77,11 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     restart: unless-stopped
 
 volumes:

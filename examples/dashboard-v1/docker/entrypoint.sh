@@ -5,6 +5,12 @@ ROLE="${CONTAINER_ROLE:-web}"
 
 echo "[entrypoint] starting role=${ROLE}"
 
+# Fail fast if the app key is missing — config:cache + encryption need it.
+if [ -z "${APP_KEY}" ]; then
+  echo "[entrypoint] FATAL: APP_KEY is not set. Set it in the deploy env."
+  exit 1
+fi
+
 # Wait for Postgres (max ~60s)
 if [ -n "${DB_HOST}" ]; then
   i=0
