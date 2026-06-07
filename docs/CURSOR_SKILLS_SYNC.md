@@ -16,6 +16,7 @@
 | `system-study-packet/` | Repo-specific 8-principle + decomposition MD | study packet, system map, learn codebase |
 | `8-principle-study/` | General topic study packets (docx/PDF/HTML/MD) | help me learn, flashcards, quiz, revise |
 | `laravel-specialist/` | Laravel 10+ models, APIs, queues, Livewire, tests | Laravel, Eloquent, Sanctum, Pest |
+| `domain-publish-pipeline/` | Domain research → study → calendar → 3am schedule → report | topic to daily post, Angkor, TikTok schedule, content factory |
 | `impeccable/` | Frontend UI design, polish, audit | design, polish, `$impeccable` |
 
 **Do not** write to `~/.cursor/skills-cursor/` (Cursor built-ins only).
@@ -79,6 +80,7 @@ Copy of personal skills for backup and new machines:
 ├── system-study-packet/
 ├── 8-principle-study/
 ├── laravel-specialist/
+├── domain-publish-pipeline/
 └── impeccable/
 ```
 
