@@ -28,3 +28,7 @@ storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
 ngrok-traffic-policy.yml
+
+# stale compiled caches (generated locally WITH dev deps, e.g. Pail).
+# Laravel regenerates these at runtime without dev packages.
+/bootstrap/cache/*.php

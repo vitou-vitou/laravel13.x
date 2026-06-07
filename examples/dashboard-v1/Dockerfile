@@ -34,7 +34,9 @@ COPY --from=vendor /app/vendor ./vendor
 RUN npm run build
 
 # --- Stage 3: Runtime ---
-FROM php:8.3-fpm-alpine AS runtime
+# PHP 8.4 to match the locked dependencies (some use 8.4-only syntax, e.g.
+# property hooks in symfony/http-foundation). composer.json allows ^8.3.
+FROM php:8.4-fpm-alpine AS runtime
 
 # System deps + PHP extensions
 RUN apk add --no-cache \
