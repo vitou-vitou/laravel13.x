@@ -67,18 +67,23 @@ docker compose exec web php artisan migrate   # run artisan manually
 
 ## Services & ports
 
-| Service   | Role               | Host port | Health |
-|-----------|--------------------|-----------|--------|
-| web       | nginx + php-fpm     | 8080→80   | HTTP `/up` |
-| reverb    | websocket server    | 8081→8080 | TCP :8080 |
+| Service   | Role                | Host port | Health         |
+|-----------|---------------------|-----------|----------------|
+| web       | nginx + php-fpm     | 8080→8080 | HTTP `/up`     |
+| reverb    | websocket server    | 8081→8080 | TCP :8080      |
 | worker    | queue:work redis    | -         | none (no HTTP) |
 | scheduler | schedule:work       | -         | none (no HTTP) |
-| postgres  | postgres:16-alpine  | -         | pg_isready |
+| postgres  | postgres:16-alpine  | -         | pg_isready     |
 | redis     | redis:7-alpine      | -         | redis-cli ping |
+| backup    | scheduled pg_dump   | -         | none           |
 
-Roles switch off `CONTAINER_ROLE` env via `docker/entrypoint.sh`. The `web`
-role runs migrations on boot; a failed migration aborts the boot (won't serve
-against a broken schema).
+Containers run as non-root (`www-data`); nginx listens on 8080 inside the
+container. Roles switch off `CONTAINER_ROLE` env via `docker/entrypoint.sh`.
+The `web` role runs migrations on boot; a failed migration aborts the boot
+(won't serve against a broken schema).
+
+Backups: see [docs/backups.md](docs/backups.md). Security/key rotation: see
+[docs/SECURITY-key-rotation.md](docs/SECURITY-key-rotation.md).
 
 ## Gotchas
 

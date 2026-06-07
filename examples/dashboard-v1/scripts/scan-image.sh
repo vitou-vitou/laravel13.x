@@ -2,6 +2,11 @@
 # Local vulnerability scan for the dashboard-v1 image (Risk #4).
 # Builds the image, then scans with Trivy (preferred) or Docker Scout.
 # Usage: sh scripts/scan-image.sh
+#
+# Windows note: under Git Bash, MSYS rewrites the /var/run/docker.sock mount
+# path and the containerized Trivy fallback fails. Run with path conversion
+# off:  MSYS_NO_PATHCONV=1 sh scripts/scan-image.sh
+# (Native Linux/macOS and the CI workflow are unaffected.)
 set -eu
 
 IMAGE="${IMAGE:-dashboard-v1:scan}"
