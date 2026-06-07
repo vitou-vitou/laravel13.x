@@ -127,6 +127,21 @@ services:
       retries: 10
     restart: unless-stopped
 
+  # Scheduled Postgres backups (Risk #2). pg_dump version matches the server.
+  # Dumps land in the pgbackups volume; configure offsite copy per docs/backups.md.
+  backup:
+    image: postgres:16-alpine
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./docker/backup.sh:/usr/local/bin/backup.sh:ro
+      - pgbackups:/backups
+    entrypoint: ["sh", "/usr/local/bin/backup.sh"]
+    restart: unless-stopped
+
 volumes:
   pgdata:
   redisdata:
+  pgbackups:
