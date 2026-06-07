@@ -69,6 +69,7 @@ docker compose exec web php artisan migrate   # run artisan manually
 
 | Service   | Role                | Host port | Health         |
 |-----------|---------------------|-----------|----------------|
+| migrate   | one-shot migrations | -         | exits 0        |
 | web       | nginx + php-fpm     | 8080→8080 | HTTP `/up`     |
 | reverb    | websocket server    | 8081→8080 | TCP :8080      |
 | worker    | queue:work redis    | -         | none (no HTTP) |
@@ -79,8 +80,15 @@ docker compose exec web php artisan migrate   # run artisan manually
 
 Containers run as non-root (`www-data`); nginx listens on 8080 inside the
 container. Roles switch off `CONTAINER_ROLE` env via `docker/entrypoint.sh`.
-The `web` role runs migrations on boot; a failed migration aborts the boot
-(won't serve against a broken schema).
+
+Migrations run once in the dedicated `migrate` service, which exits 0 on
+success. `web`, `worker`, and `scheduler` wait for it via
+`service_completed_successfully`, so scaling them to >1 replica cannot race
+migrations. A failed migration leaves `migrate` with a non-zero exit and the
+dependents never start (deploy fails loud instead of serving a broken schema).
+
+On Coolify, this `migrate` service acts as the release/pre-deploy task — no
+separate pre-deploy command is needed.
 
 Backups: see [docs/backups.md](docs/backups.md). Security/key rotation: see
 [docs/SECURITY-key-rotation.md](docs/SECURITY-key-rotation.md).

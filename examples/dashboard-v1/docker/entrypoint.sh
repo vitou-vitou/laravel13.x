@@ -30,11 +30,11 @@ php artisan config:cache  || true
 php artisan route:cache    || true
 php artisan view:cache     || true
 
-# Only the web role runs migrations + storage link (avoids races)
+# Storage link is idempotent and web-local (safe per replica).
+# Migrations are NOT run here anymore — they run once in the dedicated `migrate`
+# role (Risk #5), so scaling web to >1 replica can't race migrations.
 if [ "$ROLE" = "web" ]; then
   php artisan storage:link || true
-  # Fail the boot if migrations fail — don't serve against a broken schema.
-  php artisan migrate --force
 fi
 
 case "$ROLE" in
@@ -49,6 +49,13 @@ case "$ROLE" in
     ;;
   scheduler)
     exec php artisan schedule:work
+    ;;
+  migrate)
+    # One-shot release task: run migrations and exit. set -e aborts on failure
+    # so the deploy fails loud instead of serving a broken schema.
+    php artisan migrate --force
+    echo "[entrypoint] migrations complete"
+    exit 0
     ;;
   *)
     echo "[entrypoint] unknown role: $ROLE"

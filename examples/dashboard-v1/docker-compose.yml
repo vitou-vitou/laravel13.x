@@ -11,6 +11,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     ports:
       - "8080:8080"
     healthcheck:
@@ -71,6 +73,8 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     deploy:
       resources:
         limits:
@@ -92,6 +96,8 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     deploy:
       resources:
         limits:
@@ -100,6 +106,20 @@ services:
         reservations:
           memory: 128M
     restart: unless-stopped
+
+  # One-shot migration release task (Risk #5). Runs once before web/worker/
+  # scheduler start, so scaling those to >1 replica cannot race migrations.
+  migrate:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: migrate
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
 
   postgres:
     image: postgres:16-alpine@sha256:16bc17c64a573ef34162af9298258d1aec548232985b33ed7b1eac33ba35c229
