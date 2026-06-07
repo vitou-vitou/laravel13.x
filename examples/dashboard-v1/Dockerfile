@@ -4,9 +4,12 @@
 FROM composer:2 AS vendor
 WORKDIR /app
 COPY composer.json composer.lock ./
+# --ignore-platform-reqs: this build stage's PHP lacks ext-intl/gd/etc;
+# the runtime image (stage 3) installs them, so platform checks are deferred.
 RUN composer install \
     --no-dev --no-scripts --no-interaction \
-    --prefer-dist --optimize-autoloader --no-progress
+    --prefer-dist --optimize-autoloader --no-progress \
+    --ignore-platform-reqs
 
 # --- Stage 2: Frontend assets (Vite) ---
 FROM node:22-alpine AS assets
