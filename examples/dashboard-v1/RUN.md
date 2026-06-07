@@ -22,6 +22,49 @@ docker compose up -d
 Uses the existing `dashboard-v1` image. Database/redis data persists in named
 volumes (`pgdata`, `redisdata`), so it survives restarts.
 
+> Note: if `docker-compose.override.yml` exists it is auto-loaded and turns the
+> `web` service into a live-reload dev container (see below). It is gitignored;
+> create it from the template to enable dev mode. To run the production-style
+> image regardless, use `docker compose -f docker-compose.yml up`.
+
+## Local development (live reload)
+
+Enable dev mode once by creating the override from the template:
+
+```powershell
+copy docker-compose.override.yml.example docker-compose.override.yml
+```
+
+`docker compose up` then auto-loads `docker-compose.override.yml`, which:
+
+- bind-mounts the source into `web` (edits apply with no rebuild),
+- keeps the image's `vendor/`, `bootstrap/cache`, and `storage/framework` via
+  anonymous volumes (the host has none / they must stay writable),
+- layers `docker/php.dev.ini` so opcache revalidates changed files.
+
+With `APP_ENV=local` the entrypoint clears config/route/view caches instead of
+caching them, so edits are not frozen.
+
+```powershell
+docker compose up -d            # dev mode (override active)
+# edit a .php file -> just refresh http://localhost:8080  (no rebuild)
+```
+
+Limits:
+
+- **Frontend assets are not hot-reloaded.** Run `npm run dev` on the host for
+  Vite HMR, or `npm run build` then refresh.
+- **Only `web` is bind-mounted.** Editing Job/command/event classes used by the
+  background roles needs `docker compose restart worker scheduler reverb`.
+- First request after editing many files can be slightly slower (opcache
+  revalidation). Fine for dev.
+
+Run the production-style image locally (no override, baked code, caches on):
+
+```powershell
+docker compose -f docker-compose.yml up -d --build
+```
+
 ## Check health
 
 ```powershell

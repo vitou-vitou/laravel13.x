@@ -1,5 +1,8 @@
 *.log
 .DS_Store
+# Local dev override auto-loads on every `docker compose up` (incl. Coolify).
+# Keep it local-only; commit docker-compose.override.yml.example instead.
+/docker-compose.override.yml
 # .env committed (dev key) — see .env.example
 .env.backup
 .env.production

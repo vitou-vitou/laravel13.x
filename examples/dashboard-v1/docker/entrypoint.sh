@@ -25,10 +25,17 @@ if [ -n "${DB_HOST}" ]; then
   done
 fi
 
-# Cache config/routes/views (safe for all roles, fast)
-php artisan config:cache  || true
-php artisan route:cache    || true
-php artisan view:cache     || true
+# In local dev (bind-mounted source) caching freezes edits, so clear instead.
+# In any other env, cache config/routes/views for speed.
+if [ "${APP_ENV}" = "local" ]; then
+  php artisan config:clear || true
+  php artisan route:clear   || true
+  php artisan view:clear     || true
+else
+  php artisan config:cache  || true
+  php artisan route:cache    || true
+  php artisan view:cache     || true
+fi
 
 # Storage link is idempotent and web-local (safe per replica).
 # Migrations are NOT run here anymore — they run once in the dedicated `migrate`
