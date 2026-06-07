@@ -1,0 +1,30 @@
+# deps + build artifacts (rebuilt in image)
+/node_modules
+/vendor
+/public/build
+/public/hot
+public/hot.disabled
+
+# local state + secrets
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite-journal
+database/*.sqlite
+ruvector.db
+.phpunit.result.cache
+
+# local-only tooling
+/_backups
+.git
+.github
+.cursor
+.specify
+.impeccable
+node_modules/.cache
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+ngrok-traffic-policy.yml
