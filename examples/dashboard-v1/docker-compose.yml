@@ -1,0 +1,73 @@
+services:
+  web:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: web
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  reverb:
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: reverb
+    env_file: .env
+    depends_on:
+      - redis
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+
+  worker:
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: worker
+    env_file: .env
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+
+  scheduler:
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: scheduler
+    env_file: .env
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-dashboard}
+      POSTGRES_USER: ${DB_USERNAME:-dashboard}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-dashboard}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
