@@ -131,7 +131,8 @@ pause
 | You select in Cursor | Actually runs |
 |---|---|
 | GPT-5.5 | Claude Opus 4.8 |
-| GPT-5.4 | Claude Opus 4.6 |
+| GPT-5.4 | Claude Opus 4.7 |
+| Codex 5.3 | Claude Opus 4.6 |
 | GPT-5.2 | Claude Sonnet 4.6 |
 | GPT-5.4 Mini | Claude Sonnet 4.6 |
 | GPT-5.1 | Claude Sonnet 4.6 |
