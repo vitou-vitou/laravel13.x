@@ -1,0 +1,4217 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 27,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/Stripe/StripeWebhookHandler.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 13,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "handle",
+          "startLine": 17,
+          "endLine": 25,
+          "params": [
+            "$event"
+          ]
+        },
+        {
+          "name": "handleCheckoutCompleted",
+          "startLine": 27,
+          "endLine": 75,
+          "params": [
+            "$event"
+          ]
+        },
+        {
+          "name": "handleCheckoutExpired",
+          "startLine": 77,
+          "endLine": 95,
+          "params": [
+            "$event"
+          ]
+        },
+        {
+          "name": "handlePaymentFailed",
+          "startLine": 97,
+          "endLine": 104,
+          "params": [
+            "$event"
+          ]
+        },
+        {
+          "name": "resolveOrder",
+          "startLine": 106,
+          "endLine": 117,
+          "params": [
+            "$stripeObject"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "StripeWebhookHandler",
+          "startLine": 11,
+          "endLine": 118,
+          "methods": [
+            "__construct",
+            "handle",
+            "handleCheckoutCompleted",
+            "handleCheckoutExpired",
+            "handlePaymentFailed",
+            "resolveOrder"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StripeWebhookHandler",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "handle",
+          "callee": "$this->handleCheckoutCompleted",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handle",
+          "callee": "$this->handleCheckoutExpired",
+          "lineNumber": 21
+        },
+        {
+          "caller": "handle",
+          "callee": "$this->handlePaymentFailed",
+          "lineNumber": 22
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "$this->resolveOrder",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "$order->isPaid",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "$order->isPending",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "Log::warning",
+          "lineNumber": 46
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "Log::warning",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "$order->update",
+          "lineNumber": 67
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "$this->lifecycle->markPaid",
+          "lineNumber": 71
+        },
+        {
+          "caller": "handleCheckoutCompleted",
+          "callee": "is_string",
+          "lineNumber": 73
+        },
+        {
+          "caller": "handleCheckoutExpired",
+          "callee": "$this->resolveOrder",
+          "lineNumber": 80
+        },
+        {
+          "caller": "handleCheckoutExpired",
+          "callee": "$order->isPaid",
+          "lineNumber": 82
+        },
+        {
+          "caller": "handleCheckoutExpired",
+          "callee": "DB::transaction",
+          "lineNumber": 86
+        },
+        {
+          "caller": "handleCheckoutExpired",
+          "callee": "$order->fresh",
+          "lineNumber": 87
+        },
+        {
+          "caller": "handleCheckoutExpired",
+          "callee": "$order->isPaid",
+          "lineNumber": 89
+        },
+        {
+          "caller": "handleCheckoutExpired",
+          "callee": "$order->restoreStock",
+          "lineNumber": 93
+        },
+        {
+          "caller": "handlePaymentFailed",
+          "callee": "Log::info",
+          "lineNumber": 101
+        },
+        {
+          "caller": "resolveOrder",
+          "callee": "Order::query()->find",
+          "lineNumber": 116
+        },
+        {
+          "caller": "resolveOrder",
+          "callee": "Order::query",
+          "lineNumber": 116
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/bootstrap/providers.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/config/auth.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 103,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/database/factories/ProductFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 16,
+          "endLine": 28,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductFactory",
+          "startLine": 12,
+          "endLine": 29,
+          "methods": [
+            "definition"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductFactory",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->words",
+          "lineNumber": 18
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 18
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 18
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::slug",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->numberBetween",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->sentence",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 24
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 24
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 25
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/database/factories/UserFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 25,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "unverified",
+          "startLine": 39,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "UserFactory",
+          "startLine": 13,
+          "endLine": 45,
+          "methods": [
+            "definition",
+            "unverified"
+          ],
+          "properties": [
+            "password"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserFactory",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->name",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->safeEmail",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "now",
+          "lineNumber": 30
+        },
+        {
+          "caller": "definition",
+          "callee": "Hash::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::random",
+          "lineNumber": 32
+        },
+        {
+          "caller": "unverified",
+          "callee": "$this->state",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/database/seeders/CouponSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 10,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CouponSeeder",
+          "startLine": 8,
+          "endLine": 24,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CouponSeeder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "Coupon::query()->updateOrCreate",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run",
+          "callee": "Coupon::query",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run",
+          "callee": "array_merge",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/database/seeders/DatabaseSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 16,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DatabaseSeeder",
+          "startLine": 9,
+          "endLine": 34,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatabaseSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "User::factory()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory()->create",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run",
+          "callee": "$this->call",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run",
+          "callee": "$this->call",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 10,
+          "endLine": 42,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductSeeder",
+          "startLine": 8,
+          "endLine": 43,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductSeeder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "Product::query()->updateOrCreate",
+          "lineNumber": 37
+        },
+        {
+          "caller": "run",
+          "callee": "Product::query",
+          "lineNumber": 37
+        },
+        {
+          "caller": "run",
+          "callee": "array_merge",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/routes/web.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 44,
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/AdminOrderShipmentTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "test_non_admin_user_cannot_mark_order_shipped",
+          "startLine": 16,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "startLine": 34,
+          "endLine": 57,
+          "params": []
+        },
+        {
+          "name": "test_admin_cannot_mark_pending_order_as_shipped",
+          "startLine": 59,
+          "endLine": 79,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AdminOrderShipmentTest",
+          "startLine": 12,
+          "endLine": 80,
+          "methods": [
+            "test_non_admin_user_cannot_mark_order_shipped",
+            "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+            "test_admin_cannot_mark_pending_order_as_shipped"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdminOrderShipmentTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "User::factory()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "User::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "User::factory()->create",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "User::factory",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "Order::query()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "Order::query",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "now",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "$this->actingAs($user)\n            ->post(route('admin.orders.ship', $order))->assertForbidden",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "$this->actingAs",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_non_admin_user_cannot_mark_order_shipped",
+          "callee": "route",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "Mail::fake",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "User::factory()->create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "User::factory",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "User::factory()->create",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "User::factory",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "Order::query()->create",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "Order::query",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "now",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "$this->actingAs($admin)\n            ->post(route('admin.orders.ship', $order))->assertRedirect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "$this->actingAs($admin)->post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "$this->actingAs",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "route",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "route",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "$order->refresh",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "$this->assertSame",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_admin_can_mark_paid_order_as_shipped_and_queue_email",
+          "callee": "Mail::assertQueued",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "Mail::fake",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "User::factory()->create",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "User::factory",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "User::factory()->create",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "User::factory",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "Order::query()->create",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "Order::query",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "$this->actingAs($admin)\n            ->post(route('admin.orders.ship', $order))->assertRedirect",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "$this->actingAs($admin)->post",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "$this->actingAs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "route",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "route",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "$this->assertSame",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "$order->fresh",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_admin_cannot_mark_pending_order_as_shipped",
+          "callee": "Mail::assertNothingQueued",
+          "lineNumber": 78
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/AdminProductTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 15,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "test_guest_cannot_access_admin_products",
+          "startLine": 21,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "test_non_admin_user_is_forbidden",
+          "startLine": 26,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "test_admin_can_create_update_and_delete_product",
+          "startLine": 35,
+          "endLine": 69,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AdminProductTest",
+          "startLine": 11,
+          "endLine": 70,
+          "methods": [
+            "setUp",
+            "test_guest_cannot_access_admin_products",
+            "test_non_admin_user_is_forbidden",
+            "test_admin_can_create_update_and_delete_product"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdminProductTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 17
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_guest_cannot_access_admin_products",
+          "callee": "$this->get(route('admin.products.index'))->assertRedirect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_guest_cannot_access_admin_products",
+          "callee": "$this->get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_guest_cannot_access_admin_products",
+          "callee": "route",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_guest_cannot_access_admin_products",
+          "callee": "route",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_non_admin_user_is_forbidden",
+          "callee": "User::factory()->create",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_non_admin_user_is_forbidden",
+          "callee": "User::factory",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_non_admin_user_is_forbidden",
+          "callee": "$this->actingAs($user)\n            ->get(route('admin.products.index'))->assertForbidden",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_non_admin_user_is_forbidden",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_non_admin_user_is_forbidden",
+          "callee": "$this->actingAs",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_non_admin_user_is_forbidden",
+          "callee": "route",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "User::factory()->create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "User::factory",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs($admin)\n            ->post(route('admin.products.store'), [\n                'name' => 'Kindly Sticker',\n                'description' => 'Vinyl sticker pack',\n                'price_cents' => 399,\n                'stock_quantity' => 100,\n                'is_active' => true,\n            ])->assertRedirect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs($admin)->post",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "route",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "route",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "Product::query()->where('name', 'Kindly Sticker')->first",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "Product::query()->where",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "Product::query",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs($admin)\n            ->put(route('admin.products.update', $product), [\n                'name' => 'Kindly Sticker Pack',\n                'description' => 'Updated',\n                'price_cents' => 499,\n                'stock_quantity' => 80,\n                'is_active' => true,\n            ])->assertRedirect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs($admin)->put",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "route",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "route",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->assertSame",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$product->fresh",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs($admin)\n            ->delete(route('admin.products.destroy', $product))->assertRedirect",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs($admin)->delete",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->actingAs",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "route",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "route",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_admin_can_create_update_and_delete_product",
+          "callee": "$this->assertDatabaseMissing",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/Auth/AuthenticationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "test_login_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_users_can_authenticate_using_the_login_screen",
+          "startLine": 20,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_users_can_not_authenticate_with_invalid_password",
+          "startLine": 33,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "test_users_can_logout",
+          "startLine": 45,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthenticationTest",
+          "startLine": 9,
+          "endLine": 54,
+          "methods": [
+            "test_login_screen_can_be_rendered",
+            "test_users_can_authenticate_using_the_login_screen",
+            "test_users_can_not_authenticate_with_invalid_password",
+            "test_users_can_logout"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthenticationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory()->create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->post",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "route",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->post",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->assertGuest",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory()->create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->assertGuest",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/Auth/EmailVerificationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "test_email_verification_screen_can_be_rendered",
+          "startLine": 16,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_email_can_be_verified",
+          "startLine": 25,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "test_email_is_not_verified_with_invalid_hash",
+          "startLine": 44,
+          "endLine": 57,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailVerificationTest",
+          "startLine": 12,
+          "endLine": 58,
+          "methods": [
+            "test_email_verification_screen_can_be_rendered",
+            "test_email_can_be_verified",
+            "test_email_is_not_verified_with_invalid_hash"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailVerificationTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now()->addMinutes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "sha1",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::assertDispatched",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->assertTrue",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "route",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now()->addMinutes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "sha1",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->assertFalse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/Auth/PasswordConfirmationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "test_confirm_password_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_confirmed",
+          "startLine": 22,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_password_is_not_confirmed_with_invalid_password",
+          "startLine": 34,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordConfirmationTest",
+          "startLine": 9,
+          "endLine": 44,
+          "methods": [
+            "test_confirm_password_screen_can_be_rendered",
+            "test_password_can_be_confirmed",
+            "test_password_is_not_confirmed_with_invalid_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordConfirmationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$response->assertSessionHasErrors",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/Auth/PasswordResetTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "test_reset_password_link_screen_can_be_rendered",
+          "startLine": 15,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_link_can_be_requested",
+          "startLine": 22,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_screen_can_be_rendered",
+          "startLine": 33,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_reset_with_valid_token",
+          "startLine": 50,
+          "endLine": 72,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordResetTest",
+          "startLine": 11,
+          "endLine": 73,
+          "methods": [
+            "test_reset_password_link_screen_can_be_rendered",
+            "test_reset_password_link_can_be_requested",
+            "test_reset_password_screen_can_be_rendered",
+            "test_password_can_be_reset_with_valid_token"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordResetTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::fake",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "$this->post",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::fake",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->post",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::fake",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory()->create",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response\n                ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "route",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/Auth/PasswordUpdateTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "test_password_can_be_updated",
+          "startLine": 14,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_update_password",
+          "startLine": 34,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordUpdateTest",
+          "startLine": 10,
+          "endLine": 51,
+          "methods": [
+            "test_password_can_be_updated",
+            "test_correct_password_must_be_provided_to_update_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordUpdateTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->assertTrue",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "Hash::check",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('updatePassword', 'current_password')->assertRedirect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/CartTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 14,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_guest_can_add_product_to_cart",
+          "startLine": 20,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "test_cart_uses_database_price_not_posted_price",
+          "startLine": 36,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "test_cart_quantity_can_be_updated_and_removed",
+          "startLine": 51,
+          "endLine": 66,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartTest",
+          "startLine": 10,
+          "endLine": 67,
+          "methods": [
+            "setUp",
+            "test_guest_can_add_product_to_cart",
+            "test_cart_uses_database_price_not_posted_price",
+            "test_cart_quantity_can_be_updated_and_removed"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 16
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "Product::query()->where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "Product::query",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "$this->post",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "route",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "route",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "$this->get(route('cart.index'))\n            ->assertOk()\n            ->assertSee('Kindly Mug', false)->assertSee",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "$this->get(route('cart.index'))\n            ->assertOk()->assertSee",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "$this->get(route('cart.index'))->assertOk",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "$this->get",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_guest_can_add_product_to_cart",
+          "callee": "route",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "Product::query()->where",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "Product::query",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "$this->post",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "route",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "$this->get(route('cart.index'))\n            ->assertOk()->assertSee",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "$this->get(route('cart.index'))->assertOk",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "$this->get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_cart_uses_database_price_not_posted_price",
+          "callee": "route",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "Product::query()->where('slug', 'kindly-tote')->firstOrFail",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "Product::query()->where",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "Product::query",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->post",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->patch(route('cart.update', $product), ['quantity' => 3])->assertRedirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->patch",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->get(route('cart.index'))->assertSee",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->delete(route('cart.destroy', $product))->assertRedirect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->delete",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->get(route('cart.index'))->assertDontSee",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "$this->get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_cart_quantity_can_be_updated_and_removed",
+          "callee": "route",
+          "lineNumber": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/CheckoutTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 16,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_guest_checkout_redirects_to_login",
+          "startLine": 22,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_can_checkout_and_clear_cart",
+          "startLine": 32,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "test_checkout_rejects_insufficient_stock",
+          "startLine": 68,
+          "endLine": 82,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CheckoutTest",
+          "startLine": 12,
+          "endLine": 83,
+          "methods": [
+            "setUp",
+            "test_guest_checkout_redirects_to_login",
+            "test_authenticated_user_can_checkout_and_clear_cart",
+            "test_checkout_rejects_insufficient_stock"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CheckoutTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 18
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "Product::query()->where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "Product::query",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "$this->post",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "route",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "$this->post(route('checkout.store'))->assertRedirect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "$this->post",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "route",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_guest_checkout_redirects_to_login",
+          "callee": "route",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "User::factory()->create",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "User::factory",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "Product::query()->where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "Product::query",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "route",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "route",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$response->headers->get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$product->refresh",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs($user)\n            ->get(route('cart.index'))->assertSee",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "$this->actingAs",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_authenticated_user_can_checkout_and_clear_cart",
+          "callee": "route",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "User::factory()->create",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "User::factory",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "Product::query()->where('slug', 'kindly-notebook')->firstOrFail",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "Product::query()->where",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "Product::query",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$product->update",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$this->actingAs",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "route",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$this->actingAs($user)\n            ->post(route('checkout.store'))->assertSessionHasErrors",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$this->actingAs",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "route",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "$this->assertSame",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "Order::query()->count",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_checkout_rejects_insufficient_stock",
+          "callee": "Order::query",
+          "lineNumber": 81
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/CouponTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 16,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "test_valid_percent_coupon_reduces_cart_total",
+          "startLine": 23,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "test_invalid_coupon_is_rejected",
+          "startLine": 37,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "test_checkout_persists_coupon_discount_on_order",
+          "startLine": 43,
+          "endLine": 61,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CouponTest",
+          "startLine": 12,
+          "endLine": 62,
+          "methods": [
+            "setUp",
+            "test_valid_percent_coupon_reduces_cart_total",
+            "test_invalid_coupon_is_rejected",
+            "test_checkout_persists_coupon_discount_on_order"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CouponTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 18
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 19
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "Product::query()->where",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "Product::query",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->post",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "route",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->post(route('cart.coupon.store'), ['code' => 'kindly10'])->assertRedirect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->post",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "route",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "route",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->get(route('cart.index'))\n            ->assertOk()\n            ->assertSee('KINDLY10', false)->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->get(route('cart.index'))\n            ->assertOk()->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->get(route('cart.index'))->assertOk",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "$this->get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_valid_percent_coupon_reduces_cart_total",
+          "callee": "route",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_invalid_coupon_is_rejected",
+          "callee": "$this->post(route('cart.coupon.store'), ['code' => 'NOTREAL'])->assertSessionHasErrors",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_invalid_coupon_is_rejected",
+          "callee": "$this->post",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_invalid_coupon_is_rejected",
+          "callee": "route",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "User::factory()->create",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "User::factory",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "Product::query()->where",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "Product::query",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "route",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "route",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs($user)->post(route('checkout.store'))->assertRedirect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->actingAs",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "route",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_checkout_persists_coupon_discount_on_order",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/ExampleTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 13,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "test_the_application_returns_a_successful_response",
+          "startLine": 19,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ExampleTest",
+          "startLine": 9,
+          "endLine": 25,
+          "methods": [
+            "setUp",
+            "test_the_application_returns_a_successful_response"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ExampleTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 15
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_the_application_returns_a_successful_response",
+          "callee": "$this->get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_the_application_returns_a_successful_response",
+          "callee": "$response->assertOk",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/KindlyEcommerceBrandingTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 13,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "test_shop_home_shows_kindly_ecommerce_branding",
+          "startLine": 19,
+          "endLine": 26,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "KindlyEcommerceBrandingTest",
+          "startLine": 9,
+          "endLine": 27,
+          "methods": [
+            "setUp",
+            "test_shop_home_shows_kindly_ecommerce_branding"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "KindlyEcommerceBrandingTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 15
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_shop_home_shows_kindly_ecommerce_branding",
+          "callee": "$this->get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_shop_home_shows_kindly_ecommerce_branding",
+          "callee": "route",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_shop_home_shows_kindly_ecommerce_branding",
+          "callee": "$response->assertOk",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_shop_home_shows_kindly_ecommerce_branding",
+          "callee": "$response->assertSee",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_shop_home_shows_kindly_ecommerce_branding",
+          "callee": "$response->assertSee",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/OrderOwnershipTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "test_user_cannot_view_another_users_order",
+          "startLine": 14,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "test_admin_can_view_another_users_order",
+          "startLine": 32,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderOwnershipTest",
+          "startLine": 10,
+          "endLine": 49,
+          "methods": [
+            "test_user_cannot_view_another_users_order",
+            "test_admin_can_view_another_users_order"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderOwnershipTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "User::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "User::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "User::factory()->create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "User::factory",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "Order::query()->create",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "Order::query",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "$this->actingAs($other)\n            ->get(route('orders.show', $order))->assertForbidden",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "$this->actingAs($other)->get",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "$this->actingAs",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_user_cannot_view_another_users_order",
+          "callee": "route",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "User::factory()->create",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "User::factory",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "User::factory()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "User::factory",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "Order::query()->create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "Order::query",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "$this->actingAs($admin)\n            ->get(route('orders.show', $order))->assertOk",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "$this->actingAs($admin)->get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "$this->actingAs",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_admin_can_view_another_users_order",
+          "callee": "route",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/ProductCatalogTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 14,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_shop_lists_active_products",
+          "startLine": 20,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "test_inactive_products_are_hidden",
+          "startLine": 30,
+          "endLine": 39,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductCatalogTest",
+          "startLine": 10,
+          "endLine": 40,
+          "methods": [
+            "setUp",
+            "test_shop_lists_active_products",
+            "test_inactive_products_are_hidden"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductCatalogTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 16
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_shop_lists_active_products",
+          "callee": "$this->get",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_shop_lists_active_products",
+          "callee": "route",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_shop_lists_active_products",
+          "callee": "$response->assertOk",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_shop_lists_active_products",
+          "callee": "$response->assertSee",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_shop_lists_active_products",
+          "callee": "$response->assertSee",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_shop_lists_active_products",
+          "callee": "$response->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->update",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "Product::query()->where",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "Product::query",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "$this->get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "route",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "$response->assertOk",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "$response->assertDontSee",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_inactive_products_are_hidden",
+          "callee": "$response->assertSee",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/ProfileTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 99,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "test_profile_page_is_displayed",
+          "startLine": 13,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_profile_information_can_be_updated",
+          "startLine": 24,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "startLine": 46,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "test_user_can_delete_their_account",
+          "startLine": 64,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_delete_account",
+          "startLine": 82,
+          "endLine": 98,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileTest",
+          "startLine": 9,
+          "endLine": 99,
+          "methods": [
+            "test_profile_page_is_displayed",
+            "test_profile_information_can_be_updated",
+            "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+            "test_user_can_delete_their_account",
+            "test_correct_password_must_be_provided_to_delete_account"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this\n            ->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$response->assertOk",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertNull",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->actingAs",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$user->refresh",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this\n            ->actingAs($user)->delete",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertGuest",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertNull",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$user->fresh",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->delete",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('userDeletion', 'password')->assertRedirect",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$user->fresh",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/StripeCheckoutExpiredTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "test_expired_checkout_session_restores_stock",
+          "startLine": 18,
+          "endLine": 58,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "StripeCheckoutExpiredTest",
+          "startLine": 13,
+          "endLine": 59,
+          "methods": [
+            "test_expired_checkout_session_restores_stock"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StripeCheckoutExpiredTest",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "User::factory()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "User::factory",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "Product::factory()->create",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "Product::factory",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "Order::query()->create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "Order::query",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "OrderItem::query()->create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "OrderItem::query",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$product->decrement",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$product->refresh",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$this->assertSame",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$this->postStripeWebhook([\n            'id' => 'evt_test_expired',\n            'object' => 'event',\n            'type' => 'checkout.session.expired',\n            'data' => [\n                'object' => [\n                    'id' => 'cs_test_expired',\n                    'object' => 'checkout.session',\n                    'metadata' => [\n                        'order_id' => (string) $order->id,\n                    ],\n                ],\n            ],\n        ])->assertOk",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$this->postStripeWebhook",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$product->refresh",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$this->assertSame",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$this->assertTrue",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$order->fresh()->isPending",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_expired_checkout_session_restores_stock",
+          "callee": "$order->fresh",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/StripeCheckoutTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 18,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "startLine": 24,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "test_success_page_does_not_mark_order_paid",
+          "startLine": 48,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "test_stub_pay_route_is_removed",
+          "startLine": 68,
+          "endLine": 82,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "StripeCheckoutTest",
+          "startLine": 13,
+          "endLine": 83,
+          "methods": [
+            "setUp",
+            "test_checkout_creates_pending_order_and_redirects_to_stripe",
+            "test_success_page_does_not_mark_order_paid",
+            "test_stub_pay_route_is_removed"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StripeCheckoutTest",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 20
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "Product::query()->where('slug', 'kindly-mug')->firstOrFail",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "Product::query()->where",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "Product::query",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->actingAs",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "route",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->actingAs",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "route",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$response->headers->get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "Order::query()->where('user_id', $user->id)->firstOrFail",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "Order::query()->where",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "Order::query",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->assertTrue",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$order->isPending",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->assertSame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->assertSame",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$product->refresh",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_checkout_creates_pending_order_and_redirects_to_stripe",
+          "callee": "$this->assertSame",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "User::factory()->create",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "User::factory",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "Order::query()->create",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "Order::query",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$this->actingAs($user)\n            ->get(route('checkout.success', $order))\n            ->assertOk()->assertSee",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$this->actingAs($user)\n            ->get(route('checkout.success', $order))->assertOk",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$this->actingAs",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "route",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$this->assertTrue",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$order->fresh()->isPending",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_success_page_does_not_mark_order_paid",
+          "callee": "$order->fresh",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "User::factory()->create",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "User::factory",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "Order::query()->create",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "Order::query",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "$this->actingAs($user)\n            ->post('/orders/'.$order->id.'/pay')->assertNotFound",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_stub_pay_route_is_removed",
+          "callee": "$this->actingAs",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/tests/Feature/StripeWebhookTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 141,
+      "nonEmptyLines": 123,
+      "functions": [
+        {
+          "name": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "startLine": 20,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "test_duplicate_completed_webhooks_are_idempotent",
+          "startLine": 51,
+          "endLine": 68,
+          "params": []
+        },
+        {
+          "name": "test_webhook_rejects_invalid_signature",
+          "startLine": 70,
+          "endLine": 98,
+          "params": []
+        },
+        {
+          "name": "test_webhook_rejects_amount_mismatch",
+          "startLine": 100,
+          "endLine": 116,
+          "params": []
+        },
+        {
+          "name": "completedEvent",
+          "startLine": 121,
+          "endLine": 140,
+          "params": [
+            "$order",
+            "$sessionId",
+            "$amountTotal"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "StripeWebhookTest",
+          "startLine": 15,
+          "endLine": 141,
+          "methods": [
+            "test_webhook_marks_order_paid_on_checkout_session_completed",
+            "test_duplicate_completed_webhooks_are_idempotent",
+            "test_webhook_rejects_invalid_signature",
+            "test_webhook_rejects_amount_mismatch",
+            "completedEvent"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StripeWebhookTest",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "Mail::fake",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "Product::factory()->create",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "Product::factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "Order::query()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "Order::query",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "OrderItem::query()->create",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "OrderItem::query",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$this->postStripeWebhook($this->completedEvent($order, 'cs_test_123', 1000))->assertOk",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$this->postStripeWebhook",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$this->completedEvent",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$order->refresh",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$this->assertTrue",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$order->isPaid",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "$this->assertSame",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_webhook_marks_order_paid_on_checkout_session_completed",
+          "callee": "Mail::assertQueued",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "User::factory()->create",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "User::factory",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "Order::query()->create",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "Order::query",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "$this->postStripeWebhook($this->completedEvent($order, 'cs_test_123', 1000))->assertOk",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "$this->postStripeWebhook",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "$this->completedEvent",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "$this->assertSame",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_duplicate_completed_webhooks_are_idempotent",
+          "callee": "$order->fresh",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "User::factory()->create",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "User::factory",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "Order::query()->create",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "Order::query",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "json_encode",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "$this->completedEvent",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "$this->call(\n            'POST',\n            route('stripe.webhook'),\n            [],\n            [],\n            [],\n            [\n                'HTTP_STRIPE_SIGNATURE' => 'invalid',\n                'CONTENT_TYPE' => 'application/json',\n            ],\n            $payload,\n        )->assertStatus",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "$this->call",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "route",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "$this->assertTrue",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "$order->fresh()->isPending",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_webhook_rejects_invalid_signature",
+          "callee": "$order->fresh",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "User::factory()->create",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "User::factory",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "Order::query()->create",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "Order::query",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "$this->postStripeWebhook($this->completedEvent($order, 'cs_test_123', 999))->assertOk",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "$this->postStripeWebhook",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "$this->completedEvent",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "$this->assertTrue",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "$order->fresh()->isPending",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_webhook_rejects_amount_mismatch",
+          "callee": "$order->fresh",
+          "lineNumber": 115
+        },
+        {
+          "caller": "completedEvent",
+          "callee": "uniqid",
+          "lineNumber": 124
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,3547 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 28,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "create",
+          "startLine": 17,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 25,
+          "endLine": 32,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "destroy",
+          "startLine": 37,
+          "endLine": 46,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthenticatedSessionController",
+          "startLine": 12,
+          "endLine": 47,
+          "methods": [
+            "create",
+            "store",
+            "destroy"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthenticatedSessionController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create",
+          "callee": "view",
+          "lineNumber": 19
+        },
+        {
+          "caller": "store",
+          "callee": "$request->authenticate",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "$request->session()->regenerate",
+          "lineNumber": 29
+        },
+        {
+          "caller": "store",
+          "callee": "$request->session",
+          "lineNumber": 29
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->intended",
+          "lineNumber": 31
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 31
+        },
+        {
+          "caller": "store",
+          "callee": "route",
+          "lineNumber": 31
+        },
+        {
+          "caller": "destroy",
+          "callee": "Auth::guard('web')->logout",
+          "lineNumber": 39
+        },
+        {
+          "caller": "destroy",
+          "callee": "Auth::guard",
+          "lineNumber": 39
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session()->invalidate",
+          "lineNumber": 41
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session",
+          "lineNumber": 41
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session()->regenerateToken",
+          "lineNumber": 43
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session",
+          "lineNumber": 43
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/ConfirmablePasswordController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "show",
+          "startLine": 17,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 25,
+          "endLine": 39,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ConfirmablePasswordController",
+          "startLine": 12,
+          "endLine": 40,
+          "methods": [
+            "show",
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConfirmablePasswordController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "show",
+          "callee": "view",
+          "lineNumber": 19
+        },
+        {
+          "caller": "store",
+          "callee": "Auth::guard('web')->validate",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "Auth::guard",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "$request->user",
+          "lineNumber": 28
+        },
+        {
+          "caller": "store",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 31
+        },
+        {
+          "caller": "store",
+          "callee": "__",
+          "lineNumber": 32
+        },
+        {
+          "caller": "store",
+          "callee": "$request->session()->put",
+          "lineNumber": 36
+        },
+        {
+          "caller": "store",
+          "callee": "$request->session",
+          "lineNumber": 36
+        },
+        {
+          "caller": "store",
+          "callee": "time",
+          "lineNumber": 36
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->intended",
+          "lineNumber": 38
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 38
+        },
+        {
+          "caller": "store",
+          "callee": "route",
+          "lineNumber": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/EmailVerificationNotificationController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "store",
+          "startLine": 14,
+          "endLine": 23,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailVerificationNotificationController",
+          "startLine": 9,
+          "endLine": 24,
+          "methods": [
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailVerificationNotificationController",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "store",
+          "callee": "$request->user()->hasVerifiedEmail",
+          "lineNumber": 16
+        },
+        {
+          "caller": "store",
+          "callee": "$request->user",
+          "lineNumber": 16
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->intended",
+          "lineNumber": 17
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 17
+        },
+        {
+          "caller": "store",
+          "callee": "route",
+          "lineNumber": 17
+        },
+        {
+          "caller": "store",
+          "callee": "$request->user()->sendEmailVerificationNotification",
+          "lineNumber": 20
+        },
+        {
+          "caller": "store",
+          "callee": "$request->user",
+          "lineNumber": 20
+        },
+        {
+          "caller": "store",
+          "callee": "back()->with",
+          "lineNumber": 22
+        },
+        {
+          "caller": "store",
+          "callee": "back",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/EmailVerificationPromptController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "__invoke",
+          "startLine": 15,
+          "endLine": 20,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailVerificationPromptController",
+          "startLine": 10,
+          "endLine": 21,
+          "methods": [
+            "__invoke"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailVerificationPromptController",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__invoke",
+          "callee": "$request->user()->hasVerifiedEmail",
+          "lineNumber": 17
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->user",
+          "lineNumber": 17
+        },
+        {
+          "caller": "__invoke",
+          "callee": "redirect()->intended",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "redirect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "route",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "view",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/GitHubAuthController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 14,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "redirect",
+          "startLine": 16,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "callback",
+          "startLine": 23,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "ensureEnabled",
+          "startLine": 35,
+          "endLine": 40,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "GitHubAuthController",
+          "startLine": 12,
+          "endLine": 41,
+          "methods": [
+            "__construct",
+            "redirect",
+            "callback",
+            "ensureEnabled"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GitHubAuthController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "redirect",
+          "callee": "$this->ensureEnabled",
+          "lineNumber": 18
+        },
+        {
+          "caller": "redirect",
+          "callee": "Socialite::driver('github')->redirect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "redirect",
+          "callee": "Socialite::driver",
+          "lineNumber": 20
+        },
+        {
+          "caller": "callback",
+          "callee": "$this->ensureEnabled",
+          "lineNumber": 25
+        },
+        {
+          "caller": "callback",
+          "callee": "Socialite::driver('github')->user",
+          "lineNumber": 27
+        },
+        {
+          "caller": "callback",
+          "callee": "Socialite::driver",
+          "lineNumber": 27
+        },
+        {
+          "caller": "callback",
+          "callee": "$this->github->authenticate",
+          "lineNumber": 28
+        },
+        {
+          "caller": "callback",
+          "callee": "Auth::login",
+          "lineNumber": 30
+        },
+        {
+          "caller": "callback",
+          "callee": "redirect()->intended",
+          "lineNumber": 32
+        },
+        {
+          "caller": "callback",
+          "callee": "redirect",
+          "lineNumber": 32
+        },
+        {
+          "caller": "callback",
+          "callee": "route",
+          "lineNumber": 32
+        },
+        {
+          "caller": "ensureEnabled",
+          "callee": "$this->github->isEnabled",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/NewPasswordController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "create",
+          "startLine": 22,
+          "endLine": 25,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "store",
+          "startLine": 32,
+          "endLine": 62,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "NewPasswordController",
+          "startLine": 17,
+          "endLine": 63,
+          "methods": [
+            "create",
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NewPasswordController",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create",
+          "callee": "view",
+          "lineNumber": 24
+        },
+        {
+          "caller": "store",
+          "callee": "$request->validate",
+          "lineNumber": 34
+        },
+        {
+          "caller": "store",
+          "callee": "Rules\\Password::defaults",
+          "lineNumber": 37
+        },
+        {
+          "caller": "store",
+          "callee": "Password::reset",
+          "lineNumber": 43
+        },
+        {
+          "caller": "store",
+          "callee": "$request->only",
+          "lineNumber": 44
+        },
+        {
+          "caller": "store",
+          "callee": "$user->forceFill([\n                    'password' => Hash::make($request->password),\n                    'remember_token' => Str::random(60),\n                ])->save",
+          "lineNumber": 46
+        },
+        {
+          "caller": "store",
+          "callee": "$user->forceFill",
+          "lineNumber": 46
+        },
+        {
+          "caller": "store",
+          "callee": "Hash::make",
+          "lineNumber": 47
+        },
+        {
+          "caller": "store",
+          "callee": "Str::random",
+          "lineNumber": 48
+        },
+        {
+          "caller": "store",
+          "callee": "event",
+          "lineNumber": 51
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route('login')->with",
+          "lineNumber": 59
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 59
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "store",
+          "callee": "__",
+          "lineNumber": 59
+        },
+        {
+          "caller": "store",
+          "callee": "back()->withInput($request->only('email'))->withErrors",
+          "lineNumber": 60
+        },
+        {
+          "caller": "store",
+          "callee": "back()->withInput",
+          "lineNumber": 60
+        },
+        {
+          "caller": "store",
+          "callee": "back",
+          "lineNumber": 60
+        },
+        {
+          "caller": "store",
+          "callee": "$request->only",
+          "lineNumber": 60
+        },
+        {
+          "caller": "store",
+          "callee": "__",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/PasswordController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "update",
+          "startLine": 16,
+          "endLine": 28,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordController",
+          "startLine": 11,
+          "endLine": 29,
+          "methods": [
+            "update"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordController",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "update",
+          "callee": "$request->validateWithBag",
+          "lineNumber": 18
+        },
+        {
+          "caller": "update",
+          "callee": "Password::defaults",
+          "lineNumber": 20
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->update",
+          "lineNumber": 23
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 23
+        },
+        {
+          "caller": "update",
+          "callee": "Hash::make",
+          "lineNumber": 24
+        },
+        {
+          "caller": "update",
+          "callee": "back()->with",
+          "lineNumber": 27
+        },
+        {
+          "caller": "update",
+          "callee": "back",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "create",
+          "startLine": 17,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 27,
+          "endLine": 44,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordResetLinkController",
+          "startLine": 12,
+          "endLine": 45,
+          "methods": [
+            "create",
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordResetLinkController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create",
+          "callee": "view",
+          "lineNumber": 19
+        },
+        {
+          "caller": "store",
+          "callee": "$request->validate",
+          "lineNumber": 29
+        },
+        {
+          "caller": "store",
+          "callee": "Password::sendResetLink",
+          "lineNumber": 36
+        },
+        {
+          "caller": "store",
+          "callee": "$request->only",
+          "lineNumber": 37
+        },
+        {
+          "caller": "store",
+          "callee": "back()->with",
+          "lineNumber": 41
+        },
+        {
+          "caller": "store",
+          "callee": "back",
+          "lineNumber": 41
+        },
+        {
+          "caller": "store",
+          "callee": "__",
+          "lineNumber": 41
+        },
+        {
+          "caller": "store",
+          "callee": "back()->withInput($request->only('email'))->withErrors",
+          "lineNumber": 42
+        },
+        {
+          "caller": "store",
+          "callee": "back()->withInput",
+          "lineNumber": 42
+        },
+        {
+          "caller": "store",
+          "callee": "back",
+          "lineNumber": 42
+        },
+        {
+          "caller": "store",
+          "callee": "$request->only",
+          "lineNumber": 42
+        },
+        {
+          "caller": "store",
+          "callee": "__",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/RegisteredUserController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "create",
+          "startLine": 21,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 31,
+          "endLine": 50,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "RegisteredUserController",
+          "startLine": 16,
+          "endLine": 51,
+          "methods": [
+            "create",
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RegisteredUserController",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create",
+          "callee": "view",
+          "lineNumber": 23
+        },
+        {
+          "caller": "store",
+          "callee": "$request->validate",
+          "lineNumber": 33
+        },
+        {
+          "caller": "store",
+          "callee": "Rules\\Password::defaults",
+          "lineNumber": 36
+        },
+        {
+          "caller": "store",
+          "callee": "User::create",
+          "lineNumber": 39
+        },
+        {
+          "caller": "store",
+          "callee": "Hash::make",
+          "lineNumber": 42
+        },
+        {
+          "caller": "store",
+          "callee": "event",
+          "lineNumber": 45
+        },
+        {
+          "caller": "store",
+          "callee": "Auth::login",
+          "lineNumber": 47
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "store",
+          "callee": "route",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Auth/VerifyEmailController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "__invoke",
+          "startLine": 15,
+          "endLine": 26,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "VerifyEmailController",
+          "startLine": 10,
+          "endLine": 27,
+          "methods": [
+            "__invoke"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VerifyEmailController",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__invoke",
+          "callee": "$request->user()->hasVerifiedEmail",
+          "lineNumber": 17
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->user",
+          "lineNumber": 17
+        },
+        {
+          "caller": "__invoke",
+          "callee": "redirect()->intended",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "redirect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "route",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->user()->markEmailAsVerified",
+          "lineNumber": 21
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->user",
+          "lineNumber": 21
+        },
+        {
+          "caller": "__invoke",
+          "callee": "event",
+          "lineNumber": 22
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->user",
+          "lineNumber": 22
+        },
+        {
+          "caller": "__invoke",
+          "callee": "redirect()->intended",
+          "lineNumber": 25
+        },
+        {
+          "caller": "__invoke",
+          "callee": "redirect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "__invoke",
+          "callee": "route",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/Controller.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "classes": [
+        {
+          "name": "Controller",
+          "startLine": 5,
+          "endLine": 8,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Controller",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Controllers/ProfileController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "edit",
+          "startLine": 17,
+          "endLine": 22,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "update",
+          "startLine": 27,
+          "endLine": 38,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "destroy",
+          "startLine": 43,
+          "endLine": 59,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileController",
+          "startLine": 12,
+          "endLine": 60,
+          "methods": [
+            "edit",
+            "update",
+            "destroy"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "edit",
+          "callee": "view",
+          "lineNumber": 19
+        },
+        {
+          "caller": "edit",
+          "callee": "$request->user",
+          "lineNumber": 20
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->fill",
+          "lineNumber": 29
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 29
+        },
+        {
+          "caller": "update",
+          "callee": "$request->validated",
+          "lineNumber": 29
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->isDirty",
+          "lineNumber": 31
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 31
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 32
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->save",
+          "lineNumber": 35
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 35
+        },
+        {
+          "caller": "update",
+          "callee": "Redirect::route('profile.edit')->with",
+          "lineNumber": 37
+        },
+        {
+          "caller": "update",
+          "callee": "Redirect::route",
+          "lineNumber": 37
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->validateWithBag",
+          "lineNumber": 45
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->user",
+          "lineNumber": 49
+        },
+        {
+          "caller": "destroy",
+          "callee": "Auth::logout",
+          "lineNumber": 51
+        },
+        {
+          "caller": "destroy",
+          "callee": "$user->delete",
+          "lineNumber": 53
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session()->invalidate",
+          "lineNumber": 55
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session",
+          "lineNumber": 55
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session()->regenerateToken",
+          "lineNumber": 56
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session",
+          "lineNumber": 56
+        },
+        {
+          "caller": "destroy",
+          "callee": "Redirect::to",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Requests/Auth/LoginRequest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "authorize",
+          "startLine": 18,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "rules",
+          "startLine": 28,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "authenticate",
+          "startLine": 41,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "ensureIsNotRateLimited",
+          "startLine": 61,
+          "endLine": 77,
+          "params": []
+        },
+        {
+          "name": "throttleKey",
+          "startLine": 82,
+          "endLine": 85,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "LoginRequest",
+          "startLine": 13,
+          "endLine": 86,
+          "methods": [
+            "authorize",
+            "rules",
+            "authenticate",
+            "ensureIsNotRateLimited",
+            "throttleKey"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LoginRequest",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "authenticate",
+          "callee": "$this->ensureIsNotRateLimited",
+          "lineNumber": 43
+        },
+        {
+          "caller": "authenticate",
+          "callee": "Auth::attempt",
+          "lineNumber": 45
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->only",
+          "lineNumber": 45
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->boolean",
+          "lineNumber": 45
+        },
+        {
+          "caller": "authenticate",
+          "callee": "RateLimiter::hit",
+          "lineNumber": 46
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->throttleKey",
+          "lineNumber": 46
+        },
+        {
+          "caller": "authenticate",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 48
+        },
+        {
+          "caller": "authenticate",
+          "callee": "trans",
+          "lineNumber": 49
+        },
+        {
+          "caller": "authenticate",
+          "callee": "RateLimiter::clear",
+          "lineNumber": 53
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->throttleKey",
+          "lineNumber": 53
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "RateLimiter::tooManyAttempts",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "$this->throttleKey",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "event",
+          "lineNumber": 67
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "RateLimiter::availableIn",
+          "lineNumber": 69
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "$this->throttleKey",
+          "lineNumber": 69
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 71
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "trans",
+          "lineNumber": 72
+        },
+        {
+          "caller": "ensureIsNotRateLimited",
+          "callee": "ceil",
+          "lineNumber": 74
+        },
+        {
+          "caller": "throttleKey",
+          "callee": "Str::transliterate",
+          "lineNumber": 84
+        },
+        {
+          "caller": "throttleKey",
+          "callee": "Str::lower",
+          "lineNumber": 84
+        },
+        {
+          "caller": "throttleKey",
+          "callee": "$this->string",
+          "lineNumber": 84
+        },
+        {
+          "caller": "throttleKey",
+          "callee": "$this->ip",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Http/Requests/ProfileUpdateRequest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "rules",
+          "startLine": 17,
+          "endLine": 30,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileUpdateRequest",
+          "startLine": 10,
+          "endLine": 31,
+          "methods": [
+            "rules"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileUpdateRequest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "rules",
+          "callee": "Rule::unique(User::class)->ignore",
+          "lineNumber": 27
+        },
+        {
+          "caller": "rules",
+          "callee": "Rule::unique",
+          "lineNumber": 27
+        },
+        {
+          "caller": "rules",
+          "callee": "$this->user",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Models/User.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 25,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 13,
+          "endLine": 32,
+          "methods": [
+            "casts"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/app/Services/GitHubAuthenticator.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "isEnabled",
+          "startLine": 11,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "authenticate",
+          "startLine": 17,
+          "endLine": 58,
+          "params": [
+            "$githubUser"
+          ]
+        },
+        {
+          "name": "syncProfile",
+          "startLine": 60,
+          "endLine": 73,
+          "params": [
+            "$user",
+            "$githubUser"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "GitHubAuthenticator",
+          "startLine": 9,
+          "endLine": 74,
+          "methods": [
+            "isEnabled",
+            "authenticate",
+            "syncProfile"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GitHubAuthenticator",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isEnabled",
+          "callee": "filled",
+          "lineNumber": 13
+        },
+        {
+          "caller": "isEnabled",
+          "callee": "config",
+          "lineNumber": 13
+        },
+        {
+          "caller": "isEnabled",
+          "callee": "filled",
+          "lineNumber": 14
+        },
+        {
+          "caller": "isEnabled",
+          "callee": "config",
+          "lineNumber": 14
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$githubUser->getId",
+          "lineNumber": 19
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$githubUser->getEmail",
+          "lineNumber": 20
+        },
+        {
+          "caller": "authenticate",
+          "callee": "abort",
+          "lineNumber": 23
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query()->where('github_id', $githubId)->first",
+          "lineNumber": 26
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query()->where",
+          "lineNumber": 26
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query",
+          "lineNumber": 26
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->syncProfile",
+          "lineNumber": 29
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$byGitHub->save",
+          "lineNumber": 30
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$byGitHub->fresh",
+          "lineNumber": 32
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query()->where('email', $email)->first",
+          "lineNumber": 35
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query()->where",
+          "lineNumber": 35
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query",
+          "lineNumber": 35
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$byEmail->forceFill",
+          "lineNumber": 38
+        },
+        {
+          "caller": "authenticate",
+          "callee": "now",
+          "lineNumber": 40
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->syncProfile",
+          "lineNumber": 42
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$byEmail->save",
+          "lineNumber": 43
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$byEmail->fresh",
+          "lineNumber": 45
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "authenticate",
+          "callee": "User::query",
+          "lineNumber": 48
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$githubUser->getName",
+          "lineNumber": 49
+        },
+        {
+          "caller": "authenticate",
+          "callee": "Str::before",
+          "lineNumber": 49
+        },
+        {
+          "caller": "authenticate",
+          "callee": "Str::password",
+          "lineNumber": 51
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$this->syncProfile",
+          "lineNumber": 54
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$user->forceFill(['email_verified_at' => now()])->save",
+          "lineNumber": 55
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$user->forceFill",
+          "lineNumber": 55
+        },
+        {
+          "caller": "authenticate",
+          "callee": "now",
+          "lineNumber": 55
+        },
+        {
+          "caller": "authenticate",
+          "callee": "$user->fresh",
+          "lineNumber": 57
+        },
+        {
+          "caller": "syncProfile",
+          "callee": "$githubUser->getAvatar",
+          "lineNumber": 62
+        },
+        {
+          "caller": "syncProfile",
+          "callee": "$githubUser->getName",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/config/auth.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 103,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/database/factories/UserFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 25,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "unverified",
+          "startLine": 39,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "UserFactory",
+          "startLine": 13,
+          "endLine": 45,
+          "methods": [
+            "definition",
+            "unverified"
+          ],
+          "properties": [
+            "password"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserFactory",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->name",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->safeEmail",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "now",
+          "lineNumber": 30
+        },
+        {
+          "caller": "definition",
+          "callee": "Hash::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::random",
+          "lineNumber": 32
+        },
+        {
+          "caller": "unverified",
+          "callee": "$this->state",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/database/seeders/DatabaseSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 16,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DatabaseSeeder",
+          "startLine": 9,
+          "endLine": 25,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatabaseSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "User::factory()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/routes/auth.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 48,
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/routes/web.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/Auth/AuthenticationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "test_login_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_users_can_authenticate_using_the_login_screen",
+          "startLine": 20,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_users_can_not_authenticate_with_invalid_password",
+          "startLine": 33,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "test_users_can_logout",
+          "startLine": 45,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthenticationTest",
+          "startLine": 9,
+          "endLine": 54,
+          "methods": [
+            "test_login_screen_can_be_rendered",
+            "test_users_can_authenticate_using_the_login_screen",
+            "test_users_can_not_authenticate_with_invalid_password",
+            "test_users_can_logout"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthenticationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory()->create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->post",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "route",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->post",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->assertGuest",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory()->create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->assertGuest",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/Auth/EmailVerificationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "test_email_verification_screen_can_be_rendered",
+          "startLine": 16,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_email_can_be_verified",
+          "startLine": 25,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "test_email_is_not_verified_with_invalid_hash",
+          "startLine": 44,
+          "endLine": 57,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailVerificationTest",
+          "startLine": 12,
+          "endLine": 58,
+          "methods": [
+            "test_email_verification_screen_can_be_rendered",
+            "test_email_can_be_verified",
+            "test_email_is_not_verified_with_invalid_hash"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailVerificationTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now()->addMinutes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "sha1",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::assertDispatched",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->assertTrue",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "route",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now()->addMinutes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "sha1",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->assertFalse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/Auth/GitHubLoginTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 175,
+      "nonEmptyLines": 143,
+      "functions": [
+        {
+          "name": "test_login_page_shows_github_button_when_configured",
+          "startLine": 15,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_login_page_hides_github_button_when_not_configured",
+          "startLine": 25,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_login_page_skips_email_autofocus_when_github_configured",
+          "startLine": 34,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "test_github_redirect_goes_to_github_provider",
+          "startLine": 43,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "test_github_redirect_returns_not_found_when_disabled",
+          "startLine": 52,
+          "endLine": 58,
+          "params": []
+        },
+        {
+          "name": "test_github_callback_creates_new_user",
+          "startLine": 60,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_github_callback_links_existing_user_by_email",
+          "startLine": 82,
+          "endLine": 104,
+          "params": []
+        },
+        {
+          "name": "test_github_callback_logs_in_returning_github_user",
+          "startLine": 106,
+          "endLine": 125,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_users_cannot_visit_github_routes",
+          "startLine": 127,
+          "endLine": 135,
+          "params": []
+        },
+        {
+          "name": "test_dashboard_shows_github_avatar_when_present",
+          "startLine": 137,
+          "endLine": 149,
+          "params": []
+        },
+        {
+          "name": "socialiteUser",
+          "startLine": 154,
+          "endLine": 163,
+          "params": [
+            "$overrides"
+          ]
+        },
+        {
+          "name": "enableGitHub",
+          "startLine": 165,
+          "endLine": 174,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "GitHubLoginTest",
+          "startLine": 11,
+          "endLine": 175,
+          "methods": [
+            "test_login_page_shows_github_button_when_configured",
+            "test_login_page_hides_github_button_when_not_configured",
+            "test_login_page_skips_email_autofocus_when_github_configured",
+            "test_github_redirect_goes_to_github_provider",
+            "test_github_redirect_returns_not_found_when_disabled",
+            "test_github_callback_creates_new_user",
+            "test_github_callback_links_existing_user_by_email",
+            "test_github_callback_logs_in_returning_github_user",
+            "test_authenticated_users_cannot_visit_github_routes",
+            "test_dashboard_shows_github_avatar_when_present",
+            "socialiteUser",
+            "enableGitHub"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GitHubLoginTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee('Sign in with GitHub', false)->assertSee",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertSee",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "route",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "config",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "route",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_github_configured",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_github_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_github_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_github_configured",
+          "callee": "$this->get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_github_configured",
+          "callee": "route",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_github_redirect_goes_to_github_provider",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_github_redirect_goes_to_github_provider",
+          "callee": "Socialite::fake",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_github_redirect_goes_to_github_provider",
+          "callee": "$this->get(route('github.redirect'))->assertRedirect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_github_redirect_goes_to_github_provider",
+          "callee": "$this->get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_github_redirect_goes_to_github_provider",
+          "callee": "route",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_github_redirect_returns_not_found_when_disabled",
+          "callee": "config",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_github_redirect_returns_not_found_when_disabled",
+          "callee": "$this->get(route('github.redirect'))->assertNotFound",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_github_redirect_returns_not_found_when_disabled",
+          "callee": "$this->get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_github_redirect_returns_not_found_when_disabled",
+          "callee": "route",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "Socialite::fake",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "route",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "route",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "auth()->user",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "auth",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->assertSame",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->assertSame",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->assertSame",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_github_callback_creates_new_user",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "User::factory()->create",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "User::factory",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "Socialite::fake",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$this->get(route('github.callback'))->assertRedirect",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$this->get",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "route",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "route",
+          "lineNumber": 99
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$existing->refresh",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$this->assertSame",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_github_callback_links_existing_user_by_email",
+          "callee": "$this->assertSame",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "User::factory()->create",
+          "lineNumber": 109
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "User::factory",
+          "lineNumber": 109
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "Socialite::fake",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "$this->get(route('github.callback'))->assertRedirect",
+          "lineNumber": 121
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "$this->get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "route",
+          "lineNumber": 121
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "route",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_github_callback_logs_in_returning_github_user",
+          "callee": "$this->assertAuthenticatedAs",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "$this->enableGitHub",
+          "lineNumber": 129
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "User::factory()->create",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "User::factory",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "$this->actingAs($user)\n            ->get(route('github.redirect'))->assertRedirect",
+          "lineNumber": 132
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "$this->actingAs",
+          "lineNumber": 132
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "route",
+          "lineNumber": 133
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_github_routes",
+          "callee": "route",
+          "lineNumber": 134
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "User::factory()->create",
+          "lineNumber": 139
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "User::factory",
+          "lineNumber": 139
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "$this->actingAs($user)\n            ->get(route('dashboard'))\n            ->assertOk()\n            ->assertSee('https://avatars.githubusercontent.com/u/99?v=4', false)->assertSee",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "$this->actingAs($user)\n            ->get(route('dashboard'))\n            ->assertOk()->assertSee",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "$this->actingAs($user)\n            ->get(route('dashboard'))->assertOk",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "$this->actingAs",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_dashboard_shows_github_avatar_when_present",
+          "callee": "route",
+          "lineNumber": 145
+        },
+        {
+          "caller": "enableGitHub",
+          "callee": "config",
+          "lineNumber": 167
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 12,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/Auth/PasswordConfirmationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "test_confirm_password_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_confirmed",
+          "startLine": 22,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_password_is_not_confirmed_with_invalid_password",
+          "startLine": 34,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordConfirmationTest",
+          "startLine": 9,
+          "endLine": 44,
+          "methods": [
+            "test_confirm_password_screen_can_be_rendered",
+            "test_password_can_be_confirmed",
+            "test_password_is_not_confirmed_with_invalid_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordConfirmationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$response->assertSessionHasErrors",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/Auth/PasswordResetTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "test_reset_password_link_screen_can_be_rendered",
+          "startLine": 15,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_link_can_be_requested",
+          "startLine": 22,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_screen_can_be_rendered",
+          "startLine": 33,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_reset_with_valid_token",
+          "startLine": 50,
+          "endLine": 72,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordResetTest",
+          "startLine": 11,
+          "endLine": 73,
+          "methods": [
+            "test_reset_password_link_screen_can_be_rendered",
+            "test_reset_password_link_can_be_requested",
+            "test_reset_password_screen_can_be_rendered",
+            "test_password_can_be_reset_with_valid_token"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordResetTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::fake",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "$this->post",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::fake",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->post",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::fake",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory()->create",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response\n                ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "route",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/Auth/PasswordUpdateTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "test_password_can_be_updated",
+          "startLine": 14,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_update_password",
+          "startLine": 34,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordUpdateTest",
+          "startLine": 10,
+          "endLine": 51,
+          "methods": [
+            "test_password_can_be_updated",
+            "test_correct_password_must_be_provided_to_update_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordUpdateTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->assertTrue",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "Hash::check",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('updatePassword', 'current_password')->assertRedirect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v2/tests/Feature/ProfileTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 99,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "test_profile_page_is_displayed",
+          "startLine": 13,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_profile_information_can_be_updated",
+          "startLine": 24,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "startLine": 46,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "test_user_can_delete_their_account",
+          "startLine": 64,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_delete_account",
+          "startLine": 82,
+          "endLine": 98,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileTest",
+          "startLine": 9,
+          "endLine": 99,
+          "methods": [
+            "test_profile_page_is_displayed",
+            "test_profile_information_can_be_updated",
+            "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+            "test_user_can_delete_their_account",
+            "test_correct_password_must_be_provided_to_delete_account"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this\n            ->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$response->assertOk",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertNull",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->actingAs",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$user->refresh",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this\n            ->actingAs($user)->delete",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertGuest",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertNull",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$user->fresh",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->delete",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('userDeletion', 'password')->assertRedirect",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$user->fresh",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    }
+  ]
+}

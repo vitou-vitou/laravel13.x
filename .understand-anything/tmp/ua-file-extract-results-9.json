@@ -1,0 +1,5850 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 23,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Auth/PasswordResetTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 65,
+      "functions": [
+        {
+          "name": "test_reset_password_link_screen_can_be_rendered",
+          "startLine": 15,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "startLine": 22,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_link_can_be_requested",
+          "startLine": 37,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_screen_can_be_rendered",
+          "startLine": 48,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_reset_with_valid_token",
+          "startLine": 65,
+          "endLine": 87,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordResetTest",
+          "startLine": 11,
+          "endLine": 88,
+          "methods": [
+            "test_reset_password_link_screen_can_be_rendered",
+            "test_forgot_password_form_has_submit_guard_and_loading_state",
+            "test_reset_password_link_can_be_requested",
+            "test_reset_password_screen_can_be_rendered",
+            "test_password_can_be_reset_with_valid_token"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordResetTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$this->get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertOk",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "__",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "__",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "$response->assertSee",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_forgot_password_form_has_submit_guard_and_loading_state",
+          "callee": "__",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::fake",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory()->create",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "$this->post",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::fake",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->post",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::fake",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory()->create",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response\n                ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "route",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Auth/PasswordUpdateTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "test_password_can_be_updated",
+          "startLine": 14,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_update_password",
+          "startLine": 34,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordUpdateTest",
+          "startLine": 10,
+          "endLine": 51,
+          "methods": [
+            "test_password_can_be_updated",
+            "test_correct_password_must_be_provided_to_update_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordUpdateTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->assertTrue",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "Hash::check",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('updatePassword', 'current_password')->assertRedirect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Auth/SsoLoginTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 378,
+      "nonEmptyLines": 308,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 16,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "test_login_page_shows_google_button_when_configured",
+          "startLine": 23,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "test_register_page_shows_google_button_when_configured",
+          "startLine": 36,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_register_page_shows_microsoft_button_when_configured",
+          "startLine": 46,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "test_register_page_hides_sso_buttons_when_not_configured",
+          "startLine": 55,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "startLine": 72,
+          "endLine": 84,
+          "params": []
+        },
+        {
+          "name": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "startLine": 86,
+          "endLine": 94,
+          "params": []
+        },
+        {
+          "name": "test_sso_buttons_prevent_duplicate_navigation",
+          "startLine": 96,
+          "endLine": 106,
+          "params": []
+        },
+        {
+          "name": "test_login_page_shows_microsoft_button_when_configured",
+          "startLine": 108,
+          "endLine": 118,
+          "params": []
+        },
+        {
+          "name": "test_login_page_skips_email_autofocus_when_sso_configured",
+          "startLine": 120,
+          "endLine": 127,
+          "params": []
+        },
+        {
+          "name": "test_login_page_autofocuses_email_when_sso_not_configured",
+          "startLine": 129,
+          "endLine": 140,
+          "params": []
+        },
+        {
+          "name": "test_login_page_hides_google_button_when_not_configured",
+          "startLine": 142,
+          "endLine": 149,
+          "params": []
+        },
+        {
+          "name": "test_login_page_hides_microsoft_button_when_not_configured",
+          "startLine": 151,
+          "endLine": 158,
+          "params": []
+        },
+        {
+          "name": "test_login_page_shows_github_button_when_configured",
+          "startLine": 160,
+          "endLine": 168,
+          "params": []
+        },
+        {
+          "name": "test_login_page_hides_github_button_when_not_configured",
+          "startLine": 170,
+          "endLine": 177,
+          "params": []
+        },
+        {
+          "name": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "startLine": 179,
+          "endLine": 190,
+          "params": []
+        },
+        {
+          "name": "test_sso_redirect_goes_to_google_provider",
+          "startLine": 192,
+          "endLine": 199,
+          "params": []
+        },
+        {
+          "name": "test_sso_redirect_goes_to_microsoft_provider",
+          "startLine": 201,
+          "endLine": 208,
+          "params": []
+        },
+        {
+          "name": "test_sso_redirect_returns_not_found_when_provider_disabled",
+          "startLine": 210,
+          "endLine": 216,
+          "params": []
+        },
+        {
+          "name": "test_sso_redirect_returns_not_found_for_unknown_provider",
+          "startLine": 218,
+          "endLine": 224,
+          "params": []
+        },
+        {
+          "name": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "startLine": 226,
+          "endLine": 245,
+          "params": []
+        },
+        {
+          "name": "test_sso_callback_creates_new_user_with_customer_role",
+          "startLine": 247,
+          "endLine": 267,
+          "params": []
+        },
+        {
+          "name": "test_sso_callback_links_existing_user_by_email",
+          "startLine": 269,
+          "endLine": 292,
+          "params": []
+        },
+        {
+          "name": "test_sso_callback_logs_in_returning_sso_user",
+          "startLine": 294,
+          "endLine": 314,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_users_cannot_visit_sso_routes",
+          "startLine": 316,
+          "endLine": 324,
+          "params": []
+        },
+        {
+          "name": "socialiteUser",
+          "startLine": 329,
+          "endLine": 337,
+          "params": [
+            "$overrides"
+          ]
+        },
+        {
+          "name": "enableGoogleSso",
+          "startLine": 339,
+          "endLine": 348,
+          "params": []
+        },
+        {
+          "name": "enableMicrosoftSso",
+          "startLine": 350,
+          "endLine": 360,
+          "params": []
+        },
+        {
+          "name": "enableBothSsoProviders",
+          "startLine": 362,
+          "endLine": 366,
+          "params": []
+        },
+        {
+          "name": "enableGitHubSso",
+          "startLine": 368,
+          "endLine": 377,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "SsoLoginTest",
+          "startLine": 12,
+          "endLine": 378,
+          "methods": [
+            "setUp",
+            "test_login_page_shows_google_button_when_configured",
+            "test_register_page_shows_google_button_when_configured",
+            "test_register_page_shows_microsoft_button_when_configured",
+            "test_register_page_hides_sso_buttons_when_not_configured",
+            "test_register_page_autofocuses_name_when_sso_not_configured",
+            "test_register_page_skips_name_autofocus_when_sso_configured",
+            "test_sso_buttons_prevent_duplicate_navigation",
+            "test_login_page_shows_microsoft_button_when_configured",
+            "test_login_page_skips_email_autofocus_when_sso_configured",
+            "test_login_page_autofocuses_email_when_sso_not_configured",
+            "test_login_page_hides_google_button_when_not_configured",
+            "test_login_page_hides_microsoft_button_when_not_configured",
+            "test_login_page_shows_github_button_when_configured",
+            "test_login_page_hides_github_button_when_not_configured",
+            "test_login_page_shows_microsoft_before_google_when_both_configured",
+            "test_sso_redirect_goes_to_google_provider",
+            "test_sso_redirect_goes_to_microsoft_provider",
+            "test_sso_redirect_returns_not_found_when_provider_disabled",
+            "test_sso_redirect_returns_not_found_for_unknown_provider",
+            "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+            "test_sso_callback_creates_new_user_with_customer_role",
+            "test_sso_callback_links_existing_user_by_email",
+            "test_sso_callback_logs_in_returning_sso_user",
+            "test_authenticated_users_cannot_visit_sso_routes",
+            "socialiteUser",
+            "enableGoogleSso",
+            "enableMicrosoftSso",
+            "enableBothSsoProviders",
+            "enableGitHubSso"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SsoLoginTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 18
+        },
+        {
+          "caller": "setUp",
+          "callee": "$this->seed",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee(config('app.name'), false)\n            ->assertSee('Sign in with Google', false)\n            ->assertSee('aria-label=\"Sign in with Google\"', false)\n            ->assertSee('min-h-[41px]', false)->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee(config('app.name'), false)\n            ->assertSee('Sign in with Google', false)\n            ->assertSee('aria-label=\"Sign in with Google\"', false)->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee(config('app.name'), false)\n            ->assertSee('Sign in with Google', false)->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee(config('app.name'), false)->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "$this->get",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "route",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_page_shows_google_button_when_configured",
+          "callee": "config",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_register_page_shows_google_button_when_configured",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_register_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()\n            ->assertSee('Sign in with Google', false)->assertSee",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_register_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()->assertSee",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_register_page_shows_google_button_when_configured",
+          "callee": "$this->get(route('register'))->assertOk",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_register_page_shows_google_button_when_configured",
+          "callee": "$this->get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_register_page_shows_google_button_when_configured",
+          "callee": "route",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_register_page_shows_microsoft_button_when_configured",
+          "callee": "$this->enableMicrosoftSso",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_register_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()->assertSee",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_register_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('register'))->assertOk",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_register_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_register_page_shows_microsoft_button_when_configured",
+          "callee": "route",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_register_page_hides_sso_buttons_when_not_configured",
+          "callee": "config",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_register_page_hides_sso_buttons_when_not_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()\n            ->assertDontSee('Sign in with Google', false)->assertDontSee",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_register_page_hides_sso_buttons_when_not_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_register_page_hides_sso_buttons_when_not_configured",
+          "callee": "$this->get(route('register'))->assertOk",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_register_page_hides_sso_buttons_when_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_register_page_hides_sso_buttons_when_not_configured",
+          "callee": "route",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "callee": "config",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()\n            ->assertSee('id=\"name\"', false)->assertSee",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "callee": "$this->get(route('register'))\n            ->assertOk()->assertSee",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "callee": "$this->get(route('register'))->assertOk",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_register_page_autofocuses_name_when_sso_not_configured",
+          "callee": "route",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "$this->get(route('register'))->assertOk()->getContent",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "$this->get(route('register'))->assertOk",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "$this->get",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "route",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "$this->assertDoesNotMatchRegularExpression",
+          "lineNumber": 92
+        },
+        {
+          "caller": "test_register_page_skips_name_autofocus_when_sso_configured",
+          "callee": "$this->assertMatchesRegularExpression",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "$this->enableBothSsoProviders",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "$this->get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "route",
+          "lineNumber": 100
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "$response->assertOk",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "$response->assertSee",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "$response->assertSee",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_sso_buttons_prevent_duplicate_navigation",
+          "callee": "$response->assertSee",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->enableMicrosoftSso",
+          "lineNumber": 110
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee('Sign in with Microsoft', false)\n            ->assertSee('aria-label=\"Sign in with Microsoft\"', false)\n            ->assertSee('Sign-in options', false)->assertSee",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee('Sign in with Microsoft', false)\n            ->assertSee('aria-label=\"Sign in with Microsoft\"', false)->assertSee",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee('Sign in with Microsoft', false)->assertSee",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertSee",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "$this->get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_button_when_configured",
+          "callee": "route",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_sso_configured",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_sso_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_sso_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_sso_configured",
+          "callee": "$this->get",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_login_page_skips_email_autofocus_when_sso_configured",
+          "callee": "route",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_login_page_autofocuses_email_when_sso_not_configured",
+          "callee": "config",
+          "lineNumber": 131
+        },
+        {
+          "caller": "test_login_page_autofocuses_email_when_sso_not_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertSee",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_login_page_autofocuses_email_when_sso_not_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_login_page_autofocuses_email_when_sso_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_login_page_autofocuses_email_when_sso_not_configured",
+          "callee": "route",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_login_page_hides_google_button_when_not_configured",
+          "callee": "config",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_login_page_hides_google_button_when_not_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_login_page_hides_google_button_when_not_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_login_page_hides_google_button_when_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_login_page_hides_google_button_when_not_configured",
+          "callee": "route",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_login_page_hides_microsoft_button_when_not_configured",
+          "callee": "config",
+          "lineNumber": 153
+        },
+        {
+          "caller": "test_login_page_hides_microsoft_button_when_not_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 155
+        },
+        {
+          "caller": "test_login_page_hides_microsoft_button_when_not_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 155
+        },
+        {
+          "caller": "test_login_page_hides_microsoft_button_when_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "test_login_page_hides_microsoft_button_when_not_configured",
+          "callee": "route",
+          "lineNumber": 155
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->enableGitHubSso",
+          "lineNumber": 162
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()\n            ->assertSee('Sign in with GitHub', false)->assertSee",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertSee",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "$this->get",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_login_page_shows_github_button_when_configured",
+          "callee": "route",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "config",
+          "lineNumber": 172
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "$this->get(route('login'))\n            ->assertOk()->assertDontSee",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "$this->get",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_login_page_hides_github_button_when_not_configured",
+          "callee": "route",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->enableBothSsoProviders",
+          "lineNumber": 181
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->get(route('login'))->assertOk()->getContent",
+          "lineNumber": 183
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->get(route('login'))->assertOk",
+          "lineNumber": 183
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "route",
+          "lineNumber": 183
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "strpos",
+          "lineNumber": 184
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "strpos",
+          "lineNumber": 185
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->assertNotFalse",
+          "lineNumber": 187
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->assertNotFalse",
+          "lineNumber": 188
+        },
+        {
+          "caller": "test_login_page_shows_microsoft_before_google_when_both_configured",
+          "callee": "$this->assertLessThan",
+          "lineNumber": 189
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_google_provider",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 194
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_google_provider",
+          "callee": "Socialite::fake",
+          "lineNumber": 195
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_google_provider",
+          "callee": "$this->get(route('sso.redirect', ['provider' => 'google']))->assertRedirect",
+          "lineNumber": 197
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_google_provider",
+          "callee": "$this->get",
+          "lineNumber": 197
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_google_provider",
+          "callee": "route",
+          "lineNumber": 197
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_microsoft_provider",
+          "callee": "$this->enableMicrosoftSso",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_microsoft_provider",
+          "callee": "Socialite::fake",
+          "lineNumber": 204
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_microsoft_provider",
+          "callee": "$this->get(route('sso.redirect', ['provider' => 'microsoft']))->assertRedirect",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_microsoft_provider",
+          "callee": "$this->get",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_sso_redirect_goes_to_microsoft_provider",
+          "callee": "route",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_when_provider_disabled",
+          "callee": "config",
+          "lineNumber": 212
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_when_provider_disabled",
+          "callee": "$this->get(route('sso.redirect', ['provider' => 'google']))->assertNotFound",
+          "lineNumber": 214
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_when_provider_disabled",
+          "callee": "$this->get",
+          "lineNumber": 214
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_when_provider_disabled",
+          "callee": "route",
+          "lineNumber": 214
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_for_unknown_provider",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_for_unknown_provider",
+          "callee": "$this->get(route('sso.redirect', ['provider' => 'facebook']))->assertNotFound",
+          "lineNumber": 222
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_for_unknown_provider",
+          "callee": "$this->get",
+          "lineNumber": 222
+        },
+        {
+          "caller": "test_sso_redirect_returns_not_found_for_unknown_provider",
+          "callee": "route",
+          "lineNumber": 222
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->enableMicrosoftSso",
+          "lineNumber": 228
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "Socialite::fake",
+          "lineNumber": 229
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 229
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->get",
+          "lineNumber": 235
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "route",
+          "lineNumber": 235
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 237
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "route",
+          "lineNumber": 237
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 238
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "auth()->user",
+          "lineNumber": 240
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "auth",
+          "lineNumber": 240
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 241
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 242
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 243
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$this->assertTrue",
+          "lineNumber": 244
+        },
+        {
+          "caller": "test_sso_callback_creates_new_microsoft_user_with_customer_role",
+          "callee": "$user->hasRole",
+          "lineNumber": 244
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 249
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "Socialite::fake",
+          "lineNumber": 250
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 250
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->get",
+          "lineNumber": 256
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "route",
+          "lineNumber": 256
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 258
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "route",
+          "lineNumber": 258
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 259
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "auth()->user",
+          "lineNumber": 261
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "auth",
+          "lineNumber": 261
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 262
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 263
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 264
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 265
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$this->assertTrue",
+          "lineNumber": 266
+        },
+        {
+          "caller": "test_sso_callback_creates_new_user_with_customer_role",
+          "callee": "$user->hasRole",
+          "lineNumber": 266
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 271
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "User::factory()->create",
+          "lineNumber": 272
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "User::factory",
+          "lineNumber": 272
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$existing->assignRole",
+          "lineNumber": 277
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "Socialite::fake",
+          "lineNumber": 279
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 279
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->get(route('sso.callback', ['provider' => 'google']))->assertRedirect",
+          "lineNumber": 285
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->get",
+          "lineNumber": 285
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "route",
+          "lineNumber": 285
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "route",
+          "lineNumber": 286
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$existing->refresh",
+          "lineNumber": 288
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->assertSame",
+          "lineNumber": 289
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->assertSame",
+          "lineNumber": 290
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$this->assertTrue",
+          "lineNumber": 291
+        },
+        {
+          "caller": "test_sso_callback_links_existing_user_by_email",
+          "callee": "$existing->hasRole",
+          "lineNumber": 291
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 296
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "User::factory()->create",
+          "lineNumber": 297
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "User::factory",
+          "lineNumber": 297
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "$user->assignRole",
+          "lineNumber": 302
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "Socialite::fake",
+          "lineNumber": 304
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "$this->socialiteUser",
+          "lineNumber": 304
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "$this->get(route('sso.callback', ['provider' => 'google']))->assertRedirect",
+          "lineNumber": 310
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "$this->get",
+          "lineNumber": 310
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "route",
+          "lineNumber": 310
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "route",
+          "lineNumber": 311
+        },
+        {
+          "caller": "test_sso_callback_logs_in_returning_sso_user",
+          "callee": "$this->assertAuthenticatedAs",
+          "lineNumber": 313
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 318
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "User::factory()->create",
+          "lineNumber": 319
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "User::factory",
+          "lineNumber": 319
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "$this->actingAs($user)\n            ->get(route('sso.redirect', ['provider' => 'google']))->assertRedirect",
+          "lineNumber": 321
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 321
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "$this->actingAs",
+          "lineNumber": 321
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "route",
+          "lineNumber": 322
+        },
+        {
+          "caller": "test_authenticated_users_cannot_visit_sso_routes",
+          "callee": "route",
+          "lineNumber": 323
+        },
+        {
+          "caller": "enableGoogleSso",
+          "callee": "config",
+          "lineNumber": 341
+        },
+        {
+          "caller": "enableMicrosoftSso",
+          "callee": "config",
+          "lineNumber": 352
+        },
+        {
+          "caller": "enableBothSsoProviders",
+          "callee": "$this->enableGoogleSso",
+          "lineNumber": 364
+        },
+        {
+          "caller": "enableBothSsoProviders",
+          "callee": "$this->enableMicrosoftSso",
+          "lineNumber": 365
+        },
+        {
+          "caller": "enableGitHubSso",
+          "callee": "config",
+          "lineNumber": 370
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 30,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/BroadcastOrdersChannelTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 13,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "test_admin_has_broadcast_access_permission",
+          "startLine": 29,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "test_customer_cannot_authorize_orders_channel",
+          "startLine": 36,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "BroadcastOrdersChannelTest",
+          "startLine": 9,
+          "endLine": 49,
+          "methods": [
+            "setUp",
+            "test_admin_has_broadcast_access_permission",
+            "test_customer_cannot_authorize_orders_channel"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "BroadcastOrdersChannelTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 15
+        },
+        {
+          "caller": "setUp",
+          "callee": "config",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_admin_has_broadcast_access_permission",
+          "callee": "$this->adminUser",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_has_broadcast_access_permission",
+          "callee": "$this->assertTrue",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_admin_has_broadcast_access_permission",
+          "callee": "$admin->can",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "$this->seedRoles",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "User::factory()->create",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "User::factory",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "$user->assignRole",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "$this->actingAs($user)\r\n            ->postJson('/broadcasting/auth', [\r\n                'channel_name' => 'private-orders',\r\n                'socket_id' => '1.1',\r\n            ])->assertForbidden",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "$this->actingAs($user)->postJson",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_customer_cannot_authorize_orders_channel",
+          "callee": "$this->actingAs",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/CartPageTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 71,
+      "functions": [
+        {
+          "name": "test_guest_is_redirected_from_cart",
+          "startLine": 17,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_sees_cart_items",
+          "startLine": 22,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "test_customer_can_checkout_cart",
+          "startLine": 39,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "test_checkout_queues_admin_notification_email",
+          "startLine": 64,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_checkout_empty_cart_redirects_with_error",
+          "startLine": 82,
+          "endLine": 90,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartPageTest",
+          "startLine": 13,
+          "endLine": 91,
+          "methods": [
+            "test_guest_is_redirected_from_cart",
+            "test_authenticated_user_sees_cart_items",
+            "test_customer_can_checkout_cart",
+            "test_checkout_queues_admin_notification_email",
+            "test_checkout_empty_cart_redirects_with_error"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartPageTest",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_guest_is_redirected_from_cart",
+          "callee": "$this->get(route('cart'))->assertRedirect",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_guest_is_redirected_from_cart",
+          "callee": "$this->get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_guest_is_redirected_from_cart",
+          "callee": "route",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->adminUser",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "Product::factory()->create",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "Product::factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "(new CartService)->addItem",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('cart'))\r\n            ->assertOk()\r\n            ->assertSee('Demo Product')\r\n            ->assertSee('Qty: 2')->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('cart'))\r\n            ->assertOk()\r\n            ->assertSee('Demo Product')->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('cart'))\r\n            ->assertOk()->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('cart'))->assertOk",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "$this->actingAs",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_cart_items",
+          "callee": "route",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->seedRoles",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "User::factory()->create",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "User::factory",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$user->assignRole",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "Product::factory()->create",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "Product::factory",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "(new CartService)->addItem",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('cart.checkout'))\r\n            ->assertRedirect(route('dashboard'))\r\n            ->assertSessionHas('checkout_order_id')\r\n            ->assertSessionHas('checkout_customer', $user->name)->assertSessionHas",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('cart.checkout'))\r\n            ->assertRedirect(route('dashboard'))\r\n            ->assertSessionHas('checkout_order_id')->assertSessionHas",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('cart.checkout'))\r\n            ->assertRedirect(route('dashboard'))->assertSessionHas",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('cart.checkout'))->assertRedirect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->actingAs",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "route",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "route",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_customer_can_checkout_cart",
+          "callee": "(new CartService)->totalCents",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "Mail::fake",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "$this->seedRoles",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "$this->adminUser",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "User::factory()->create",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "User::factory",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "$user->assignRole",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "Product::factory()->create",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "Product::factory",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "(new CartService)->addItem",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "$this->actingAs",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "route",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "Mail::assertQueued",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_checkout_queues_admin_notification_email",
+          "callee": "$mail->hasTo",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "$this->adminUser",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('cart.checkout'))\r\n            ->assertRedirect(route('cart'))->assertSessionHas",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('cart.checkout'))->assertRedirect",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "$this->actingAs",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "route",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_checkout_empty_cart_redirects_with_error",
+          "callee": "route",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/DashboardPageTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "test_dashboard_includes_checkout_notification_payload",
+          "startLine": 13,
+          "endLine": 28,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DashboardPageTest",
+          "startLine": 9,
+          "endLine": 29,
+          "methods": [
+            "test_dashboard_includes_checkout_notification_payload"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardPageTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->adminUser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs($user)\r\n            ->withSession([\r\n                'checkout_order_id' => 42,\r\n                'checkout_customer' => 'Jane Doe',\r\n                'checkout_total' => '$25.00',\r\n            ])\r\n            ->get(route('dashboard'))\r\n            ->assertOk()\r\n            ->assertSee('id=\"checkout-order-notification\"', false)\r\n            ->assertSee('\"customer\":\"Jane Doe\"', false)->assertSee",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs($user)\r\n            ->withSession([\r\n                'checkout_order_id' => 42,\r\n                'checkout_customer' => 'Jane Doe',\r\n                'checkout_total' => '$25.00',\r\n            ])\r\n            ->get(route('dashboard'))\r\n            ->assertOk()\r\n            ->assertSee('id=\"checkout-order-notification\"', false)->assertSee",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs($user)\r\n            ->withSession([\r\n                'checkout_order_id' => 42,\r\n                'checkout_customer' => 'Jane Doe',\r\n                'checkout_total' => '$25.00',\r\n            ])\r\n            ->get(route('dashboard'))\r\n            ->assertOk()->assertSee",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs($user)\r\n            ->withSession([\r\n                'checkout_order_id' => 42,\r\n                'checkout_customer' => 'Jane Doe',\r\n                'checkout_total' => '$25.00',\r\n            ])\r\n            ->get(route('dashboard'))->assertOk",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs($user)\r\n            ->withSession([\r\n                'checkout_order_id' => 42,\r\n                'checkout_customer' => 'Jane Doe',\r\n                'checkout_total' => '$25.00',\r\n            ])->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs($user)->withSession",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_dashboard_includes_checkout_notification_payload",
+          "callee": "route",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/DashboardTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "test_guest_is_redirected_from_dashboard",
+          "startLine": 15,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_sees_kpi_cards",
+          "startLine": 22,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "test_dashboard_shows_recent_orders_from_database",
+          "startLine": 36,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "test_dashboard_shows_revenue_from_paid_orders",
+          "startLine": 56,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "test_dashboard_welcomes_user_by_name",
+          "startLine": 68,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "test_dashboard_links_to_filament_orders_admin",
+          "startLine": 78,
+          "endLine": 87,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "startLine": 89,
+          "endLine": 101,
+          "params": []
+        },
+        {
+          "name": "test_dashboard_includes_chart_sections_and_data",
+          "startLine": 103,
+          "endLine": 119,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DashboardTest",
+          "startLine": 11,
+          "endLine": 120,
+          "methods": [
+            "test_guest_is_redirected_from_dashboard",
+            "test_authenticated_user_sees_kpi_cards",
+            "test_dashboard_shows_recent_orders_from_database",
+            "test_dashboard_shows_revenue_from_paid_orders",
+            "test_dashboard_welcomes_user_by_name",
+            "test_dashboard_links_to_filament_orders_admin",
+            "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+            "test_dashboard_includes_chart_sections_and_data"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_guest_is_redirected_from_dashboard",
+          "callee": "$this->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_guest_is_redirected_from_dashboard",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$this->actingAs",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$response->assertOk",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$response->assertSee",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$response->assertSee",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$response->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$response->assertSee",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_authenticated_user_sees_kpi_cards",
+          "callee": "$response->assertSee",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "User::factory()->create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "User::factory",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "Order::factory()->create",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "Order::factory",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "Customer::factory",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "now",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$this->actingAs",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertOk",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertSee",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertSee",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertSee",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertSee",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertSee",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_dashboard_shows_recent_orders_from_database",
+          "callee": "$response->assertSee",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "User::factory()->create",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "User::factory",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "Order::factory",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "$this->actingAs",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "$response->assertOk",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_dashboard_shows_revenue_from_paid_orders",
+          "callee": "$response->assertSee",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_dashboard_welcomes_user_by_name",
+          "callee": "User::factory()->create",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_dashboard_welcomes_user_by_name",
+          "callee": "User::factory",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_dashboard_welcomes_user_by_name",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_dashboard_welcomes_user_by_name",
+          "callee": "$this->actingAs",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_dashboard_welcomes_user_by_name",
+          "callee": "$response->assertOk",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_dashboard_welcomes_user_by_name",
+          "callee": "$response->assertSee",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "User::factory()->create",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "User::factory",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "$this->actingAs",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "$response->assertOk",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "$response->assertSee",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_dashboard_links_to_filament_orders_admin",
+          "callee": "$response->assertSee",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "$this->adminUser",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "Customer::factory",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "Order::factory()->forCustomer($customer)->create",
+          "lineNumber": 95
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "Order::factory()->forCustomer",
+          "lineNumber": 95
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "Order::factory",
+          "lineNumber": 95
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "$this->actingAs($user)\n            ->get('/admin/orders')\n            ->assertOk()->assertSee",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "$this->actingAs($user)\n            ->get('/admin/orders')->assertOk",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_authenticated_user_can_reach_filament_orders_without_extra_login",
+          "callee": "$this->actingAs",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "User::factory()->create",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "User::factory",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "Order::factory",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "now",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$this->actingAs",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertOk",
+          "lineNumber": 110
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 111
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 113
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 114
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 116
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertSee",
+          "lineNumber": 117
+        },
+        {
+          "caller": "test_dashboard_includes_chart_sections_and_data",
+          "callee": "$response->assertDontSeeHtml",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 8,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Filament/AdminLoginTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 12,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "test_login_form_prefills_dev_credentials_when_enabled",
+          "startLine": 19,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_login_form_is_empty_when_dev_prefill_disabled",
+          "startLine": 34,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "test_admin_login_page_is_reachable",
+          "startLine": 45,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AdminLoginTest",
+          "startLine": 10,
+          "endLine": 49,
+          "methods": [
+            "setUp",
+            "test_login_form_prefills_dev_credentials_when_enabled",
+            "test_login_form_is_empty_when_dev_prefill_disabled",
+            "test_admin_login_page_is_reachable"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdminLoginTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 14
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::setCurrentPanel",
+          "lineNumber": 16
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::getPanel",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_login_form_prefills_dev_credentials_when_enabled",
+          "callee": "config",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_login_form_prefills_dev_credentials_when_enabled",
+          "callee": "Livewire::test(Login::class)->assertFormSet",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_form_prefills_dev_credentials_when_enabled",
+          "callee": "Livewire::test",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_form_is_empty_when_dev_prefill_disabled",
+          "callee": "config",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_login_form_is_empty_when_dev_prefill_disabled",
+          "callee": "Livewire::test(Login::class)->assertFormSet",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_login_form_is_empty_when_dev_prefill_disabled",
+          "callee": "Livewire::test",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_admin_login_page_is_reachable",
+          "callee": "$this->get('/admin/login')->assertOk",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_admin_login_page_is_reachable",
+          "callee": "$this->get",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Filament/OrderResourceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 85,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 20,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "test_guest_cannot_access_orders_index",
+          "startLine": 27,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_can_list_orders",
+          "startLine": 33,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_can_create_order",
+          "startLine": 46,
+          "endLine": 67,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_can_update_order",
+          "startLine": 69,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_can_delete_order",
+          "startLine": 90,
+          "endLine": 103,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderResourceTest",
+          "startLine": 16,
+          "endLine": 104,
+          "methods": [
+            "setUp",
+            "test_guest_cannot_access_orders_index",
+            "test_authenticated_user_can_list_orders",
+            "test_authenticated_user_can_create_order",
+            "test_authenticated_user_can_update_order",
+            "test_authenticated_user_can_delete_order"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderResourceTest",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 22
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::setCurrentPanel",
+          "lineNumber": 24
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::getPanel",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_guest_cannot_access_orders_index",
+          "callee": "$this->get(OrderResource::getUrl('index'))->assertRedirect",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_guest_cannot_access_orders_index",
+          "callee": "$this->get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_guest_cannot_access_orders_index",
+          "callee": "OrderResource::getUrl",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "$this->adminUser",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "Customer::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "Order::factory()->forCustomer($customer)->create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "Order::factory()->forCustomer",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "Order::factory",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "$this->actingAs($user)\r\n            ->get(OrderResource::getUrl('index'))\r\n            ->assertOk()->assertSee",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "$this->actingAs($user)\r\n            ->get(OrderResource::getUrl('index'))->assertOk",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "$this->actingAs",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_authenticated_user_can_list_orders",
+          "callee": "OrderResource::getUrl",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "$this->adminUser",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Customer::factory",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(CreateOrder::class)\r\n            ->fillForm([\r\n                'customer_id' => $customer->id,\r\n                'amount_cents' => 25_000,\r\n                'status' => 'paid',\r\n                'ordered_at' => now()->toDateTimeString(),\r\n            ])\r\n            ->call('create')->assertHasNoFormErrors",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(CreateOrder::class)\r\n            ->fillForm([\r\n                'customer_id' => $customer->id,\r\n                'amount_cents' => 25_000,\r\n                'status' => 'paid',\r\n                'ordered_at' => now()->toDateTimeString(),\r\n            ])->call",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(CreateOrder::class)->fillForm",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "now()->toDateTimeString",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "now",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_authenticated_user_can_create_order",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "$this->adminUser",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Customer::factory",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Customer::factory",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Order::factory()->forCustomer($before)->create",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Order::factory()->forCustomer",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Order::factory",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(EditOrder::class, ['record' => $order->getRouteKey()])\r\n            ->fillForm([\r\n                'customer_id' => $after->id,\r\n            ])\r\n            ->call('save')->assertHasNoFormErrors",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(EditOrder::class, ['record' => $order->getRouteKey()])\r\n            ->fillForm([\r\n                'customer_id' => $after->id,\r\n            ])->call",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(EditOrder::class, ['record' => $order->getRouteKey()])->fillForm",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "$order->getRouteKey",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_authenticated_user_can_update_order",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "$this->adminUser",
+          "lineNumber": 92
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "Order::factory()->create",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "Order::factory",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(EditOrder::class, ['record' => $order->getRouteKey()])->callAction",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "$order->getRouteKey",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_authenticated_user_can_delete_order",
+          "callee": "$this->assertDatabaseMissing",
+          "lineNumber": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 6,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Filament/PlaygroundPageTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 16,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "test_guest_cannot_access_playground",
+          "startLine": 23,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "test_admin_can_view_playground_in_local",
+          "startLine": 29,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "test_broadcast_action_warns_when_no_orders",
+          "startLine": 38,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_broadcast_action_dispatches_event_when_order_exists",
+          "startLine": 46,
+          "endLine": 56,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PlaygroundPageTest",
+          "startLine": 12,
+          "endLine": 57,
+          "methods": [
+            "setUp",
+            "test_guest_cannot_access_playground",
+            "test_admin_can_view_playground_in_local",
+            "test_broadcast_action_warns_when_no_orders",
+            "test_broadcast_action_dispatches_event_when_order_exists"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PlaygroundPageTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 18
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::setCurrentPanel",
+          "lineNumber": 20
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::getPanel",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_guest_cannot_access_playground",
+          "callee": "$this->get(Playground::getUrl())->assertRedirect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_guest_cannot_access_playground",
+          "callee": "$this->get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_guest_cannot_access_playground",
+          "callee": "Playground::getUrl",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "$this->actingAs($this->adminUser())\n            ->get(Playground::getUrl())\n            ->assertOk()\n            ->assertSee('Environment')->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "$this->actingAs($this->adminUser())\n            ->get(Playground::getUrl())\n            ->assertOk()->assertSee",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "$this->actingAs($this->adminUser())\n            ->get(Playground::getUrl())->assertOk",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "$this->actingAs($this->adminUser())->get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "$this->actingAs",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "$this->adminUser",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_admin_can_view_playground_in_local",
+          "callee": "Playground::getUrl",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_broadcast_action_warns_when_no_orders",
+          "callee": "Livewire::actingAs($this->adminUser())\n            ->test(Playground::class)\n            ->callAction('broadcastTest')->assertNotified",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_broadcast_action_warns_when_no_orders",
+          "callee": "Livewire::actingAs($this->adminUser())\n            ->test(Playground::class)->callAction",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_broadcast_action_warns_when_no_orders",
+          "callee": "Livewire::actingAs($this->adminUser())->test",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_broadcast_action_warns_when_no_orders",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_broadcast_action_warns_when_no_orders",
+          "callee": "$this->adminUser",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "Order::factory()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "Order::factory",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "Livewire::actingAs($this->adminUser())\n            ->test(Playground::class)\n            ->callAction('broadcastTest')->assertNotified",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "Livewire::actingAs($this->adminUser())\n            ->test(Playground::class)->callAction",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "Livewire::actingAs($this->adminUser())->test",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "$this->adminUser",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_broadcast_action_dispatches_event_when_order_exists",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Livewire/DashboardMetricsComponentTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "test_component_renders_kpis_without_poll_directive",
+          "startLine": 15,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "test_component_reflects_new_orders_after_refresh",
+          "startLine": 26,
+          "endLine": 39,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DashboardMetricsComponentTest",
+          "startLine": 11,
+          "endLine": 40,
+          "methods": [
+            "test_component_renders_kpis_without_poll_directive",
+            "test_component_reflects_new_orders_after_refresh"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardMetricsComponentTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "User::factory()->create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "User::factory",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "Livewire::test('dashboard-metrics')\n            ->assertSee('Total Revenue')\n            ->assertSee('Recent Orders')\n            ->assertSee('Updates in real time via Echo')->assertDontSeeHtml",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "Livewire::test('dashboard-metrics')\n            ->assertSee('Total Revenue')\n            ->assertSee('Recent Orders')->assertSee",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "Livewire::test('dashboard-metrics')\n            ->assertSee('Total Revenue')->assertSee",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "Livewire::test('dashboard-metrics')->assertSee",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_component_renders_kpis_without_poll_directive",
+          "callee": "Livewire::test",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "User::factory()->create",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "User::factory",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Order::factory",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Livewire::test('dashboard-metrics')->assertSee",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Livewire::test",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "Order::factory",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "$component->call('$refresh')->assertSee",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_component_reflects_new_orders_after_refresh",
+          "callee": "$component->call",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/ProfileTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 99,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "test_profile_page_is_displayed",
+          "startLine": 13,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_profile_information_can_be_updated",
+          "startLine": 24,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "startLine": 46,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "test_user_can_delete_their_account",
+          "startLine": 64,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_delete_account",
+          "startLine": 82,
+          "endLine": 98,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileTest",
+          "startLine": 9,
+          "endLine": 99,
+          "methods": [
+            "test_profile_page_is_displayed",
+            "test_profile_information_can_be_updated",
+            "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+            "test_user_can_delete_their_account",
+            "test_correct_password_must_be_provided_to_delete_account"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this\n            ->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$response->assertOk",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertNull",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->actingAs",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$user->refresh",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this\n            ->actingAs($user)->delete",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertGuest",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertNull",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$user->fresh",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->delete",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('userDeletion', 'password')->assertRedirect",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$user->fresh",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/RolePermissionTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "test_admin_role_has_access_admin_permission",
+          "startLine": 14,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_customer_role_cannot_access_admin_panel",
+          "startLine": 22,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_admin_has_manage_dev_tunnels_permission",
+          "startLine": 33,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "startLine": 40,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "RolePermissionTest",
+          "startLine": 10,
+          "endLine": 49,
+          "methods": [
+            "test_admin_role_has_access_admin_permission",
+            "test_customer_role_cannot_access_admin_panel",
+            "test_admin_has_manage_dev_tunnels_permission",
+            "test_staff_does_not_have_manage_dev_tunnels_permission"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RolePermissionTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_admin_role_has_access_admin_permission",
+          "callee": "$this->adminUser",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_admin_role_has_access_admin_permission",
+          "callee": "$this->assertTrue",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_admin_role_has_access_admin_permission",
+          "callee": "$admin->hasRole",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_admin_role_has_access_admin_permission",
+          "callee": "$this->assertTrue",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_admin_role_has_access_admin_permission",
+          "callee": "$admin->can",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "$this->seedRoles",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "$user->assignRole",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "$this->assertFalse",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "$user->can",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "$this->assertFalse",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "$user->canAccessPanel",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_customer_role_cannot_access_admin_panel",
+          "callee": "Filament::getPanel",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_admin_has_manage_dev_tunnels_permission",
+          "callee": "$this->adminUser",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_admin_has_manage_dev_tunnels_permission",
+          "callee": "$this->assertTrue",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_admin_has_manage_dev_tunnels_permission",
+          "callee": "$admin->can",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "callee": "$this->seedRoles",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "callee": "User::factory()->create",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "callee": "User::factory",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "callee": "$user->assignRole",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "callee": "$this->assertFalse",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_staff_does_not_have_manage_dev_tunnels_permission",
+          "callee": "$user->can",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/ShopPageTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "test_guest_is_redirected_from_shop",
+          "startLine": 16,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "test_authenticated_user_sees_active_products",
+          "startLine": 21,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "test_shop_can_filter_by_category",
+          "startLine": 43,
+          "endLine": 72,
+          "params": []
+        },
+        {
+          "name": "test_user_can_add_product_to_cart_from_shop",
+          "startLine": 74,
+          "endLine": 91,
+          "params": []
+        },
+        {
+          "name": "test_cannot_add_inactive_product_to_cart",
+          "startLine": 93,
+          "endLine": 103,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ShopPageTest",
+          "startLine": 12,
+          "endLine": 104,
+          "methods": [
+            "test_guest_is_redirected_from_shop",
+            "test_authenticated_user_sees_active_products",
+            "test_shop_can_filter_by_category",
+            "test_user_can_add_product_to_cart_from_shop",
+            "test_cannot_add_inactive_product_to_cart"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ShopPageTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_guest_is_redirected_from_shop",
+          "callee": "$this->get(route('shop.index'))->assertRedirect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_guest_is_redirected_from_shop",
+          "callee": "$this->get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_guest_is_redirected_from_shop",
+          "callee": "route",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->adminUser",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "Product::factory()->create",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "Product::factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "Product::factory()->create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "Product::factory",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index'))\r\n            ->assertOk()\r\n            ->assertSee('Visible Product')\r\n            ->assertDontSee('Hidden Product')->assertSee",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index'))\r\n            ->assertOk()\r\n            ->assertSee('Visible Product')->assertDontSee",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index'))\r\n            ->assertOk()->assertSee",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index'))->assertOk",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "$this->actingAs",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_authenticated_user_sees_active_products",
+          "callee": "route",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "$this->adminUser",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Category::factory()->create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Category::factory",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Category::factory()->create",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Category::factory",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Product::factory()->create",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Product::factory",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Product::factory()->create",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "Product::factory",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index', ['category' => 'electronics']))\r\n            ->assertOk()\r\n            ->assertSee('Headphones')->assertDontSee",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index', ['category' => 'electronics']))\r\n            ->assertOk()->assertSee",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "$this->actingAs($user)\r\n            ->get(route('shop.index', ['category' => 'electronics']))->assertOk",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "$this->actingAs",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_shop_can_filter_by_category",
+          "callee": "route",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$this->seedRoles",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "User::factory()->create",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "User::factory",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$user->assignRole",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "Product::factory()->create",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "Product::factory",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('shop.cart.add', $product), ['quantity' => 2])\r\n            ->assertRedirect(route('shop.index'))->assertSessionHas",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('shop.cart.add', $product), ['quantity' => 2])->assertRedirect",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$this->actingAs",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "route",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "route",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "$this->assertSame",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_user_can_add_product_to_cart_from_shop",
+          "callee": "(new CartService)->totalCents",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "$this->adminUser",
+          "lineNumber": 95
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "Product::factory()->create",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "Product::factory",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "$this->actingAs($user)\r\n            ->post(route('shop.cart.add', $product))->assertNotFound",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "$this->actingAs",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "route",
+          "lineNumber": 99
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_cannot_add_inactive_product_to_cart",
+          "callee": "(new CartService)->totalCents",
+          "lineNumber": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/TestCase.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "seedRoles",
+          "startLine": 11,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "adminUser",
+          "startLine": 16,
+          "endLine": 24,
+          "params": [
+            "$attributes"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestCase",
+          "startLine": 9,
+          "endLine": 25,
+          "methods": [
+            "seedRoles",
+            "adminUser"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TestCase",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedRoles",
+          "callee": "$this->seed",
+          "lineNumber": 13
+        },
+        {
+          "caller": "adminUser",
+          "callee": "$this->seedRoles",
+          "lineNumber": 18
+        },
+        {
+          "caller": "adminUser",
+          "callee": "User::factory()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "adminUser",
+          "callee": "User::factory",
+          "lineNumber": 20
+        },
+        {
+          "caller": "adminUser",
+          "callee": "$user->assignRole",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/CartServiceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "test_user_gets_a_persisted_cart",
+          "startLine": 15,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "test_add_item_increments_quantity_and_total",
+          "startLine": 26,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "test_clear_removes_all_items",
+          "startLine": 38,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartServiceTest",
+          "startLine": 11,
+          "endLine": 49,
+          "methods": [
+            "test_user_gets_a_persisted_cart",
+            "test_add_item_increments_quantity_and_total",
+            "test_clear_removes_all_items"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartServiceTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_user_gets_a_persisted_cart",
+          "callee": "User::factory()->create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_user_gets_a_persisted_cart",
+          "callee": "User::factory",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_user_gets_a_persisted_cart",
+          "callee": "$service->forUser",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_user_gets_a_persisted_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_user_gets_a_persisted_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_user_gets_a_persisted_cart",
+          "callee": "$service->forUser",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "User::factory()->create",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "User::factory",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "Product::factory()->create",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "Product::factory",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "$service->addItem",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "$service->addItem",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "$this->assertSame",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_add_item_increments_quantity_and_total",
+          "callee": "$service->totalCents",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "User::factory()->create",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "User::factory",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "Product::factory()->create",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "Product::factory",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "$service->addItem",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "$service->clear",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "$this->assertSame",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_clear_removes_all_items",
+          "callee": "$service->totalCents",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/CheckoutServiceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "test_checkout_throws_when_cart_is_empty",
+          "startLine": 20,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "test_checkout_creates_order_payment_and_clears_cart",
+          "startLine": 31,
+          "endLine": 74,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CheckoutServiceTest",
+          "startLine": 16,
+          "endLine": 75,
+          "methods": [
+            "test_checkout_throws_when_cart_is_empty",
+            "test_checkout_creates_order_payment_and_clears_cart"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CheckoutServiceTest",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_checkout_throws_when_cart_is_empty",
+          "callee": "User::factory()->create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_checkout_throws_when_cart_is_empty",
+          "callee": "User::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_checkout_throws_when_cart_is_empty",
+          "callee": "$this->expectException",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_checkout_throws_when_cart_is_empty",
+          "callee": "$this->expectExceptionMessage",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_checkout_throws_when_cart_is_empty",
+          "callee": "$service->checkout",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "User::factory()->create",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "User::factory",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "Product::factory()->create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "Product::factory",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$cartService->addItem",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "(new CheckoutService($cartService))->checkout",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertInstanceOf",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "Payment::query()->where('order_id', $order->id)->first",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "Payment::query()->where",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "Payment::query",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertSame",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$cartService->totalCents",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertDatabaseCount",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$product->getTranslation",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertCount",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$this->assertInstanceOf",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_checkout_creates_order_payment_and_clears_cart",
+          "callee": "$order->items->first",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/CustomerTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "test_customer_has_many_orders",
+          "startLine": 14,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_order_belongs_to_customer",
+          "startLine": 24,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomerTest",
+          "startLine": 10,
+          "endLine": 32,
+          "methods": [
+            "test_customer_has_many_orders",
+            "test_order_belongs_to_customer"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomerTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "Customer::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "Order::factory()->count(2)->forCustomer($customer)->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "Order::factory()->count(2)->forCustomer",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "Order::factory()->count",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "Order::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "$this->assertCount",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "$this->assertTrue",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_customer_has_many_orders",
+          "callee": "$customer->orders->every",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "Customer::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "Order::factory()->forCustomer($customer)->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "Order::factory()->forCustomer",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "Order::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "$this->assertTrue",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "$order->customer->is",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_order_belongs_to_customer",
+          "callee": "$this->assertSame",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/DashboardMetricsServiceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 129,
+      "nonEmptyLines": 96,
+      "functions": [
+        {
+          "name": "test_total_revenue_sums_paid_orders_only",
+          "startLine": 16,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "test_orders_today_counts_orders_on_current_date",
+          "startLine": 29,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "test_active_users_reflects_user_count",
+          "startLine": 42,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "test_conversion_rate_is_paid_over_total_orders",
+          "startLine": 53,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "test_recent_orders_returns_latest_ten_by_date",
+          "startLine": 65,
+          "endLine": 81,
+          "params": []
+        },
+        {
+          "name": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "startLine": 83,
+          "endLine": 100,
+          "params": []
+        },
+        {
+          "name": "test_status_breakdown_counts_orders_by_status",
+          "startLine": 102,
+          "endLine": 112,
+          "params": []
+        },
+        {
+          "name": "test_get_latest_order_id_returns_zero_when_empty",
+          "startLine": 114,
+          "endLine": 117,
+          "params": []
+        },
+        {
+          "name": "test_get_orders_newer_than_returns_only_new_orders",
+          "startLine": 119,
+          "endLine": 128,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DashboardMetricsServiceTest",
+          "startLine": 12,
+          "endLine": 129,
+          "methods": [
+            "test_total_revenue_sums_paid_orders_only",
+            "test_orders_today_counts_orders_on_current_date",
+            "test_active_users_reflects_user_count",
+            "test_conversion_rate_is_paid_over_total_orders",
+            "test_recent_orders_returns_latest_ten_by_date",
+            "test_revenue_trend_returns_seven_days_of_paid_revenue",
+            "test_status_breakdown_counts_orders_by_status",
+            "test_get_latest_order_id_returns_zero_when_empty",
+            "test_get_orders_newer_than_returns_only_new_orders"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardMetricsServiceTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory()->pending()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory()->pending",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "Order::factory",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "(new DashboardMetricsService)->getKpis",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "collect($kpis)->firstWhere",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "collect",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_total_revenue_sums_paid_orders_only",
+          "callee": "$this->assertSame",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "Order::factory()->create",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "Order::factory",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "now",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "Order::factory()->create",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "Order::factory",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "now",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "Order::factory()->create",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "Order::factory",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "now()->subDay",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "now",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "(new DashboardMetricsService)->getKpis",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "collect($kpis)->firstWhere",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "collect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_orders_today_counts_orders_on_current_date",
+          "callee": "$this->assertSame",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "User::factory()->count(3)->create",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "User::factory()->count",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "User::factory",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "(new DashboardMetricsService)->getKpis",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "collect($kpis)->firstWhere",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "collect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_active_users_reflects_user_count",
+          "callee": "$this->assertSame",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory()->paid()->count(3)->create",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory()->paid()->count",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory()->pending()->count(1)->create",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory()->pending()->count",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory()->pending",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "Order::factory",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "(new DashboardMetricsService)->getKpis",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "collect($kpis)->firstWhere",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "collect",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_conversion_rate_is_paid_over_total_orders",
+          "callee": "$this->assertSame",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Customer::factory",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Customer::factory",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Order::factory()->forCustomer($olderCustomer)->create",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Order::factory()->forCustomer",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Order::factory",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "now()->subDays",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "now",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Order::factory()->forCustomer($recentCustomer)->create",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Order::factory()->forCustomer",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "Order::factory",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "now",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "(new DashboardMetricsService)->getRecentOrders",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "$this->assertSame",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_recent_orders_returns_latest_ten_by_date",
+          "callee": "$this->assertSame",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "Order::factory",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "today",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "Order::factory",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "today()->subDay",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "today",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "(new DashboardMetricsService)->getRevenueTrend",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "$this->assertCount",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "$this->assertCount",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "$this->assertSame",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_revenue_trend_returns_seven_days_of_paid_revenue",
+          "callee": "$this->assertSame",
+          "lineNumber": 99
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->paid()->count(2)->create",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->paid()->count",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->pending()->count(1)->create",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->pending()->count",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->pending",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->refunded()->count(1)->create",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->refunded()->count",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory()->refunded",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "Order::factory",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "(new DashboardMetricsService)->getStatusBreakdown",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "$this->assertSame",
+          "lineNumber": 110
+        },
+        {
+          "caller": "test_status_breakdown_counts_orders_by_status",
+          "callee": "$this->assertSame",
+          "lineNumber": 111
+        },
+        {
+          "caller": "test_get_latest_order_id_returns_zero_when_empty",
+          "callee": "$this->assertSame",
+          "lineNumber": 116
+        },
+        {
+          "caller": "test_get_latest_order_id_returns_zero_when_empty",
+          "callee": "(new DashboardMetricsService)->getLatestOrderId",
+          "lineNumber": 116
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "Order::factory()->create",
+          "lineNumber": 121
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "Order::factory",
+          "lineNumber": 121
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "Order::factory()->create",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "Order::factory",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "(new DashboardMetricsService)->getOrdersNewerThan",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "$this->assertCount",
+          "lineNumber": 126
+        },
+        {
+          "caller": "test_get_orders_newer_than_returns_only_new_orders",
+          "callee": "$this->assertSame",
+          "lineNumber": 127
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 9,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/NewOrderCreatedBroadcastTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "test_checkout_dispatches_new_order_created_event",
+          "startLine": 20,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_new_order_created_broadcast_payload",
+          "startLine": 34,
+          "endLine": 46,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "NewOrderCreatedBroadcastTest",
+          "startLine": 16,
+          "endLine": 47,
+          "methods": [
+            "test_checkout_dispatches_new_order_created_event",
+            "test_new_order_created_broadcast_payload"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NewOrderCreatedBroadcastTest",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "Event::fake",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "Product::factory()->create",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "Product::factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "$cartService->addItem",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "(new CheckoutService($cartService, new OrderMailNotifier))->checkout",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "Event::assertDispatched",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_checkout_dispatches_new_order_created_event",
+          "callee": "$event->order->is",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "Order::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "$order->load",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "$this->assertSame",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "$event->broadcastAs",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "$this->assertSame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "$order->formattedAmount",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_new_order_created_broadcast_payload",
+          "callee": "$event->broadcastWith",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/OrderMailNotifierTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "test_checkout_queues_new_order_mail_to_admins",
+          "startLine": 20,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "test_checkout_does_not_queue_mail_when_no_admins",
+          "startLine": 43,
+          "endLine": 55,
+          "params": []
+        },
+        {
+          "name": "test_new_order_mail_subject_includes_order_id",
+          "startLine": 57,
+          "endLine": 64,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderMailNotifierTest",
+          "startLine": 16,
+          "endLine": 65,
+          "methods": [
+            "test_checkout_queues_new_order_mail_to_admins",
+            "test_checkout_does_not_queue_mail_when_no_admins",
+            "test_new_order_mail_subject_includes_order_id"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderMailNotifierTest",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "Mail::fake",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$this->adminUser",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$this->adminUser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "User::factory()->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "User::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$this->seedRoles",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$customer->assignRole",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "Product::factory()->create",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "Product::factory",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$cartService->addItem",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$checkout->checkout",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "Mail::assertQueued",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "Mail::assertQueued",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$mail->hasTo",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$mail->order->is",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "Mail::assertQueued",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_checkout_queues_new_order_mail_to_admins",
+          "callee": "$mail->hasTo",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "Mail::fake",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "User::factory()->create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "User::factory",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "Product::factory()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "Product::factory",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "$cartService->addItem",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "(new CheckoutService($cartService, new OrderMailNotifier))->checkout",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_checkout_does_not_queue_mail_when_no_admins",
+          "callee": "Mail::assertNothingQueued",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_new_order_mail_subject_includes_order_id",
+          "callee": "Order::factory()->paid()->create",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_new_order_mail_subject_includes_order_id",
+          "callee": "Order::factory()->paid",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_new_order_mail_subject_includes_order_id",
+          "callee": "Order::factory",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_new_order_mail_subject_includes_order_id",
+          "callee": "$order->load",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_new_order_mail_subject_includes_order_id",
+          "callee": "$this->assertSame",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_new_order_mail_subject_includes_order_id",
+          "callee": "$mail->envelope",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/SsoAuthenticatorTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "test_authenticate_creates_user_with_customer_role",
+          "startLine": 16,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "SsoAuthenticatorTest",
+          "startLine": 12,
+          "endLine": 35,
+          "methods": [
+            "test_authenticate_creates_user_with_customer_role"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SsoAuthenticatorTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "$this->seed",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "app(SsoAuthenticator::class)->authenticate",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "app",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "$this->assertSame",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "$this->assertTrue",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "$user->hasRole",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_authenticate_creates_user_with_customer_role",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/TranslationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "test_category_name_is_translatable",
+          "startLine": 14,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_product_name_and_description_are_translatable",
+          "startLine": 24,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TranslationTest",
+          "startLine": 10,
+          "endLine": 34,
+          "methods": [
+            "test_category_name_is_translatable",
+            "test_product_name_and_description_are_translatable"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TranslationTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_category_name_is_translatable",
+          "callee": "Category::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_category_name_is_translatable",
+          "callee": "Category::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_category_name_is_translatable",
+          "callee": "$this->assertSame",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_category_name_is_translatable",
+          "callee": "$category->getTranslation",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_category_name_is_translatable",
+          "callee": "$this->assertSame",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_category_name_is_translatable",
+          "callee": "$category->getTranslation",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_product_name_and_description_are_translatable",
+          "callee": "Product::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_product_name_and_description_are_translatable",
+          "callee": "Product::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_product_name_and_description_are_translatable",
+          "callee": "$this->assertSame",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_product_name_and_description_are_translatable",
+          "callee": "$product->getTranslation",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_product_name_and_description_are_translatable",
+          "callee": "$this->assertSame",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_product_name_and_description_are_translatable",
+          "callee": "$product->getTranslation",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

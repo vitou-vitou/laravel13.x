@@ -1,0 +1,541 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/CreatePayment.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "CreatePayment",
+          "startLine": 8,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreatePayment",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/EditPayment.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EditPayment",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EditPayment",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "DeleteAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/ListPayments.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ListPayments",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ListPayments",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "CreateAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Payments/PaymentResource.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 27,
+          "endLine": 30,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 32,
+          "endLine": 35,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "getRelations",
+          "startLine": 37,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "getPages",
+          "startLine": 44,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PaymentResource",
+          "startLine": 17,
+          "endLine": 52,
+          "methods": [
+            "form",
+            "table",
+            "getRelations",
+            "getPages"
+          ],
+          "properties": [
+            "model",
+            "navigationIcon",
+            "navigationGroup",
+            "navigationSort"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PaymentResource",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "form",
+          "callee": "PaymentForm::configure",
+          "lineNumber": 29
+        },
+        {
+          "caller": "table",
+          "callee": "PaymentsTable::configure",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getPages",
+          "callee": "ListPayments::route",
+          "lineNumber": 47
+        },
+        {
+          "caller": "getPages",
+          "callee": "CreatePayment::route",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getPages",
+          "callee": "EditPayment::route",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Payments/Schemas/PaymentForm.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 11,
+          "endLine": 43,
+          "params": [
+            "$schema"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PaymentForm",
+          "startLine": 9,
+          "endLine": 44,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PaymentForm",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$schema->components",
+          "lineNumber": 13
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('order_id')\n                ->relationship('order', 'id')\n                ->getOptionLabelFromRecordUsing(fn ($record) => \"#{$record->id} — {$record->customer->name}\")\n                ->searchable()\n                ->preload()->required",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('order_id')\n                ->relationship('order', 'id')\n                ->getOptionLabelFromRecordUsing(fn ($record) => \"#{$record->id} — {$record->customer->name}\")\n                ->searchable()->preload",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('order_id')\n                ->relationship('order', 'id')\n                ->getOptionLabelFromRecordUsing(fn ($record) => \"#{$record->id} — {$record->customer->name}\")->searchable",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('order_id')\n                ->relationship('order', 'id')->getOptionLabelFromRecordUsing",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('order_id')->relationship",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('amount_cents')\n                ->label('Amount (cents)')\n                ->numeric()\n                ->required()->minValue",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('amount_cents')\n                ->label('Amount (cents)')\n                ->numeric()->required",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('amount_cents')\n                ->label('Amount (cents)')->numeric",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('amount_cents')->label",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('status')\n                ->options([\n                    'pending' => 'Pending',\n                    'completed' => 'Completed',\n                    'failed' => 'Failed',\n                ])\n                ->required()->native",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('status')\n                ->options([\n                    'pending' => 'Pending',\n                    'completed' => 'Completed',\n                    'failed' => 'Failed',\n                ])->required",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('status')->options",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('method')\n                ->options([\n                    'card' => 'Card',\n                    'manual' => 'Manual',\n                ])\n                ->required()->native",
+          "lineNumber": 33
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('method')\n                ->options([\n                    'card' => 'Card',\n                    'manual' => 'Manual',\n                ])->required",
+          "lineNumber": 33
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('method')->options",
+          "lineNumber": 33
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make",
+          "lineNumber": 33
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('reference')->maxLength",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Payments/Tables/PaymentsTable.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 14,
+          "endLine": 43,
+          "params": [
+            "$table"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PaymentsTable",
+          "startLine": 12,
+          "endLine": 44,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PaymentsTable",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('order.id')->label('Order #')->sortable(),\n                TextColumn::make('order.customer.name')->label('Customer'),\n                TextColumn::make('amount_cents')\n                    ->label('Amount')\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2)),\n                TextColumn::make('status')->badge(),\n                TextColumn::make('method'),\n                TextColumn::make('reference')->placeholder('—'),\n            ])\n            ->filters([\n                SelectFilter::make('status')\n                    ->options([\n                        'pending' => 'Pending',\n                        'completed' => 'Completed',\n                        'failed' => 'Failed',\n                    ]),\n            ])\n            ->recordActions([\n                EditAction::make(),\n            ])->toolbarActions",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('order.id')->label('Order #')->sortable(),\n                TextColumn::make('order.customer.name')->label('Customer'),\n                TextColumn::make('amount_cents')\n                    ->label('Amount')\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2)),\n                TextColumn::make('status')->badge(),\n                TextColumn::make('method'),\n                TextColumn::make('reference')->placeholder('—'),\n            ])\n            ->filters([\n                SelectFilter::make('status')\n                    ->options([\n                        'pending' => 'Pending',\n                        'completed' => 'Completed',\n                        'failed' => 'Failed',\n                    ]),\n            ])->recordActions",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('order.id')->label('Order #')->sortable(),\n                TextColumn::make('order.customer.name')->label('Customer'),\n                TextColumn::make('amount_cents')\n                    ->label('Amount')\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2)),\n                TextColumn::make('status')->badge(),\n                TextColumn::make('method'),\n                TextColumn::make('reference')->placeholder('—'),\n            ])->filters",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "$table->columns",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('order.id')->label('Order #')->sortable",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('order.id')->label",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('order.customer.name')->label",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('amount_cents')\n                    ->label('Amount')->formatStateUsing",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('amount_cents')->label",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "number_format",
+          "lineNumber": 22
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('status')->badge",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('reference')->placeholder",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "SelectFilter::make('status')->options",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "SelectFilter::make",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "EditAction::make",
+          "lineNumber": 36
+        },
+        {
+          "caller": "configure",
+          "callee": "BulkActionGroup::make",
+          "lineNumber": 39
+        },
+        {
+          "caller": "configure",
+          "callee": "DeleteBulkAction::make",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,1559 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/app/Filament/Forms/TranslatableFields.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "text",
+          "startLine": 13,
+          "endLine": 27,
+          "params": [
+            "$field",
+            "$label",
+            "$textarea"
+          ]
+        },
+        {
+          "name": "collapse",
+          "startLine": 34,
+          "endLine": 63,
+          "params": [
+            "$data",
+            "$fields",
+            "$locales"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TranslatableFields",
+          "startLine": 8,
+          "endLine": 64,
+          "methods": [
+            "text",
+            "collapse"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TranslatableFields",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "text",
+          "callee": "collect($locales)->map(function (string $localeLabel, string $locale) use ($field, $label, $textarea) {\r\n            $component = $textarea\r\n                ? Textarea::make(\"{$field}.{$locale}\")\r\n                : TextInput::make(\"{$field}.{$locale}\");\r\n\r\n            return $component\r\n                ->label(\"{$label} ({$localeLabel})\")\r\n                ->required($locale === 'en')\r\n                ->maxLength($textarea ? null : 255);\r\n        })->all",
+          "lineNumber": 17
+        },
+        {
+          "caller": "text",
+          "callee": "collect($locales)->map",
+          "lineNumber": 17
+        },
+        {
+          "caller": "text",
+          "callee": "collect",
+          "lineNumber": 17
+        },
+        {
+          "caller": "text",
+          "callee": "Textarea::make",
+          "lineNumber": 19
+        },
+        {
+          "caller": "text",
+          "callee": "TextInput::make",
+          "lineNumber": 20
+        },
+        {
+          "caller": "text",
+          "callee": "$component\r\n                ->label(\"{$label} ({$localeLabel})\")\r\n                ->required($locale === 'en')->maxLength",
+          "lineNumber": 22
+        },
+        {
+          "caller": "text",
+          "callee": "$component\r\n                ->label(\"{$label} ({$localeLabel})\")->required",
+          "lineNumber": 22
+        },
+        {
+          "caller": "text",
+          "callee": "$component->label",
+          "lineNumber": 22
+        },
+        {
+          "caller": "collapse",
+          "callee": "isset",
+          "lineNumber": 37
+        },
+        {
+          "caller": "collapse",
+          "callee": "is_array",
+          "lineNumber": 37
+        },
+        {
+          "caller": "collapse",
+          "callee": "collect($data[$field])\r\n                    ->only($locales)\r\n                    ->filter(fn ($value) => $value !== null && $value !== '')->all",
+          "lineNumber": 38
+        },
+        {
+          "caller": "collapse",
+          "callee": "collect($data[$field])\r\n                    ->only($locales)->filter",
+          "lineNumber": 38
+        },
+        {
+          "caller": "collapse",
+          "callee": "collect($data[$field])->only",
+          "lineNumber": 38
+        },
+        {
+          "caller": "collapse",
+          "callee": "collect",
+          "lineNumber": 38
+        },
+        {
+          "caller": "collapse",
+          "callee": "array_key_exists",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/CategoryResource.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 28,
+          "endLine": 31,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 33,
+          "endLine": 36,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "getRelations",
+          "startLine": 38,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "getPages",
+          "startLine": 45,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CategoryResource",
+          "startLine": 18,
+          "endLine": 53,
+          "methods": [
+            "form",
+            "table",
+            "getRelations",
+            "getPages"
+          ],
+          "properties": [
+            "model",
+            "navigationIcon",
+            "navigationGroup",
+            "navigationSort"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CategoryResource",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "form",
+          "callee": "CategoryForm::configure",
+          "lineNumber": 30
+        },
+        {
+          "caller": "table",
+          "callee": "CategoriesTable::configure",
+          "lineNumber": 35
+        },
+        {
+          "caller": "getPages",
+          "callee": "ListCategories::route",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getPages",
+          "callee": "CreateCategory::route",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getPages",
+          "callee": "EditCategory::route",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/CreateCategory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "CreateCategory",
+          "startLine": 8,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreateCategory",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/EditCategory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EditCategory",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EditCategory",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "DeleteAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/ListCategories.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ListCategories",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ListCategories",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "CreateAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/RelationManagers/ProductsRelationManager.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 21,
+          "endLine": 37,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 39,
+          "endLine": 61,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "mapProductData",
+          "startLine": 67,
+          "endLine": 75,
+          "params": [
+            "$data"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductsRelationManager",
+          "startLine": 17,
+          "endLine": 76,
+          "methods": [
+            "form",
+            "table",
+            "mapProductData"
+          ],
+          "properties": [
+            "relationship"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductsRelationManager",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "form",
+          "callee": "$schema->components",
+          "lineNumber": 23
+        },
+        {
+          "caller": "form",
+          "callee": "TranslatableFields::text",
+          "lineNumber": 24
+        },
+        {
+          "caller": "form",
+          "callee": "TranslatableFields::text",
+          "lineNumber": 25
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make('slug')\r\n                ->required()->maxLength",
+          "lineNumber": 26
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make('slug')->required",
+          "lineNumber": 26
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make",
+          "lineNumber": 26
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make('price_cents')\r\n                ->label('Price (cents)')\r\n                ->numeric()\r\n                ->required()->minValue",
+          "lineNumber": 29
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make('price_cents')\r\n                ->label('Price (cents)')\r\n                ->numeric()->required",
+          "lineNumber": 29
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make('price_cents')\r\n                ->label('Price (cents)')->numeric",
+          "lineNumber": 29
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make('price_cents')->label",
+          "lineNumber": 29
+        },
+        {
+          "caller": "form",
+          "callee": "TextInput::make",
+          "lineNumber": 29
+        },
+        {
+          "caller": "form",
+          "callee": "Toggle::make('is_active')->default",
+          "lineNumber": 34
+        },
+        {
+          "caller": "form",
+          "callee": "Toggle::make",
+          "lineNumber": 34
+        },
+        {
+          "caller": "table",
+          "callee": "$table\r\n            ->columns([\r\n                TextColumn::make('name')\r\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))\r\n                    ->searchable(),\r\n                TextColumn::make('price_cents')\r\n                    ->label('Price')\r\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2))\r\n                    ->sortable(),\r\n                IconColumn::make('is_active')->boolean(),\r\n            ])\r\n            ->headerActions([\r\n                CreateAction::make()\r\n                    ->mutateDataUsing(fn (array $data): array => self::mapProductData($data)),\r\n            ])->recordActions",
+          "lineNumber": 41
+        },
+        {
+          "caller": "table",
+          "callee": "$table\r\n            ->columns([\r\n                TextColumn::make('name')\r\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))\r\n                    ->searchable(),\r\n                TextColumn::make('price_cents')\r\n                    ->label('Price')\r\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2))\r\n                    ->sortable(),\r\n                IconColumn::make('is_active')->boolean(),\r\n            ])->headerActions",
+          "lineNumber": 41
+        },
+        {
+          "caller": "table",
+          "callee": "$table->columns",
+          "lineNumber": 41
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make('name')\r\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))->searchable",
+          "lineNumber": 43
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make('name')->formatStateUsing",
+          "lineNumber": 43
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make",
+          "lineNumber": 43
+        },
+        {
+          "caller": "table",
+          "callee": "$record->getTranslation",
+          "lineNumber": 44
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make('price_cents')\r\n                    ->label('Price')\r\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2))->sortable",
+          "lineNumber": 46
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make('price_cents')\r\n                    ->label('Price')->formatStateUsing",
+          "lineNumber": 46
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make('price_cents')->label",
+          "lineNumber": 46
+        },
+        {
+          "caller": "table",
+          "callee": "TextColumn::make",
+          "lineNumber": 46
+        },
+        {
+          "caller": "table",
+          "callee": "number_format",
+          "lineNumber": 48
+        },
+        {
+          "caller": "table",
+          "callee": "IconColumn::make('is_active')->boolean",
+          "lineNumber": 50
+        },
+        {
+          "caller": "table",
+          "callee": "IconColumn::make",
+          "lineNumber": 50
+        },
+        {
+          "caller": "table",
+          "callee": "CreateAction::make()->mutateDataUsing",
+          "lineNumber": 53
+        },
+        {
+          "caller": "table",
+          "callee": "CreateAction::make",
+          "lineNumber": 53
+        },
+        {
+          "caller": "table",
+          "callee": "self::mapProductData",
+          "lineNumber": 54
+        },
+        {
+          "caller": "table",
+          "callee": "EditAction::make()->mutateDataUsing",
+          "lineNumber": 57
+        },
+        {
+          "caller": "table",
+          "callee": "EditAction::make",
+          "lineNumber": 57
+        },
+        {
+          "caller": "table",
+          "callee": "self::mapProductData",
+          "lineNumber": 58
+        },
+        {
+          "caller": "table",
+          "callee": "DeleteAction::make",
+          "lineNumber": 59
+        },
+        {
+          "caller": "mapProductData",
+          "callee": "TranslatableFields::collapse",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/Schemas/CategoryForm.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 11,
+          "endLine": 20,
+          "params": [
+            "$schema"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CategoryForm",
+          "startLine": 9,
+          "endLine": 21,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CategoryForm",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$schema->components",
+          "lineNumber": 13
+        },
+        {
+          "caller": "configure",
+          "callee": "TranslatableFields::text",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('slug')\n                ->required()\n                ->maxLength(255)->unique",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('slug')\n                ->required()->maxLength",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('slug')->required",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Categories/Tables/CategoriesTable.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 13,
+          "endLine": 31,
+          "params": [
+            "$table"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CategoriesTable",
+          "startLine": 11,
+          "endLine": 32,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CategoriesTable",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('name')\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))\n                    ->searchable(),\n                TextColumn::make('slug')->searchable(),\n                TextColumn::make('products_count')->counts('products')->label('Products'),\n            ])\n            ->recordActions([\n                EditAction::make(),\n            ])->toolbarActions",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('name')\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))\n                    ->searchable(),\n                TextColumn::make('slug')->searchable(),\n                TextColumn::make('products_count')->counts('products')->label('Products'),\n            ])->recordActions",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "$table->columns",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))->searchable",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->formatStateUsing",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->getTranslation",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('slug')->searchable",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 20
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('products_count')->counts('products')->label",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('products_count')->counts",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "EditAction::make",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "BulkActionGroup::make",
+          "lineNumber": 27
+        },
+        {
+          "caller": "configure",
+          "callee": "DeleteBulkAction::make",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Products/Pages/CreateProduct.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "CreateProduct",
+          "startLine": 8,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreateProduct",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Products/Pages/EditProduct.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EditProduct",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EditProduct",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "DeleteAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Products/Pages/ListProducts.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ListProducts",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ListProducts",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "CreateAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Products/ProductResource.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 27,
+          "endLine": 30,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 32,
+          "endLine": 35,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "getRelations",
+          "startLine": 37,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "getPages",
+          "startLine": 44,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductResource",
+          "startLine": 17,
+          "endLine": 52,
+          "methods": [
+            "form",
+            "table",
+            "getRelations",
+            "getPages"
+          ],
+          "properties": [
+            "model",
+            "navigationIcon",
+            "navigationGroup",
+            "navigationSort"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductResource",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "form",
+          "callee": "ProductForm::configure",
+          "lineNumber": 29
+        },
+        {
+          "caller": "table",
+          "callee": "ProductsTable::configure",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getPages",
+          "callee": "ListProducts::route",
+          "lineNumber": 47
+        },
+        {
+          "caller": "getPages",
+          "callee": "CreateProduct::route",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getPages",
+          "callee": "EditProduct::route",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Products/Schemas/ProductForm.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 13,
+          "endLine": 36,
+          "params": [
+            "$schema"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductForm",
+          "startLine": 11,
+          "endLine": 37,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductForm",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$schema->components",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('category_id')\n                ->relationship('category', 'slug')\n                ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('name', 'en'))\n                ->searchable()\n                ->preload()->required",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('category_id')\n                ->relationship('category', 'slug')\n                ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('name', 'en'))\n                ->searchable()->preload",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('category_id')\n                ->relationship('category', 'slug')\n                ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('name', 'en'))->searchable",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('category_id')\n                ->relationship('category', 'slug')->getOptionLabelFromRecordUsing",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make('category_id')->relationship",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "Select::make",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->getTranslation",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TranslatableFields::text",
+          "lineNumber": 22
+        },
+        {
+          "caller": "configure",
+          "callee": "TranslatableFields::text",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('slug')\n                ->required()\n                ->maxLength(255)->unique",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('slug')\n                ->required()->maxLength",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('slug')->required",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('price_cents')\n                ->label('Price (cents)')\n                ->numeric()\n                ->required()->minValue",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('price_cents')\n                ->label('Price (cents)')\n                ->numeric()->required",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('price_cents')\n                ->label('Price (cents)')->numeric",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('price_cents')->label",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "Toggle::make('is_active')->default",
+          "lineNumber": 33
+        },
+        {
+          "caller": "configure",
+          "callee": "Toggle::make",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Products/Tables/ProductsTable.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 14,
+          "endLine": 38,
+          "params": [
+            "$table"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductsTable",
+          "startLine": 12,
+          "endLine": 39,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductsTable",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('name')\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))\n                    ->searchable(),\n                TextColumn::make('category.name')\n                    ->formatStateUsing(fn ($state, $record) => $record->category?->getTranslation('name', 'en'))\n                    ->label('Category'),\n                TextColumn::make('price_cents')\n                    ->label('Price')\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2))\n                    ->sortable(),\n                IconColumn::make('is_active')->boolean(),\n            ])\n            ->recordActions([\n                EditAction::make(),\n            ])->toolbarActions",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('name')\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))\n                    ->searchable(),\n                TextColumn::make('category.name')\n                    ->formatStateUsing(fn ($state, $record) => $record->category?->getTranslation('name', 'en'))\n                    ->label('Category'),\n                TextColumn::make('price_cents')\n                    ->label('Price')\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2))\n                    ->sortable(),\n                IconColumn::make('is_active')->boolean(),\n            ])->recordActions",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "$table->columns",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')\n                    ->formatStateUsing(fn ($state, $record) => $record->getTranslation('name', 'en'))->searchable",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->formatStateUsing",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->getTranslation",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('category.name')\n                    ->formatStateUsing(fn ($state, $record) => $record->category?->getTranslation('name', 'en'))->label",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('category.name')->formatStateUsing",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('price_cents')\n                    ->label('Price')\n                    ->formatStateUsing(fn (int $state): string => '$'.number_format($state / 100, 2))->sortable",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('price_cents')\n                    ->label('Price')->formatStateUsing",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('price_cents')->label",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "number_format",
+          "lineNumber": 26
+        },
+        {
+          "caller": "configure",
+          "callee": "IconColumn::make('is_active')->boolean",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "IconColumn::make",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "EditAction::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "configure",
+          "callee": "BulkActionGroup::make",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configure",
+          "callee": "DeleteBulkAction::make",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Filament/CategoryResourceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 67,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 19,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "test_guest_cannot_access_categories_index",
+          "startLine": 26,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "test_category_edit_shows_products_relation_manager",
+          "startLine": 32,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "test_category_products_relation_manager_can_create_product",
+          "startLine": 49,
+          "endLine": 77,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CategoryResourceTest",
+          "startLine": 15,
+          "endLine": 78,
+          "methods": [
+            "setUp",
+            "test_guest_cannot_access_categories_index",
+            "test_category_edit_shows_products_relation_manager",
+            "test_category_products_relation_manager_can_create_product"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CategoryResourceTest",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 21
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::setCurrentPanel",
+          "lineNumber": 23
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::getPanel",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_guest_cannot_access_categories_index",
+          "callee": "$this->get(CategoryResource::getUrl('index'))->assertRedirect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_guest_cannot_access_categories_index",
+          "callee": "$this->get",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_guest_cannot_access_categories_index",
+          "callee": "CategoryResource::getUrl",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "$this->adminUser",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Category::factory()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Category::factory",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Product::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Product::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(ProductsRelationManager::class, [\r\n                'ownerRecord' => $category,\r\n                'pageClass' => EditCategory::class,\r\n            ])->assertCanSeeTableRecords",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_category_edit_shows_products_relation_manager",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "$this->adminUser",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Category::factory()->create",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Category::factory",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(ProductsRelationManager::class, [\r\n                'ownerRecord' => $category,\r\n                'pageClass' => EditCategory::class,\r\n            ])\r\n            ->mountTableAction('create')\r\n            ->fillForm([\r\n                'product_name.en' => 'New Product',\r\n                'product_name.es' => 'Producto nuevo',\r\n                'product_description.en' => 'Description',\r\n                'product_description.es' => 'Descripción',\r\n                'slug' => 'new-product',\r\n                'price_cents' => 1_999,\r\n                'is_active' => true,\r\n            ])\r\n            ->callMountedTableAction()->assertHasNoTableActionErrors",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(ProductsRelationManager::class, [\r\n                'ownerRecord' => $category,\r\n                'pageClass' => EditCategory::class,\r\n            ])\r\n            ->mountTableAction('create')\r\n            ->fillForm([\r\n                'product_name.en' => 'New Product',\r\n                'product_name.es' => 'Producto nuevo',\r\n                'product_description.en' => 'Description',\r\n                'product_description.es' => 'Descripción',\r\n                'slug' => 'new-product',\r\n                'price_cents' => 1_999,\r\n                'is_active' => true,\r\n            ])->callMountedTableAction",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(ProductsRelationManager::class, [\r\n                'ownerRecord' => $category,\r\n                'pageClass' => EditCategory::class,\r\n            ])\r\n            ->mountTableAction('create')->fillForm",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Livewire::actingAs($user)\r\n            ->test(ProductsRelationManager::class, [\r\n                'ownerRecord' => $category,\r\n                'pageClass' => EditCategory::class,\r\n            ])->mountTableAction",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_category_products_relation_manager_can_create_product",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/TranslatableFieldsTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "test_collapse_merges_dot_notation",
+          "startLine": 10,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_collapse_preserves_nested_arrays",
+          "startLine": 22,
+          "endLine": 29,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TranslatableFieldsTest",
+          "startLine": 8,
+          "endLine": 30,
+          "methods": [
+            "test_collapse_merges_dot_notation",
+            "test_collapse_preserves_nested_arrays"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TranslatableFieldsTest",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_collapse_merges_dot_notation",
+          "callee": "TranslatableFields::collapse",
+          "lineNumber": 12
+        },
+        {
+          "caller": "test_collapse_merges_dot_notation",
+          "callee": "$this->assertSame",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_collapse_merges_dot_notation",
+          "callee": "$this->assertSame",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_collapse_preserves_nested_arrays",
+          "callee": "TranslatableFields::collapse",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_collapse_preserves_nested_arrays",
+          "callee": "$this->assertSame",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

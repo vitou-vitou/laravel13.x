@@ -1,0 +1,4226 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/CreateTunnel.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 15,
+          "endLine": 18,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "mount",
+          "startLine": 20,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CreateTunnel",
+          "startLine": 11,
+          "endLine": 35,
+          "methods": [
+            "form",
+            "mount"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreateTunnel",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "form",
+          "callee": "TunnelForm::configureForCreate",
+          "lineNumber": 17
+        },
+        {
+          "caller": "mount",
+          "callee": "parent::mount",
+          "lineNumber": 22
+        },
+        {
+          "caller": "mount",
+          "callee": "Tunnel::defaultTemplate",
+          "lineNumber": 24
+        },
+        {
+          "caller": "mount",
+          "callee": "$this->form->fill",
+          "lineNumber": 30
+        },
+        {
+          "caller": "mount",
+          "callee": "$template->templateAttributes",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/EditTunnel.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 14,
+          "endLine": 20,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EditTunnel",
+          "startLine": 10,
+          "endLine": 21,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EditTunnel",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "DeleteAction::make()->visible",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "DeleteAction::make",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "TunnelResource::canDelete",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ListTunnels.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ListTunnels",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ListTunnels",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "CreateAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ViewTunnel.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 19,
+          "endLine": 51,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ViewTunnel",
+          "startLine": 15,
+          "endLine": 52,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ViewTunnel",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('activate')\n                ->label('Activate')\n                ->icon(Heroicon::OutlinedBolt)\n                ->color('success')\n                ->requiresConfirmation()\n                ->visible(fn (Tunnel $record): bool => ! $record->is_active)->action",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('activate')\n                ->label('Activate')\n                ->icon(Heroicon::OutlinedBolt)\n                ->color('success')\n                ->requiresConfirmation()->visible",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('activate')\n                ->label('Activate')\n                ->icon(Heroicon::OutlinedBolt)\n                ->color('success')->requiresConfirmation",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('activate')\n                ->label('Activate')\n                ->icon(Heroicon::OutlinedBolt)->color",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('activate')\n                ->label('Activate')->icon",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('activate')->label",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "$activator->activate",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()\n                        ->title('Tunnel activated')\n                        ->body('OAuth redirect URIs synced to .env and Herd host updated in ngrok-traffic-policy.yml.')\n                        ->success()->send",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()\n                        ->title('Tunnel activated')\n                        ->body('OAuth redirect URIs synced to .env and Herd host updated in ngrok-traffic-policy.yml.')->success",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()\n                        ->title('Tunnel activated')->body",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()->title",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('verify')\n                ->label('Verify health')\n                ->icon(Heroicon::OutlinedSignal)->action",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('verify')\n                ->label('Verify health')->icon",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make('verify')->label",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Action::make",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "$checker->verifyAndStore",
+          "lineNumber": 41
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()\n                        ->title($result['status'] === 'ok' ? 'Tunnel healthy' : 'Tunnel check failed')\n                        ->body($result['message'])\n                        ->{$result['status'] === 'ok' ? 'success' : 'danger'}()->send",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()\n                        ->title($result['status'] === 'ok' ? 'Tunnel healthy' : 'Tunnel check failed')->body",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make()->title",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "Notification::make",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getHeaderActions",
+          "callee": "EditAction::make",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelForm.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 73,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 15,
+          "endLine": 19,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "configureForCreate",
+          "startLine": 21,
+          "endLine": 25,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "fields",
+          "startLine": 30,
+          "endLine": 85,
+          "params": [
+            "$includeTemplatePicker"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelForm",
+          "startLine": 13,
+          "endLine": 86,
+          "methods": [
+            "configure",
+            "configureForCreate",
+            "fields"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelForm",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$schema->components",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "self::fields",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configureForCreate",
+          "callee": "$schema->components",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configureForCreate",
+          "callee": "self::fields",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')\n                ->options(fn (): array => Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')\n                    ->all())\n                ->default(fn (): ?int => Tunnel::defaultTemplate()?->id)\n                ->searchable()\n                ->live()\n                ->afterStateUpdated(function (?int $state, Set $set): void {\n                    if ($state === null) {\n                        return;\n                    }\n\n                    $tunnel = Tunnel::query()->find($state);\n\n                    if ($tunnel === null) {\n                        return;\n                    }\n\n                    foreach ($tunnel->templateAttributes() as $field => $value) {\n                        $set($field, $value);\n                    }\n                })\n                ->dehydrated(false)->helperText",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')\n                ->options(fn (): array => Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')\n                    ->all())\n                ->default(fn (): ?int => Tunnel::defaultTemplate()?->id)\n                ->searchable()\n                ->live()\n                ->afterStateUpdated(function (?int $state, Set $set): void {\n                    if ($state === null) {\n                        return;\n                    }\n\n                    $tunnel = Tunnel::query()->find($state);\n\n                    if ($tunnel === null) {\n                        return;\n                    }\n\n                    foreach ($tunnel->templateAttributes() as $field => $value) {\n                        $set($field, $value);\n                    }\n                })->dehydrated",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')\n                ->options(fn (): array => Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')\n                    ->all())\n                ->default(fn (): ?int => Tunnel::defaultTemplate()?->id)\n                ->searchable()\n                ->live()->afterStateUpdated",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')\n                ->options(fn (): array => Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')\n                    ->all())\n                ->default(fn (): ?int => Tunnel::defaultTemplate()?->id)\n                ->searchable()->live",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')\n                ->options(fn (): array => Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')\n                    ->all())\n                ->default(fn (): ?int => Tunnel::defaultTemplate()?->id)->searchable",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')\n                ->options(fn (): array => Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')\n                    ->all())->default",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')\n                ->label('Start from profile')->options",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make('template_tunnel_id')->label",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Select::make",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')\n                    ->pluck('name', 'id')->all",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query()\n                    ->orderByDesc('is_active')\n                    ->orderBy('name')->pluck",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query()\n                    ->orderByDesc('is_active')->orderBy",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query()->orderByDesc",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::defaultTemplate",
+          "lineNumber": 42
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query()->find",
+          "lineNumber": 50
+        },
+        {
+          "caller": "fields",
+          "callee": "Tunnel::query",
+          "lineNumber": 50
+        },
+        {
+          "caller": "fields",
+          "callee": "$tunnel->templateAttributes",
+          "lineNumber": 56
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('name')\n            ->required()\n            ->maxLength(255)->unique",
+          "lineNumber": 64
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('name')\n            ->required()->maxLength",
+          "lineNumber": 64
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('name')->required",
+          "lineNumber": 64
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make",
+          "lineNumber": 64
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('domain')\n            ->required()\n            ->maxLength(255)\n            ->unique(ignoreRecord: true)\n            ->placeholder('your-name.ngrok-free.dev')\n            ->helperText('Public ngrok hostname only — no https:// prefix.')->rules",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('domain')\n            ->required()\n            ->maxLength(255)\n            ->unique(ignoreRecord: true)\n            ->placeholder('your-name.ngrok-free.dev')->helperText",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('domain')\n            ->required()\n            ->maxLength(255)\n            ->unique(ignoreRecord: true)->placeholder",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('domain')\n            ->required()\n            ->maxLength(255)->unique",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('domain')\n            ->required()->maxLength",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('domain')->required",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make",
+          "lineNumber": 69
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('herd_host')\n            ->required()\n            ->maxLength(255)\n            ->default(config('tunnel.default_herd_host'))\n            ->helperText('Synced to ngrok-traffic-policy.yml Host header when you Activate.')->rules",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('herd_host')\n            ->required()\n            ->maxLength(255)\n            ->default(config('tunnel.default_herd_host'))->helperText",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('herd_host')\n            ->required()\n            ->maxLength(255)->default",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('herd_host')\n            ->required()->maxLength",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make('herd_host')->required",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fields",
+          "callee": "TextInput::make",
+          "lineNumber": 77
+        },
+        {
+          "caller": "fields",
+          "callee": "config",
+          "lineNumber": 80
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelInfolist.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 12,
+          "endLine": 51,
+          "params": [
+            "$schema"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelInfolist",
+          "startLine": 10,
+          "endLine": 52,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelInfolist",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$schema->components",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 16
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('domain')->copyable",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('herd_host')->label",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "IconEntry::make('is_active')\n                    ->label('Active')->boolean",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "IconEntry::make('is_active')->label",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "IconEntry::make",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('last_verified_status')\n                    ->label('Last health check')->placeholder",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('last_verified_status')->label",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 24
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('last_verified_at')\n                    ->dateTime()->placeholder",
+          "lineNumber": 27
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('last_verified_at')->dateTime",
+          "lineNumber": 27
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 27
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('oauth_urls')\n                    ->label('SSO login')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['login'] ?? '')\n                    ->copyable()->columnSpanFull",
+          "lineNumber": 30
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('oauth_urls')\n                    ->label('SSO login')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['login'] ?? '')->copyable",
+          "lineNumber": 30
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('oauth_urls')\n                    ->label('SSO login')->state",
+          "lineNumber": 30
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('oauth_urls')->label",
+          "lineNumber": 30
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 30
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->oauthUrls",
+          "lineNumber": 32
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('google_callback')\n                    ->label('Google redirect URI')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['GOOGLE_REDIRECT_URI'] ?? '')\n                    ->copyable()->columnSpanFull",
+          "lineNumber": 35
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('google_callback')\n                    ->label('Google redirect URI')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['GOOGLE_REDIRECT_URI'] ?? '')->copyable",
+          "lineNumber": 35
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('google_callback')\n                    ->label('Google redirect URI')->state",
+          "lineNumber": 35
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('google_callback')->label",
+          "lineNumber": 35
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 35
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->oauthUrls",
+          "lineNumber": 37
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('microsoft_callback')\n                    ->label('Microsoft redirect URI')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['MICROSOFT_REDIRECT_URI'] ?? '')\n                    ->copyable()->columnSpanFull",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('microsoft_callback')\n                    ->label('Microsoft redirect URI')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['MICROSOFT_REDIRECT_URI'] ?? '')->copyable",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('microsoft_callback')\n                    ->label('Microsoft redirect URI')->state",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('microsoft_callback')->label",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->oauthUrls",
+          "lineNumber": 42
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('github_callback')\n                    ->label('GitHub callback URL')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['GITHUB_REDIRECT_URI'] ?? '')\n                    ->copyable()->columnSpanFull",
+          "lineNumber": 45
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('github_callback')\n                    ->label('GitHub callback URL')\n                    ->state(fn (Tunnel $record): string => $record->oauthUrls()['GITHUB_REDIRECT_URI'] ?? '')->copyable",
+          "lineNumber": 45
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('github_callback')\n                    ->label('GitHub callback URL')->state",
+          "lineNumber": 45
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make('github_callback')->label",
+          "lineNumber": 45
+        },
+        {
+          "caller": "configure",
+          "callee": "TextEntry::make",
+          "lineNumber": 45
+        },
+        {
+          "caller": "configure",
+          "callee": "$record->oauthUrls",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/Tables/TunnelsTable.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 21,
+          "endLine": 88,
+          "params": [
+            "$table"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelsTable",
+          "startLine": 19,
+          "endLine": 89,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelsTable",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('name')\n                    ->searchable()\n                    ->sortable(),\n                TextColumn::make('domain')\n                    ->searchable()\n                    ->copyable(),\n                IconColumn::make('is_active')\n                    ->label('Active')\n                    ->boolean(),\n                TextColumn::make('last_verified_status')\n                    ->label('Health')\n                    ->badge()\n                    ->color(fn (?string $state): string => match ($state) {\n                        'ok' => 'success',\n                        'error' => 'danger',\n                        default => 'gray',\n                    })\n                    ->placeholder('—'),\n                TextColumn::make('last_verified_at')\n                    ->dateTime()\n                    ->toggleable(isToggledHiddenByDefault: true),\n            ])\n            ->recordActions([\n                ViewAction::make(),\n                Action::make('activate')\n                    ->label('Activate')\n                    ->icon(Heroicon::OutlinedBolt)\n                    ->color('success')\n                    ->requiresConfirmation()\n                    ->modalDescription('Sync NGROK_DEV_DOMAIN, OAuth redirect URIs in .env, and Herd Host in ngrok-traffic-policy.yml.')\n                    ->visible(fn (Tunnel $record): bool => ! $record->is_active)\n                    ->action(function (Tunnel $record, TunnelActivator $activator): void {\n                        $result = $activator->activate($record);\n\n                        $body = collect($result['oauth_urls'])\n                            ->map(fn (string $url, string $key): string => \"{$key}: {$url}\")\n                            ->implode(\"\\n\");\n\n                        Notification::make()\n                            ->title('Tunnel activated')\n                            ->body(\"Base URL: {$result['base_url']}\\n\\n{$body}\")\n                            ->success()\n                            ->send();\n                    }),\n                Action::make('verify')\n                    ->label('Verify')\n                    ->icon(Heroicon::OutlinedSignal)\n                    ->action(function (Tunnel $record, TunnelHealthChecker $checker): void {\n                        $result = $checker->verifyAndStore($record);\n\n                        Notification::make()\n                            ->title($result['status'] === 'ok' ? 'Tunnel healthy' : 'Tunnel check failed')\n                            ->body($result['message'])\n                            ->{$result['status'] === 'ok' ? 'success' : 'danger'}()\n                            ->send();\n                    }),\n                EditAction::make(),\n            ])->toolbarActions",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "$table\n            ->columns([\n                TextColumn::make('name')\n                    ->searchable()\n                    ->sortable(),\n                TextColumn::make('domain')\n                    ->searchable()\n                    ->copyable(),\n                IconColumn::make('is_active')\n                    ->label('Active')\n                    ->boolean(),\n                TextColumn::make('last_verified_status')\n                    ->label('Health')\n                    ->badge()\n                    ->color(fn (?string $state): string => match ($state) {\n                        'ok' => 'success',\n                        'error' => 'danger',\n                        default => 'gray',\n                    })\n                    ->placeholder('—'),\n                TextColumn::make('last_verified_at')\n                    ->dateTime()\n                    ->toggleable(isToggledHiddenByDefault: true),\n            ])->recordActions",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "$table->columns",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')\n                    ->searchable()->sortable",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->searchable",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('domain')\n                    ->searchable()->copyable",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('domain')->searchable",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 28
+        },
+        {
+          "caller": "configure",
+          "callee": "IconColumn::make('is_active')\n                    ->label('Active')->boolean",
+          "lineNumber": 31
+        },
+        {
+          "caller": "configure",
+          "callee": "IconColumn::make('is_active')->label",
+          "lineNumber": 31
+        },
+        {
+          "caller": "configure",
+          "callee": "IconColumn::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('last_verified_status')\n                    ->label('Health')\n                    ->badge()\n                    ->color(fn (?string $state): string => match ($state) {\n                        'ok' => 'success',\n                        'error' => 'danger',\n                        default => 'gray',\n                    })->placeholder",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('last_verified_status')\n                    ->label('Health')\n                    ->badge()->color",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('last_verified_status')\n                    ->label('Health')->badge",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('last_verified_status')->label",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('last_verified_at')\n                    ->dateTime()->toggleable",
+          "lineNumber": 43
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('last_verified_at')->dateTime",
+          "lineNumber": 43
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 43
+        },
+        {
+          "caller": "configure",
+          "callee": "ViewAction::make",
+          "lineNumber": 48
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')\n                    ->label('Activate')\n                    ->icon(Heroicon::OutlinedBolt)\n                    ->color('success')\n                    ->requiresConfirmation()\n                    ->modalDescription('Sync NGROK_DEV_DOMAIN, OAuth redirect URIs in .env, and Herd Host in ngrok-traffic-policy.yml.')\n                    ->visible(fn (Tunnel $record): bool => ! $record->is_active)->action",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')\n                    ->label('Activate')\n                    ->icon(Heroicon::OutlinedBolt)\n                    ->color('success')\n                    ->requiresConfirmation()\n                    ->modalDescription('Sync NGROK_DEV_DOMAIN, OAuth redirect URIs in .env, and Herd Host in ngrok-traffic-policy.yml.')->visible",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')\n                    ->label('Activate')\n                    ->icon(Heroicon::OutlinedBolt)\n                    ->color('success')\n                    ->requiresConfirmation()->modalDescription",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')\n                    ->label('Activate')\n                    ->icon(Heroicon::OutlinedBolt)\n                    ->color('success')->requiresConfirmation",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')\n                    ->label('Activate')\n                    ->icon(Heroicon::OutlinedBolt)->color",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')\n                    ->label('Activate')->icon",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('activate')->label",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make",
+          "lineNumber": 49
+        },
+        {
+          "caller": "configure",
+          "callee": "$activator->activate",
+          "lineNumber": 57
+        },
+        {
+          "caller": "configure",
+          "callee": "collect($result['oauth_urls'])\n                            ->map(fn (string $url, string $key): string => \"{$key}: {$url}\")->implode",
+          "lineNumber": 59
+        },
+        {
+          "caller": "configure",
+          "callee": "collect($result['oauth_urls'])->map",
+          "lineNumber": 59
+        },
+        {
+          "caller": "configure",
+          "callee": "collect",
+          "lineNumber": 59
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()\n                            ->title('Tunnel activated')\n                            ->body(\"Base URL: {$result['base_url']}\\n\\n{$body}\")\n                            ->success()->send",
+          "lineNumber": 63
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()\n                            ->title('Tunnel activated')\n                            ->body(\"Base URL: {$result['base_url']}\\n\\n{$body}\")->success",
+          "lineNumber": 63
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()\n                            ->title('Tunnel activated')->body",
+          "lineNumber": 63
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()->title",
+          "lineNumber": 63
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make",
+          "lineNumber": 63
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('verify')\n                    ->label('Verify')\n                    ->icon(Heroicon::OutlinedSignal)->action",
+          "lineNumber": 69
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('verify')\n                    ->label('Verify')->icon",
+          "lineNumber": 69
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make('verify')->label",
+          "lineNumber": 69
+        },
+        {
+          "caller": "configure",
+          "callee": "Action::make",
+          "lineNumber": 69
+        },
+        {
+          "caller": "configure",
+          "callee": "$checker->verifyAndStore",
+          "lineNumber": 73
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()\n                            ->title($result['status'] === 'ok' ? 'Tunnel healthy' : 'Tunnel check failed')\n                            ->body($result['message'])\n                            ->{$result['status'] === 'ok' ? 'success' : 'danger'}()->send",
+          "lineNumber": 75
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()\n                            ->title($result['status'] === 'ok' ? 'Tunnel healthy' : 'Tunnel check failed')->body",
+          "lineNumber": 75
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make()->title",
+          "lineNumber": 75
+        },
+        {
+          "caller": "configure",
+          "callee": "Notification::make",
+          "lineNumber": 75
+        },
+        {
+          "caller": "configure",
+          "callee": "EditAction::make",
+          "lineNumber": 81
+        },
+        {
+          "caller": "configure",
+          "callee": "BulkActionGroup::make",
+          "lineNumber": 84
+        },
+        {
+          "caller": "configure",
+          "callee": "DeleteBulkAction::make",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 105,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "shouldRegisterNavigation",
+          "startLine": 36,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "canViewAny",
+          "startLine": 41,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "canCreate",
+          "startLine": 46,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "canEdit",
+          "startLine": 51,
+          "endLine": 54,
+          "params": [
+            "$record"
+          ]
+        },
+        {
+          "name": "canDelete",
+          "startLine": 56,
+          "endLine": 63,
+          "params": [
+            "$record"
+          ]
+        },
+        {
+          "name": "canView",
+          "startLine": 65,
+          "endLine": 68,
+          "params": [
+            "$record"
+          ]
+        },
+        {
+          "name": "tunnelAdminEnabled",
+          "startLine": 70,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "form",
+          "startLine": 81,
+          "endLine": 84,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "infolist",
+          "startLine": 86,
+          "endLine": 89,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 91,
+          "endLine": 94,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "getPages",
+          "startLine": 96,
+          "endLine": 104,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelResource",
+          "startLine": 20,
+          "endLine": 105,
+          "methods": [
+            "shouldRegisterNavigation",
+            "canViewAny",
+            "canCreate",
+            "canEdit",
+            "canDelete",
+            "canView",
+            "tunnelAdminEnabled",
+            "form",
+            "infolist",
+            "table",
+            "getPages"
+          ],
+          "properties": [
+            "model",
+            "navigationIcon",
+            "navigationLabel",
+            "navigationGroup",
+            "navigationSort",
+            "modelLabel",
+            "pluralModelLabel"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelResource",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "shouldRegisterNavigation",
+          "callee": "static::canViewAny",
+          "lineNumber": 38
+        },
+        {
+          "caller": "canViewAny",
+          "callee": "static::tunnelAdminEnabled",
+          "lineNumber": 43
+        },
+        {
+          "caller": "canCreate",
+          "callee": "static::tunnelAdminEnabled",
+          "lineNumber": 48
+        },
+        {
+          "caller": "canEdit",
+          "callee": "static::tunnelAdminEnabled",
+          "lineNumber": 53
+        },
+        {
+          "caller": "canDelete",
+          "callee": "static::tunnelAdminEnabled",
+          "lineNumber": 58
+        },
+        {
+          "caller": "canView",
+          "callee": "static::tunnelAdminEnabled",
+          "lineNumber": 67
+        },
+        {
+          "caller": "tunnelAdminEnabled",
+          "callee": "config",
+          "lineNumber": 72
+        },
+        {
+          "caller": "tunnelAdminEnabled",
+          "callee": "Auth::user",
+          "lineNumber": 76
+        },
+        {
+          "caller": "tunnelAdminEnabled",
+          "callee": "$user->can",
+          "lineNumber": 78
+        },
+        {
+          "caller": "form",
+          "callee": "TunnelForm::configure",
+          "lineNumber": 83
+        },
+        {
+          "caller": "infolist",
+          "callee": "TunnelInfolist::configure",
+          "lineNumber": 88
+        },
+        {
+          "caller": "table",
+          "callee": "TunnelsTable::configure",
+          "lineNumber": 93
+        },
+        {
+          "caller": "getPages",
+          "callee": "ListTunnels::route",
+          "lineNumber": 99
+        },
+        {
+          "caller": "getPages",
+          "callee": "CreateTunnel::route",
+          "lineNumber": 100
+        },
+        {
+          "caller": "getPages",
+          "callee": "ViewTunnel::route",
+          "lineNumber": 101
+        },
+        {
+          "caller": "getPages",
+          "callee": "EditTunnel::route",
+          "lineNumber": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 1,
+        "functionCount": 11,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Models/Tunnel.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 156,
+      "nonEmptyLines": 130,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 27,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "normalizeDomain",
+          "startLine": 35,
+          "endLine": 43,
+          "params": [
+            "$raw"
+          ]
+        },
+        {
+          "name": "validateDomain",
+          "startLine": 45,
+          "endLine": 64,
+          "params": [
+            "$host"
+          ]
+        },
+        {
+          "name": "validateHerdHost",
+          "startLine": 66,
+          "endLine": 87,
+          "params": [
+            "$host"
+          ]
+        },
+        {
+          "name": "publicBaseUrl",
+          "startLine": 89,
+          "endLine": 92,
+          "params": []
+        },
+        {
+          "name": "defaultTemplate",
+          "startLine": 97,
+          "endLine": 104,
+          "params": []
+        },
+        {
+          "name": "templateAttributes",
+          "startLine": 109,
+          "endLine": 115,
+          "params": []
+        },
+        {
+          "name": "oauthUrls",
+          "startLine": 117,
+          "endLine": 129,
+          "params": []
+        },
+        {
+          "name": "setDomainAttribute",
+          "startLine": 131,
+          "endLine": 140,
+          "params": [
+            "$value"
+          ]
+        },
+        {
+          "name": "booted",
+          "startLine": 142,
+          "endLine": 155,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Tunnel",
+          "startLine": 10,
+          "endLine": 156,
+          "methods": [
+            "casts",
+            "normalizeDomain",
+            "validateDomain",
+            "validateHerdHost",
+            "publicBaseUrl",
+            "defaultTemplate",
+            "templateAttributes",
+            "oauthUrls",
+            "setDomainAttribute",
+            "booted"
+          ],
+          "properties": [
+            "fillable"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Tunnel",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeDomain",
+          "callee": "strtolower",
+          "lineNumber": 37
+        },
+        {
+          "caller": "normalizeDomain",
+          "callee": "trim",
+          "lineNumber": 37
+        },
+        {
+          "caller": "normalizeDomain",
+          "callee": "preg_replace",
+          "lineNumber": 38
+        },
+        {
+          "caller": "normalizeDomain",
+          "callee": "explode",
+          "lineNumber": 39
+        },
+        {
+          "caller": "normalizeDomain",
+          "callee": "rtrim",
+          "lineNumber": 40
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "str_contains",
+          "lineNumber": 47
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 48
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "str_ends_with",
+          "lineNumber": 53
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "str_starts_with",
+          "lineNumber": 53
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 54
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "preg_match",
+          "lineNumber": 59
+        },
+        {
+          "caller": "validateDomain",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 60
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "strtolower",
+          "lineNumber": 68
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "trim",
+          "lineNumber": 68
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "str_contains",
+          "lineNumber": 70
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "str_contains",
+          "lineNumber": 70
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 71
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "preg_match",
+          "lineNumber": 76
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 77
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "str_ends_with",
+          "lineNumber": 82
+        },
+        {
+          "caller": "validateHerdHost",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 83
+        },
+        {
+          "caller": "publicBaseUrl",
+          "callee": "static::normalizeDomain",
+          "lineNumber": 91
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query()\n            ->where('is_active', true)\n            ->orderBy('id')->first",
+          "lineNumber": 99
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query()\n            ->where('is_active', true)->orderBy",
+          "lineNumber": 99
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query()->where",
+          "lineNumber": 99
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query",
+          "lineNumber": 99
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query()->orderBy('id')->first",
+          "lineNumber": 103
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query()->orderBy",
+          "lineNumber": 103
+        },
+        {
+          "caller": "defaultTemplate",
+          "callee": "static::query",
+          "lineNumber": 103
+        },
+        {
+          "caller": "oauthUrls",
+          "callee": "$this->publicBaseUrl",
+          "lineNumber": 119
+        },
+        {
+          "caller": "oauthUrls",
+          "callee": "config",
+          "lineNumber": 124
+        },
+        {
+          "caller": "setDomainAttribute",
+          "callee": "static::normalizeDomain",
+          "lineNumber": 139
+        },
+        {
+          "caller": "booted",
+          "callee": "static::saving",
+          "lineNumber": 144
+        },
+        {
+          "caller": "booted",
+          "callee": "static::validateDomain",
+          "lineNumber": 146
+        },
+        {
+          "caller": "booted",
+          "callee": "config",
+          "lineNumber": 150
+        },
+        {
+          "caller": "booted",
+          "callee": "static::validateHerdHost",
+          "lineNumber": 153
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 10,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Rules/ValidHerdHost.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "validate",
+          "startLine": 12,
+          "endLine": 27,
+          "params": [
+            "$attribute",
+            "$value",
+            "$fail"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ValidHerdHost",
+          "startLine": 10,
+          "endLine": 28,
+          "methods": [
+            "validate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ValidHerdHost",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "validate",
+          "callee": "is_string",
+          "lineNumber": 14
+        },
+        {
+          "caller": "validate",
+          "callee": "Tunnel::validateHerdHost",
+          "lineNumber": 21
+        },
+        {
+          "caller": "validate",
+          "callee": "$exception->validator->errors()->first",
+          "lineNumber": 23
+        },
+        {
+          "caller": "validate",
+          "callee": "$exception->validator->errors",
+          "lineNumber": 23
+        },
+        {
+          "caller": "validate",
+          "callee": "is_string",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Rules/ValidNgrokDomain.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "validate",
+          "startLine": 12,
+          "endLine": 27,
+          "params": [
+            "$attribute",
+            "$value",
+            "$fail"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ValidNgrokDomain",
+          "startLine": 10,
+          "endLine": 28,
+          "methods": [
+            "validate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ValidNgrokDomain",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "validate",
+          "callee": "is_string",
+          "lineNumber": 14
+        },
+        {
+          "caller": "validate",
+          "callee": "Tunnel::validateDomain",
+          "lineNumber": 21
+        },
+        {
+          "caller": "validate",
+          "callee": "Tunnel::normalizeDomain",
+          "lineNumber": 21
+        },
+        {
+          "caller": "validate",
+          "callee": "$exception->validator->errors()->first",
+          "lineNumber": 23
+        },
+        {
+          "caller": "validate",
+          "callee": "$exception->validator->errors",
+          "lineNumber": 23
+        },
+        {
+          "caller": "validate",
+          "callee": "is_string",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/Tunnel/EnvFileWriter.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 9,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "path",
+          "startLine": 13,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "set",
+          "startLine": 18,
+          "endLine": 58,
+          "params": [
+            "$key",
+            "$value"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "EnvFileWriter",
+          "startLine": 7,
+          "endLine": 59,
+          "methods": [
+            "__construct",
+            "path",
+            "set"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EnvFileWriter",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "set",
+          "callee": "is_file",
+          "lineNumber": 20
+        },
+        {
+          "caller": "set",
+          "callee": "file_get_contents",
+          "lineNumber": 24
+        },
+        {
+          "caller": "set",
+          "callee": "preg_quote",
+          "lineNumber": 31
+        },
+        {
+          "caller": "set",
+          "callee": "preg_match",
+          "lineNumber": 33
+        },
+        {
+          "caller": "set",
+          "callee": "preg_replace",
+          "lineNumber": 34
+        },
+        {
+          "caller": "set",
+          "callee": "rtrim",
+          "lineNumber": 36
+        },
+        {
+          "caller": "set",
+          "callee": "fopen",
+          "lineNumber": 39
+        },
+        {
+          "caller": "set",
+          "callee": "flock",
+          "lineNumber": 46
+        },
+        {
+          "caller": "set",
+          "callee": "ftruncate",
+          "lineNumber": 50
+        },
+        {
+          "caller": "set",
+          "callee": "rewind",
+          "lineNumber": 51
+        },
+        {
+          "caller": "set",
+          "callee": "fwrite",
+          "lineNumber": 52
+        },
+        {
+          "caller": "set",
+          "callee": "fflush",
+          "lineNumber": 53
+        },
+        {
+          "caller": "set",
+          "callee": "flock",
+          "lineNumber": 54
+        },
+        {
+          "caller": "set",
+          "callee": "fclose",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/Tunnel/NgrokEnvSync.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 10,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "sync",
+          "startLine": 17,
+          "endLine": 42,
+          "params": [
+            "$domain"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "NgrokEnvSync",
+          "startLine": 8,
+          "endLine": 43,
+          "methods": [
+            "__construct",
+            "sync"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NgrokEnvSync",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "sync",
+          "callee": "Tunnel::normalizeDomain",
+          "lineNumber": 19
+        },
+        {
+          "caller": "sync",
+          "callee": "Tunnel::validateDomain",
+          "lineNumber": 20
+        },
+        {
+          "caller": "sync",
+          "callee": "base_path",
+          "lineNumber": 22
+        },
+        {
+          "caller": "sync",
+          "callee": "$writer->set",
+          "lineNumber": 25
+        },
+        {
+          "caller": "sync",
+          "callee": "config",
+          "lineNumber": 29
+        },
+        {
+          "caller": "sync",
+          "callee": "$writer->set",
+          "lineNumber": 31
+        },
+        {
+          "caller": "sync",
+          "callee": "Artisan::call",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/Tunnel/NgrokTrafficPolicyWriter.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 10,
+          "endLine": 12,
+          "params": []
+        },
+        {
+          "name": "path",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "sync",
+          "startLine": 19,
+          "endLine": 76,
+          "params": [
+            "$herdHost"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "NgrokTrafficPolicyWriter",
+          "startLine": 8,
+          "endLine": 77,
+          "methods": [
+            "__construct",
+            "path",
+            "sync"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NgrokTrafficPolicyWriter",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "path",
+          "callee": "config",
+          "lineNumber": 16
+        },
+        {
+          "caller": "sync",
+          "callee": "Tunnel::validateHerdHost",
+          "lineNumber": 21
+        },
+        {
+          "caller": "sync",
+          "callee": "$this->path",
+          "lineNumber": 23
+        },
+        {
+          "caller": "sync",
+          "callee": "is_file",
+          "lineNumber": 25
+        },
+        {
+          "caller": "sync",
+          "callee": "file_get_contents",
+          "lineNumber": 29
+        },
+        {
+          "caller": "sync",
+          "callee": "preg_match",
+          "lineNumber": 35
+        },
+        {
+          "caller": "sync",
+          "callee": "preg_replace",
+          "lineNumber": 39
+        },
+        {
+          "caller": "sync",
+          "callee": "preg_replace",
+          "lineNumber": 50
+        },
+        {
+          "caller": "sync",
+          "callee": "fopen",
+          "lineNumber": 57
+        },
+        {
+          "caller": "sync",
+          "callee": "flock",
+          "lineNumber": 64
+        },
+        {
+          "caller": "sync",
+          "callee": "ftruncate",
+          "lineNumber": 68
+        },
+        {
+          "caller": "sync",
+          "callee": "rewind",
+          "lineNumber": 69
+        },
+        {
+          "caller": "sync",
+          "callee": "fwrite",
+          "lineNumber": 70
+        },
+        {
+          "caller": "sync",
+          "callee": "fflush",
+          "lineNumber": 71
+        },
+        {
+          "caller": "sync",
+          "callee": "flock",
+          "lineNumber": 72
+        },
+        {
+          "caller": "sync",
+          "callee": "fclose",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/Tunnel/TunnelActivator.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 11,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "activate",
+          "startLine": 19,
+          "endLine": 37,
+          "params": [
+            "$tunnel"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelActivator",
+          "startLine": 9,
+          "endLine": 38,
+          "methods": [
+            "__construct",
+            "activate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelActivator",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "activate",
+          "callee": "config",
+          "lineNumber": 21
+        },
+        {
+          "caller": "activate",
+          "callee": "DB::transaction",
+          "lineNumber": 25
+        },
+        {
+          "caller": "activate",
+          "callee": "Tunnel::query()->update",
+          "lineNumber": 26
+        },
+        {
+          "caller": "activate",
+          "callee": "Tunnel::query",
+          "lineNumber": 26
+        },
+        {
+          "caller": "activate",
+          "callee": "$tunnel->update",
+          "lineNumber": 27
+        },
+        {
+          "caller": "activate",
+          "callee": "$this->ngrokEnvSync->sync",
+          "lineNumber": 29
+        },
+        {
+          "caller": "activate",
+          "callee": "$this->trafficPolicyWriter->sync",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/Tunnel/TunnelHealthChecker.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "check",
+          "startLine": 13,
+          "endLine": 44,
+          "params": [
+            "$tunnel"
+          ]
+        },
+        {
+          "name": "verifyAndStore",
+          "startLine": 46,
+          "endLine": 56,
+          "params": [
+            "$tunnel"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelHealthChecker",
+          "startLine": 8,
+          "endLine": 57,
+          "methods": [
+            "check",
+            "verifyAndStore"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelHealthChecker",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "check",
+          "callee": "$tunnel->publicBaseUrl",
+          "lineNumber": 15
+        },
+        {
+          "caller": "check",
+          "callee": "Http::withHeaders([\n                'ngrok-skip-browser-warning' => 'true',\n            ])->timeout(5)->get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "check",
+          "callee": "Http::withHeaders([\n                'ngrok-skip-browser-warning' => 'true',\n            ])->timeout",
+          "lineNumber": 18
+        },
+        {
+          "caller": "check",
+          "callee": "Http::withHeaders",
+          "lineNumber": 18
+        },
+        {
+          "caller": "check",
+          "callee": "$response->status",
+          "lineNumber": 22
+        },
+        {
+          "caller": "check",
+          "callee": "$response->successful",
+          "lineNumber": 24
+        },
+        {
+          "caller": "check",
+          "callee": "$exception->getMessage",
+          "lineNumber": 40
+        },
+        {
+          "caller": "verifyAndStore",
+          "callee": "$this->check",
+          "lineNumber": 48
+        },
+        {
+          "caller": "verifyAndStore",
+          "callee": "$tunnel->update",
+          "lineNumber": 50
+        },
+        {
+          "caller": "verifyAndStore",
+          "callee": "now",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/TunnelFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 18,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "active",
+          "startLine": 32,
+          "endLine": 37,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelFactory",
+          "startLine": 11,
+          "endLine": 38,
+          "methods": [
+            "definition",
+            "active"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelFactory",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->slug",
+          "lineNumber": 20
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 20
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 20
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->words",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "config",
+          "lineNumber": 25
+        },
+        {
+          "caller": "active",
+          "callee": "$this->state",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/seeders/TunnelSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 10,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "upsertDemoProfile",
+          "startLine": 49,
+          "endLine": 67,
+          "params": [
+            "$name",
+            "$domain",
+            "$herdHost"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelSeeder",
+          "startLine": 8,
+          "endLine": 68,
+          "methods": [
+            "run",
+            "upsertDemoProfile"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelSeeder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "config",
+          "lineNumber": 12
+        },
+        {
+          "caller": "run",
+          "callee": "config",
+          "lineNumber": 16
+        },
+        {
+          "caller": "run",
+          "callee": "env",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run",
+          "callee": "is_string",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::normalizeDomain",
+          "lineNumber": 19
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query()->where('domain', $primaryDomain)->first",
+          "lineNumber": 22
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query()->where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query",
+          "lineNumber": 22
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query()->firstOrNew",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run",
+          "callee": "$primary->fill([\n            'name' => $primary->exists && $primary->name !== 'Default — local SSO'\n                ? $primary->name\n                : 'Default — local SSO',\n            'domain' => $primaryDomain,\n            'herd_host' => $herdHost,\n            'is_active' => true,\n        ])->save",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run",
+          "callee": "$primary->fill",
+          "lineNumber": 25
+        },
+        {
+          "caller": "run",
+          "callee": "$this->upsertDemoProfile",
+          "lineNumber": 42
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query()->whereKeyNot($primary->id)->update",
+          "lineNumber": 45
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query()->whereKeyNot",
+          "lineNumber": 45
+        },
+        {
+          "caller": "run",
+          "callee": "Tunnel::query",
+          "lineNumber": 45
+        },
+        {
+          "caller": "run",
+          "callee": "$primary->update",
+          "lineNumber": 46
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "Tunnel::query()->firstOrNew",
+          "lineNumber": 51
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "Tunnel::query",
+          "lineNumber": 51
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "Tunnel::query()\n            ->where('domain', $domain)\n            ->when($tunnel->exists, fn ($query) => $query->whereKeyNot($tunnel->id))->exists",
+          "lineNumber": 53
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "Tunnel::query()\n            ->where('domain', $domain)->when",
+          "lineNumber": 53
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "Tunnel::query()->where",
+          "lineNumber": 53
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "Tunnel::query",
+          "lineNumber": 53
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "$query->whereKeyNot",
+          "lineNumber": 55
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "$tunnel->fill([\n            'domain' => $domain,\n            'herd_host' => $herdHost,\n            'is_active' => false,\n        ])->save",
+          "lineNumber": 62
+        },
+        {
+          "caller": "upsertDemoProfile",
+          "callee": "$tunnel->fill",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Filament/TunnelResourceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 254,
+      "nonEmptyLines": 209,
+      "functions": [
+        {
+          "name": "setUp",
+          "startLine": 27,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "test_guest_cannot_access_tunnels_index",
+          "startLine": 35,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "test_staff_without_permission_cannot_access_tunnels",
+          "startLine": 41,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "test_admin_can_list_tunnels",
+          "startLine": 53,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "test_create_form_prefills_from_default_tunnel_profile",
+          "startLine": 64,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_create_form_template_picker_copies_profile_fields",
+          "startLine": 82,
+          "endLine": 98,
+          "params": []
+        },
+        {
+          "name": "test_admin_can_create_tunnel",
+          "startLine": 100,
+          "endLine": 118,
+          "params": []
+        },
+        {
+          "name": "test_activate_action_deactivates_other_tunnels",
+          "startLine": 120,
+          "endLine": 152,
+          "params": []
+        },
+        {
+          "name": "test_create_rejects_local_domain",
+          "startLine": 154,
+          "endLine": 167,
+          "params": []
+        },
+        {
+          "name": "test_create_rejects_duplicate_domain",
+          "startLine": 169,
+          "endLine": 183,
+          "params": []
+        },
+        {
+          "name": "test_active_tunnel_cannot_be_deleted",
+          "startLine": 185,
+          "endLine": 195,
+          "params": []
+        },
+        {
+          "name": "test_verify_action_updates_health_status",
+          "startLine": 197,
+          "endLine": 213,
+          "params": []
+        },
+        {
+          "name": "test_tunnel_admin_hidden_when_feature_disabled",
+          "startLine": 215,
+          "endLine": 223,
+          "params": []
+        },
+        {
+          "name": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "startLine": 225,
+          "endLine": 237,
+          "params": []
+        },
+        {
+          "name": "samplePolicyPath",
+          "startLine": 239,
+          "endLine": 253,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelResourceTest",
+          "startLine": 23,
+          "endLine": 254,
+          "methods": [
+            "setUp",
+            "test_guest_cannot_access_tunnels_index",
+            "test_staff_without_permission_cannot_access_tunnels",
+            "test_admin_can_list_tunnels",
+            "test_create_form_prefills_from_default_tunnel_profile",
+            "test_create_form_template_picker_copies_profile_fields",
+            "test_admin_can_create_tunnel",
+            "test_activate_action_deactivates_other_tunnels",
+            "test_create_rejects_local_domain",
+            "test_create_rejects_duplicate_domain",
+            "test_active_tunnel_cannot_be_deleted",
+            "test_verify_action_updates_health_status",
+            "test_tunnel_admin_hidden_when_feature_disabled",
+            "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+            "samplePolicyPath"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelResourceTest",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setUp",
+          "callee": "parent::setUp",
+          "lineNumber": 29
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::setCurrentPanel",
+          "lineNumber": 31
+        },
+        {
+          "caller": "setUp",
+          "callee": "Filament::getPanel",
+          "lineNumber": 31
+        },
+        {
+          "caller": "setUp",
+          "callee": "config",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_guest_cannot_access_tunnels_index",
+          "callee": "$this->get(TunnelResource::getUrl('index'))->assertRedirect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_guest_cannot_access_tunnels_index",
+          "callee": "$this->get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_guest_cannot_access_tunnels_index",
+          "callee": "TunnelResource::getUrl",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "$this->seedRoles",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "User::factory()->create",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "User::factory",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "$user->assignRole",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "$this->actingAs($user)\n            ->get(TunnelResource::getUrl('index'))->assertForbidden",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "$this->actingAs",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_staff_without_permission_cannot_access_tunnels",
+          "callee": "TunnelResource::getUrl",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "$this->adminUser",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "Tunnel::factory",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "$this->actingAs($user)\n            ->get(TunnelResource::getUrl('index'))\n            ->assertOk()->assertSee",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "$this->actingAs($user)\n            ->get(TunnelResource::getUrl('index'))->assertOk",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "$this->actingAs",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_admin_can_list_tunnels",
+          "callee": "TunnelResource::getUrl",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "config",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "$this->seed",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "$this->adminUser",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "Tunnel::defaultTemplate",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)->assertFormSet",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_create_form_prefills_from_default_tunnel_profile",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "config",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "$this->seed",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "$this->adminUser",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Tunnel::query()->where('name', 'Demo — staging')->first",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Tunnel::query()->where",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Tunnel::query",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm(['template_tunnel_id' => $staging->id])->assertFormSet",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)->fillForm",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_create_form_template_picker_copies_profile_fields",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "$this->adminUser",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm([\n                'name' => 'Team tunnel',\n                'domain' => 'team-dev.ngrok-free.dev',\n                'herd_host' => 'dashboard-v1.test',\n            ])\n            ->call('create')->assertHasNoFormErrors",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm([\n                'name' => 'Team tunnel',\n                'domain' => 'team-dev.ngrok-free.dev',\n                'herd_host' => 'dashboard-v1.test',\n            ])->call",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)->fillForm",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_admin_can_create_tunnel",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 114
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->adminUser",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "tempnam",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "file_put_contents",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->samplePolicyPath",
+          "lineNumber": 125
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Tunnel::factory()->active()->create",
+          "lineNumber": 127
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Tunnel::factory()->active",
+          "lineNumber": 127
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Tunnel::factory",
+          "lineNumber": 127
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 128
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Tunnel::factory",
+          "lineNumber": 128
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->app->bind",
+          "lineNumber": 134
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->app->bind",
+          "lineNumber": 135
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->app->bind",
+          "lineNumber": 136
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$app->make",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$app->make",
+          "lineNumber": 138
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Livewire::actingAs($user)\n            ->test(ListTunnels::class)\n            ->callTableAction('activate', $second)->assertNotified",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Livewire::actingAs($user)\n            ->test(ListTunnels::class)->callTableAction",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->assertFalse",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$first->fresh",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->assertTrue",
+          "lineNumber": 147
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$second->fresh",
+          "lineNumber": 147
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 148
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "file_get_contents",
+          "lineNumber": 148
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "unlink",
+          "lineNumber": 150
+        },
+        {
+          "caller": "test_activate_action_deactivates_other_tunnels",
+          "callee": "unlink",
+          "lineNumber": 151
+        },
+        {
+          "caller": "test_create_rejects_local_domain",
+          "callee": "$this->adminUser",
+          "lineNumber": 156
+        },
+        {
+          "caller": "test_create_rejects_local_domain",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm([\n                'name' => 'Bad local',\n                'domain' => 'dashboard-v1.test',\n                'herd_host' => 'dashboard-v1.test',\n            ])\n            ->call('create')->assertHasFormErrors",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_create_rejects_local_domain",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm([\n                'name' => 'Bad local',\n                'domain' => 'dashboard-v1.test',\n                'herd_host' => 'dashboard-v1.test',\n            ])->call",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_create_rejects_local_domain",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)->fillForm",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_create_rejects_local_domain",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_create_rejects_local_domain",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "$this->adminUser",
+          "lineNumber": 171
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 172
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Tunnel::factory",
+          "lineNumber": 172
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm([\n                'name' => 'Duplicate domain',\n                'domain' => 'dup.ngrok-free.dev',\n                'herd_host' => 'dashboard-v1.test',\n            ])\n            ->call('create')->assertHasFormErrors",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)\n            ->fillForm([\n                'name' => 'Duplicate domain',\n                'domain' => 'dup.ngrok-free.dev',\n                'herd_host' => 'dashboard-v1.test',\n            ])->call",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Livewire::actingAs($user)\n            ->test(CreateTunnel::class)->fillForm",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_create_rejects_duplicate_domain",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 174
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "$this->adminUser",
+          "lineNumber": 187
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "Tunnel::factory()->active()->create",
+          "lineNumber": 188
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "Tunnel::factory()->active",
+          "lineNumber": 188
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "Tunnel::factory",
+          "lineNumber": 188
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "$this->assertFalse",
+          "lineNumber": 190
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "TunnelResource::canDelete",
+          "lineNumber": 190
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "Livewire::actingAs($user)\n            ->test(EditTunnel::class, ['record' => $tunnel->getRouteKey()])->assertActionHidden",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_active_tunnel_cannot_be_deleted",
+          "callee": "$tunnel->getRouteKey",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Http::fake",
+          "lineNumber": 199
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Http::response",
+          "lineNumber": 200
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "$this->adminUser",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 204
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Tunnel::factory",
+          "lineNumber": 204
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Livewire::actingAs($user)\n            ->test(ListTunnels::class)\n            ->callTableAction('verify', $tunnel)->assertNotified",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Livewire::actingAs($user)\n            ->test(ListTunnels::class)->callTableAction",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Livewire::actingAs($user)->test",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "Livewire::actingAs",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "$tunnel->refresh",
+          "lineNumber": 211
+        },
+        {
+          "caller": "test_verify_action_updates_health_status",
+          "callee": "$this->assertSame",
+          "lineNumber": 212
+        },
+        {
+          "caller": "test_tunnel_admin_hidden_when_feature_disabled",
+          "callee": "config",
+          "lineNumber": 217
+        },
+        {
+          "caller": "test_tunnel_admin_hidden_when_feature_disabled",
+          "callee": "$this->adminUser",
+          "lineNumber": 218
+        },
+        {
+          "caller": "test_tunnel_admin_hidden_when_feature_disabled",
+          "callee": "$this->actingAs($user)\n            ->get(TunnelResource::getUrl('index'))->assertForbidden",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_tunnel_admin_hidden_when_feature_disabled",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_tunnel_admin_hidden_when_feature_disabled",
+          "callee": "$this->actingAs",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_tunnel_admin_hidden_when_feature_disabled",
+          "callee": "TunnelResource::getUrl",
+          "lineNumber": 221
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "$this->seedRoles",
+          "lineNumber": 227
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "Permission::findOrCreate",
+          "lineNumber": 229
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "User::factory()->create",
+          "lineNumber": 231
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "User::factory",
+          "lineNumber": 231
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "$user->givePermissionTo",
+          "lineNumber": 232
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "$this->actingAs($user)\n            ->get(TunnelResource::getUrl('index'))->assertOk",
+          "lineNumber": 234
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 234
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "$this->actingAs",
+          "lineNumber": 234
+        },
+        {
+          "caller": "test_user_with_permission_but_not_admin_role_can_access_when_granted",
+          "callee": "TunnelResource::getUrl",
+          "lineNumber": 235
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "tempnam",
+          "lineNumber": 241
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 241
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "file_put_contents",
+          "lineNumber": 242
+        }
+      ],
+      "metrics": {
+        "importCount": 10,
+        "exportCount": 1,
+        "functionCount": 15,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/TunnelSeederTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "test_seeder_creates_five_profiles_with_first_active",
+          "startLine": 14,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "test_seeder_is_idempotent_by_name",
+          "startLine": 30,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelSeederTest",
+          "startLine": 10,
+          "endLine": 39,
+          "methods": [
+            "test_seeder_creates_five_profiles_with_first_active",
+            "test_seeder_is_idempotent_by_name"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelSeederTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "config",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "$this->seed",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "$this->assertSame",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "Tunnel::query()->count",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "Tunnel::query",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "Tunnel::defaultTemplate",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "$this->assertTrue",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "$this->assertSame",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "$this->assertSame",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "Tunnel::query()->where('is_active', true)->count",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "Tunnel::query()->where",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_seeder_creates_five_profiles_with_first_active",
+          "callee": "Tunnel::query",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_seeder_is_idempotent_by_name",
+          "callee": "config",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_seeder_is_idempotent_by_name",
+          "callee": "$this->seed",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_seeder_is_idempotent_by_name",
+          "callee": "$this->seed",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_seeder_is_idempotent_by_name",
+          "callee": "$this->assertSame",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_seeder_is_idempotent_by_name",
+          "callee": "Tunnel::query()->count",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_seeder_is_idempotent_by_name",
+          "callee": "Tunnel::query",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/NgrokEnvSyncTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "test_sync_updates_env_file_keys",
+          "startLine": 16,
+          "endLine": 36,
+          "params": []
+        },
+        {
+          "name": "test_sync_rejects_local_domain",
+          "startLine": 38,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "test_normalize_domain_strips_scheme",
+          "startLine": 51,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "test_env_file_writer_appends_missing_key",
+          "startLine": 56,
+          "endLine": 66,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "NgrokEnvSyncTest",
+          "startLine": 12,
+          "endLine": 67,
+          "methods": [
+            "test_sync_updates_env_file_keys",
+            "test_sync_rejects_local_domain",
+            "test_normalize_domain_strips_scheme",
+            "test_env_file_writer_appends_missing_key"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NgrokEnvSyncTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "tempnam",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertNotFalse",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "file_put_contents",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$sync->sync",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "file_get_contents",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertSame",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "$this->assertSame",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_sync_updates_env_file_keys",
+          "callee": "unlink",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_sync_rejects_local_domain",
+          "callee": "tempnam",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_sync_rejects_local_domain",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_sync_rejects_local_domain",
+          "callee": "file_put_contents",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_sync_rejects_local_domain",
+          "callee": "$this->expectException",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_sync_rejects_local_domain",
+          "callee": "$sync->sync",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_sync_rejects_local_domain",
+          "callee": "unlink",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_normalize_domain_strips_scheme",
+          "callee": "$this->assertSame",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_normalize_domain_strips_scheme",
+          "callee": "Tunnel::normalizeDomain",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "tempnam",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "file_put_contents",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "(new EnvFileWriter($path))->set",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "file_get_contents",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_env_file_writer_appends_missing_key",
+          "callee": "unlink",
+          "lineNumber": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/NgrokTrafficPolicyWriterTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "test_sync_updates_host_header_in_policy_file",
+          "startLine": 11,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_sync_rejects_ngrok_domain_as_herd_host",
+          "startLine": 25,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "samplePolicyPath",
+          "startLine": 36,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "NgrokTrafficPolicyWriterTest",
+          "startLine": 9,
+          "endLine": 53,
+          "methods": [
+            "test_sync_updates_host_header_in_policy_file",
+            "test_sync_rejects_ngrok_domain_as_herd_host",
+            "samplePolicyPath"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "NgrokTrafficPolicyWriterTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_sync_updates_host_header_in_policy_file",
+          "callee": "$this->samplePolicyPath",
+          "lineNumber": 13
+        },
+        {
+          "caller": "test_sync_updates_host_header_in_policy_file",
+          "callee": "(new NgrokTrafficPolicyWriter($path))->sync",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_sync_updates_host_header_in_policy_file",
+          "callee": "file_get_contents",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_sync_updates_host_header_in_policy_file",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_sync_updates_host_header_in_policy_file",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_sync_updates_host_header_in_policy_file",
+          "callee": "unlink",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_sync_rejects_ngrok_domain_as_herd_host",
+          "callee": "$this->samplePolicyPath",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_sync_rejects_ngrok_domain_as_herd_host",
+          "callee": "$this->expectException",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_sync_rejects_ngrok_domain_as_herd_host",
+          "callee": "$writer->sync",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_sync_rejects_ngrok_domain_as_herd_host",
+          "callee": "unlink",
+          "lineNumber": 33
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "tempnam",
+          "lineNumber": 38
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 38
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "$this->assertNotFalse",
+          "lineNumber": 39
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "file_put_contents",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/TunnelActivatorTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "test_activate_marks_only_one_tunnel_active",
+          "startLine": 16,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "activator",
+          "startLine": 51,
+          "endLine": 57,
+          "params": [
+            "$envPath",
+            "$policyPath"
+          ]
+        },
+        {
+          "name": "samplePolicyPath",
+          "startLine": 59,
+          "endLine": 73,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelActivatorTest",
+          "startLine": 12,
+          "endLine": 74,
+          "methods": [
+            "test_activate_marks_only_one_tunnel_active",
+            "activator",
+            "samplePolicyPath"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelActivatorTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "tempnam",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "file_put_contents",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->samplePolicyPath",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "Tunnel::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "Tunnel::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->activator",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$activator->activate",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertTrue",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$first->fresh",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertFalse",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$second->fresh",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "file_get_contents",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$activator->activate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertFalse",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$first->fresh",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertTrue",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$second->fresh",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "file_get_contents",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "$this->assertStringContainsString",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "file_get_contents",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "unlink",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_activate_marks_only_one_tunnel_active",
+          "callee": "unlink",
+          "lineNumber": 48
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "tempnam",
+          "lineNumber": 61
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "sys_get_temp_dir",
+          "lineNumber": 61
+        },
+        {
+          "caller": "samplePolicyPath",
+          "callee": "file_put_contents",
+          "lineNumber": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Unit/TunnelHealthCheckerTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "test_check_returns_ok_on_http_200",
+          "startLine": 15,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "test_check_returns_error_on_http_400",
+          "startLine": 28,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "test_verify_and_store_persists_status",
+          "startLine": 41,
+          "endLine": 54,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "TunnelHealthCheckerTest",
+          "startLine": 11,
+          "endLine": 55,
+          "methods": [
+            "test_check_returns_ok_on_http_200",
+            "test_check_returns_error_on_http_400",
+            "test_verify_and_store_persists_status"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TunnelHealthCheckerTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "Http::fake",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "Http::response",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "Tunnel::factory()->make",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "Tunnel::factory",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "(new TunnelHealthChecker)->check",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "$this->assertSame",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_check_returns_ok_on_http_200",
+          "callee": "$this->assertSame",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "Http::fake",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "Http::response",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "Tunnel::factory()->make",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "Tunnel::factory",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "(new TunnelHealthChecker)->check",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "$this->assertSame",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_check_returns_error_on_http_400",
+          "callee": "$this->assertSame",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "Http::fake",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "Http::response",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "Tunnel::factory()->create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "Tunnel::factory",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "(new TunnelHealthChecker)->verifyAndStore",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "$tunnel->refresh",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "$this->assertSame",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_verify_and_store_persists_status",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    }
+  ]
+}

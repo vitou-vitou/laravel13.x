@@ -1,0 +1,2223 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 21,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/invoice-app/app/Models/Invoice.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "customer",
+          "startLine": 22,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "items",
+          "startLine": 27,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "total",
+          "startLine": 32,
+          "endLine": 35,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Invoice",
+          "startLine": 11,
+          "endLine": 36,
+          "methods": [
+            "customer",
+            "items",
+            "total"
+          ],
+          "properties": [
+            "fillable",
+            "casts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Invoice",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "customer",
+          "callee": "$this->belongsTo",
+          "lineNumber": 24
+        },
+        {
+          "caller": "items",
+          "callee": "$this->hasMany",
+          "lineNumber": 29
+        },
+        {
+          "caller": "total",
+          "callee": "Attribute::get",
+          "lineNumber": 34
+        },
+        {
+          "caller": "total",
+          "callee": "$this->items->sum",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/app/Models/InvoiceItem.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "invoice",
+          "startLine": 21,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "lineTotal",
+          "startLine": 26,
+          "endLine": 29,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvoiceItem",
+          "startLine": 10,
+          "endLine": 30,
+          "methods": [
+            "invoice",
+            "lineTotal"
+          ],
+          "properties": [
+            "fillable",
+            "casts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceItem",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "invoice",
+          "callee": "$this->belongsTo",
+          "lineNumber": 23
+        },
+        {
+          "caller": "lineTotal",
+          "callee": "Attribute::get",
+          "lineNumber": 28
+        },
+        {
+          "caller": "lineTotal",
+          "callee": "round",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/app/Models/User.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 25,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 13,
+          "endLine": 32,
+          "methods": [
+            "casts"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/config/auth.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 103,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/invoice-app/database/factories/InvoiceFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 10,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvoiceFactory",
+          "startLine": 8,
+          "endLine": 20,
+          "methods": [
+            "definition"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceFactory",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "Customer::factory",
+          "lineNumber": 13
+        },
+        {
+          "caller": "definition",
+          "callee": "$this->faker->unique()->numerify",
+          "lineNumber": 14
+        },
+        {
+          "caller": "definition",
+          "callee": "$this->faker->unique",
+          "lineNumber": 14
+        },
+        {
+          "caller": "definition",
+          "callee": "now()->toDateString",
+          "lineNumber": 15
+        },
+        {
+          "caller": "definition",
+          "callee": "now",
+          "lineNumber": 15
+        },
+        {
+          "caller": "definition",
+          "callee": "now()->addDays(30)->toDateString",
+          "lineNumber": 16
+        },
+        {
+          "caller": "definition",
+          "callee": "now()->addDays",
+          "lineNumber": 16
+        },
+        {
+          "caller": "definition",
+          "callee": "now",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/database/factories/InvoiceItemFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 10,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvoiceItemFactory",
+          "startLine": 8,
+          "endLine": 19,
+          "methods": [
+            "definition"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceItemFactory",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "Invoice::factory",
+          "lineNumber": 13
+        },
+        {
+          "caller": "definition",
+          "callee": "$this->faker->sentence",
+          "lineNumber": 14
+        },
+        {
+          "caller": "definition",
+          "callee": "$this->faker->numberBetween",
+          "lineNumber": 15
+        },
+        {
+          "caller": "definition",
+          "callee": "$this->faker->randomFloat",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/database/factories/UserFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 25,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "unverified",
+          "startLine": 39,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "UserFactory",
+          "startLine": 13,
+          "endLine": 45,
+          "methods": [
+            "definition",
+            "unverified"
+          ],
+          "properties": [
+            "password"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserFactory",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->name",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->safeEmail",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "now",
+          "lineNumber": 30
+        },
+        {
+          "caller": "definition",
+          "callee": "Hash::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::random",
+          "lineNumber": 32
+        },
+        {
+          "caller": "unverified",
+          "callee": "$this->state",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/database/seeders/DatabaseSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 16,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DatabaseSeeder",
+          "startLine": 9,
+          "endLine": 25,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatabaseSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "User::factory()->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/routes/auth.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 43,
+      "metrics": {
+        "importCount": 9,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/invoice-app/routes/web.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/Auth/AuthenticationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "test_login_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_users_can_authenticate_using_the_login_screen",
+          "startLine": 20,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_users_can_not_authenticate_with_invalid_password",
+          "startLine": 33,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "test_users_can_logout",
+          "startLine": 45,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthenticationTest",
+          "startLine": 9,
+          "endLine": 54,
+          "methods": [
+            "test_login_screen_can_be_rendered",
+            "test_users_can_authenticate_using_the_login_screen",
+            "test_users_can_not_authenticate_with_invalid_password",
+            "test_users_can_logout"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthenticationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory()->create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->post",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "route",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->post",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->assertGuest",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory()->create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->assertGuest",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/Auth/EmailVerificationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "test_email_verification_screen_can_be_rendered",
+          "startLine": 16,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_email_can_be_verified",
+          "startLine": 25,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "test_email_is_not_verified_with_invalid_hash",
+          "startLine": 44,
+          "endLine": 57,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailVerificationTest",
+          "startLine": 12,
+          "endLine": 58,
+          "methods": [
+            "test_email_verification_screen_can_be_rendered",
+            "test_email_can_be_verified",
+            "test_email_is_not_verified_with_invalid_hash"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailVerificationTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now()->addMinutes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "sha1",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::assertDispatched",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->assertTrue",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "route",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now()->addMinutes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "sha1",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->assertFalse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/Auth/PasswordConfirmationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "test_confirm_password_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_confirmed",
+          "startLine": 22,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_password_is_not_confirmed_with_invalid_password",
+          "startLine": 34,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordConfirmationTest",
+          "startLine": 9,
+          "endLine": 44,
+          "methods": [
+            "test_confirm_password_screen_can_be_rendered",
+            "test_password_can_be_confirmed",
+            "test_password_is_not_confirmed_with_invalid_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordConfirmationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$response->assertSessionHasErrors",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/Auth/PasswordResetTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "test_reset_password_link_screen_can_be_rendered",
+          "startLine": 15,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_link_can_be_requested",
+          "startLine": 22,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_reset_password_screen_can_be_rendered",
+          "startLine": 33,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_reset_with_valid_token",
+          "startLine": 50,
+          "endLine": 72,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordResetTest",
+          "startLine": 11,
+          "endLine": 73,
+          "methods": [
+            "test_reset_password_link_screen_can_be_rendered",
+            "test_reset_password_link_can_be_requested",
+            "test_reset_password_screen_can_be_rendered",
+            "test_password_can_be_reset_with_valid_token"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordResetTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_reset_password_link_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::fake",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "$this->post",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_reset_password_link_can_be_requested",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::fake",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->post",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_reset_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::fake",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory()->create",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "User::factory",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "Notification::assertSentTo",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$this->post",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response\n                ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_password_can_be_reset_with_valid_token",
+          "callee": "route",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/Auth/PasswordUpdateTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "test_password_can_be_updated",
+          "startLine": 14,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_update_password",
+          "startLine": 34,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordUpdateTest",
+          "startLine": 10,
+          "endLine": 51,
+          "methods": [
+            "test_password_can_be_updated",
+            "test_correct_password_must_be_provided_to_update_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordUpdateTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$this->assertTrue",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "Hash::check",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->put",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('updatePassword', 'current_password')->assertRedirect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_update_password",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/CustomerTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "test_guest_cannot_list_customers",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "test_user_can_create_customer",
+          "startLine": 19,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "test_user_can_update_customer",
+          "startLine": 32,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "test_user_can_delete_customer",
+          "startLine": 47,
+          "endLine": 56,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomerTest",
+          "startLine": 10,
+          "endLine": 57,
+          "methods": [
+            "test_guest_cannot_list_customers",
+            "test_user_can_create_customer",
+            "test_user_can_update_customer",
+            "test_user_can_delete_customer"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomerTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_guest_cannot_list_customers",
+          "callee": "$this->get('/customers')->assertRedirect",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_guest_cannot_list_customers",
+          "callee": "$this->get",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_user_can_create_customer",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->post('/customers', [\n                'name' => 'Acme',\n                'email' => 'a@a.test',\n                'address' => '1 St',\n            ])->assertRedirect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_user_can_create_customer",
+          "callee": "$this->actingAs(User::factory()->create())->post",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_user_can_create_customer",
+          "callee": "$this->actingAs",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_user_can_create_customer",
+          "callee": "User::factory()->create",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_user_can_create_customer",
+          "callee": "User::factory",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_user_can_create_customer",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "Customer::factory",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->put(\"/customers/{$customer->id}\", [\n                'name' => 'Updated',\n                'email' => $customer->email,\n                'address' => $customer->address,\n            ])->assertRedirect",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "$this->actingAs(User::factory()->create())->put",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "$this->actingAs",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "$this->assertSame",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_user_can_update_customer",
+          "callee": "$customer->fresh",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "Customer::factory",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->delete(\"/customers/{$customer->id}\")->assertRedirect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "$this->actingAs(User::factory()->create())->delete",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "$this->actingAs",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "User::factory()->create",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "User::factory",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_user_can_delete_customer",
+          "callee": "$this->assertDatabaseMissing",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/InvoicePdfTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "test_user_can_download_invoice_pdf",
+          "startLine": 14,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvoicePdfTest",
+          "startLine": 10,
+          "endLine": 25,
+          "methods": [
+            "test_user_can_download_invoice_pdf"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoicePdfTest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "Invoice::factory()->hasItems(1)->create",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "Invoice::factory()->hasItems",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "Invoice::factory",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$this->actingAs(User::factory()->create())->get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$this->actingAs",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "User::factory()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "User::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "route",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$response->assertOk",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$this->assertSame",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$response->headers->get",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$this->assertStringStartsWith",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_user_can_download_invoice_pdf",
+          "callee": "$response->getContent",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/InvoiceTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "test_user_can_create_invoice_with_items",
+          "startLine": 15,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "test_user_can_view_invoice_with_total",
+          "startLine": 37,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvoiceTest",
+          "startLine": 11,
+          "endLine": 49,
+          "methods": [
+            "test_user_can_create_invoice_with_items",
+            "test_user_can_view_invoice_with_total"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "Customer::factory",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->post('/invoices', [\n                'customer_id' => $customer->id,\n                'number' => 'INV-001',\n                'issued_on' => '2026-01-01',\n                'due_on' => '2026-01-31',\n                'status' => 'draft',\n                'items' => [\n                    ['description' => 'Service A', 'quantity' => 2, 'unit_price' => 100.00],\n                    ['description' => 'Service B', 'quantity' => 1, 'unit_price' => 50.00],\n                ],\n            ])->assertRedirect",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "$this->actingAs(User::factory()->create())->post",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "$this->actingAs",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "User::factory()->create",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "User::factory",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_user_can_create_invoice_with_items",
+          "callee": "$this->assertDatabaseCount",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "Invoice::factory()\n            ->hasItems(2, ['quantity' => 1, 'unit_price' => 50])->create",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "Invoice::factory()->hasItems",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "Invoice::factory",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->get(\"/invoices/{$invoice->id}\")\n            ->assertOk()\n            ->assertSee($invoice->number)->assertSee",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->get(\"/invoices/{$invoice->id}\")\n            ->assertOk()->assertSee",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "$this->actingAs(User::factory()->create())\n            ->get(\"/invoices/{$invoice->id}\")->assertOk",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "$this->actingAs(User::factory()->create())->get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "$this->actingAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "User::factory()->create",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_user_can_view_invoice_with_total",
+          "callee": "User::factory",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Feature/ProfileTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 99,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "test_profile_page_is_displayed",
+          "startLine": 13,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_profile_information_can_be_updated",
+          "startLine": 24,
+          "endLine": 44,
+          "params": []
+        },
+        {
+          "name": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "startLine": 46,
+          "endLine": 62,
+          "params": []
+        },
+        {
+          "name": "test_user_can_delete_their_account",
+          "startLine": 64,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "test_correct_password_must_be_provided_to_delete_account",
+          "startLine": 82,
+          "endLine": 98,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileTest",
+          "startLine": 9,
+          "endLine": 99,
+          "methods": [
+            "test_profile_page_is_displayed",
+            "test_profile_information_can_be_updated",
+            "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+            "test_user_can_delete_their_account",
+            "test_correct_password_must_be_provided_to_delete_account"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this\n            ->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_profile_page_is_displayed",
+          "callee": "$response->assertOk",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory()->create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "User::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->actingAs",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$user->refresh",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertSame",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_profile_information_can_be_updated",
+          "callee": "$this->assertNull",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "User::factory",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this\n            ->actingAs($user)->patch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->actingAs",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged",
+          "callee": "$user->refresh",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "User::factory",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this\n            ->actingAs($user)->delete",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response\n            ->assertSessionHasNoErrors()->assertRedirect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertGuest",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$this->assertNull",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_user_can_delete_their_account",
+          "callee": "$user->fresh",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory()->create",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "User::factory",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)\n            ->from('/profile')->delete",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this\n            ->actingAs($user)->from",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->actingAs",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response\n            ->assertSessionHasErrorsIn('userDeletion', 'password')->assertRedirect",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$response->assertSessionHasErrorsIn",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$this->assertNotNull",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_correct_password_must_be_provided_to_delete_account",
+          "callee": "$user->fresh",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Unit/CustomerModelTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "test_customer_can_be_created_with_required_fields",
+          "startLine": 13,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomerModelTest",
+          "startLine": 9,
+          "endLine": 24,
+          "methods": [
+            "test_customer_can_be_created_with_required_fields"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomerModelTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_customer_can_be_created_with_required_fields",
+          "callee": "Customer::create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_customer_can_be_created_with_required_fields",
+          "callee": "$this->assertDatabaseHas",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_customer_can_be_created_with_required_fields",
+          "callee": "$this->assertSame",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/invoice-app/tests/Unit/InvoiceTotalsTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "test_invoice_total_sums_line_items",
+          "startLine": 15,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "test_line_total_is_quantity_times_unit_price",
+          "startLine": 26,
+          "endLine": 30,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "InvoiceTotalsTest",
+          "startLine": 11,
+          "endLine": 31,
+          "methods": [
+            "test_invoice_total_sums_line_items",
+            "test_line_total_is_quantity_times_unit_price"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InvoiceTotalsTest",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "Customer::factory()->create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "Customer::factory",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "Invoice::factory()->for($customer)->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "Invoice::factory()->for",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "Invoice::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "InvoiceItem::factory()->for($invoice)->create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "InvoiceItem::factory()->for",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "InvoiceItem::factory",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "InvoiceItem::factory()->for($invoice)->create",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "InvoiceItem::factory()->for",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "InvoiceItem::factory",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "$this->assertEqualsWithDelta",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_invoice_total_sums_line_items",
+          "callee": "$invoice->fresh",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_line_total_is_quantity_times_unit_price",
+          "callee": "$this->assertEqualsWithDelta",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

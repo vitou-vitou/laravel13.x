@@ -1,0 +1,3006 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/app/Models/User.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 26,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "cart",
+          "startLine": 37,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "canAccessPanel",
+          "startLine": 42,
+          "endLine": 45,
+          "params": [
+            "$panel"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 16,
+          "endLine": 46,
+          "methods": [
+            "casts",
+            "cart",
+            "canAccessPanel"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cart",
+          "callee": "$this->hasOne",
+          "lineNumber": 39
+        },
+        {
+          "caller": "canAccessPanel",
+          "callee": "$this->can",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Providers/Filament/AdminPanelProvider.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "panel",
+          "startLine": 27,
+          "endLine": 64,
+          "params": [
+            "$panel"
+          ]
+        },
+        {
+          "name": "boot",
+          "startLine": 66,
+          "endLine": 72,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AdminPanelProvider",
+          "startLine": 25,
+          "endLine": 73,
+          "methods": [
+            "panel",
+            "boot"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdminPanelProvider",
+          "line": 25,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()\n            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')\n            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')\n            ->pages([\n                Dashboard::class,\n            ])\n            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')\n            ->widgets([\n                CommerceOverview::class,\n                AccountWidget::class,\n            ])\n            ->middleware([\n                EncryptCookies::class,\n                AddQueuedCookiesToResponse::class,\n                StartSession::class,\n                AuthenticateSession::class,\n                ShareErrorsFromSession::class,\n                PreventRequestForgery::class,\n                SubstituteBindings::class,\n                DisableBladeIconComponents::class,\n                DispatchServingFilamentEvent::class,\n            ])->authMiddleware",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()\n            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')\n            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')\n            ->pages([\n                Dashboard::class,\n            ])\n            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')\n            ->widgets([\n                CommerceOverview::class,\n                AccountWidget::class,\n            ])->middleware",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()\n            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')\n            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')\n            ->pages([\n                Dashboard::class,\n            ])\n            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')->widgets",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()\n            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')\n            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')\n            ->pages([\n                Dashboard::class,\n            ])->discoverWidgets",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()\n            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')\n            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')->pages",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()\n            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')->discoverPages",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])\n            ->darkMode()->discoverResources",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')\n            ->colors([\n                'primary' => Color::Amber,\n            ])->darkMode",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))\n            ->authGuard('web')->colors",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)\n            ->brandName(fn (): string => config('app.name'))->authGuard",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')\n            ->login(Login::class)->brandName",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')\n            ->path('admin')->login",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()\n            ->id('admin')->path",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel\n            ->default()->id",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "$panel->default",
+          "lineNumber": 29
+        },
+        {
+          "caller": "panel",
+          "callee": "config",
+          "lineNumber": 34
+        },
+        {
+          "caller": "panel",
+          "callee": "app_path",
+          "lineNumber": 40
+        },
+        {
+          "caller": "panel",
+          "callee": "app_path",
+          "lineNumber": 41
+        },
+        {
+          "caller": "panel",
+          "callee": "app_path",
+          "lineNumber": 45
+        },
+        {
+          "caller": "boot",
+          "callee": "FilamentView::registerRenderHook",
+          "lineNumber": 68
+        },
+        {
+          "caller": "boot",
+          "callee": "view('filament.hooks.admin-polish')->render",
+          "lineNumber": 70
+        },
+        {
+          "caller": "boot",
+          "callee": "view",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/CartService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "forUser",
+          "startLine": 12,
+          "endLine": 15,
+          "params": [
+            "$user"
+          ]
+        },
+        {
+          "name": "addItem",
+          "startLine": 17,
+          "endLine": 30,
+          "params": [
+            "$user",
+            "$product",
+            "$quantity"
+          ]
+        },
+        {
+          "name": "updateQuantity",
+          "startLine": 32,
+          "endLine": 54,
+          "params": [
+            "$user",
+            "$product",
+            "$quantity"
+          ]
+        },
+        {
+          "name": "clear",
+          "startLine": 56,
+          "endLine": 59,
+          "params": [
+            "$user"
+          ]
+        },
+        {
+          "name": "totalCents",
+          "startLine": 61,
+          "endLine": 64,
+          "params": [
+            "$user"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartService",
+          "startLine": 10,
+          "endLine": 65,
+          "methods": [
+            "forUser",
+            "addItem",
+            "updateQuantity",
+            "clear",
+            "totalCents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartService",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "forUser",
+          "callee": "Cart::query()->firstOrCreate",
+          "lineNumber": 14
+        },
+        {
+          "caller": "forUser",
+          "callee": "Cart::query",
+          "lineNumber": 14
+        },
+        {
+          "caller": "addItem",
+          "callee": "$this->forUser",
+          "lineNumber": 19
+        },
+        {
+          "caller": "addItem",
+          "callee": "CartItem::query()->firstOrNew",
+          "lineNumber": 21
+        },
+        {
+          "caller": "addItem",
+          "callee": "CartItem::query",
+          "lineNumber": 21
+        },
+        {
+          "caller": "addItem",
+          "callee": "max",
+          "lineNumber": 26
+        },
+        {
+          "caller": "addItem",
+          "callee": "$item->save",
+          "lineNumber": 27
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "$this->forUser",
+          "lineNumber": 34
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "CartItem::query()\r\n            ->where('cart_id', $cart->id)\r\n            ->where('product_id', $product->id)->first",
+          "lineNumber": 36
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "CartItem::query()\r\n            ->where('cart_id', $cart->id)->where",
+          "lineNumber": 36
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "CartItem::query()->where",
+          "lineNumber": 36
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "CartItem::query",
+          "lineNumber": 36
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "$item->delete",
+          "lineNumber": 46
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "$item->update",
+          "lineNumber": 51
+        },
+        {
+          "caller": "updateQuantity",
+          "callee": "$item->fresh",
+          "lineNumber": 53
+        },
+        {
+          "caller": "clear",
+          "callee": "$this->forUser($user)->items()->delete",
+          "lineNumber": 58
+        },
+        {
+          "caller": "clear",
+          "callee": "$this->forUser($user)->items",
+          "lineNumber": 58
+        },
+        {
+          "caller": "clear",
+          "callee": "$this->forUser",
+          "lineNumber": 58
+        },
+        {
+          "caller": "totalCents",
+          "callee": "$this->forUser($user)->totalCents",
+          "lineNumber": 63
+        },
+        {
+          "caller": "totalCents",
+          "callee": "$this->forUser",
+          "lineNumber": 63
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/CheckoutService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 77,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 16,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "checkout",
+          "startLine": 23,
+          "endLine": 76,
+          "params": [
+            "$user",
+            "$method"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CheckoutService",
+          "startLine": 14,
+          "endLine": 77,
+          "methods": [
+            "__construct",
+            "checkout"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CheckoutService",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checkout",
+          "callee": "$this->cartService->totalCents",
+          "lineNumber": 25
+        },
+        {
+          "caller": "checkout",
+          "callee": "DB::transaction",
+          "lineNumber": 31
+        },
+        {
+          "caller": "checkout",
+          "callee": "Customer::query()->firstOrCreate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "checkout",
+          "callee": "Customer::query",
+          "lineNumber": 32
+        },
+        {
+          "caller": "checkout",
+          "callee": "$this->cartService->forUser",
+          "lineNumber": 37
+        },
+        {
+          "caller": "checkout",
+          "callee": "$cart->load",
+          "lineNumber": 38
+        },
+        {
+          "caller": "checkout",
+          "callee": "Order::query()->create",
+          "lineNumber": 40
+        },
+        {
+          "caller": "checkout",
+          "callee": "Order::query",
+          "lineNumber": 40
+        },
+        {
+          "caller": "checkout",
+          "callee": "now",
+          "lineNumber": 44
+        },
+        {
+          "caller": "checkout",
+          "callee": "OrderItem::query()->create",
+          "lineNumber": 48
+        },
+        {
+          "caller": "checkout",
+          "callee": "OrderItem::query",
+          "lineNumber": 48
+        },
+        {
+          "caller": "checkout",
+          "callee": "$item->product->getTranslation",
+          "lineNumber": 51
+        },
+        {
+          "caller": "checkout",
+          "callee": "Payment::query()->create",
+          "lineNumber": 58
+        },
+        {
+          "caller": "checkout",
+          "callee": "Payment::query",
+          "lineNumber": 58
+        },
+        {
+          "caller": "checkout",
+          "callee": "sprintf",
+          "lineNumber": 63
+        },
+        {
+          "caller": "checkout",
+          "callee": "$this->cartService->clear",
+          "lineNumber": 66
+        },
+        {
+          "caller": "checkout",
+          "callee": "$order->fresh",
+          "lineNumber": 68
+        },
+        {
+          "caller": "checkout",
+          "callee": "$this->orderMailNotifier->notifyAdmins",
+          "lineNumber": 71
+        },
+        {
+          "caller": "checkout",
+          "callee": "NewOrderCreated::dispatch",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/DashboardMetricsService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 206,
+      "functions": [
+        {
+          "name": "getKpis",
+          "startLine": 14,
+          "endLine": 38,
+          "params": []
+        },
+        {
+          "name": "getRevenueTrend",
+          "startLine": 43,
+          "endLine": 64,
+          "params": [
+            "$days"
+          ]
+        },
+        {
+          "name": "getStatusBreakdown",
+          "startLine": 69,
+          "endLine": 80,
+          "params": []
+        },
+        {
+          "name": "getRecentOrders",
+          "startLine": 85,
+          "endLine": 100,
+          "params": []
+        },
+        {
+          "name": "getLatestOrderId",
+          "startLine": 102,
+          "endLine": 105,
+          "params": []
+        },
+        {
+          "name": "getOrdersNewerThan",
+          "startLine": 110,
+          "endLine": 118,
+          "params": [
+            "$orderId"
+          ]
+        },
+        {
+          "name": "buildKpi",
+          "startLine": 125,
+          "endLine": 146,
+          "params": [
+            "$label",
+            "$currentValue",
+            "$periodValue"
+          ]
+        },
+        {
+          "name": "buildConversionKpi",
+          "startLine": 151,
+          "endLine": 168,
+          "params": []
+        },
+        {
+          "name": "paidRevenueCents",
+          "startLine": 170,
+          "endLine": 175,
+          "params": []
+        },
+        {
+          "name": "paidRevenueCentsBetween",
+          "startLine": 177,
+          "endLine": 183,
+          "params": [
+            "$start",
+            "$end"
+          ]
+        },
+        {
+          "name": "conversionRateBetween",
+          "startLine": 185,
+          "endLine": 199,
+          "params": [
+            "$start",
+            "$end"
+          ]
+        },
+        {
+          "name": "formatMoney",
+          "startLine": 201,
+          "endLine": 204,
+          "params": [
+            "$cents"
+          ]
+        },
+        {
+          "name": "comparisonWindows",
+          "startLine": 209,
+          "endLine": 217,
+          "params": []
+        },
+        {
+          "name": "trendFor",
+          "startLine": 219,
+          "endLine": 230,
+          "params": [
+            "$current",
+            "$previous"
+          ]
+        },
+        {
+          "name": "changeLabelFor",
+          "startLine": 232,
+          "endLine": 241,
+          "params": [
+            "$current",
+            "$previous"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DashboardMetricsService",
+          "startLine": 9,
+          "endLine": 242,
+          "methods": [
+            "getKpis",
+            "getRevenueTrend",
+            "getStatusBreakdown",
+            "getRecentOrders",
+            "getLatestOrderId",
+            "getOrdersNewerThan",
+            "buildKpi",
+            "buildConversionKpi",
+            "paidRevenueCents",
+            "paidRevenueCentsBetween",
+            "conversionRateBetween",
+            "formatMoney",
+            "comparisonWindows",
+            "trendFor",
+            "changeLabelFor"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DashboardMetricsService",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getKpis",
+          "callee": "$this->buildKpi",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getKpis",
+          "callee": "$this->formatMoney",
+          "lineNumber": 19
+        },
+        {
+          "caller": "getKpis",
+          "callee": "$this->paidRevenueCents",
+          "lineNumber": 19
+        },
+        {
+          "caller": "getKpis",
+          "callee": "$this->paidRevenueCentsBetween",
+          "lineNumber": 20
+        },
+        {
+          "caller": "getKpis",
+          "callee": "$this->buildKpi",
+          "lineNumber": 22
+        },
+        {
+          "caller": "getKpis",
+          "callee": "number_format",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getKpis",
+          "callee": "User::query()->count",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getKpis",
+          "callee": "User::query",
+          "lineNumber": 24
+        },
+        {
+          "caller": "getKpis",
+          "callee": "User::query()\n                    ->whereBetween('created_at', [$start, $end])->count",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getKpis",
+          "callee": "User::query()->whereBetween",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getKpis",
+          "callee": "User::query",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getKpis",
+          "callee": "$this->buildKpi",
+          "lineNumber": 29
+        },
+        {
+          "caller": "getKpis",
+          "callee": "Order::query()->whereDate('ordered_at', today())->count",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getKpis",
+          "callee": "Order::query()->whereDate",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getKpis",
+          "callee": "Order::query",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getKpis",
+          "callee": "today",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getKpis",
+          "callee": "Order::query()\n                    ->whereBetween('ordered_at', [$start, $end])->count",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getKpis",
+          "callee": "Order::query()->whereBetween",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getKpis",
+          "callee": "Order::query",
+          "lineNumber": 32
+        },
+        {
+          "caller": "getKpis",
+          "callee": "$this->buildConversionKpi",
+          "lineNumber": 36
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "today()->subDays",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "today",
+          "lineNumber": 49
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "$date->format",
+          "lineNumber": 50
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "Order::query()\n                ->where('status', 'paid')\n                ->whereDate('ordered_at', $date)->sum",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "Order::query()\n                ->where('status', 'paid')->whereDate",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "Order::query()->where",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "Order::query",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getRevenueTrend",
+          "callee": "round",
+          "lineNumber": 57
+        },
+        {
+          "caller": "getStatusBreakdown",
+          "callee": "array_map",
+          "lineNumber": 75
+        },
+        {
+          "caller": "getStatusBreakdown",
+          "callee": "Order::query()->where('status', $status)->count",
+          "lineNumber": 76
+        },
+        {
+          "caller": "getStatusBreakdown",
+          "callee": "Order::query()->where",
+          "lineNumber": 76
+        },
+        {
+          "caller": "getStatusBreakdown",
+          "callee": "Order::query",
+          "lineNumber": 76
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query()\n            ->with('customer')\n            ->orderByDesc('ordered_at')\n            ->limit(10)\n            ->get()\n            ->map(fn (Order $order) => [\n                'id' => $order->id,\n                'customer' => $order->customer->name,\n                'amount' => $order->formattedAmount(),\n                'status' => $order->statusLabel(),\n                'date' => $order->ordered_at->format('M j, Y'),\n            ])->all",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query()\n            ->with('customer')\n            ->orderByDesc('ordered_at')\n            ->limit(10)\n            ->get()->map",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query()\n            ->with('customer')\n            ->orderByDesc('ordered_at')\n            ->limit(10)->get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query()\n            ->with('customer')\n            ->orderByDesc('ordered_at')->limit",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query()\n            ->with('customer')->orderByDesc",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query()->with",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "Order::query",
+          "lineNumber": 87
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "$order->formattedAmount",
+          "lineNumber": 95
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "$order->statusLabel",
+          "lineNumber": 96
+        },
+        {
+          "caller": "getRecentOrders",
+          "callee": "$order->ordered_at->format",
+          "lineNumber": 97
+        },
+        {
+          "caller": "getLatestOrderId",
+          "callee": "Order::query()->max",
+          "lineNumber": 104
+        },
+        {
+          "caller": "getLatestOrderId",
+          "callee": "Order::query",
+          "lineNumber": 104
+        },
+        {
+          "caller": "getOrdersNewerThan",
+          "callee": "Order::query()\n            ->with('customer')\n            ->where('id', '>', $orderId)\n            ->orderBy('id')\n            ->get()->all",
+          "lineNumber": 112
+        },
+        {
+          "caller": "getOrdersNewerThan",
+          "callee": "Order::query()\n            ->with('customer')\n            ->where('id', '>', $orderId)\n            ->orderBy('id')->get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "getOrdersNewerThan",
+          "callee": "Order::query()\n            ->with('customer')\n            ->where('id', '>', $orderId)->orderBy",
+          "lineNumber": 112
+        },
+        {
+          "caller": "getOrdersNewerThan",
+          "callee": "Order::query()\n            ->with('customer')->where",
+          "lineNumber": 112
+        },
+        {
+          "caller": "getOrdersNewerThan",
+          "callee": "Order::query()->with",
+          "lineNumber": 112
+        },
+        {
+          "caller": "getOrdersNewerThan",
+          "callee": "Order::query",
+          "lineNumber": 112
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "$this->comparisonWindows",
+          "lineNumber": 127
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "$this->formatMoney",
+          "lineNumber": 133
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "$this->paidRevenueCents",
+          "lineNumber": 133
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "Order::query()->whereDate('ordered_at', today())->count",
+          "lineNumber": 135
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "Order::query()->whereDate",
+          "lineNumber": 135
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "Order::query",
+          "lineNumber": 135
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "today",
+          "lineNumber": 135
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "$this->trendFor",
+          "lineNumber": 143
+        },
+        {
+          "caller": "buildKpi",
+          "callee": "$this->changeLabelFor",
+          "lineNumber": 144
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "Order::query()->count",
+          "lineNumber": 153
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "Order::query",
+          "lineNumber": 153
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "Order::query()->where('status', 'paid')->count",
+          "lineNumber": 154
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "Order::query()->where",
+          "lineNumber": 154
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "Order::query",
+          "lineNumber": 154
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "$this->comparisonWindows",
+          "lineNumber": 157
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "$this->conversionRateBetween",
+          "lineNumber": 159
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "$this->conversionRateBetween",
+          "lineNumber": 160
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "number_format",
+          "lineNumber": 164
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "$this->trendFor",
+          "lineNumber": 165
+        },
+        {
+          "caller": "buildConversionKpi",
+          "callee": "$this->changeLabelFor",
+          "lineNumber": 166
+        },
+        {
+          "caller": "paidRevenueCents",
+          "callee": "Order::query()\n            ->where('status', 'paid')->sum",
+          "lineNumber": 172
+        },
+        {
+          "caller": "paidRevenueCents",
+          "callee": "Order::query()->where",
+          "lineNumber": 172
+        },
+        {
+          "caller": "paidRevenueCents",
+          "callee": "Order::query",
+          "lineNumber": 172
+        },
+        {
+          "caller": "paidRevenueCentsBetween",
+          "callee": "Order::query()\n            ->where('status', 'paid')\n            ->whereBetween('ordered_at', [$start, $end])->sum",
+          "lineNumber": 179
+        },
+        {
+          "caller": "paidRevenueCentsBetween",
+          "callee": "Order::query()\n            ->where('status', 'paid')->whereBetween",
+          "lineNumber": 179
+        },
+        {
+          "caller": "paidRevenueCentsBetween",
+          "callee": "Order::query()->where",
+          "lineNumber": 179
+        },
+        {
+          "caller": "paidRevenueCentsBetween",
+          "callee": "Order::query",
+          "lineNumber": 179
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query()->whereBetween('ordered_at', [$start, $end])->count",
+          "lineNumber": 187
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query()->whereBetween",
+          "lineNumber": 187
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query",
+          "lineNumber": 187
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query()\n            ->where('status', 'paid')\n            ->whereBetween('ordered_at', [$start, $end])->count",
+          "lineNumber": 193
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query()\n            ->where('status', 'paid')->whereBetween",
+          "lineNumber": 193
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query()->where",
+          "lineNumber": 193
+        },
+        {
+          "caller": "conversionRateBetween",
+          "callee": "Order::query",
+          "lineNumber": 193
+        },
+        {
+          "caller": "formatMoney",
+          "callee": "number_format",
+          "lineNumber": 203
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "now",
+          "lineNumber": 211
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "now()->subDays(7)->startOfDay",
+          "lineNumber": 212
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "now()->subDays",
+          "lineNumber": 212
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "now",
+          "lineNumber": 212
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "$currentPeriodStart->copy()->subSecond",
+          "lineNumber": 213
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "$currentPeriodStart->copy",
+          "lineNumber": 213
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "$previousPeriodEnd->copy()->subDays(7)->startOfDay",
+          "lineNumber": 214
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "$previousPeriodEnd->copy()->subDays",
+          "lineNumber": 214
+        },
+        {
+          "caller": "comparisonWindows",
+          "callee": "$previousPeriodEnd->copy",
+          "lineNumber": 214
+        },
+        {
+          "caller": "changeLabelFor",
+          "callee": "sprintf",
+          "lineNumber": 240
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 15,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Services/OrderMailNotifier.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 19,
+      "functions": [
+        {
+          "name": "notifyAdmins",
+          "startLine": 12,
+          "endLine": 22,
+          "params": [
+            "$order"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderMailNotifier",
+          "startLine": 10,
+          "endLine": 23,
+          "methods": [
+            "notifyAdmins"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderMailNotifier",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "notifyAdmins",
+          "callee": "$order->loadMissing",
+          "lineNumber": 14
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "User::query()\r\n            ->whereHas('roles', fn ($query) => $query->where('name', 'admin'))\r\n            ->get()->each",
+          "lineNumber": 16
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "User::query()\r\n            ->whereHas('roles', fn ($query) => $query->where('name', 'admin'))->get",
+          "lineNumber": 16
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "User::query()->whereHas",
+          "lineNumber": 16
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "User::query",
+          "lineNumber": 16
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "$query->where",
+          "lineNumber": 17
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "Mail::to($admin)->queue",
+          "lineNumber": 20
+        },
+        {
+          "caller": "notifyAdmins",
+          "callee": "Mail::to",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/config/auth.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 117,
+      "nonEmptyLines": 103,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/CartFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 19,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartFactory",
+          "startLine": 12,
+          "endLine": 25,
+          "methods": [
+            "definition"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartFactory",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "User::factory",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/CategoryFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 19,
+          "endLine": 30,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CategoryFactory",
+          "startLine": 12,
+          "endLine": 31,
+          "methods": [
+            "definition"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CategoryFactory",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->words",
+          "lineNumber": 21
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 21
+        },
+        {
+          "caller": "definition",
+          "callee": "ucfirst",
+          "lineNumber": 25
+        },
+        {
+          "caller": "definition",
+          "callee": "ucfirst",
+          "lineNumber": 26
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::slug",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->numerify",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/CustomerFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 18,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomerFactory",
+          "startLine": 11,
+          "endLine": 25,
+          "methods": [
+            "definition"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomerFactory",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->name",
+          "lineNumber": 21
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 21
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->safeEmail",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/OrderFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 19,
+          "endLine": 27,
+          "params": []
+        },
+        {
+          "name": "paid",
+          "startLine": 29,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "pending",
+          "startLine": 36,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "refunded",
+          "startLine": 43,
+          "endLine": 48,
+          "params": []
+        },
+        {
+          "name": "forCustomer",
+          "startLine": 50,
+          "endLine": 55,
+          "params": [
+            "$customer"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderFactory",
+          "startLine": 12,
+          "endLine": 56,
+          "methods": [
+            "definition",
+            "paid",
+            "pending",
+            "refunded",
+            "forCustomer"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderFactory",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "Customer::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->randomElement",
+          "lineNumber": 24
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 24
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->dateTimeBetween",
+          "lineNumber": 25
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 25
+        },
+        {
+          "caller": "paid",
+          "callee": "$this->state",
+          "lineNumber": 31
+        },
+        {
+          "caller": "pending",
+          "callee": "$this->state",
+          "lineNumber": 38
+        },
+        {
+          "caller": "refunded",
+          "callee": "$this->state",
+          "lineNumber": 45
+        },
+        {
+          "caller": "forCustomer",
+          "callee": "$this->state",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/OrderItemFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 20,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderItemFactory",
+          "startLine": 13,
+          "endLine": 34,
+          "methods": [
+            "definition"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderItemFactory",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "Order::factory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "definition",
+          "callee": "Product::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->words",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/PaymentFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 19,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "completed",
+          "startLine": 30,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PaymentFactory",
+          "startLine": 12,
+          "endLine": 34,
+          "methods": [
+            "definition",
+            "completed"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PaymentFactory",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "Order::factory",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 23
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->randomElement",
+          "lineNumber": 24
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 24
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->randomElement",
+          "lineNumber": 25
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 25
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->optional()->uuid",
+          "lineNumber": 26
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->optional",
+          "lineNumber": 26
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 26
+        },
+        {
+          "caller": "completed",
+          "callee": "$this->state",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/ProductFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 20,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductFactory",
+          "startLine": 13,
+          "endLine": 39,
+          "methods": [
+            "definition"
+          ],
+          "properties": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductFactory",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->words",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 22
+        },
+        {
+          "caller": "definition",
+          "callee": "Category::factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "definition",
+          "callee": "ucfirst",
+          "lineNumber": 27
+        },
+        {
+          "caller": "definition",
+          "callee": "ucfirst",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->sentence",
+          "lineNumber": 31
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 31
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->sentence",
+          "lineNumber": 32
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 32
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::slug",
+          "lineNumber": 34
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->numerify",
+          "lineNumber": 34
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 34
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 34
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->numberBetween",
+          "lineNumber": 35
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/factories/UserFactory.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "definition",
+          "startLine": 25,
+          "endLine": 34,
+          "params": []
+        },
+        {
+          "name": "unverified",
+          "startLine": 39,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "UserFactory",
+          "startLine": 13,
+          "endLine": 45,
+          "methods": [
+            "definition",
+            "unverified"
+          ],
+          "properties": [
+            "password"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserFactory",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "definition",
+          "callee": "fake()->name",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 28
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique()->safeEmail",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake()->unique",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "definition",
+          "callee": "now",
+          "lineNumber": 30
+        },
+        {
+          "caller": "definition",
+          "callee": "Hash::make",
+          "lineNumber": 31
+        },
+        {
+          "caller": "definition",
+          "callee": "Str::random",
+          "lineNumber": 32
+        },
+        {
+          "caller": "unverified",
+          "callee": "$this->state",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/seeders/CatalogSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 11,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CatalogSeeder",
+          "startLine": 9,
+          "endLine": 45,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CatalogSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "Category::query()->create",
+          "lineNumber": 13
+        },
+        {
+          "caller": "run",
+          "callee": "Category::query",
+          "lineNumber": 13
+        },
+        {
+          "caller": "run",
+          "callee": "Category::query()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run",
+          "callee": "Category::query",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run",
+          "callee": "Product::query()->create",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run",
+          "callee": "Product::query",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run",
+          "callee": "Product::query()->create",
+          "lineNumber": 34
+        },
+        {
+          "caller": "run",
+          "callee": "Product::query",
+          "lineNumber": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/seeders/DatabaseSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 13,
+          "endLine": 28,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "DatabaseSeeder",
+          "startLine": 9,
+          "endLine": 29,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DatabaseSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "$this->call",
+          "lineNumber": 15
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory()->create",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run",
+          "callee": "User::factory",
+          "lineNumber": 17
+        },
+        {
+          "caller": "run",
+          "callee": "$admin->assignRole",
+          "lineNumber": 21
+        },
+        {
+          "caller": "run",
+          "callee": "$this->call",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/seeders/OrderSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 11,
+          "endLine": 40,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderSeeder",
+          "startLine": 9,
+          "endLine": 41,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "now",
+          "lineNumber": 16
+        },
+        {
+          "caller": "run",
+          "callee": "now",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run",
+          "callee": "now()->subDay",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run",
+          "callee": "now",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run",
+          "callee": "now()->subDay",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run",
+          "callee": "now",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run",
+          "callee": "Customer::query()->create",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run",
+          "callee": "Customer::query",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run",
+          "callee": "Order::query()->create",
+          "lineNumber": 35
+        },
+        {
+          "caller": "run",
+          "callee": "Order::query",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/database/seeders/RolePermissionSeeder.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 11,
+          "endLine": 42,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "RolePermissionSeeder",
+          "startLine": 9,
+          "endLine": 43,
+          "methods": [
+            "run"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RolePermissionSeeder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "Permission::findOrCreate",
+          "lineNumber": 26
+        },
+        {
+          "caller": "run",
+          "callee": "Role::findOrCreate",
+          "lineNumber": 29
+        },
+        {
+          "caller": "run",
+          "callee": "$admin->syncPermissions",
+          "lineNumber": 30
+        },
+        {
+          "caller": "run",
+          "callee": "Permission::all",
+          "lineNumber": 30
+        },
+        {
+          "caller": "run",
+          "callee": "Role::findOrCreate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "run",
+          "callee": "$staff->syncPermissions",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run",
+          "callee": "Role::findOrCreate",
+          "lineNumber": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/resources/views/components/⚡dashboard-metrics.blade.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 82,
+      "nonEmptyLines": 77,
+      "callGraph": [
+        {
+          "caller": "with",
+          "callee": "$metrics->getKpis",
+          "lineNumber": 11
+        },
+        {
+          "caller": "with",
+          "callee": "$metrics->getRecentOrders",
+          "lineNumber": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/routes/channels.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/routes/web.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Auth/AuthenticationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "test_login_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "test_login_submit_button_is_disabled_until_form_is_filled",
+          "startLine": 20,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "test_login_form_prevents_duplicate_submissions",
+          "startLine": 30,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "test_login_password_field_has_show_hide_toggle",
+          "startLine": 41,
+          "endLine": 50,
+          "params": []
+        },
+        {
+          "name": "test_users_can_authenticate_using_the_login_screen",
+          "startLine": 52,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "test_users_can_not_authenticate_with_invalid_password",
+          "startLine": 65,
+          "endLine": 75,
+          "params": []
+        },
+        {
+          "name": "test_users_can_logout",
+          "startLine": 77,
+          "endLine": 85,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthenticationTest",
+          "startLine": 9,
+          "endLine": 86,
+          "methods": [
+            "test_login_screen_can_be_rendered",
+            "test_login_submit_button_is_disabled_until_form_is_filled",
+            "test_login_form_prevents_duplicate_submissions",
+            "test_login_password_field_has_show_hide_toggle",
+            "test_users_can_authenticate_using_the_login_screen",
+            "test_users_can_not_authenticate_with_invalid_password",
+            "test_users_can_logout"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthenticationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$this->get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_login_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_login_submit_button_is_disabled_until_form_is_filled",
+          "callee": "$this->get",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_login_submit_button_is_disabled_until_form_is_filled",
+          "callee": "$response->assertOk",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_login_submit_button_is_disabled_until_form_is_filled",
+          "callee": "$response->assertSee",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_login_submit_button_is_disabled_until_form_is_filled",
+          "callee": "$response->assertSee",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_login_submit_button_is_disabled_until_form_is_filled",
+          "callee": "$response->assertSee",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_login_form_prevents_duplicate_submissions",
+          "callee": "$this->get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_login_form_prevents_duplicate_submissions",
+          "callee": "$response->assertOk",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_login_form_prevents_duplicate_submissions",
+          "callee": "$response->assertSee",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_login_form_prevents_duplicate_submissions",
+          "callee": "$response->assertSee",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_login_form_prevents_duplicate_submissions",
+          "callee": "$response->assertSee",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_login_form_prevents_duplicate_submissions",
+          "callee": "$response->assertSee",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_login_password_field_has_show_hide_toggle",
+          "callee": "$this->get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_login_password_field_has_show_hide_toggle",
+          "callee": "$response->assertOk",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_login_password_field_has_show_hide_toggle",
+          "callee": "$response->assertSee",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_login_password_field_has_show_hide_toggle",
+          "callee": "$response->assertSee",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_login_password_field_has_show_hide_toggle",
+          "callee": "$response->assertSee",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_login_password_field_has_show_hide_toggle",
+          "callee": "$response->assertSee",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory()->create",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "User::factory",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->post",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$this->assertAuthenticated",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_users_can_authenticate_using_the_login_screen",
+          "callee": "route",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->post",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_users_can_not_authenticate_with_invalid_password",
+          "callee": "$this->assertGuest",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory()->create",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "User::factory",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->actingAs",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$this->assertGuest",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_users_can_logout",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 7,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Auth/EmailVerificationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "test_email_verification_screen_can_be_rendered",
+          "startLine": 16,
+          "endLine": 23,
+          "params": []
+        },
+        {
+          "name": "test_email_can_be_verified",
+          "startLine": 25,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "test_email_is_not_verified_with_invalid_hash",
+          "startLine": 44,
+          "endLine": 57,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmailVerificationTest",
+          "startLine": 12,
+          "endLine": 58,
+          "methods": [
+            "test_email_verification_screen_can_be_rendered",
+            "test_email_can_be_verified",
+            "test_email_is_not_verified_with_invalid_hash"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailVerificationTest",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_email_verification_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "User::factory",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::fake",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now()->addMinutes",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "now",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "sha1",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->actingAs",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "Event::assertDispatched",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$this->assertTrue",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$user->fresh",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_can_be_verified",
+          "callee": "route",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified()->create",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory()->unverified",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "User::factory",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "URL::temporarySignedRoute",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now()->addMinutes",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "now",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "sha1",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->actingAs",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$this->assertFalse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh()->hasVerifiedEmail",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_email_is_not_verified_with_invalid_hash",
+          "callee": "$user->fresh",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/tests/Feature/Auth/PasswordConfirmationTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "test_confirm_password_screen_can_be_rendered",
+          "startLine": 13,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "test_password_can_be_confirmed",
+          "startLine": 22,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_password_is_not_confirmed_with_invalid_password",
+          "startLine": 34,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PasswordConfirmationTest",
+          "startLine": 9,
+          "endLine": 44,
+          "methods": [
+            "test_confirm_password_screen_can_be_rendered",
+            "test_password_can_be_confirmed",
+            "test_password_is_not_confirmed_with_invalid_password"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordConfirmationTest",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory()->create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "User::factory",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs($user)->get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$this->actingAs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_confirm_password_screen_can_be_rendered",
+          "callee": "$response->assertStatus",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory()->create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "User::factory",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$this->actingAs",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertRedirect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_password_can_be_confirmed",
+          "callee": "$response->assertSessionHasNoErrors",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory()->create",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "User::factory",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs($user)->post",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$this->actingAs",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_password_is_not_confirmed_with_invalid_password",
+          "callee": "$response->assertSessionHasErrors",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    }
+  ]
+}

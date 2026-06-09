@@ -1,0 +1,10 @@
+{
+  "issues": [],
+  "warnings": [],
+  "stats": {
+    "totalNodes": 3102,
+    "totalEdges": 1979,
+    "totalLayers": 4,
+    "tourSteps": 4
+  }
+}

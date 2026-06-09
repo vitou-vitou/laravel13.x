@@ -1,0 +1,182 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Permissions/Pages/ListPermissions.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ListPermissions",
+          "startLine": 8,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ListPermissions",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Permissions/PermissionResource.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 24,
+          "endLine": 27,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 29,
+          "endLine": 32,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "getPages",
+          "startLine": 34,
+          "endLine": 39,
+          "params": []
+        },
+        {
+          "name": "canCreate",
+          "startLine": 41,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "PermissionResource",
+          "startLine": 14,
+          "endLine": 45,
+          "methods": [
+            "form",
+            "table",
+            "getPages",
+            "canCreate"
+          ],
+          "properties": [
+            "model",
+            "navigationIcon",
+            "navigationGroup",
+            "navigationSort"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PermissionResource",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "table",
+          "callee": "PermissionsTable::configure",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getPages",
+          "callee": "ListPermissions::route",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 4,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Permissions/Tables/PermissionsTable.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 10,
+          "endLine": 16,
+          "params": [
+            "$table"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PermissionsTable",
+          "startLine": 8,
+          "endLine": 17,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PermissionsTable",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$table->columns",
+          "lineNumber": 12
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->searchable()->sortable",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->searchable",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    }
+  ]
+}

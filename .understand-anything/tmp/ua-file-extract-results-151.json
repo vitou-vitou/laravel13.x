@@ -1,0 +1,923 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".claude-flow/swarm/swarm-state.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "swarms",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".claude-flow/terminals/store.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 136,
+      "nonEmptyLines": 136,
+      "sections": [
+        {
+          "heading": "sessions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 135
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".cursor/skills/caveman-spec-triad/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 91,
+      "nonEmptyLines": 65,
+      "sections": [
+        {
+          "heading": "Caveman + Spec-Kit / OpenSpec / Superpowers — Session Stack",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "When this skill fires",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "On invoke — agent checklist (in order)",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Triad decision (reminder)",
+          "level": 2,
+          "line": 56
+        },
+        {
+          "heading": "Downstream invocations (after stack is active)",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "Sync",
+          "level": 2,
+          "line": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".cursor/skills/spec-kit-openspec-superpowers/laravel13-x-policy.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 51,
+      "nonEmptyLines": 36,
+      "sections": [
+        {
+          "heading": "laravel13.x — Spec-Kit / OpenSpec / Superpowers policy",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Locked decisions",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Active example apps (MVP complete — do not re-scaffold)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Superpowers skills to prefer during implement",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "External review (not Superpowers)",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "PHP (Windows Herd)",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Study docs (optional)",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": ".cursor/skills/spec-kit-openspec-superpowers/SKILL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 162,
+      "nonEmptyLines": 119,
+      "sections": [
+        {
+          "heading": "Spec-Kit, OpenSpec & Superpowers — Triad Router",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "When to use this skill",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "Decision guide",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Recommended workflows",
+          "level": 2,
+          "line": 59
+        },
+        {
+          "heading": "Path A: Spec-Kit + Superpowers (+ Caveman optional, greenfield)",
+          "level": 3,
+          "line": 61
+        },
+        {
+          "heading": "Path B: OpenSpec + Superpowers (+ Caveman optional, existing project)",
+          "level": 3,
+          "line": 68
+        },
+        {
+          "heading": "Cross-machine sync (same Cursor account)",
+          "level": 2,
+          "line": 77
+        },
+        {
+          "heading": "Setup on a new PC",
+          "level": 3,
+          "line": 94
+        },
+        {
+          "heading": "laravel13.x locked workflow",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "Invocation",
+          "level": 2,
+          "line": 118
+        },
+        {
+          "heading": "Full stack (Caveman + triad manuals — no auto SDD)",
+          "level": 3,
+          "line": 120
+        },
+        {
+          "heading": "Router only",
+          "level": 3,
+          "line": 132
+        },
+        {
+          "heading": "Single tools",
+          "level": 3,
+          "line": 138
+        },
+        {
+          "heading": "Reference links",
+          "level": 2,
+          "line": 156
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": ".gitattributes",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "metrics": {}
+    },
+    {
+      "path": ".github/copilot-instructions.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": ".kilo/plans/1777335961178-tidy-canyon.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 223,
+      "nonEmptyLines": 197,
+      "sections": [
+        {
+          "heading": "Todo CRUD API Specification - Laravel 13",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Project Context",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "API Design Principles (2026 Best Practices)",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Todo Resource Specification",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Data Model",
+          "level": 3,
+          "line": 20
+        },
+        {
+          "heading": "Endpoints",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "1. List Todos (Paginated)",
+          "level": 4,
+          "line": 37
+        },
+        {
+          "heading": "2. Create Todo",
+          "level": 4,
+          "line": 75
+        },
+        {
+          "heading": "3. Get Single Todo",
+          "level": 4,
+          "line": 117
+        },
+        {
+          "heading": "4. Update Todo",
+          "level": 4,
+          "line": 146
+        },
+        {
+          "heading": "5. Delete Todo",
+          "level": 4,
+          "line": 178
+        },
+        {
+          "heading": "6. Mark Todo as Complete",
+          "level": 4,
+          "line": 187
+        },
+        {
+          "heading": "7. Mark Todo as Incomplete",
+          "level": 4,
+          "line": 195
+        },
+        {
+          "heading": "Implementation Steps",
+          "level": 2,
+          "line": 203
+        },
+        {
+          "heading": "Technical Details",
+          "level": 2,
+          "line": 215
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": ".npmrc",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "metrics": {}
+    },
+    {
+      "path": ".specify/extensions/.registry",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 44,
+      "metrics": {}
+    },
+    {
+      "path": ".specify/integrations/copilot.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 26,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".specify/integrations/speckit.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 50,
+      "nonEmptyLines": 37,
+      "sections": [
+        {
+          "heading": "[PROJECT_NAME] Constitution",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Core Principles",
+          "level": 2,
+          "line": 4
+        },
+        {
+          "heading": "[PRINCIPLE_1_NAME]",
+          "level": 3,
+          "line": 6
+        },
+        {
+          "heading": "[PRINCIPLE_2_NAME]",
+          "level": 3,
+          "line": 11
+        },
+        {
+          "heading": "[PRINCIPLE_3_NAME]",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "[PRINCIPLE_4_NAME]",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "[PRINCIPLE_5_NAME]",
+          "level": 3,
+          "line": 26
+        },
+        {
+          "heading": "[SECTION_2_NAME]",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[SECTION_3_NAME]",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Governance",
+          "level": 2,
+          "line": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": ".specify/workflows/speckit/workflow.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 77,
+      "nonEmptyLines": 69,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "workflow",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "requires",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "steps",
+          "level": 1,
+          "line": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": ".specify/workflows/workflow-registry.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "workflows",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 69,
+      "metrics": {}
+    },
+    {
+      "path": ".understand-anything/config.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "sections": [
+        {
+          "heading": "outputLanguage",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "autoUpdate",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": ".understand-anything/intermediate/batches.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 19337,
+      "nonEmptyLines": 19337,
+      "sections": [
+        {
+          "heading": "schemaVersion",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "algorithm",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "totalFiles",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "totalBatches",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "exportsByPath",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "batches",
+          "level": 1,
+          "line": 1756
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".understand-anything/intermediate/scan-result.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13175,
+      "nonEmptyLines": 13175,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "languages",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "frameworks",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "scriptCompleted",
+          "level": 1,
+          "line": 40
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 41
+        },
+        {
+          "heading": "totalFiles",
+          "level": 1,
+          "line": 10417
+        },
+        {
+          "heading": "filteredByIgnore",
+          "level": 1,
+          "line": 10418
+        },
+        {
+          "heading": "estimatedComplexity",
+          "level": 1,
+          "line": 10419
+        },
+        {
+          "heading": "stats",
+          "level": 1,
+          "line": 10420
+        },
+        {
+          "heading": "importMap",
+          "level": 1,
+          "line": 10452
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": ".understand-anything/tmp/build-import-input.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 7,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "agentdb.rvf",
+      "language": "rvf",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {}
+    },
+    {
+      "path": "app/Http/Controllers/Controller.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "classes": [
+        {
+          "name": "Controller",
+          "startLine": 5,
+          "endLine": 8,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Controller",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "app/Providers/AppServiceProvider.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "register",
+          "startLine": 15,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "boot",
+          "startLine": 23,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "configureRateLimiting",
+          "startLine": 31,
+          "endLine": 46,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppServiceProvider",
+          "startLine": 10,
+          "endLine": 47,
+          "methods": [
+            "register",
+            "boot",
+            "configureRateLimiting"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppServiceProvider",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "boot",
+          "callee": "$this->configureRateLimiting",
+          "lineNumber": 25
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "RateLimiter::for",
+          "lineNumber": 33
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "Limit::perMinute(60)->by($request->user()?->id ?: $request->ip())->response",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "Limit::perMinute(60)->by",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "Limit::perMinute",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "$request->user",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "$request->ip",
+          "lineNumber": 34
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "response",
+          "lineNumber": 36
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "RateLimiter::for",
+          "lineNumber": 40
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "Limit::perMinute(30)->by($request->user()?->id ?: $request->ip())->response",
+          "lineNumber": 41
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "Limit::perMinute(30)->by",
+          "lineNumber": 41
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "Limit::perMinute",
+          "lineNumber": 41
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "$request->user",
+          "lineNumber": 41
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "$request->ip",
+          "lineNumber": 41
+        },
+        {
+          "caller": "configureRateLimiting",
+          "callee": "response",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "artisan",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 12,
+      "metrics": {}
+    },
+    {
+      "path": "bin/composer",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    }
+  ]
+}

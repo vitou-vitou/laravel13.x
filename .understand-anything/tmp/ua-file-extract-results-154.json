@@ -1,0 +1,1253 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/booking-v1/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 200,
+      "nonEmptyLines": 183,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 237,
+      "nonEmptyLines": 211,
+      "metrics": {}
+    },
+    {
+      "path": "examples/booking-v1/.specify/integrations/cursor-agent.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "examples/booking-v1/.specify/integrations/speckit.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "examples/booking-v1/.specify/memory/constitution.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 43,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Booking-v1 Constitution",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Core Principles",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "I. Domain Invariants First",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "II. Test-First (NON-NEGOTIABLE)",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "III. Thin HTTP, Thick Services",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "IV. Spec Before Code",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "V. Simplicity (YAGNI)",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "Technology Constraints",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Quality Gates",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Governance",
+          "level": 2,
+          "line": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "examples/booking-v1/.specify/workflows/speckit/workflow.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 77,
+      "nonEmptyLines": 69,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "workflow",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "requires",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "steps",
+          "level": 1,
+          "line": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "examples/booking-v1/.specify/workflows/workflow-registry.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "workflows",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "examples/booking-v1/app/Providers/AppServiceProvider.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "register",
+          "startLine": 12,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "boot",
+          "startLine": 20,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppServiceProvider",
+          "startLine": 7,
+          "endLine": 24,
+          "methods": [
+            "register",
+            "boot"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppServiceProvider",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/booking-v1/artisan",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 12,
+      "metrics": {}
+    },
+    {
+      "path": "examples/booking-v1/bootstrap/app.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/bootstrap/providers.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/app.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 126,
+      "nonEmptyLines": 104,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/cache.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 136,
+      "nonEmptyLines": 115,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/database.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 184,
+      "nonEmptyLines": 162,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/filesystems.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 68,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/logging.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 132,
+      "nonEmptyLines": 112,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/mail.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 100,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/queue.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 129,
+      "nonEmptyLines": 110,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/sanctum.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 74,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/services.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 31,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/config/session.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 233,
+      "nonEmptyLines": 197,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/database/migrations/0001_01_01_000000_create_users_table.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 44,
+      "callGraph": [
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 14
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 15
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 16
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('email')->unique",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp('email_verified_at')->nullable",
+          "lineNumber": 18
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp",
+          "lineNumber": 18
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->rememberToken",
+          "lineNumber": 20
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('email')->primary",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 26
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp('created_at')->nullable",
+          "lineNumber": 27
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp",
+          "lineNumber": 27
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('id')->primary",
+          "lineNumber": 31
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 31
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('user_id')->nullable()->index",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('user_id')->nullable",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('ip_address', 45)->nullable",
+          "lineNumber": 33
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 33
+        },
+        {
+          "caller": "up",
+          "callee": "$table->text('user_agent')->nullable",
+          "lineNumber": 34
+        },
+        {
+          "caller": "up",
+          "callee": "$table->text",
+          "lineNumber": 34
+        },
+        {
+          "caller": "up",
+          "callee": "$table->longText",
+          "lineNumber": 35
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer('last_activity')->index",
+          "lineNumber": 36
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 36
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 45
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 46
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/database/migrations/0001_01_01_000001_create_cache_table.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 31,
+      "callGraph": [
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 14
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('key')->primary",
+          "lineNumber": 15
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 15
+        },
+        {
+          "caller": "up",
+          "callee": "$table->mediumText",
+          "lineNumber": 16
+        },
+        {
+          "caller": "up",
+          "callee": "$table->bigInteger('expiration')->index",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->bigInteger",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 20
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('key')->primary",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 22
+        },
+        {
+          "caller": "up",
+          "callee": "$table->bigInteger('expiration')->index",
+          "lineNumber": 23
+        },
+        {
+          "caller": "up",
+          "callee": "$table->bigInteger",
+          "lineNumber": 23
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 32
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/database/migrations/0001_01_01_000002_create_jobs_table.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 53,
+      "callGraph": [
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 14
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 15
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('queue')->index",
+          "lineNumber": 16
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 16
+        },
+        {
+          "caller": "up",
+          "callee": "$table->longText",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedSmallInteger",
+          "lineNumber": 18
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedInteger('reserved_at')->nullable",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedInteger",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedInteger",
+          "lineNumber": 20
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedInteger",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 24
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('id')->primary",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 26
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 27
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 28
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 29
+        },
+        {
+          "caller": "up",
+          "callee": "$table->longText",
+          "lineNumber": 30
+        },
+        {
+          "caller": "up",
+          "callee": "$table->mediumText('options')->nullable",
+          "lineNumber": 31
+        },
+        {
+          "caller": "up",
+          "callee": "$table->mediumText",
+          "lineNumber": 31
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer('cancelled_at')->nullable",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 33
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer('finished_at')->nullable",
+          "lineNumber": 34
+        },
+        {
+          "caller": "up",
+          "callee": "$table->integer",
+          "lineNumber": 34
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 38
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('uuid')->unique",
+          "lineNumber": 39
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 39
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 40
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 41
+        },
+        {
+          "caller": "up",
+          "callee": "$table->longText",
+          "lineNumber": 42
+        },
+        {
+          "caller": "up",
+          "callee": "$table->longText",
+          "lineNumber": 43
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp('failed_at')->useCurrent",
+          "lineNumber": 44
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp",
+          "lineNumber": 44
+        },
+        {
+          "caller": "up",
+          "callee": "$table->index",
+          "lineNumber": 46
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 55
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 56
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/database/migrations/2026_06_01_000001_create_booking_tables.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 65,
+      "callGraph": [
+        {
+          "caller": "up",
+          "callee": "Schema::table",
+          "lineNumber": 11
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('role')->default('customer')->after",
+          "lineNumber": 12
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('role')->default",
+          "lineNumber": 12
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 12
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 15
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 16
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('user_id')->unique()->constrained",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('user_id')->unique",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 18
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('timezone')->default",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 20
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 23
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 24
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('provider_profile_id')->constrained()->cascadeOnDelete",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('provider_profile_id')->constrained",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 25
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 26
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 27
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 31
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('provider_profile_id')->constrained()->cascadeOnDelete",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('provider_profile_id')->constrained",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 32
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 33
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedSmallInteger",
+          "lineNumber": 34
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 35
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 39
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('bookable_resource_id')->constrained()->cascadeOnDelete",
+          "lineNumber": 40
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('bookable_resource_id')->constrained",
+          "lineNumber": 40
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 40
+        },
+        {
+          "caller": "up",
+          "callee": "$table->unsignedTinyInteger",
+          "lineNumber": 41
+        },
+        {
+          "caller": "up",
+          "callee": "$table->time",
+          "lineNumber": 42
+        },
+        {
+          "caller": "up",
+          "callee": "$table->time",
+          "lineNumber": 43
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 44
+        },
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 47
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 48
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('bookable_resource_id')->constrained()->cascadeOnDelete",
+          "lineNumber": 49
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('bookable_resource_id')->constrained",
+          "lineNumber": 49
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 49
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('service_id')->constrained()->cascadeOnDelete",
+          "lineNumber": 50
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('service_id')->constrained",
+          "lineNumber": 50
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 50
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('customer_id')->constrained('users')->cascadeOnDelete",
+          "lineNumber": 51
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId('customer_id')->constrained",
+          "lineNumber": 51
+        },
+        {
+          "caller": "up",
+          "callee": "$table->foreignId",
+          "lineNumber": 51
+        },
+        {
+          "caller": "up",
+          "callee": "$table->dateTime",
+          "lineNumber": 52
+        },
+        {
+          "caller": "up",
+          "callee": "$table->dateTime",
+          "lineNumber": 53
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 54
+        },
+        {
+          "caller": "up",
+          "callee": "$table->dateTime('hold_expires_at')->nullable",
+          "lineNumber": 55
+        },
+        {
+          "caller": "up",
+          "callee": "$table->dateTime",
+          "lineNumber": 55
+        },
+        {
+          "caller": "up",
+          "callee": "$table->dateTime('cancelled_at')->nullable",
+          "lineNumber": 56
+        },
+        {
+          "caller": "up",
+          "callee": "$table->dateTime",
+          "lineNumber": 56
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 57
+        },
+        {
+          "caller": "up",
+          "callee": "$table->index",
+          "lineNumber": 59
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 65
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 66
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 67
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 68
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 69
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::table",
+          "lineNumber": 70
+        },
+        {
+          "caller": "down",
+          "callee": "$table->dropColumn",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

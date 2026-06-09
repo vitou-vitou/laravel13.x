@@ -1,0 +1,652 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/booking-v1/database/migrations/2026_06_01_144353_create_personal_access_tokens_table.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 30,
+      "callGraph": [
+        {
+          "caller": "up",
+          "callee": "Schema::create",
+          "lineNumber": 14
+        },
+        {
+          "caller": "up",
+          "callee": "$table->id",
+          "lineNumber": 15
+        },
+        {
+          "caller": "up",
+          "callee": "$table->morphs",
+          "lineNumber": 16
+        },
+        {
+          "caller": "up",
+          "callee": "$table->text",
+          "lineNumber": 17
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string('token', 64)->unique",
+          "lineNumber": 18
+        },
+        {
+          "caller": "up",
+          "callee": "$table->string",
+          "lineNumber": 18
+        },
+        {
+          "caller": "up",
+          "callee": "$table->text('abilities')->nullable",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->text",
+          "lineNumber": 19
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp('last_used_at')->nullable",
+          "lineNumber": 20
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp",
+          "lineNumber": 20
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp('expires_at')->nullable()->index",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp('expires_at')->nullable",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamp",
+          "lineNumber": 21
+        },
+        {
+          "caller": "up",
+          "callee": "$table->timestamps",
+          "lineNumber": 22
+        },
+        {
+          "caller": "down",
+          "callee": "Schema::dropIfExists",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/public/.htaccess",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 20,
+      "metrics": {}
+    },
+    {
+      "path": "examples/booking-v1/public/index.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/public/robots.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "metrics": {}
+    },
+    {
+      "path": "examples/booking-v1/resources/css/app.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "metrics": {}
+    },
+    {
+      "path": "examples/booking-v1/resources/js/app.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/resources/views/welcome.blade.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 223,
+      "nonEmptyLines": 212,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/routes/console.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/routes/web.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/booking-v1/tests/Feature/ExampleTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "test_the_application_returns_a_successful_response",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ExampleTest",
+          "startLine": 8,
+          "endLine": 19,
+          "methods": [
+            "test_the_application_returns_a_successful_response"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ExampleTest",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_the_application_returns_a_successful_response",
+          "callee": "$this->get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_the_application_returns_a_successful_response",
+          "callee": "$response->assertStatus",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/booking-v1/tests/Unit/ExampleTest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "test_that_true_is_true",
+          "startLine": 12,
+          "endLine": 15,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ExampleTest",
+          "startLine": 7,
+          "endLine": 16,
+          "methods": [
+            "test_that_true_is_true"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ExampleTest",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_that_true_is_true",
+          "callee": "$this->assertTrue",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/booking-v1/vite.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 23,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.gitattributes",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "metrics": {}
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.npmrc",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "metrics": {}
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/extensions/.registry",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 37,
+      "metrics": {}
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/extensions/agent-context/commands/speckit.agent-context.update.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "Update Coding Agent Context",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "Behavior",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Execution",
+          "level": 2,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 200,
+      "nonEmptyLines": 183,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1",
+      "language": "powershell",
+      "fileCategory": "script",
+      "totalLines": 237,
+      "nonEmptyLines": 211,
+      "metrics": {}
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/integrations/cursor-agent.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/integrations/speckit.manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "integration",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "installed_at",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "files",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/memory/constitution.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 42,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "Clone the FB Nav — Constitution",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Core Principles",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "I. Reference, Not Product",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "II. Test-First (NON-NEGOTIABLE)",
+          "level": 3,
+          "line": 9
+        },
+        {
+          "heading": "III. Spec Before Code",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "IV. UI Adoption Discipline",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "V. Simplicity (YAGNI)",
+          "level": 3,
+          "line": 21
+        },
+        {
+          "heading": "Technology Constraints",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Quality Gates",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Governance",
+          "level": 2,
+          "line": 38
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/workflows/speckit/workflow.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 77,
+      "nonEmptyLines": 69,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "workflow",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "requires",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "steps",
+          "level": 1,
+          "line": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/.specify/workflows/workflow-registry.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "schema_version",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "workflows",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/app/Http/Controllers/Controller.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "classes": [
+        {
+          "name": "Controller",
+          "startLine": 5,
+          "endLine": 8,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Controller",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/clone-the-fb-nav/app/Providers/AppServiceProvider.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "register",
+          "startLine": 12,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "boot",
+          "startLine": 20,
+          "endLine": 23,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppServiceProvider",
+          "startLine": 7,
+          "endLine": 24,
+          "methods": [
+            "register",
+            "boot"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppServiceProvider",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    }
+  ]
+}

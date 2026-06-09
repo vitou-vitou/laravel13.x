@@ -1,0 +1,434 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/CreateRole.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "CreateRole",
+          "startLine": 8,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreateRole",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/EditRole.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "EditRole",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "EditRole",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "DeleteAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/ListRoles.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "getHeaderActions",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ListRoles",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [
+            "getHeaderActions"
+          ],
+          "properties": [
+            "resource"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ListRoles",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getHeaderActions",
+          "callee": "CreateAction::make",
+          "lineNumber": 16
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Roles/RoleResource.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "form",
+          "startLine": 27,
+          "endLine": 30,
+          "params": [
+            "$schema"
+          ]
+        },
+        {
+          "name": "table",
+          "startLine": 32,
+          "endLine": 35,
+          "params": [
+            "$table"
+          ]
+        },
+        {
+          "name": "getPages",
+          "startLine": 37,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "RoleResource",
+          "startLine": 17,
+          "endLine": 45,
+          "methods": [
+            "form",
+            "table",
+            "getPages"
+          ],
+          "properties": [
+            "model",
+            "navigationIcon",
+            "navigationGroup",
+            "navigationSort"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RoleResource",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "form",
+          "callee": "RoleForm::configure",
+          "lineNumber": 29
+        },
+        {
+          "caller": "table",
+          "callee": "RolesTable::configure",
+          "lineNumber": 34
+        },
+        {
+          "caller": "getPages",
+          "callee": "ListRoles::route",
+          "lineNumber": 40
+        },
+        {
+          "caller": "getPages",
+          "callee": "CreateRole::route",
+          "lineNumber": 41
+        },
+        {
+          "caller": "getPages",
+          "callee": "EditRole::route",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Roles/Schemas/RoleForm.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 12,
+          "endLine": 25,
+          "params": [
+            "$schema"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "RoleForm",
+          "startLine": 10,
+          "endLine": 26,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RoleForm",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$schema->components",
+          "lineNumber": 14
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('name')\r\n                ->required()\r\n                ->maxLength(255)->unique",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('name')\r\n                ->required()->maxLength",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make('name')->required",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextInput::make",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "CheckboxList::make('permissions')\r\n                ->relationship('permissions', 'name')\r\n                ->options(fn () => Permission::query()->orderBy('name')->pluck('name', 'id'))\r\n                ->columns(2)->bulkToggleable",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "CheckboxList::make('permissions')\r\n                ->relationship('permissions', 'name')\r\n                ->options(fn () => Permission::query()->orderBy('name')->pluck('name', 'id'))->columns",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "CheckboxList::make('permissions')\r\n                ->relationship('permissions', 'name')->options",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "CheckboxList::make('permissions')->relationship",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "CheckboxList::make",
+          "lineNumber": 19
+        },
+        {
+          "caller": "configure",
+          "callee": "Permission::query()->orderBy('name')->pluck",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "Permission::query()->orderBy",
+          "lineNumber": 21
+        },
+        {
+          "caller": "configure",
+          "callee": "Permission::query",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/dashboard-v1/app/Filament/Resources/Roles/Tables/RolesTable.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "configure",
+          "startLine": 13,
+          "endLine": 30,
+          "params": [
+            "$table"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "RolesTable",
+          "startLine": 11,
+          "endLine": 31,
+          "methods": [
+            "configure"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RolesTable",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "configure",
+          "callee": "$table\r\n            ->columns([\r\n                TextColumn::make('name')->searchable()->sortable(),\r\n                TextColumn::make('permissions.name')\r\n                    ->badge()\r\n                    ->limitList(3),\r\n            ])\r\n            ->recordActions([\r\n                EditAction::make(),\r\n            ])->toolbarActions",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "$table\r\n            ->columns([\r\n                TextColumn::make('name')->searchable()->sortable(),\r\n                TextColumn::make('permissions.name')\r\n                    ->badge()\r\n                    ->limitList(3),\r\n            ])->recordActions",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "$table->columns",
+          "lineNumber": 15
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->searchable()->sortable",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('name')->searchable",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 17
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('permissions.name')\r\n                    ->badge()->limitList",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make('permissions.name')->badge",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "TextColumn::make",
+          "lineNumber": 18
+        },
+        {
+          "caller": "configure",
+          "callee": "EditAction::make",
+          "lineNumber": 23
+        },
+        {
+          "caller": "configure",
+          "callee": "BulkActionGroup::make",
+          "lineNumber": 26
+        },
+        {
+          "caller": "configure",
+          "callee": "DeleteBulkAction::make",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    }
+  ]
+}

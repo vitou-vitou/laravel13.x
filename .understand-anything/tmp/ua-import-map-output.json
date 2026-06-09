@@ -1,0 +1,2731 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 1729,
+    "filesWithImports": 327,
+    "totalEdges": 665
+  },
+  "importMap": {
+    ".claude-flow/swarm/swarm-state.json": [],
+    ".claude-flow/terminals/store.json": [],
+    ".cursor/skills/caveman-spec-triad/SKILL.md": [],
+    ".cursor/skills/spec-kit-openspec-superpowers/laravel13-x-policy.md": [],
+    ".cursor/skills/spec-kit-openspec-superpowers/SKILL.md": [],
+    ".env.example": [],
+    ".gitattributes": [],
+    ".github/agents/speckit.analyze.agent.md": [],
+    ".github/agents/speckit.checklist.agent.md": [],
+    ".github/agents/speckit.clarify.agent.md": [],
+    ".github/agents/speckit.constitution.agent.md": [],
+    ".github/agents/speckit.git.commit.agent.md": [],
+    ".github/agents/speckit.git.feature.agent.md": [],
+    ".github/agents/speckit.git.initialize.agent.md": [],
+    ".github/agents/speckit.git.remote.agent.md": [],
+    ".github/agents/speckit.git.validate.agent.md": [],
+    ".github/agents/speckit.implement.agent.md": [],
+    ".github/agents/speckit.plan.agent.md": [],
+    ".github/agents/speckit.specify.agent.md": [],
+    ".github/agents/speckit.tasks.agent.md": [],
+    ".github/agents/speckit.taskstoissues.agent.md": [],
+    ".github/copilot-instructions.md": [],
+    ".github/prompts/opsx-apply.prompt.md": [],
+    ".github/prompts/opsx-archive.prompt.md": [],
+    ".github/prompts/opsx-explore.prompt.md": [],
+    ".github/prompts/opsx-propose.prompt.md": [],
+    ".github/prompts/speckit.analyze.prompt.md": [],
+    ".github/prompts/speckit.checklist.prompt.md": [],
+    ".github/prompts/speckit.clarify.prompt.md": [],
+    ".github/prompts/speckit.constitution.prompt.md": [],
+    ".github/prompts/speckit.git.commit.prompt.md": [],
+    ".github/prompts/speckit.git.feature.prompt.md": [],
+    ".github/prompts/speckit.git.initialize.prompt.md": [],
+    ".github/prompts/speckit.git.remote.prompt.md": [],
+    ".github/prompts/speckit.git.validate.prompt.md": [],
+    ".github/prompts/speckit.implement.prompt.md": [],
+    ".github/prompts/speckit.plan.prompt.md": [],
+    ".github/prompts/speckit.specify.prompt.md": [],
+    ".github/prompts/speckit.tasks.prompt.md": [],
+    ".github/prompts/speckit.taskstoissues.prompt.md": [],
+    ".github/workflows/dashboard-v1-docker-scan.yml": [],
+    ".github/workflows/issues.yml": [],
+    ".github/workflows/pull-requests.yml": [],
+    ".github/workflows/tests.yml": [],
+    ".github/workflows/update-changelog.yml": [],
+    ".kilo/plans/1777335961178-tidy-canyon.md": [],
+    ".npmrc": [],
+    ".specify/extensions.yml": [],
+    ".specify/extensions/.registry": [],
+    ".specify/extensions/git/commands/speckit.git.commit.md": [],
+    ".specify/extensions/git/commands/speckit.git.feature.md": [],
+    ".specify/extensions/git/commands/speckit.git.initialize.md": [],
+    ".specify/extensions/git/commands/speckit.git.remote.md": [],
+    ".specify/extensions/git/commands/speckit.git.validate.md": [],
+    ".specify/extensions/git/config-template.yml": [],
+    ".specify/extensions/git/extension.yml": [],
+    ".specify/extensions/git/git-config.yml": [],
+    ".specify/extensions/git/README.md": [],
+    ".specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    ".specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    ".specify/extensions/git/scripts/bash/git-common.sh": [],
+    ".specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    ".specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    ".specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    ".specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    ".specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    ".specify/init-options.json": [],
+    ".specify/integration.json": [],
+    ".specify/integrations/copilot.manifest.json": [],
+    ".specify/integrations/speckit.manifest.json": [],
+    ".specify/memory/constitution.md": [],
+    ".specify/scripts/powershell/check-prerequisites.ps1": [],
+    ".specify/scripts/powershell/common.ps1": [],
+    ".specify/scripts/powershell/create-new-feature.ps1": [],
+    ".specify/scripts/powershell/setup-plan.ps1": [],
+    ".specify/scripts/powershell/setup-tasks.ps1": [],
+    ".specify/templates/checklist-template.md": [],
+    ".specify/templates/constitution-template.md": [],
+    ".specify/templates/plan-template.md": [],
+    ".specify/templates/spec-template.md": [],
+    ".specify/templates/tasks-template.md": [],
+    ".specify/workflows/speckit/workflow.yml": [],
+    ".specify/workflows/workflow-registry.json": [],
+    ".styleci.yml": [],
+    ".understand-anything/.understandignore": [],
+    ".understand-anything/config.json": [],
+    ".understand-anything/intermediate/batches.json": [],
+    ".understand-anything/intermediate/scan-result.json": [],
+    ".understand-anything/tmp/build-import-input.mjs": [],
+    ".understand-anything/tmp/ua-import-map-input.json": [],
+    ".understand-anything/tmp/ua-import-map-output.json": [],
+    ".understand-anything/tmp/ua-scan-files.json": [],
+    "agentdb.rvf": [],
+    "app/Http/Controllers/AuthController.php": [
+      "app/Models/User.php"
+    ],
+    "app/Http/Controllers/Controller.php": [],
+    "app/Http/Controllers/TodoController.php": [
+      "app/Http/Requests/StoreTodoRequest.php",
+      "app/Http/Requests/UpdateTodoRequest.php",
+      "app/Http/Resources/TodoCollection.php",
+      "app/Http/Resources/TodoResource.php",
+      "app/Models/Todo.php"
+    ],
+    "app/Http/Requests/StoreTodoRequest.php": [],
+    "app/Http/Requests/UpdateTodoRequest.php": [],
+    "app/Http/Resources/TodoCollection.php": [],
+    "app/Http/Resources/TodoResource.php": [],
+    "app/Models/Todo.php": [
+      "database/factories/TodoFactory.php"
+    ],
+    "app/Models/User.php": [
+      "database/factories/UserFactory.php"
+    ],
+    "app/Providers/AppServiceProvider.php": [],
+    "artisan": [],
+    "bin/composer": [],
+    "bin/fix-example-app-key": [],
+    "bin/new-example": [],
+    "bin/php": [],
+    "bin/verify-example": [],
+    "bootstrap/app.php": [],
+    "bootstrap/providers.php": [
+      "app/Providers/AppServiceProvider.php"
+    ],
+    "CHANGELOG.md": [],
+    "composer.json": [],
+    "config/app.php": [],
+    "config/auth.php": [
+      "app/Models/User.php"
+    ],
+    "config/cache.php": [],
+    "config/database.php": [],
+    "config/filesystems.php": [],
+    "config/logging.php": [],
+    "config/mail.php": [],
+    "config/passport.php": [],
+    "config/queue.php": [],
+    "config/services.php": [],
+    "config/session.php": [],
+    "database/factories/TodoFactory.php": [
+      "app/Models/Todo.php"
+    ],
+    "database/factories/UserFactory.php": [
+      "app/Models/User.php"
+    ],
+    "database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "database/migrations/2026_04_28_000001_create_todos_table.php": [],
+    "database/migrations/2026_05_14_110123_create_oauth_auth_codes_table.php": [],
+    "database/migrations/2026_05_14_110124_create_oauth_access_tokens_table.php": [],
+    "database/migrations/2026_05_14_110125_create_oauth_refresh_tokens_table.php": [],
+    "database/migrations/2026_05_14_110126_create_oauth_clients_table.php": [],
+    "database/migrations/2026_05_14_110127_create_oauth_device_codes_table.php": [],
+    "database/seeders/DatabaseSeeder.php": [
+      "app/Models/User.php"
+    ],
+    "docs/agency-agents/.gitattributes": [],
+    "docs/agency-agents/.github/FUNDING.yml": [],
+    "docs/agency-agents/.github/ISSUE_TEMPLATE/bug-report.yml": [],
+    "docs/agency-agents/.github/ISSUE_TEMPLATE/new-agent-request.yml": [],
+    "docs/agency-agents/.github/PULL_REQUEST_TEMPLATE.md": [],
+    "docs/agency-agents/.github/workflows/lint-agents.yml": [],
+    "docs/agency-agents/academic/academic-anthropologist.md": [],
+    "docs/agency-agents/academic/academic-geographer.md": [],
+    "docs/agency-agents/academic/academic-historian.md": [],
+    "docs/agency-agents/academic/academic-narratologist.md": [],
+    "docs/agency-agents/academic/academic-psychologist.md": [],
+    "docs/agency-agents/CONTRIBUTING_zh-CN.md": [],
+    "docs/agency-agents/CONTRIBUTING.md": [],
+    "docs/agency-agents/design/design-brand-guardian.md": [],
+    "docs/agency-agents/design/design-image-prompt-engineer.md": [],
+    "docs/agency-agents/design/design-inclusive-visuals-specialist.md": [],
+    "docs/agency-agents/design/design-ui-designer.md": [],
+    "docs/agency-agents/design/design-ux-architect.md": [],
+    "docs/agency-agents/design/design-ux-researcher.md": [],
+    "docs/agency-agents/design/design-visual-storyteller.md": [],
+    "docs/agency-agents/design/design-whimsy-injector.md": [],
+    "docs/agency-agents/engineering/engineering-ai-data-remediation-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-ai-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-autonomous-optimization-architect.md": [],
+    "docs/agency-agents/engineering/engineering-backend-architect.md": [],
+    "docs/agency-agents/engineering/engineering-cms-developer.md": [],
+    "docs/agency-agents/engineering/engineering-code-reviewer.md": [],
+    "docs/agency-agents/engineering/engineering-codebase-onboarding-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-data-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-database-optimizer.md": [],
+    "docs/agency-agents/engineering/engineering-devops-automator.md": [],
+    "docs/agency-agents/engineering/engineering-email-intelligence-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-embedded-firmware-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-feishu-integration-developer.md": [],
+    "docs/agency-agents/engineering/engineering-filament-optimization-specialist.md": [],
+    "docs/agency-agents/engineering/engineering-frontend-developer.md": [],
+    "docs/agency-agents/engineering/engineering-git-workflow-master.md": [],
+    "docs/agency-agents/engineering/engineering-incident-response-commander.md": [],
+    "docs/agency-agents/engineering/engineering-minimal-change-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-mobile-app-builder.md": [],
+    "docs/agency-agents/engineering/engineering-rapid-prototyper.md": [],
+    "docs/agency-agents/engineering/engineering-security-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-senior-developer.md": [],
+    "docs/agency-agents/engineering/engineering-software-architect.md": [],
+    "docs/agency-agents/engineering/engineering-solidity-smart-contract-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-sre.md": [],
+    "docs/agency-agents/engineering/engineering-technical-writer.md": [],
+    "docs/agency-agents/engineering/engineering-threat-detection-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-voice-ai-integration-engineer.md": [],
+    "docs/agency-agents/engineering/engineering-wechat-mini-program-developer.md": [],
+    "docs/agency-agents/examples/nexus-spatial-discovery.md": [],
+    "docs/agency-agents/examples/README.md": [],
+    "docs/agency-agents/examples/workflow-book-chapter.md": [],
+    "docs/agency-agents/examples/workflow-landing-page.md": [],
+    "docs/agency-agents/examples/workflow-startup-mvp.md": [],
+    "docs/agency-agents/examples/workflow-with-memory.md": [],
+    "docs/agency-agents/finance/finance-bookkeeper-controller.md": [],
+    "docs/agency-agents/finance/finance-financial-analyst.md": [],
+    "docs/agency-agents/finance/finance-fpa-analyst.md": [],
+    "docs/agency-agents/finance/finance-investment-researcher.md": [],
+    "docs/agency-agents/finance/finance-tax-strategist.md": [],
+    "docs/agency-agents/game-development/blender/blender-addon-engineer.md": [],
+    "docs/agency-agents/game-development/game-audio-engineer.md": [],
+    "docs/agency-agents/game-development/game-designer.md": [],
+    "docs/agency-agents/game-development/godot/godot-gameplay-scripter.md": [],
+    "docs/agency-agents/game-development/godot/godot-multiplayer-engineer.md": [],
+    "docs/agency-agents/game-development/godot/godot-shader-developer.md": [],
+    "docs/agency-agents/game-development/level-designer.md": [],
+    "docs/agency-agents/game-development/narrative-designer.md": [],
+    "docs/agency-agents/game-development/roblox-studio/roblox-avatar-creator.md": [],
+    "docs/agency-agents/game-development/roblox-studio/roblox-experience-designer.md": [],
+    "docs/agency-agents/game-development/roblox-studio/roblox-systems-scripter.md": [],
+    "docs/agency-agents/game-development/technical-artist.md": [],
+    "docs/agency-agents/game-development/unity/unity-architect.md": [],
+    "docs/agency-agents/game-development/unity/unity-editor-tool-developer.md": [],
+    "docs/agency-agents/game-development/unity/unity-multiplayer-engineer.md": [],
+    "docs/agency-agents/game-development/unity/unity-shader-graph-artist.md": [],
+    "docs/agency-agents/game-development/unreal-engine/unreal-multiplayer-architect.md": [],
+    "docs/agency-agents/game-development/unreal-engine/unreal-systems-engineer.md": [],
+    "docs/agency-agents/game-development/unreal-engine/unreal-technical-artist.md": [],
+    "docs/agency-agents/game-development/unreal-engine/unreal-world-builder.md": [],
+    "docs/agency-agents/integrations/aider/README.md": [],
+    "docs/agency-agents/integrations/antigravity/README.md": [],
+    "docs/agency-agents/integrations/claude-code/README.md": [],
+    "docs/agency-agents/integrations/cursor/README.md": [],
+    "docs/agency-agents/integrations/gemini-cli/README.md": [],
+    "docs/agency-agents/integrations/github-copilot/README.md": [],
+    "docs/agency-agents/integrations/kimi/README.md": [],
+    "docs/agency-agents/integrations/mcp-memory/backend-architect-with-memory.md": [],
+    "docs/agency-agents/integrations/mcp-memory/README.md": [],
+    "docs/agency-agents/integrations/mcp-memory/setup.sh": [],
+    "docs/agency-agents/integrations/openclaw/README.md": [],
+    "docs/agency-agents/integrations/opencode/README.md": [],
+    "docs/agency-agents/integrations/qwen/README.md": [],
+    "docs/agency-agents/integrations/README.md": [],
+    "docs/agency-agents/integrations/windsurf/README.md": [],
+    "docs/agency-agents/marketing/marketing-agentic-search-optimizer.md": [],
+    "docs/agency-agents/marketing/marketing-ai-citation-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-app-store-optimizer.md": [],
+    "docs/agency-agents/marketing/marketing-baidu-seo-specialist.md": [],
+    "docs/agency-agents/marketing/marketing-bilibili-content-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-book-co-author.md": [],
+    "docs/agency-agents/marketing/marketing-carousel-growth-engine.md": [],
+    "docs/agency-agents/marketing/marketing-china-ecommerce-operator.md": [],
+    "docs/agency-agents/marketing/marketing-china-market-localization-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-content-creator.md": [],
+    "docs/agency-agents/marketing/marketing-cross-border-ecommerce.md": [],
+    "docs/agency-agents/marketing/marketing-douyin-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-growth-hacker.md": [],
+    "docs/agency-agents/marketing/marketing-instagram-curator.md": [],
+    "docs/agency-agents/marketing/marketing-kuaishou-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-linkedin-content-creator.md": [],
+    "docs/agency-agents/marketing/marketing-livestream-commerce-coach.md": [],
+    "docs/agency-agents/marketing/marketing-podcast-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-private-domain-operator.md": [],
+    "docs/agency-agents/marketing/marketing-reddit-community-builder.md": [],
+    "docs/agency-agents/marketing/marketing-seo-specialist.md": [],
+    "docs/agency-agents/marketing/marketing-short-video-editing-coach.md": [],
+    "docs/agency-agents/marketing/marketing-social-media-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-tiktok-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-twitter-engager.md": [],
+    "docs/agency-agents/marketing/marketing-video-optimization-specialist.md": [],
+    "docs/agency-agents/marketing/marketing-wechat-official-account.md": [],
+    "docs/agency-agents/marketing/marketing-weibo-strategist.md": [],
+    "docs/agency-agents/marketing/marketing-xiaohongshu-specialist.md": [],
+    "docs/agency-agents/marketing/marketing-zhihu-strategist.md": [],
+    "docs/agency-agents/paid-media/paid-media-auditor.md": [],
+    "docs/agency-agents/paid-media/paid-media-creative-strategist.md": [],
+    "docs/agency-agents/paid-media/paid-media-paid-social-strategist.md": [],
+    "docs/agency-agents/paid-media/paid-media-ppc-strategist.md": [],
+    "docs/agency-agents/paid-media/paid-media-programmatic-buyer.md": [],
+    "docs/agency-agents/paid-media/paid-media-search-query-analyst.md": [],
+    "docs/agency-agents/paid-media/paid-media-tracking-specialist.md": [],
+    "docs/agency-agents/product/product-behavioral-nudge-engine.md": [],
+    "docs/agency-agents/product/product-feedback-synthesizer.md": [],
+    "docs/agency-agents/product/product-manager.md": [],
+    "docs/agency-agents/product/product-sprint-prioritizer.md": [],
+    "docs/agency-agents/product/product-trend-researcher.md": [],
+    "docs/agency-agents/project-management/project-management-experiment-tracker.md": [],
+    "docs/agency-agents/project-management/project-management-jira-workflow-steward.md": [],
+    "docs/agency-agents/project-management/project-management-project-shepherd.md": [],
+    "docs/agency-agents/project-management/project-management-studio-operations.md": [],
+    "docs/agency-agents/project-management/project-management-studio-producer.md": [],
+    "docs/agency-agents/project-management/project-manager-senior.md": [],
+    "docs/agency-agents/README.md": [],
+    "docs/agency-agents/sales/sales-account-strategist.md": [],
+    "docs/agency-agents/sales/sales-coach.md": [],
+    "docs/agency-agents/sales/sales-deal-strategist.md": [],
+    "docs/agency-agents/sales/sales-discovery-coach.md": [],
+    "docs/agency-agents/sales/sales-engineer.md": [],
+    "docs/agency-agents/sales/sales-outbound-strategist.md": [],
+    "docs/agency-agents/sales/sales-pipeline-analyst.md": [],
+    "docs/agency-agents/sales/sales-proposal-strategist.md": [],
+    "docs/agency-agents/scripts/convert.sh": [],
+    "docs/agency-agents/scripts/i18n/agent-names-zh.json": [],
+    "docs/agency-agents/scripts/i18n/localize-agents-zh.ps1": [],
+    "docs/agency-agents/scripts/i18n/README.md": [],
+    "docs/agency-agents/scripts/install.sh": [],
+    "docs/agency-agents/scripts/lint-agents.sh": [],
+    "docs/agency-agents/SECURITY.md": [],
+    "docs/agency-agents/spatial-computing/macos-spatial-metal-engineer.md": [],
+    "docs/agency-agents/spatial-computing/terminal-integration-specialist.md": [],
+    "docs/agency-agents/spatial-computing/visionos-spatial-engineer.md": [],
+    "docs/agency-agents/spatial-computing/xr-cockpit-interaction-specialist.md": [],
+    "docs/agency-agents/spatial-computing/xr-immersive-developer.md": [],
+    "docs/agency-agents/spatial-computing/xr-interface-architect.md": [],
+    "docs/agency-agents/specialized/accounts-payable-agent.md": [],
+    "docs/agency-agents/specialized/agentic-identity-trust.md": [],
+    "docs/agency-agents/specialized/agents-orchestrator.md": [],
+    "docs/agency-agents/specialized/automation-governance-architect.md": [],
+    "docs/agency-agents/specialized/blockchain-security-auditor.md": [],
+    "docs/agency-agents/specialized/compliance-auditor.md": [],
+    "docs/agency-agents/specialized/corporate-training-designer.md": [],
+    "docs/agency-agents/specialized/customer-service.md": [],
+    "docs/agency-agents/specialized/data-consolidation-agent.md": [],
+    "docs/agency-agents/specialized/government-digital-presales-consultant.md": [],
+    "docs/agency-agents/specialized/healthcare-customer-service.md": [],
+    "docs/agency-agents/specialized/healthcare-marketing-compliance.md": [],
+    "docs/agency-agents/specialized/hospitality-guest-services.md": [],
+    "docs/agency-agents/specialized/hr-onboarding.md": [],
+    "docs/agency-agents/specialized/identity-graph-operator.md": [],
+    "docs/agency-agents/specialized/language-translator.md": [],
+    "docs/agency-agents/specialized/legal-billing-time-tracking.md": [],
+    "docs/agency-agents/specialized/legal-client-intake.md": [],
+    "docs/agency-agents/specialized/legal-document-review.md": [],
+    "docs/agency-agents/specialized/loan-officer-assistant.md": [],
+    "docs/agency-agents/specialized/lsp-index-engineer.md": [],
+    "docs/agency-agents/specialized/real-estate-buyer-seller.md": [],
+    "docs/agency-agents/specialized/recruitment-specialist.md": [],
+    "docs/agency-agents/specialized/report-distribution-agent.md": [],
+    "docs/agency-agents/specialized/retail-customer-returns.md": [],
+    "docs/agency-agents/specialized/sales-data-extraction-agent.md": [],
+    "docs/agency-agents/specialized/sales-outreach.md": [],
+    "docs/agency-agents/specialized/specialized-chief-of-staff.md": [],
+    "docs/agency-agents/specialized/specialized-civil-engineer.md": [],
+    "docs/agency-agents/specialized/specialized-cultural-intelligence-strategist.md": [],
+    "docs/agency-agents/specialized/specialized-developer-advocate.md": [],
+    "docs/agency-agents/specialized/specialized-document-generator.md": [],
+    "docs/agency-agents/specialized/specialized-french-consulting-market.md": [],
+    "docs/agency-agents/specialized/specialized-korean-business-navigator.md": [],
+    "docs/agency-agents/specialized/specialized-mcp-builder.md": [],
+    "docs/agency-agents/specialized/specialized-model-qa.md": [],
+    "docs/agency-agents/specialized/specialized-salesforce-architect.md": [],
+    "docs/agency-agents/specialized/specialized-workflow-architect.md": [],
+    "docs/agency-agents/specialized/study-abroad-advisor.md": [],
+    "docs/agency-agents/specialized/supply-chain-strategist.md": [],
+    "docs/agency-agents/specialized/zk-steward.md": [],
+    "docs/agency-agents/strategy/coordination/agent-activation-prompts.md": [],
+    "docs/agency-agents/strategy/coordination/handoff-templates.md": [],
+    "docs/agency-agents/strategy/EXECUTIVE-BRIEF.md": [],
+    "docs/agency-agents/strategy/nexus-strategy.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-0-discovery.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-1-strategy.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-2-foundation.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-3-build.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-4-hardening.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-5-launch.md": [],
+    "docs/agency-agents/strategy/playbooks/phase-6-operate.md": [],
+    "docs/agency-agents/strategy/QUICKSTART.md": [],
+    "docs/agency-agents/strategy/runbooks/scenario-enterprise-feature.md": [],
+    "docs/agency-agents/strategy/runbooks/scenario-incident-response.md": [],
+    "docs/agency-agents/strategy/runbooks/scenario-marketing-campaign.md": [],
+    "docs/agency-agents/strategy/runbooks/scenario-startup-mvp.md": [],
+    "docs/agency-agents/support/support-analytics-reporter.md": [],
+    "docs/agency-agents/support/support-executive-summary-generator.md": [],
+    "docs/agency-agents/support/support-finance-tracker.md": [],
+    "docs/agency-agents/support/support-infrastructure-maintainer.md": [],
+    "docs/agency-agents/support/support-legal-compliance-checker.md": [],
+    "docs/agency-agents/support/support-support-responder.md": [],
+    "docs/agency-agents/testing/testing-accessibility-auditor.md": [],
+    "docs/agency-agents/testing/testing-api-tester.md": [],
+    "docs/agency-agents/testing/testing-evidence-collector.md": [],
+    "docs/agency-agents/testing/testing-performance-benchmarker.md": [],
+    "docs/agency-agents/testing/testing-reality-checker.md": [],
+    "docs/agency-agents/testing/testing-test-results-analyzer.md": [],
+    "docs/agency-agents/testing/testing-tool-evaluator.md": [],
+    "docs/agency-agents/testing/testing-workflow-optimizer.md": [],
+    "docs/CURSOR_SKILLS_SYNC.md": [],
+    "docs/EXAMPLE_DEV_LESSONS.md": [],
+    "docs/guides/ui-adoption-workflow/8-principle-study-ui-adoption.md": [],
+    "docs/guides/ui-adoption-workflow/DESIGN.md": [],
+    "docs/guides/ui-adoption-workflow/PRO-DEV-RUNBOOK.md": [],
+    "docs/guides/ui-adoption-workflow/PRODUCT.md": [],
+    "docs/guides/ui-adoption-workflow/README.md": [],
+    "docs/id-types-deep-dive.md": [],
+    "docs/NEW_EXAMPLE_SCAFFOLD.md": [],
+    "docs/senior-laravel-render-playbook/00-README.md": [],
+    "docs/senior-laravel-render-playbook/01-mindset-and-principles.md": [],
+    "docs/senior-laravel-render-playbook/02-local-development-setup.md": [],
+    "docs/senior-laravel-render-playbook/03-project-scaffolding.md": [],
+    "docs/senior-laravel-render-playbook/04-architecture-patterns.md": [],
+    "docs/senior-laravel-render-playbook/05-database-eloquent.md": [],
+    "docs/senior-laravel-render-playbook/06-testing-strategy.md": [],
+    "docs/senior-laravel-render-playbook/07-security-playbook.md": [],
+    "docs/senior-laravel-render-playbook/08-performance-optimization.md": [],
+    "docs/senior-laravel-render-playbook/09-render-hosting-mastery.md": [],
+    "docs/senior-laravel-render-playbook/10-deployment-cicd.md": [],
+    "docs/senior-laravel-render-playbook/11-queues-jobs-scheduling.md": [],
+    "docs/senior-laravel-render-playbook/12-debugging-monitoring.md": [],
+    "docs/senior-laravel-render-playbook/13-cost-optimization.md": [],
+    "docs/senior-laravel-render-playbook/14-career-longevity.md": [],
+    "docs/senior-laravel-render-playbook/15-quick-reference.md": [],
+    "docs/SESSION_STATE.md": [],
+    "docs/study/180-laravel-project-types-study-packet.md": [],
+    "docs/superpowers/plans/2026-05-09-user-guest-dashboard.md": [],
+    "docs/superpowers/plans/2026-05-09-welcome-filament-cta.md": [],
+    "docs/superpowers/plans/2026-05-10-my-sg-laravel.md": [],
+    "docs/superpowers/plans/2026-05-18-invoice-app.md": [],
+    "docs/superpowers/plans/2026-05-25-swift-lens-user-directory.md": [],
+    "docs/superpowers/plans/2026-05-30-todo-tags.md": [],
+    "docs/superpowers/plans/2026-05-31-billing-saas.md": [],
+    "docs/superpowers/specs/2026-05-09-readme-features-design.md": [],
+    "docs/superpowers/specs/2026-05-09-user-guest-dashboard-design.md": [],
+    "docs/superpowers/specs/2026-05-09-welcome-filament-cta-design.md": [],
+    "docs/superpowers/specs/2026-05-10-my-sg-laravel-design.md": [],
+    "docs/superpowers/specs/2026-05-25-swift-lens-user-directory-design.md": [],
+    "docs/superpowers/specs/2026-05-30-todo-tags-design.md": [],
+    "docs/superpowers/specs/2026-05-31-billing-saas-design.md": [],
+    "docs/WINDOWS_HERD_GITBASH.md": [],
+    "examples/001-herd.md": [],
+    "examples/001-pest.md": [],
+    "examples/001-skill-for-test-agent-browser-prompt.md": [],
+    "examples/001-workflow.md": [],
+    "examples/002-herd.md": [],
+    "examples/002-workflow.md": [],
+    "examples/01-myappadmin.md": [],
+    "examples/01-prompt.md": [],
+    "examples/booking-v1/.env.example": [],
+    "examples/booking-v1/.specify/extensions.yml": [],
+    "examples/booking-v1/.specify/extensions/.registry": [],
+    "examples/booking-v1/.specify/extensions/agent-context/agent-context-config.yml": [],
+    "examples/booking-v1/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": [],
+    "examples/booking-v1/.specify/extensions/agent-context/extension.yml": [],
+    "examples/booking-v1/.specify/extensions/agent-context/README.md": [],
+    "examples/booking-v1/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": [],
+    "examples/booking-v1/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": [],
+    "examples/booking-v1/.specify/extensions/git/commands/speckit.git.commit.md": [],
+    "examples/booking-v1/.specify/extensions/git/commands/speckit.git.feature.md": [],
+    "examples/booking-v1/.specify/extensions/git/commands/speckit.git.initialize.md": [],
+    "examples/booking-v1/.specify/extensions/git/commands/speckit.git.remote.md": [],
+    "examples/booking-v1/.specify/extensions/git/commands/speckit.git.validate.md": [],
+    "examples/booking-v1/.specify/extensions/git/config-template.yml": [],
+    "examples/booking-v1/.specify/extensions/git/extension.yml": [],
+    "examples/booking-v1/.specify/extensions/git/git-config.yml": [],
+    "examples/booking-v1/.specify/extensions/git/README.md": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/bash/git-common.sh": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    "examples/booking-v1/.specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    "examples/booking-v1/.specify/init-options.json": [],
+    "examples/booking-v1/.specify/integration.json": [],
+    "examples/booking-v1/.specify/integrations/cursor-agent.manifest.json": [],
+    "examples/booking-v1/.specify/integrations/speckit.manifest.json": [],
+    "examples/booking-v1/.specify/memory/constitution.md": [],
+    "examples/booking-v1/.specify/scripts/powershell/check-prerequisites.ps1": [],
+    "examples/booking-v1/.specify/scripts/powershell/common.ps1": [],
+    "examples/booking-v1/.specify/scripts/powershell/create-new-feature.ps1": [],
+    "examples/booking-v1/.specify/scripts/powershell/setup-plan.ps1": [],
+    "examples/booking-v1/.specify/scripts/powershell/setup-tasks.ps1": [],
+    "examples/booking-v1/.specify/specs/001-appointment-booking/plan.md": [],
+    "examples/booking-v1/.specify/specs/001-appointment-booking/spec.md": [],
+    "examples/booking-v1/.specify/specs/001-appointment-booking/tasks.md": [],
+    "examples/booking-v1/.specify/templates/checklist-template.md": [],
+    "examples/booking-v1/.specify/templates/constitution-template.md": [],
+    "examples/booking-v1/.specify/templates/plan-template.md": [],
+    "examples/booking-v1/.specify/templates/spec-template.md": [],
+    "examples/booking-v1/.specify/templates/tasks-template.md": [],
+    "examples/booking-v1/.specify/workflows/speckit/workflow.yml": [],
+    "examples/booking-v1/.specify/workflows/workflow-registry.json": [],
+    "examples/booking-v1/app/Console/Commands/ReleaseExpiredBookingHolds.php": [
+      "examples/booking-v1/app/Services/Booking/BookingService.php"
+    ],
+    "examples/booking-v1/app/Enums/BookingStatus.php": [],
+    "examples/booking-v1/app/Enums/UserRole.php": [],
+    "examples/booking-v1/app/Http/Controllers/Api/AuthController.php": [
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/app/Http/Controllers/Controller.php",
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/app/Http/Controllers/Api/BookingController.php": [
+      "examples/booking-v1/app/Http/Controllers/Controller.php",
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/Service.php",
+      "examples/booking-v1/app/Services/Booking/BookingService.php"
+    ],
+    "examples/booking-v1/app/Http/Controllers/Api/SlotController.php": [
+      "examples/booking-v1/app/Http/Controllers/Controller.php",
+      "examples/booking-v1/app/Models/Service.php",
+      "examples/booking-v1/app/Services/Booking/SlotCalculator.php"
+    ],
+    "examples/booking-v1/app/Http/Controllers/Controller.php": [],
+    "examples/booking-v1/app/Http/Controllers/Provider/SetupController.php": [
+      "examples/booking-v1/app/Http/Controllers/Controller.php",
+      "examples/booking-v1/app/Models/AvailabilityRule.php",
+      "examples/booking-v1/app/Models/BookableResource.php",
+      "examples/booking-v1/app/Models/ProviderProfile.php",
+      "examples/booking-v1/app/Models/Service.php"
+    ],
+    "examples/booking-v1/app/Http/Middleware/EnsureUserIsProvider.php": [
+      "examples/booking-v1/app/Enums/UserRole.php"
+    ],
+    "examples/booking-v1/app/Jobs/SendBookingReminder.php": [
+      "examples/booking-v1/app/Enums/BookingStatus.php",
+      "examples/booking-v1/app/Models/Booking.php"
+    ],
+    "examples/booking-v1/app/Models/AvailabilityRule.php": [],
+    "examples/booking-v1/app/Models/BookableResource.php": [],
+    "examples/booking-v1/app/Models/Booking.php": [
+      "examples/booking-v1/app/Enums/BookingStatus.php"
+    ],
+    "examples/booking-v1/app/Models/ProviderProfile.php": [],
+    "examples/booking-v1/app/Models/Service.php": [],
+    "examples/booking-v1/app/Models/User.php": [
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/database/factories/UserFactory.php"
+    ],
+    "examples/booking-v1/app/Policies/BookingPolicy.php": [
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/app/Providers/AppServiceProvider.php": [],
+    "examples/booking-v1/app/Services/Booking/BookingService.php": [
+      "examples/booking-v1/app/Enums/BookingStatus.php",
+      "examples/booking-v1/app/Jobs/SendBookingReminder.php",
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/Service.php",
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/app/Services/Booking/SlotCalculator.php": [
+      "examples/booking-v1/app/Enums/BookingStatus.php",
+      "examples/booking-v1/app/Models/AvailabilityRule.php",
+      "examples/booking-v1/app/Models/BookableResource.php",
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/Service.php"
+    ],
+    "examples/booking-v1/artisan": [],
+    "examples/booking-v1/bootstrap/app.php": [],
+    "examples/booking-v1/bootstrap/providers.php": [
+      "examples/booking-v1/app/Providers/AppServiceProvider.php"
+    ],
+    "examples/booking-v1/composer.json": [],
+    "examples/booking-v1/config/app.php": [],
+    "examples/booking-v1/config/auth.php": [
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/config/cache.php": [],
+    "examples/booking-v1/config/database.php": [],
+    "examples/booking-v1/config/filesystems.php": [],
+    "examples/booking-v1/config/logging.php": [],
+    "examples/booking-v1/config/mail.php": [],
+    "examples/booking-v1/config/queue.php": [],
+    "examples/booking-v1/config/sanctum.php": [],
+    "examples/booking-v1/config/services.php": [],
+    "examples/booking-v1/config/session.php": [],
+    "examples/booking-v1/database/factories/UserFactory.php": [
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/booking-v1/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/booking-v1/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/booking-v1/database/migrations/2026_06_01_000001_create_booking_tables.php": [],
+    "examples/booking-v1/database/migrations/2026_06_01_144353_create_personal_access_tokens_table.php": [],
+    "examples/booking-v1/database/seeders/DatabaseSeeder.php": [
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/docs/GROK_LOOP.md": [],
+    "examples/booking-v1/docs/GROK_REVIEW_PLAN.md": [],
+    "examples/booking-v1/docs/GROK_REVIEW_SPEC.md": [],
+    "examples/booking-v1/docs/NEXT_SESSION.md": [],
+    "examples/booking-v1/package.json": [],
+    "examples/booking-v1/phpunit.xml": [],
+    "examples/booking-v1/public/.htaccess": [],
+    "examples/booking-v1/public/index.php": [],
+    "examples/booking-v1/public/robots.txt": [],
+    "examples/booking-v1/README.md": [],
+    "examples/booking-v1/resources/css/app.css": [],
+    "examples/booking-v1/resources/js/app.js": [],
+    "examples/booking-v1/resources/views/welcome.blade.php": [],
+    "examples/booking-v1/routes/api.php": [
+      "examples/booking-v1/app/Http/Controllers/Api/AuthController.php",
+      "examples/booking-v1/app/Http/Controllers/Api/BookingController.php",
+      "examples/booking-v1/app/Http/Controllers/Api/SlotController.php",
+      "examples/booking-v1/app/Http/Controllers/Provider/SetupController.php"
+    ],
+    "examples/booking-v1/routes/console.php": [],
+    "examples/booking-v1/routes/web.php": [],
+    "examples/booking-v1/tests/Feature/Auth/ApiTokenAuthTest.php": [
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/tests/Feature/Booking/AppointmentBookingTest.php": [
+      "examples/booking-v1/app/Enums/BookingStatus.php",
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/app/Models/AvailabilityRule.php",
+      "examples/booking-v1/app/Models/BookableResource.php",
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/ProviderProfile.php",
+      "examples/booking-v1/app/Models/Service.php",
+      "examples/booking-v1/app/Models/User.php",
+      "examples/booking-v1/app/Services/Booking/BookingService.php"
+    ],
+    "examples/booking-v1/tests/Feature/Booking/BookingPolicyTest.php": [
+      "examples/booking-v1/app/Enums/BookingStatus.php",
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/app/Models/AvailabilityRule.php",
+      "examples/booking-v1/app/Models/BookableResource.php",
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/ProviderProfile.php",
+      "examples/booking-v1/app/Models/Service.php",
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/tests/Feature/Booking/SendBookingReminderTest.php": [
+      "examples/booking-v1/app/Enums/UserRole.php",
+      "examples/booking-v1/app/Jobs/SendBookingReminder.php",
+      "examples/booking-v1/app/Models/AvailabilityRule.php",
+      "examples/booking-v1/app/Models/BookableResource.php",
+      "examples/booking-v1/app/Models/Booking.php",
+      "examples/booking-v1/app/Models/ProviderProfile.php",
+      "examples/booking-v1/app/Models/Service.php",
+      "examples/booking-v1/app/Models/User.php",
+      "examples/booking-v1/app/Services/Booking/BookingService.php"
+    ],
+    "examples/booking-v1/tests/Feature/ExampleTest.php": [],
+    "examples/booking-v1/tests/TestCase.php": [
+      "examples/booking-v1/app/Models/User.php"
+    ],
+    "examples/booking-v1/tests/Unit/ExampleTest.php": [],
+    "examples/booking-v1/vite.config.js": [],
+    "examples/build-report.txt": [],
+    "examples/clone-the-fb-nav/.env.example": [],
+    "examples/clone-the-fb-nav/.gitattributes": [],
+    "examples/clone-the-fb-nav/.npmrc": [],
+    "examples/clone-the-fb-nav/.specify/extensions.yml": [],
+    "examples/clone-the-fb-nav/.specify/extensions/.registry": [],
+    "examples/clone-the-fb-nav/.specify/extensions/agent-context/agent-context-config.yml": [],
+    "examples/clone-the-fb-nav/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/agent-context/extension.yml": [],
+    "examples/clone-the-fb-nav/.specify/extensions/agent-context/README.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": [],
+    "examples/clone-the-fb-nav/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/commands/speckit.git.commit.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/commands/speckit.git.feature.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/commands/speckit.git.initialize.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/commands/speckit.git.remote.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/commands/speckit.git.validate.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/config-template.yml": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/extension.yml": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/git-config.yml": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/README.md": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/bash/git-common.sh": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    "examples/clone-the-fb-nav/.specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    "examples/clone-the-fb-nav/.specify/init-options.json": [],
+    "examples/clone-the-fb-nav/.specify/integration.json": [],
+    "examples/clone-the-fb-nav/.specify/integrations/cursor-agent.manifest.json": [],
+    "examples/clone-the-fb-nav/.specify/integrations/speckit.manifest.json": [],
+    "examples/clone-the-fb-nav/.specify/memory/constitution.md": [],
+    "examples/clone-the-fb-nav/.specify/scripts/powershell/check-prerequisites.ps1": [],
+    "examples/clone-the-fb-nav/.specify/scripts/powershell/common.ps1": [],
+    "examples/clone-the-fb-nav/.specify/scripts/powershell/create-new-feature.ps1": [],
+    "examples/clone-the-fb-nav/.specify/scripts/powershell/setup-plan.ps1": [],
+    "examples/clone-the-fb-nav/.specify/scripts/powershell/setup-tasks.ps1": [],
+    "examples/clone-the-fb-nav/.specify/specs/001-fb-top-nav/plan.md": [],
+    "examples/clone-the-fb-nav/.specify/specs/001-fb-top-nav/spec.md": [],
+    "examples/clone-the-fb-nav/.specify/specs/001-fb-top-nav/tasks.md": [],
+    "examples/clone-the-fb-nav/.specify/templates/checklist-template.md": [],
+    "examples/clone-the-fb-nav/.specify/templates/constitution-template.md": [],
+    "examples/clone-the-fb-nav/.specify/templates/plan-template.md": [],
+    "examples/clone-the-fb-nav/.specify/templates/spec-template.md": [],
+    "examples/clone-the-fb-nav/.specify/templates/tasks-template.md": [],
+    "examples/clone-the-fb-nav/.specify/workflows/speckit/workflow.yml": [],
+    "examples/clone-the-fb-nav/.specify/workflows/workflow-registry.json": [],
+    "examples/clone-the-fb-nav/app/Http/Controllers/Controller.php": [],
+    "examples/clone-the-fb-nav/app/Models/User.php": [
+      "examples/clone-the-fb-nav/database/factories/UserFactory.php"
+    ],
+    "examples/clone-the-fb-nav/app/Providers/AppServiceProvider.php": [],
+    "examples/clone-the-fb-nav/artisan": [],
+    "examples/clone-the-fb-nav/bootstrap/app.php": [],
+    "examples/clone-the-fb-nav/bootstrap/providers.php": [
+      "examples/clone-the-fb-nav/app/Providers/AppServiceProvider.php"
+    ],
+    "examples/clone-the-fb-nav/composer.json": [],
+    "examples/clone-the-fb-nav/config/app.php": [],
+    "examples/clone-the-fb-nav/config/auth.php": [
+      "examples/clone-the-fb-nav/app/Models/User.php"
+    ],
+    "examples/clone-the-fb-nav/config/cache.php": [],
+    "examples/clone-the-fb-nav/config/database.php": [],
+    "examples/clone-the-fb-nav/config/fb-nav.php": [],
+    "examples/clone-the-fb-nav/config/filesystems.php": [],
+    "examples/clone-the-fb-nav/config/logging.php": [],
+    "examples/clone-the-fb-nav/config/mail.php": [],
+    "examples/clone-the-fb-nav/config/queue.php": [],
+    "examples/clone-the-fb-nav/config/services.php": [],
+    "examples/clone-the-fb-nav/config/session.php": [],
+    "examples/clone-the-fb-nav/database/factories/UserFactory.php": [
+      "examples/clone-the-fb-nav/app/Models/User.php"
+    ],
+    "examples/clone-the-fb-nav/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/clone-the-fb-nav/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/clone-the-fb-nav/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/clone-the-fb-nav/database/seeders/DatabaseSeeder.php": [
+      "examples/clone-the-fb-nav/app/Models/User.php"
+    ],
+    "examples/clone-the-fb-nav/dev.sh": [],
+    "examples/clone-the-fb-nav/docs/DESIGN.md": [],
+    "examples/clone-the-fb-nav/docs/NEXT_SESSION.md": [],
+    "examples/clone-the-fb-nav/package.json": [],
+    "examples/clone-the-fb-nav/phpunit.xml": [],
+    "examples/clone-the-fb-nav/public/.htaccess": [],
+    "examples/clone-the-fb-nav/public/index.php": [],
+    "examples/clone-the-fb-nav/public/robots.txt": [],
+    "examples/clone-the-fb-nav/README.md": [],
+    "examples/clone-the-fb-nav/resources/css/app.css": [],
+    "examples/clone-the-fb-nav/resources/js/app.js": [],
+    "examples/clone-the-fb-nav/resources/views/components/fb-nav-icons/gaming.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/components/fb-nav-icons/groups.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/components/fb-nav-icons/home.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/components/fb-nav-icons/marketplace.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/components/fb-nav-icons/watch.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/components/fb-top-nav.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/layouts/fb.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/pages/gaming.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/pages/groups.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/pages/home.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/pages/marketplace.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/pages/watch.blade.php": [],
+    "examples/clone-the-fb-nav/resources/views/welcome.blade.php": [],
+    "examples/clone-the-fb-nav/routes/console.php": [],
+    "examples/clone-the-fb-nav/routes/web.php": [],
+    "examples/clone-the-fb-nav/tests/Feature/ExampleTest.php": [],
+    "examples/clone-the-fb-nav/tests/Feature/FbTopNavTest.php": [],
+    "examples/clone-the-fb-nav/tests/TestCase.php": [],
+    "examples/clone-the-fb-nav/tests/Unit/ExampleTest.php": [],
+    "examples/clone-the-fb-nav/vite.config.js": [],
+    "examples/dashboard-v1/.dockerignore": [],
+    "examples/dashboard-v1/.env.example": [],
+    "examples/dashboard-v1/.env.production.example": [],
+    "examples/dashboard-v1/.gitattributes": [],
+    "examples/dashboard-v1/.impeccable/design.json": [],
+    "examples/dashboard-v1/.impeccable/live/config.json": [],
+    "examples/dashboard-v1/.impeccable/live/sessions/52152af7.jsonl": [],
+    "examples/dashboard-v1/.impeccable/live/sessions/52152af7.snapshot.json": [],
+    "examples/dashboard-v1/.impeccable/live/sessions/58244491.jsonl": [],
+    "examples/dashboard-v1/.impeccable/live/sessions/58244491.snapshot.json": [],
+    "examples/dashboard-v1/.impeccable/live/sessions/95a3b3e1.jsonl": [],
+    "examples/dashboard-v1/.impeccable/live/sessions/95a3b3e1.snapshot.json": [],
+    "examples/dashboard-v1/.npmrc": [],
+    "examples/dashboard-v1/.specify/extensions.yml": [],
+    "examples/dashboard-v1/.specify/extensions/.registry": [],
+    "examples/dashboard-v1/.specify/extensions/agent-context/agent-context-config.yml": [],
+    "examples/dashboard-v1/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": [],
+    "examples/dashboard-v1/.specify/extensions/agent-context/extension.yml": [],
+    "examples/dashboard-v1/.specify/extensions/agent-context/README.md": [],
+    "examples/dashboard-v1/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": [],
+    "examples/dashboard-v1/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": [],
+    "examples/dashboard-v1/.specify/extensions/git/commands/speckit.git.commit.md": [],
+    "examples/dashboard-v1/.specify/extensions/git/commands/speckit.git.feature.md": [],
+    "examples/dashboard-v1/.specify/extensions/git/commands/speckit.git.initialize.md": [],
+    "examples/dashboard-v1/.specify/extensions/git/commands/speckit.git.remote.md": [],
+    "examples/dashboard-v1/.specify/extensions/git/commands/speckit.git.validate.md": [],
+    "examples/dashboard-v1/.specify/extensions/git/config-template.yml": [],
+    "examples/dashboard-v1/.specify/extensions/git/extension.yml": [],
+    "examples/dashboard-v1/.specify/extensions/git/git-config.yml": [],
+    "examples/dashboard-v1/.specify/extensions/git/README.md": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/bash/git-common.sh": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    "examples/dashboard-v1/.specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    "examples/dashboard-v1/.specify/init-options.json": [],
+    "examples/dashboard-v1/.specify/integration.json": [],
+    "examples/dashboard-v1/.specify/integrations/cursor-agent.manifest.json": [],
+    "examples/dashboard-v1/.specify/integrations/speckit.manifest.json": [],
+    "examples/dashboard-v1/.specify/memory/constitution.md": [],
+    "examples/dashboard-v1/.specify/scripts/powershell/check-prerequisites.ps1": [],
+    "examples/dashboard-v1/.specify/scripts/powershell/common.ps1": [],
+    "examples/dashboard-v1/.specify/scripts/powershell/create-new-feature.ps1": [],
+    "examples/dashboard-v1/.specify/scripts/powershell/setup-plan.ps1": [],
+    "examples/dashboard-v1/.specify/scripts/powershell/setup-tasks.ps1": [],
+    "examples/dashboard-v1/.specify/specs/001-dashboard_v1/plan.md": [],
+    "examples/dashboard-v1/.specify/specs/001-dashboard_v1/spec.md": [],
+    "examples/dashboard-v1/.specify/specs/001-dashboard_v1/tasks.md": [],
+    "examples/dashboard-v1/.specify/specs/001-dashboard-v1/plan.md": [],
+    "examples/dashboard-v1/.specify/specs/001-dashboard-v1/spec.md": [],
+    "examples/dashboard-v1/.specify/specs/001-dashboard-v1/tasks.md": [],
+    "examples/dashboard-v1/.specify/templates/checklist-template.md": [],
+    "examples/dashboard-v1/.specify/templates/constitution-template.md": [],
+    "examples/dashboard-v1/.specify/templates/plan-template.md": [],
+    "examples/dashboard-v1/.specify/templates/spec-template.md": [],
+    "examples/dashboard-v1/.specify/templates/tasks-template.md": [],
+    "examples/dashboard-v1/.specify/workflows/speckit/workflow.yml": [],
+    "examples/dashboard-v1/.specify/workflows/workflow-registry.json": [],
+    "examples/dashboard-v1/app/Events/NewOrderCreated.php": [
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Auth/Login.php": [],
+    "examples/dashboard-v1/app/Filament/Forms/TranslatableFields.php": [],
+    "examples/dashboard-v1/app/Filament/Pages/Playground.php": [
+      "examples/dashboard-v1/app/Events/NewOrderCreated.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/CategoryResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/CreateCategory.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/EditCategory.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/ListCategories.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/RelationManagers/ProductsRelationManager.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/Schemas/CategoryForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/Tables/CategoriesTable.php",
+      "examples/dashboard-v1/app/Models/Category.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/CreateCategory.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Categories/CategoryResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/EditCategory.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Categories/CategoryResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/ListCategories.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Categories/CategoryResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/RelationManagers/ProductsRelationManager.php": [
+      "examples/dashboard-v1/app/Filament/Forms/TranslatableFields.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/Schemas/CategoryForm.php": [
+      "examples/dashboard-v1/app/Filament/Forms/TranslatableFields.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Categories/Tables/CategoriesTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/CustomerResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/CreateCustomer.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/EditCustomer.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/ListCustomers.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/RelationManagers/OrdersRelationManager.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Schemas/CustomerForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Tables/CustomersTable.php",
+      "examples/dashboard-v1/app/Models/Customer.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/CreateCustomer.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Customers/CustomerResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/EditCustomer.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Customers/CustomerResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/ListCustomers.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Customers/CustomerResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/RelationManagers/OrdersRelationManager.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/Schemas/CustomerForm.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Customers/Tables/CustomersTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/OrderResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/CreateOrder.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/EditOrder.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/ListOrders.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/RelationManagers/ItemsRelationManager.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Schemas/OrderForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Tables/OrdersTable.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/CreateOrder.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Orders/OrderResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/EditOrder.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Orders/OrderResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/ListOrders.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Orders/OrderResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/RelationManagers/ItemsRelationManager.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/Schemas/OrderForm.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Orders/Tables/OrdersTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/CreatePayment.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Payments/PaymentResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/EditPayment.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Payments/PaymentResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/ListPayments.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Payments/PaymentResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Payments/PaymentResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/CreatePayment.php",
+      "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/EditPayment.php",
+      "examples/dashboard-v1/app/Filament/Resources/Payments/Pages/ListPayments.php",
+      "examples/dashboard-v1/app/Filament/Resources/Payments/Schemas/PaymentForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Payments/Tables/PaymentsTable.php",
+      "examples/dashboard-v1/app/Models/Payment.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Payments/Schemas/PaymentForm.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Payments/Tables/PaymentsTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Permissions/Pages/ListPermissions.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Permissions/PermissionResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Permissions/PermissionResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Permissions/Pages/ListPermissions.php",
+      "examples/dashboard-v1/app/Filament/Resources/Permissions/Tables/PermissionsTable.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Permissions/Tables/PermissionsTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Products/Pages/CreateProduct.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Products/ProductResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Products/Pages/EditProduct.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Products/ProductResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Products/Pages/ListProducts.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Products/ProductResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Products/ProductResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Products/Pages/CreateProduct.php",
+      "examples/dashboard-v1/app/Filament/Resources/Products/Pages/EditProduct.php",
+      "examples/dashboard-v1/app/Filament/Resources/Products/Pages/ListProducts.php",
+      "examples/dashboard-v1/app/Filament/Resources/Products/Schemas/ProductForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Products/Tables/ProductsTable.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Products/Schemas/ProductForm.php": [
+      "examples/dashboard-v1/app/Filament/Forms/TranslatableFields.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Products/Tables/ProductsTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/CreateRole.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Roles/RoleResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/EditRole.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Roles/RoleResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/ListRoles.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Roles/RoleResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Roles/RoleResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/CreateRole.php",
+      "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/EditRole.php",
+      "examples/dashboard-v1/app/Filament/Resources/Roles/Pages/ListRoles.php",
+      "examples/dashboard-v1/app/Filament/Resources/Roles/Schemas/RoleForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Roles/Tables/RolesTable.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Roles/Schemas/RoleForm.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Roles/Tables/RolesTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/CreateTunnel.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php",
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/EditTunnel.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php",
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ListTunnels.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ViewTunnel.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php",
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelActivator.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelHealthChecker.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelForm.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Rules/ValidHerdHost.php",
+      "examples/dashboard-v1/app/Rules/ValidNgrokDomain.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelInfolist.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/Tables/TunnelsTable.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelActivator.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelHealthChecker.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/CreateTunnel.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/EditTunnel.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ListTunnels.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ViewTunnel.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Schemas/TunnelInfolist.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Tables/TunnelsTable.php",
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Users/Pages/CreateUser.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Users/UserResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Users/Pages/EditUser.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Users/UserResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Users/Pages/ListUsers.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Users/UserResource.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Resources/Users/Schemas/UserForm.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Users/Tables/UsersTable.php": [],
+    "examples/dashboard-v1/app/Filament/Resources/Users/UserResource.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Users/Pages/CreateUser.php",
+      "examples/dashboard-v1/app/Filament/Resources/Users/Pages/EditUser.php",
+      "examples/dashboard-v1/app/Filament/Resources/Users/Pages/ListUsers.php",
+      "examples/dashboard-v1/app/Filament/Resources/Users/Schemas/UserForm.php",
+      "examples/dashboard-v1/app/Filament/Resources/Users/Tables/UsersTable.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Filament/Widgets/CommerceOverview.php": [
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/AuthenticatedSessionController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v1/app/Http/Requests/Auth/LoginRequest.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/ConfirmablePasswordController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/EmailVerificationNotificationController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/EmailVerificationPromptController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/NewPasswordController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/PasswordController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/PasswordResetLinkController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/RegisteredUserController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/SsoController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v1/app/Services/SsoAuthenticator.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Auth/VerifyEmailController.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/CartController.php": [
+      "examples/dashboard-v1/app/Services/CartService.php",
+      "examples/dashboard-v1/app/Services/CheckoutService.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/Controller.php": [],
+    "examples/dashboard-v1/app/Http/Controllers/DashboardController.php": [
+      "examples/dashboard-v1/app/Services/DashboardMetricsService.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/ProfileController.php": [
+      "examples/dashboard-v1/app/Http/Requests/ProfileUpdateRequest.php"
+    ],
+    "examples/dashboard-v1/app/Http/Controllers/ShopController.php": [
+      "examples/dashboard-v1/app/Models/Category.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Services/CartService.php"
+    ],
+    "examples/dashboard-v1/app/Http/Requests/Auth/LoginRequest.php": [],
+    "examples/dashboard-v1/app/Http/Requests/ProfileUpdateRequest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Mail/NewOrderMail.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Orders/OrderResource.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/app/Models/Cart.php": [
+      "examples/dashboard-v1/database/factories/CartFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/CartItem.php": [],
+    "examples/dashboard-v1/app/Models/Category.php": [
+      "examples/dashboard-v1/database/factories/CategoryFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/Customer.php": [
+      "examples/dashboard-v1/database/factories/CustomerFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/Order.php": [
+      "examples/dashboard-v1/database/factories/OrderFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/OrderItem.php": [
+      "examples/dashboard-v1/database/factories/OrderItemFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/Payment.php": [
+      "examples/dashboard-v1/database/factories/PaymentFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/Product.php": [
+      "examples/dashboard-v1/database/factories/ProductFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/Tunnel.php": [
+      "examples/dashboard-v1/database/factories/TunnelFactory.php"
+    ],
+    "examples/dashboard-v1/app/Models/User.php": [
+      "examples/dashboard-v1/database/factories/UserFactory.php"
+    ],
+    "examples/dashboard-v1/app/Providers/AppServiceProvider.php": [
+      "examples/dashboard-v1/app/Services/SsoAuthenticator.php"
+    ],
+    "examples/dashboard-v1/app/Providers/Filament/AdminPanelProvider.php": [
+      "examples/dashboard-v1/app/Filament/Auth/Login.php",
+      "examples/dashboard-v1/app/Filament/Widgets/CommerceOverview.php"
+    ],
+    "examples/dashboard-v1/app/Rules/ValidHerdHost.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Rules/ValidNgrokDomain.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Services/CartService.php": [
+      "examples/dashboard-v1/app/Models/Cart.php",
+      "examples/dashboard-v1/app/Models/CartItem.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Services/CheckoutService.php": [
+      "examples/dashboard-v1/app/Events/NewOrderCreated.php",
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/OrderItem.php",
+      "examples/dashboard-v1/app/Models/Payment.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Services/DashboardMetricsService.php": [
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Services/OrderMailNotifier.php": [
+      "examples/dashboard-v1/app/Mail/NewOrderMail.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Services/SsoAuthenticator.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/app/Services/Tunnel/EnvFileWriter.php": [],
+    "examples/dashboard-v1/app/Services/Tunnel/NgrokEnvSync.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Services/Tunnel/NgrokTrafficPolicyWriter.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Services/Tunnel/TunnelActivator.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/Services/Tunnel/TunnelHealthChecker.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/app/View/Components/AppLayout.php": [],
+    "examples/dashboard-v1/app/View/Components/AuthSsoOptions.php": [
+      "examples/dashboard-v1/app/Services/SsoAuthenticator.php"
+    ],
+    "examples/dashboard-v1/app/View/Components/GuestLayout.php": [],
+    "examples/dashboard-v1/artisan": [],
+    "examples/dashboard-v1/bin/set-google-client-secret": [],
+    "examples/dashboard-v1/bin/set-microsoft-client-secret": [],
+    "examples/dashboard-v1/bootstrap/app.php": [],
+    "examples/dashboard-v1/bootstrap/providers.php": [],
+    "examples/dashboard-v1/composer.json": [],
+    "examples/dashboard-v1/config/app.php": [],
+    "examples/dashboard-v1/config/auth.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/config/broadcasting.php": [],
+    "examples/dashboard-v1/config/cache.php": [],
+    "examples/dashboard-v1/config/database.php": [],
+    "examples/dashboard-v1/config/filament-admin.php": [],
+    "examples/dashboard-v1/config/filesystems.php": [],
+    "examples/dashboard-v1/config/logging.php": [],
+    "examples/dashboard-v1/config/mail.php": [],
+    "examples/dashboard-v1/config/permission.php": [],
+    "examples/dashboard-v1/config/queue.php": [],
+    "examples/dashboard-v1/config/reverb.php": [],
+    "examples/dashboard-v1/config/services.php": [],
+    "examples/dashboard-v1/config/session.php": [],
+    "examples/dashboard-v1/config/tunnel.php": [],
+    "examples/dashboard-v1/database/factories/CartFactory.php": [
+      "examples/dashboard-v1/app/Models/Cart.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/database/factories/CategoryFactory.php": [
+      "examples/dashboard-v1/app/Models/Category.php"
+    ],
+    "examples/dashboard-v1/database/factories/CustomerFactory.php": [
+      "examples/dashboard-v1/app/Models/Customer.php"
+    ],
+    "examples/dashboard-v1/database/factories/OrderFactory.php": [
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/database/factories/OrderItemFactory.php": [
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/OrderItem.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/database/factories/PaymentFactory.php": [
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/Payment.php"
+    ],
+    "examples/dashboard-v1/database/factories/ProductFactory.php": [
+      "examples/dashboard-v1/app/Models/Category.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/database/factories/TunnelFactory.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/database/factories/UserFactory.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/dashboard-v1/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/dashboard-v1/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_022808_create_customers_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_022809_create_orders_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_025427_create_permission_tables.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_030001_create_categories_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_030002_create_products_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_030003_create_carts_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_030004_create_payments_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_040001_create_order_items_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_120000_add_sso_columns_to_users_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_120000_create_tunnels_table.php": [],
+    "examples/dashboard-v1/database/migrations/2026_06_06_130000_add_unique_domain_to_tunnels_table.php": [],
+    "examples/dashboard-v1/database/seeders/CatalogSeeder.php": [
+      "examples/dashboard-v1/app/Models/Category.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/database/seeders/DatabaseSeeder.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/database/seeders/OrderSeeder.php": [
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/database/seeders/RolePermissionSeeder.php": [],
+    "examples/dashboard-v1/database/seeders/TunnelSeeder.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php"
+    ],
+    "examples/dashboard-v1/DESIGN.md": [],
+    "examples/dashboard-v1/dev.sh": [],
+    "examples/dashboard-v1/docker-compose.override.yml.example": [],
+    "examples/dashboard-v1/docker-compose.yml": [],
+    "examples/dashboard-v1/docker/backup.sh": [],
+    "examples/dashboard-v1/docker/entrypoint.sh": [],
+    "examples/dashboard-v1/docker/nginx.conf": [],
+    "examples/dashboard-v1/docker/php.dev.ini": [],
+    "examples/dashboard-v1/docker/php.ini": [],
+    "examples/dashboard-v1/docker/supervisord.conf": [],
+    "examples/dashboard-v1/Dockerfile": [],
+    "examples/dashboard-v1/docs/backups.md": [],
+    "examples/dashboard-v1/docs/docker-hardening-proposal.md": [],
+    "examples/dashboard-v1/docs/NEXT_SESSION.md": [],
+    "examples/dashboard-v1/docs/SECURITY-key-rotation.md": [],
+    "examples/dashboard-v1/docs/superpowers/plans/2026-06-07-vultr-coolify-cicd.md": [],
+    "examples/dashboard-v1/docs/superpowers/runbooks/coolify-setup.md": [],
+    "examples/dashboard-v1/docs/superpowers/specs/2026-06-07-vultr-coolify-cicd-design.md": [],
+    "examples/dashboard-v1/ngrok-traffic-policy.yml": [],
+    "examples/dashboard-v1/openspec/changes/add-dev-tunnel-profiles/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/add-dev-tunnel-profiles/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/add-dev-tunnel-profiles/specs/dev-tunnel-profiles/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/add-dev-tunnel-profiles/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-cart-checkout/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-cart-checkout/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-cart-checkout/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-commerce-rbac/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-commerce-rbac/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-customer/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-customer/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-customer/specs/customer/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-customer/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-dashboard-charts/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-dashboard-charts/design.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-dashboard-charts/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-dashboard-charts/specs/dashboard-charts/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-dashboard-charts/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-filament-orders-admin/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-filament-orders-admin/specs/filament-orders-admin/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-filament-orders-admin/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-filament-relations/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-filament-relations/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-filament-relations/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-instant-order-alerts/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-instant-order-alerts/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-livewire-polling/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-livewire-polling/design.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-livewire-polling/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-livewire-polling/specs/livewire-polling/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-livewire-polling/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-echo-broadcast/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-echo-broadcast/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-email-notifications/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-email-notifications/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-items-notifications/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-items-notifications/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-items-notifications/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-metrics/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-metrics/design.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-metrics/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-metrics/specs/order-metrics/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-order-metrics/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-shop-browse/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-shop-browse/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-shop-browse/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-sso-login/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-sso-login/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-sso-login/specs/sso-login/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-sso-login/tasks.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-theme-mode/.openspec.yaml": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-theme-mode/proposal.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-theme-mode/specs/theme-mode/spec.md": [],
+    "examples/dashboard-v1/openspec/changes/archive/2026-06-06-add-theme-mode/tasks.md": [],
+    "examples/dashboard-v1/openspec/config.yaml": [],
+    "examples/dashboard-v1/package.json": [],
+    "examples/dashboard-v1/phpunit.xml": [],
+    "examples/dashboard-v1/postcss.config.js": [],
+    "examples/dashboard-v1/PRODUCT.md": [],
+    "examples/dashboard-v1/public/.htaccess": [],
+    "examples/dashboard-v1/public/css/filament/filament/app.css": [],
+    "examples/dashboard-v1/public/fonts/filament/filament/inter/index.css": [],
+    "examples/dashboard-v1/public/hot.disabled": [],
+    "examples/dashboard-v1/public/index.php": [],
+    "examples/dashboard-v1/public/js/filament/actions/actions.js": [],
+    "examples/dashboard-v1/public/js/filament/filament/app.js": [],
+    "examples/dashboard-v1/public/js/filament/filament/echo.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/checkbox-list.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/code-editor.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/color-picker.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/date-time-picker.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/file-upload.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/key-value.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/markdown-editor.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/rich-editor.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/select.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/slider.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/tags-input.js": [],
+    "examples/dashboard-v1/public/js/filament/forms/components/textarea.js": [],
+    "examples/dashboard-v1/public/js/filament/notifications/notifications.js": [],
+    "examples/dashboard-v1/public/js/filament/schemas/components/actions.js": [],
+    "examples/dashboard-v1/public/js/filament/schemas/components/tabs.js": [],
+    "examples/dashboard-v1/public/js/filament/schemas/components/wizard.js": [],
+    "examples/dashboard-v1/public/js/filament/schemas/schemas.js": [],
+    "examples/dashboard-v1/public/js/filament/support/support.js": [],
+    "examples/dashboard-v1/public/js/filament/tables/components/columns/checkbox.js": [],
+    "examples/dashboard-v1/public/js/filament/tables/components/columns/select.js": [],
+    "examples/dashboard-v1/public/js/filament/tables/components/columns/text-input.js": [],
+    "examples/dashboard-v1/public/js/filament/tables/components/columns/toggle.js": [],
+    "examples/dashboard-v1/public/js/filament/tables/tables.js": [],
+    "examples/dashboard-v1/public/js/filament/widgets/components/chart.js": [],
+    "examples/dashboard-v1/public/js/filament/widgets/components/stats-overview/stat/chart.js": [],
+    "examples/dashboard-v1/public/robots.txt": [],
+    "examples/dashboard-v1/README.md": [],
+    "examples/dashboard-v1/resources/css/app.css": [],
+    "examples/dashboard-v1/resources/js/app.js": [
+      "examples/dashboard-v1/resources/js/theme.js"
+    ],
+    "examples/dashboard-v1/resources/js/dashboard-charts.js": [],
+    "examples/dashboard-v1/resources/js/echo.js": [],
+    "examples/dashboard-v1/resources/js/order-notifications.js": [
+      "examples/dashboard-v1/resources/js/echo.js"
+    ],
+    "examples/dashboard-v1/resources/js/theme.js": [],
+    "examples/dashboard-v1/resources/views/auth/confirm-password.blade.php": [],
+    "examples/dashboard-v1/resources/views/auth/forgot-password.blade.php": [],
+    "examples/dashboard-v1/resources/views/auth/login.blade.php": [],
+    "examples/dashboard-v1/resources/views/auth/register.blade.php": [],
+    "examples/dashboard-v1/resources/views/auth/reset-password.blade.php": [],
+    "examples/dashboard-v1/resources/views/auth/verify-email.blade.php": [],
+    "examples/dashboard-v1/resources/views/cart.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/⚡dashboard-metrics.blade.php": [
+      "examples/dashboard-v1/app/Services/DashboardMetricsService.php"
+    ],
+    "examples/dashboard-v1/resources/views/components/application-brand.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/application-logo.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/auth-session-status.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/auth-sso-options.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/danger-button.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/dropdown-link.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/dropdown.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/github-icon.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/google-icon.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/icons/chart-dashboard.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/icons/eye-off.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/icons/eye.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/input-error.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/input-label.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/microsoft-icon.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/modal.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/nav-link.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/primary-button.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/responsive-nav-link.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/secondary-button.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/sso-button.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/text-input.blade.php": [],
+    "examples/dashboard-v1/resources/views/components/theme-toggle.blade.php": [],
+    "examples/dashboard-v1/resources/views/dashboard.blade.php": [],
+    "examples/dashboard-v1/resources/views/emails/orders/new.blade.php": [],
+    "examples/dashboard-v1/resources/views/filament/hooks/admin-polish.blade.php": [],
+    "examples/dashboard-v1/resources/views/filament/pages/playground.blade.php": [],
+    "examples/dashboard-v1/resources/views/impeccable/filament-live-bridge.blade.php": [],
+    "examples/dashboard-v1/resources/views/layouts/app.blade.php": [],
+    "examples/dashboard-v1/resources/views/layouts/guest.blade.php": [],
+    "examples/dashboard-v1/resources/views/layouts/navigation.blade.php": [],
+    "examples/dashboard-v1/resources/views/partials/theme-init.blade.php": [],
+    "examples/dashboard-v1/resources/views/profile/edit.blade.php": [],
+    "examples/dashboard-v1/resources/views/profile/partials/delete-user-form.blade.php": [],
+    "examples/dashboard-v1/resources/views/profile/partials/update-password-form.blade.php": [],
+    "examples/dashboard-v1/resources/views/profile/partials/update-profile-information-form.blade.php": [],
+    "examples/dashboard-v1/resources/views/shop.blade.php": [],
+    "examples/dashboard-v1/resources/views/welcome.blade.php": [],
+    "examples/dashboard-v1/routes/auth.php": [
+      "examples/dashboard-v1/app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/ConfirmablePasswordController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/EmailVerificationNotificationController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/EmailVerificationPromptController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/NewPasswordController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/PasswordController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/RegisteredUserController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/SsoController.php",
+      "examples/dashboard-v1/app/Http/Controllers/Auth/VerifyEmailController.php"
+    ],
+    "examples/dashboard-v1/routes/channels.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/routes/console.php": [],
+    "examples/dashboard-v1/routes/web.php": [
+      "examples/dashboard-v1/app/Http/Controllers/CartController.php",
+      "examples/dashboard-v1/app/Http/Controllers/DashboardController.php",
+      "examples/dashboard-v1/app/Http/Controllers/ProfileController.php",
+      "examples/dashboard-v1/app/Http/Controllers/ShopController.php"
+    ],
+    "examples/dashboard-v1/RUN.md": [],
+    "examples/dashboard-v1/s.src.includes('live.js')).length": [],
+    "examples/dashboard-v1/scripts/001-docker-note.md": [],
+    "examples/dashboard-v1/scripts/impeccable-live.sh": [],
+    "examples/dashboard-v1/scripts/live-test-hmr-headed.sh": [],
+    "examples/dashboard-v1/scripts/live-test-tunnel-admin-headed.sh": [],
+    "examples/dashboard-v1/scripts/ngrok-vitou-dev-http.sh": [],
+    "examples/dashboard-v1/scripts/print-google-oauth-console.sh": [],
+    "examples/dashboard-v1/scripts/scan-image.sh": [],
+    "examples/dashboard-v1/scripts/sync-ngrok-oauth-env.sh": [],
+    "examples/dashboard-v1/scripts/verify-ngrok-tunnel.sh": [],
+    "examples/dashboard-v1/scripts/verify-vite-dev.sh": [],
+    "examples/dashboard-v1/skills-lock.json": [],
+    "examples/dashboard-v1/tailwind.config.js": [],
+    "examples/dashboard-v1/tests/Feature/Auth/AuthenticationTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Auth/EmailVerificationTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Auth/PasswordConfirmationTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Auth/PasswordResetTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Auth/PasswordUpdateTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Auth/RegistrationTest.php": [],
+    "examples/dashboard-v1/tests/Feature/Auth/SsoLoginTest.php": [
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/database/seeders/RolePermissionSeeder.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/BroadcastOrdersChannelTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/CartPageTest.php": [
+      "examples/dashboard-v1/app/Mail/NewOrderMail.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/CartService.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/DashboardPageTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/DashboardTest.php": [
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/ExampleTest.php": [],
+    "examples/dashboard-v1/tests/Feature/Filament/AdminLoginTest.php": [
+      "examples/dashboard-v1/app/Filament/Auth/Login.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Filament/CategoryResourceTest.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Categories/CategoryResource.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/Pages/EditCategory.php",
+      "examples/dashboard-v1/app/Filament/Resources/Categories/RelationManagers/ProductsRelationManager.php",
+      "examples/dashboard-v1/app/Models/Category.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Filament/CustomerResourceTest.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Customers/CustomerResource.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/CreateCustomer.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/Pages/EditCustomer.php",
+      "examples/dashboard-v1/app/Filament/Resources/Customers/RelationManagers/OrdersRelationManager.php",
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Filament/OrderResourceTest.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Orders/OrderResource.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/CreateOrder.php",
+      "examples/dashboard-v1/app/Filament/Resources/Orders/Pages/EditOrder.php",
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Filament/PlaygroundPageTest.php": [
+      "examples/dashboard-v1/app/Filament/Pages/Playground.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Filament/TunnelResourceTest.php": [
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/CreateTunnel.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/EditTunnel.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/Pages/ListTunnels.php",
+      "examples/dashboard-v1/app/Filament/Resources/Tunnels/TunnelResource.php",
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/Tunnel/NgrokEnvSync.php",
+      "examples/dashboard-v1/app/Services/Tunnel/NgrokTrafficPolicyWriter.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelActivator.php",
+      "examples/dashboard-v1/database/seeders/TunnelSeeder.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/Livewire/DashboardMetricsComponentTest.php": [
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/ProfileTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/RolePermissionTest.php": [
+      "examples/dashboard-v1/app/Models/User.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/ShopPageTest.php": [
+      "examples/dashboard-v1/app/Models/Category.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/CartService.php"
+    ],
+    "examples/dashboard-v1/tests/Feature/ThemeModeTest.php": [],
+    "examples/dashboard-v1/tests/Feature/TunnelSeederTest.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/database/seeders/TunnelSeeder.php"
+    ],
+    "examples/dashboard-v1/tests/TestCase.php": [
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/database/seeders/RolePermissionSeeder.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/CartServiceTest.php": [
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/CartService.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/CheckoutServiceTest.php": [
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/OrderItem.php",
+      "examples/dashboard-v1/app/Models/Payment.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/CartService.php",
+      "examples/dashboard-v1/app/Services/CheckoutService.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/CustomerTest.php": [
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/DashboardMetricsServiceTest.php": [
+      "examples/dashboard-v1/app/Models/Customer.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/DashboardMetricsService.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/ExampleTest.php": [],
+    "examples/dashboard-v1/tests/Unit/NewOrderCreatedBroadcastTest.php": [
+      "examples/dashboard-v1/app/Events/NewOrderCreated.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/CartService.php",
+      "examples/dashboard-v1/app/Services/CheckoutService.php",
+      "examples/dashboard-v1/app/Services/OrderMailNotifier.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/NgrokEnvSyncTest.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Services/Tunnel/EnvFileWriter.php",
+      "examples/dashboard-v1/app/Services/Tunnel/NgrokEnvSync.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/NgrokTrafficPolicyWriterTest.php": [
+      "examples/dashboard-v1/app/Services/Tunnel/NgrokTrafficPolicyWriter.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/OrderMailNotifierTest.php": [
+      "examples/dashboard-v1/app/Mail/NewOrderMail.php",
+      "examples/dashboard-v1/app/Models/Order.php",
+      "examples/dashboard-v1/app/Models/Product.php",
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/CartService.php",
+      "examples/dashboard-v1/app/Services/CheckoutService.php",
+      "examples/dashboard-v1/app/Services/OrderMailNotifier.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/SsoAuthenticatorTest.php": [
+      "examples/dashboard-v1/app/Models/User.php",
+      "examples/dashboard-v1/app/Services/SsoAuthenticator.php",
+      "examples/dashboard-v1/database/seeders/RolePermissionSeeder.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/TranslatableFieldsTest.php": [
+      "examples/dashboard-v1/app/Filament/Forms/TranslatableFields.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/TranslationTest.php": [
+      "examples/dashboard-v1/app/Models/Category.php",
+      "examples/dashboard-v1/app/Models/Product.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/TunnelActivatorTest.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Services/Tunnel/NgrokEnvSync.php",
+      "examples/dashboard-v1/app/Services/Tunnel/NgrokTrafficPolicyWriter.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelActivator.php"
+    ],
+    "examples/dashboard-v1/tests/Unit/TunnelHealthCheckerTest.php": [
+      "examples/dashboard-v1/app/Models/Tunnel.php",
+      "examples/dashboard-v1/app/Services/Tunnel/TunnelHealthChecker.php"
+    ],
+    "examples/dashboard-v1/vite.config.js": [],
+    "examples/dashboard-v2/.env": [],
+    "examples/dashboard-v2/.env.example": [],
+    "examples/dashboard-v2/.gitattributes": [],
+    "examples/dashboard-v2/.npmrc": [],
+    "examples/dashboard-v2/.specify/extensions.yml": [],
+    "examples/dashboard-v2/.specify/extensions/.registry": [],
+    "examples/dashboard-v2/.specify/extensions/agent-context/agent-context-config.yml": [],
+    "examples/dashboard-v2/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": [],
+    "examples/dashboard-v2/.specify/extensions/agent-context/extension.yml": [],
+    "examples/dashboard-v2/.specify/extensions/agent-context/README.md": [],
+    "examples/dashboard-v2/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": [],
+    "examples/dashboard-v2/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": [],
+    "examples/dashboard-v2/.specify/extensions/git/commands/speckit.git.commit.md": [],
+    "examples/dashboard-v2/.specify/extensions/git/commands/speckit.git.feature.md": [],
+    "examples/dashboard-v2/.specify/extensions/git/commands/speckit.git.initialize.md": [],
+    "examples/dashboard-v2/.specify/extensions/git/commands/speckit.git.remote.md": [],
+    "examples/dashboard-v2/.specify/extensions/git/commands/speckit.git.validate.md": [],
+    "examples/dashboard-v2/.specify/extensions/git/config-template.yml": [],
+    "examples/dashboard-v2/.specify/extensions/git/extension.yml": [],
+    "examples/dashboard-v2/.specify/extensions/git/git-config.yml": [],
+    "examples/dashboard-v2/.specify/extensions/git/README.md": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/bash/git-common.sh": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    "examples/dashboard-v2/.specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    "examples/dashboard-v2/.specify/init-options.json": [],
+    "examples/dashboard-v2/.specify/integration.json": [],
+    "examples/dashboard-v2/.specify/integrations/cursor-agent.manifest.json": [],
+    "examples/dashboard-v2/.specify/integrations/speckit.manifest.json": [],
+    "examples/dashboard-v2/.specify/memory/constitution.md": [],
+    "examples/dashboard-v2/.specify/scripts/powershell/check-prerequisites.ps1": [],
+    "examples/dashboard-v2/.specify/scripts/powershell/common.ps1": [],
+    "examples/dashboard-v2/.specify/scripts/powershell/create-new-feature.ps1": [],
+    "examples/dashboard-v2/.specify/scripts/powershell/setup-plan.ps1": [],
+    "examples/dashboard-v2/.specify/scripts/powershell/setup-tasks.ps1": [],
+    "examples/dashboard-v2/.specify/specs/001-dashboard_v2/plan.md": [],
+    "examples/dashboard-v2/.specify/specs/001-dashboard_v2/spec.md": [],
+    "examples/dashboard-v2/.specify/specs/001-dashboard_v2/tasks.md": [],
+    "examples/dashboard-v2/.specify/templates/checklist-template.md": [],
+    "examples/dashboard-v2/.specify/templates/constitution-template.md": [],
+    "examples/dashboard-v2/.specify/templates/plan-template.md": [],
+    "examples/dashboard-v2/.specify/templates/spec-template.md": [],
+    "examples/dashboard-v2/.specify/templates/tasks-template.md": [],
+    "examples/dashboard-v2/.specify/workflows/speckit/workflow.yml": [],
+    "examples/dashboard-v2/.specify/workflows/workflow-registry.json": [],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/AuthenticatedSessionController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v2/app/Http/Requests/Auth/LoginRequest.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/ConfirmablePasswordController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/EmailVerificationNotificationController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/EmailVerificationPromptController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/GitHubAuthController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v2/app/Services/GitHubAuthenticator.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/NewPasswordController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/PasswordController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/PasswordResetLinkController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/RegisteredUserController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php",
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Auth/VerifyEmailController.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Controller.php"
+    ],
+    "examples/dashboard-v2/app/Http/Controllers/Controller.php": [],
+    "examples/dashboard-v2/app/Http/Controllers/ProfileController.php": [
+      "examples/dashboard-v2/app/Http/Requests/ProfileUpdateRequest.php"
+    ],
+    "examples/dashboard-v2/app/Http/Requests/Auth/LoginRequest.php": [],
+    "examples/dashboard-v2/app/Http/Requests/ProfileUpdateRequest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/app/Models/User.php": [
+      "examples/dashboard-v2/database/factories/UserFactory.php"
+    ],
+    "examples/dashboard-v2/app/Providers/AppServiceProvider.php": [],
+    "examples/dashboard-v2/app/Services/GitHubAuthenticator.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/app/View/Components/AppLayout.php": [],
+    "examples/dashboard-v2/app/View/Components/GuestLayout.php": [],
+    "examples/dashboard-v2/artisan": [],
+    "examples/dashboard-v2/bootstrap/app.php": [],
+    "examples/dashboard-v2/bootstrap/providers.php": [
+      "examples/dashboard-v2/app/Providers/AppServiceProvider.php"
+    ],
+    "examples/dashboard-v2/composer.json": [],
+    "examples/dashboard-v2/config/app.php": [],
+    "examples/dashboard-v2/config/auth.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/config/cache.php": [],
+    "examples/dashboard-v2/config/database.php": [],
+    "examples/dashboard-v2/config/filesystems.php": [],
+    "examples/dashboard-v2/config/logging.php": [],
+    "examples/dashboard-v2/config/mail.php": [],
+    "examples/dashboard-v2/config/queue.php": [],
+    "examples/dashboard-v2/config/services.php": [],
+    "examples/dashboard-v2/config/session.php": [],
+    "examples/dashboard-v2/database/factories/UserFactory.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/dashboard-v2/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/dashboard-v2/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/dashboard-v2/database/migrations/2026_06_06_120000_add_github_columns_to_users_table.php": [],
+    "examples/dashboard-v2/database/seeders/DatabaseSeeder.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/dev.sh": [],
+    "examples/dashboard-v2/docs/NEXT_SESSION.md": [],
+    "examples/dashboard-v2/ngrok-traffic-policy.yml": [],
+    "examples/dashboard-v2/package.json": [],
+    "examples/dashboard-v2/phpunit.xml": [],
+    "examples/dashboard-v2/postcss.config.js": [],
+    "examples/dashboard-v2/public/.htaccess": [],
+    "examples/dashboard-v2/public/index.php": [],
+    "examples/dashboard-v2/public/robots.txt": [],
+    "examples/dashboard-v2/README.md": [],
+    "examples/dashboard-v2/resources/css/app.css": [],
+    "examples/dashboard-v2/resources/js/app.js": [],
+    "examples/dashboard-v2/resources/views/auth/confirm-password.blade.php": [],
+    "examples/dashboard-v2/resources/views/auth/forgot-password.blade.php": [],
+    "examples/dashboard-v2/resources/views/auth/login.blade.php": [],
+    "examples/dashboard-v2/resources/views/auth/register.blade.php": [],
+    "examples/dashboard-v2/resources/views/auth/reset-password.blade.php": [],
+    "examples/dashboard-v2/resources/views/auth/verify-email.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/application-logo.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/auth-github-options.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/auth-session-status.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/danger-button.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/dropdown-link.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/dropdown.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/github-login-button.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/input-error.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/input-label.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/modal.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/nav-link.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/primary-button.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/responsive-nav-link.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/secondary-button.blade.php": [],
+    "examples/dashboard-v2/resources/views/components/text-input.blade.php": [],
+    "examples/dashboard-v2/resources/views/dashboard.blade.php": [],
+    "examples/dashboard-v2/resources/views/layouts/app.blade.php": [],
+    "examples/dashboard-v2/resources/views/layouts/guest.blade.php": [],
+    "examples/dashboard-v2/resources/views/layouts/navigation.blade.php": [],
+    "examples/dashboard-v2/resources/views/profile/edit.blade.php": [],
+    "examples/dashboard-v2/resources/views/profile/partials/delete-user-form.blade.php": [],
+    "examples/dashboard-v2/resources/views/profile/partials/update-password-form.blade.php": [],
+    "examples/dashboard-v2/resources/views/profile/partials/update-profile-information-form.blade.php": [],
+    "examples/dashboard-v2/resources/views/welcome.blade.php": [],
+    "examples/dashboard-v2/routes/auth.php": [
+      "examples/dashboard-v2/app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/ConfirmablePasswordController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/EmailVerificationNotificationController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/EmailVerificationPromptController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/GitHubAuthController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/NewPasswordController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/PasswordController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/RegisteredUserController.php",
+      "examples/dashboard-v2/app/Http/Controllers/Auth/VerifyEmailController.php"
+    ],
+    "examples/dashboard-v2/routes/console.php": [],
+    "examples/dashboard-v2/routes/web.php": [
+      "examples/dashboard-v2/app/Http/Controllers/ProfileController.php"
+    ],
+    "examples/dashboard-v2/tailwind.config.js": [],
+    "examples/dashboard-v2/tests/Feature/Auth/AuthenticationTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/Feature/Auth/EmailVerificationTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/Feature/Auth/GitHubLoginTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/Feature/Auth/PasswordConfirmationTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/Feature/Auth/PasswordResetTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/Feature/Auth/PasswordUpdateTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/Feature/Auth/RegistrationTest.php": [],
+    "examples/dashboard-v2/tests/Feature/ExampleTest.php": [],
+    "examples/dashboard-v2/tests/Feature/ProfileTest.php": [
+      "examples/dashboard-v2/app/Models/User.php"
+    ],
+    "examples/dashboard-v2/tests/TestCase.php": [],
+    "examples/dashboard-v2/tests/Unit/ExampleTest.php": [],
+    "examples/dashboard-v2/vite.config.js": [],
+    "examples/disable-nvidia-overlay-guide.md": [],
+    "examples/gen-filament.php": [],
+    "examples/gen-filament.ps1": [],
+    "examples/invoice-app/.env.example": [],
+    "examples/invoice-app/.gitattributes": [],
+    "examples/invoice-app/app/Http/Controllers/Auth/AuthenticatedSessionController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php",
+      "examples/invoice-app/app/Http/Requests/Auth/LoginRequest.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/ConfirmablePasswordController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/EmailVerificationNotificationController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/EmailVerificationPromptController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/NewPasswordController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php",
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/PasswordController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/PasswordResetLinkController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/RegisteredUserController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php",
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Auth/VerifyEmailController.php": [
+      "examples/invoice-app/app/Http/Controllers/Controller.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/Controller.php": [],
+    "examples/invoice-app/app/Http/Controllers/CustomerController.php": [
+      "examples/invoice-app/app/Http/Requests/StoreCustomerRequest.php",
+      "examples/invoice-app/app/Http/Requests/UpdateCustomerRequest.php",
+      "examples/invoice-app/app/Models/Customer.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/InvoiceController.php": [
+      "examples/invoice-app/app/Http/Requests/StoreInvoiceRequest.php",
+      "examples/invoice-app/app/Http/Requests/UpdateInvoiceRequest.php",
+      "examples/invoice-app/app/Models/Customer.php",
+      "examples/invoice-app/app/Models/Invoice.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/InvoicePdfController.php": [
+      "examples/invoice-app/app/Models/Invoice.php"
+    ],
+    "examples/invoice-app/app/Http/Controllers/ProfileController.php": [
+      "examples/invoice-app/app/Http/Requests/ProfileUpdateRequest.php"
+    ],
+    "examples/invoice-app/app/Http/Requests/Auth/LoginRequest.php": [],
+    "examples/invoice-app/app/Http/Requests/ProfileUpdateRequest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/app/Http/Requests/StoreCustomerRequest.php": [],
+    "examples/invoice-app/app/Http/Requests/StoreInvoiceRequest.php": [],
+    "examples/invoice-app/app/Http/Requests/UpdateCustomerRequest.php": [],
+    "examples/invoice-app/app/Http/Requests/UpdateInvoiceRequest.php": [],
+    "examples/invoice-app/app/Models/Customer.php": [],
+    "examples/invoice-app/app/Models/Invoice.php": [],
+    "examples/invoice-app/app/Models/InvoiceItem.php": [],
+    "examples/invoice-app/app/Models/User.php": [
+      "examples/invoice-app/database/factories/UserFactory.php"
+    ],
+    "examples/invoice-app/app/Providers/AppServiceProvider.php": [],
+    "examples/invoice-app/app/View/Components/AppLayout.php": [],
+    "examples/invoice-app/app/View/Components/GuestLayout.php": [],
+    "examples/invoice-app/artisan": [],
+    "examples/invoice-app/bootstrap/app.php": [],
+    "examples/invoice-app/bootstrap/providers.php": [
+      "examples/invoice-app/app/Providers/AppServiceProvider.php"
+    ],
+    "examples/invoice-app/composer.json": [],
+    "examples/invoice-app/config/app.php": [],
+    "examples/invoice-app/config/auth.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/config/cache.php": [],
+    "examples/invoice-app/config/database.php": [],
+    "examples/invoice-app/config/filesystems.php": [],
+    "examples/invoice-app/config/logging.php": [],
+    "examples/invoice-app/config/mail.php": [],
+    "examples/invoice-app/config/queue.php": [],
+    "examples/invoice-app/config/services.php": [],
+    "examples/invoice-app/config/session.php": [],
+    "examples/invoice-app/database/factories/CustomerFactory.php": [],
+    "examples/invoice-app/database/factories/InvoiceFactory.php": [
+      "examples/invoice-app/app/Models/Customer.php"
+    ],
+    "examples/invoice-app/database/factories/InvoiceItemFactory.php": [
+      "examples/invoice-app/app/Models/Invoice.php"
+    ],
+    "examples/invoice-app/database/factories/UserFactory.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/invoice-app/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/invoice-app/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/invoice-app/database/migrations/2026_05_18_134221_create_customers_table.php": [],
+    "examples/invoice-app/database/migrations/2026_05_18_134328_create_invoices_table.php": [],
+    "examples/invoice-app/database/migrations/2026_05_18_134329_create_invoice_items_table.php": [],
+    "examples/invoice-app/database/seeders/DatabaseSeeder.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/docs/db-indexing-guide.md": [],
+    "examples/invoice-app/package.json": [],
+    "examples/invoice-app/phpunit.xml": [],
+    "examples/invoice-app/postcss.config.js": [],
+    "examples/invoice-app/public/.htaccess": [],
+    "examples/invoice-app/public/index.php": [],
+    "examples/invoice-app/public/robots.txt": [],
+    "examples/invoice-app/README.md": [],
+    "examples/invoice-app/resources/css/app.css": [],
+    "examples/invoice-app/resources/js/app.js": [
+      "examples/invoice-app/resources/js/bootstrap.js"
+    ],
+    "examples/invoice-app/resources/js/bootstrap.js": [],
+    "examples/invoice-app/resources/views/auth/confirm-password.blade.php": [],
+    "examples/invoice-app/resources/views/auth/forgot-password.blade.php": [],
+    "examples/invoice-app/resources/views/auth/login.blade.php": [],
+    "examples/invoice-app/resources/views/auth/register.blade.php": [],
+    "examples/invoice-app/resources/views/auth/reset-password.blade.php": [],
+    "examples/invoice-app/resources/views/auth/verify-email.blade.php": [],
+    "examples/invoice-app/resources/views/components/application-logo.blade.php": [],
+    "examples/invoice-app/resources/views/components/auth-session-status.blade.php": [],
+    "examples/invoice-app/resources/views/components/danger-button.blade.php": [],
+    "examples/invoice-app/resources/views/components/dropdown-link.blade.php": [],
+    "examples/invoice-app/resources/views/components/dropdown.blade.php": [],
+    "examples/invoice-app/resources/views/components/input-error.blade.php": [],
+    "examples/invoice-app/resources/views/components/input-label.blade.php": [],
+    "examples/invoice-app/resources/views/components/modal.blade.php": [],
+    "examples/invoice-app/resources/views/components/nav-link.blade.php": [],
+    "examples/invoice-app/resources/views/components/primary-button.blade.php": [],
+    "examples/invoice-app/resources/views/components/responsive-nav-link.blade.php": [],
+    "examples/invoice-app/resources/views/components/secondary-button.blade.php": [],
+    "examples/invoice-app/resources/views/components/text-input.blade.php": [],
+    "examples/invoice-app/resources/views/customers/create.blade.php": [],
+    "examples/invoice-app/resources/views/customers/edit.blade.php": [],
+    "examples/invoice-app/resources/views/customers/index.blade.php": [],
+    "examples/invoice-app/resources/views/customers/show.blade.php": [],
+    "examples/invoice-app/resources/views/dashboard.blade.php": [],
+    "examples/invoice-app/resources/views/invoices/create.blade.php": [],
+    "examples/invoice-app/resources/views/invoices/edit.blade.php": [],
+    "examples/invoice-app/resources/views/invoices/index.blade.php": [],
+    "examples/invoice-app/resources/views/invoices/pdf.blade.php": [],
+    "examples/invoice-app/resources/views/invoices/show.blade.php": [],
+    "examples/invoice-app/resources/views/layouts/app.blade.php": [],
+    "examples/invoice-app/resources/views/layouts/guest.blade.php": [],
+    "examples/invoice-app/resources/views/layouts/navigation.blade.php": [],
+    "examples/invoice-app/resources/views/profile/edit.blade.php": [],
+    "examples/invoice-app/resources/views/profile/partials/delete-user-form.blade.php": [],
+    "examples/invoice-app/resources/views/profile/partials/update-password-form.blade.php": [],
+    "examples/invoice-app/resources/views/profile/partials/update-profile-information-form.blade.php": [],
+    "examples/invoice-app/resources/views/welcome.blade.php": [],
+    "examples/invoice-app/routes/auth.php": [
+      "examples/invoice-app/app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/ConfirmablePasswordController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/EmailVerificationNotificationController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/EmailVerificationPromptController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/NewPasswordController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/PasswordController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/RegisteredUserController.php",
+      "examples/invoice-app/app/Http/Controllers/Auth/VerifyEmailController.php"
+    ],
+    "examples/invoice-app/routes/console.php": [],
+    "examples/invoice-app/routes/web.php": [
+      "examples/invoice-app/app/Http/Controllers/CustomerController.php",
+      "examples/invoice-app/app/Http/Controllers/InvoiceController.php",
+      "examples/invoice-app/app/Http/Controllers/InvoicePdfController.php",
+      "examples/invoice-app/app/Http/Controllers/ProfileController.php"
+    ],
+    "examples/invoice-app/tailwind.config.js": [],
+    "examples/invoice-app/tests/Feature/Auth/AuthenticationTest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/Auth/EmailVerificationTest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/Auth/PasswordConfirmationTest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/Auth/PasswordResetTest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/Auth/PasswordUpdateTest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/Auth/RegistrationTest.php": [],
+    "examples/invoice-app/tests/Feature/CustomerTest.php": [
+      "examples/invoice-app/app/Models/Customer.php",
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/ExampleTest.php": [],
+    "examples/invoice-app/tests/Feature/InvoicePdfTest.php": [
+      "examples/invoice-app/app/Models/Invoice.php",
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/InvoiceTest.php": [
+      "examples/invoice-app/app/Models/Customer.php",
+      "examples/invoice-app/app/Models/Invoice.php",
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/Feature/ProfileTest.php": [
+      "examples/invoice-app/app/Models/User.php"
+    ],
+    "examples/invoice-app/tests/TestCase.php": [],
+    "examples/invoice-app/tests/Unit/CustomerModelTest.php": [
+      "examples/invoice-app/app/Models/Customer.php"
+    ],
+    "examples/invoice-app/tests/Unit/ExampleTest.php": [],
+    "examples/invoice-app/tests/Unit/InvoiceTotalsTest.php": [
+      "examples/invoice-app/app/Models/Customer.php",
+      "examples/invoice-app/app/Models/Invoice.php",
+      "examples/invoice-app/app/Models/InvoiceItem.php"
+    ],
+    "examples/invoice-app/vite.config.js": [],
+    "examples/kindly-cat-1122": [],
+    "examples/kindly-e-commerce-1122/.env.example": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/.registry": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/agent-context/agent-context-config.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/agent-context/extension.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/agent-context/README.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/commands/speckit.git.commit.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/commands/speckit.git.feature.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/commands/speckit.git.initialize.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/commands/speckit.git.remote.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/commands/speckit.git.validate.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/config-template.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/extension.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/git-config.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/README.md": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/bash/git-common.sh": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/init-options.json": [],
+    "examples/kindly-e-commerce-1122/.specify/integration.json": [],
+    "examples/kindly-e-commerce-1122/.specify/integrations/cursor-agent.manifest.json": [],
+    "examples/kindly-e-commerce-1122/.specify/integrations/speckit.manifest.json": [],
+    "examples/kindly-e-commerce-1122/.specify/memory/constitution.md": [],
+    "examples/kindly-e-commerce-1122/.specify/scripts/powershell/check-prerequisites.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/scripts/powershell/common.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/scripts/powershell/create-new-feature.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/scripts/powershell/setup-plan.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/scripts/powershell/setup-tasks.ps1": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/001-kindly-ecommerce/plan.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/001-kindly-ecommerce/spec.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/001-kindly-ecommerce/tasks-phase2.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/001-kindly-ecommerce/tasks.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/002-phase2-features/spec.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/003-order-lifecycle/spec.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/003-stripe-checkout/plan.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/003-stripe-checkout/spec.md": [],
+    "examples/kindly-e-commerce-1122/.specify/specs/003-stripe-checkout/tasks.md": [],
+    "examples/kindly-e-commerce-1122/.specify/templates/checklist-template.md": [],
+    "examples/kindly-e-commerce-1122/.specify/templates/constitution-template.md": [],
+    "examples/kindly-e-commerce-1122/.specify/templates/plan-template.md": [],
+    "examples/kindly-e-commerce-1122/.specify/templates/spec-template.md": [],
+    "examples/kindly-e-commerce-1122/.specify/templates/tasks-template.md": [],
+    "examples/kindly-e-commerce-1122/.specify/workflows/speckit/workflow.yml": [],
+    "examples/kindly-e-commerce-1122/.specify/workflows/workflow-registry.json": [],
+    "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Admin/OrderShipmentController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Services/OrderLifecycleService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Admin/ProductController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-e-commerce-1122/app/Models/Product.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/AuthenticatedSessionController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-e-commerce-1122/app/Http/Requests/Auth/LoginRequest.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/ConfirmablePasswordController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/EmailVerificationNotificationController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/EmailVerificationPromptController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/NewPasswordController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/PasswordController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/PasswordResetLinkController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/RegisteredUserController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/VerifyEmailController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/CartController.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Services/CartService.php",
+      "examples/kindly-e-commerce-1122/app/Services/CouponService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/CheckoutController.php": [
+      "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Services/OrderPlacementService.php",
+      "examples/kindly-e-commerce-1122/app/Services/Stripe/LocalDevStripeCheckoutService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/Controller.php": [],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/CouponController.php": [
+      "examples/kindly-e-commerce-1122/app/Services/CouponService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/DevStripeSimulateController.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Services/OrderLifecycleService.php",
+      "examples/kindly-e-commerce-1122/app/Services/Stripe/LocalDevStripeCheckoutService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/OrderController.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/ProfileController.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Requests/ProfileUpdateRequest.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/ShopController.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Controllers/StripeWebhookController.php": [
+      "examples/kindly-e-commerce-1122/app/Services/Stripe/StripeWebhookHandler.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Http/Middleware/EnsureUserIsAdmin.php": [],
+    "examples/kindly-e-commerce-1122/app/Http/Requests/Auth/LoginRequest.php": [],
+    "examples/kindly-e-commerce-1122/app/Http/Requests/ProfileUpdateRequest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Mail/OrderPaidMail.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Mail/OrderShippedMail.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Models/Coupon.php": [],
+    "examples/kindly-e-commerce-1122/app/Models/Order.php": [],
+    "examples/kindly-e-commerce-1122/app/Models/OrderItem.php": [],
+    "examples/kindly-e-commerce-1122/app/Models/Product.php": [],
+    "examples/kindly-e-commerce-1122/app/Models/User.php": [
+      "examples/kindly-e-commerce-1122/database/factories/UserFactory.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Providers/AppServiceProvider.php": [
+      "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php",
+      "examples/kindly-e-commerce-1122/app/Services/Stripe/FakeStripeCheckoutService.php",
+      "examples/kindly-e-commerce-1122/app/Services/Stripe/LocalDevStripeCheckoutService.php",
+      "examples/kindly-e-commerce-1122/app/Services/Stripe/StripeCheckoutService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/CartService.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/CouponService.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Coupon.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/OrderLifecycleService.php": [
+      "examples/kindly-e-commerce-1122/app/Mail/OrderPaidMail.php",
+      "examples/kindly-e-commerce-1122/app/Mail/OrderShippedMail.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/OrderPlacementService.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/OrderItem.php",
+      "examples/kindly-e-commerce-1122/app/Services/CartService.php",
+      "examples/kindly-e-commerce-1122/app/Services/CouponService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/Stripe/FakeStripeCheckoutService.php": [
+      "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/Stripe/LocalDevStripeCheckoutService.php": [
+      "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/Stripe/StripeCheckoutService.php": [
+      "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/Services/Stripe/StripeWebhookHandler.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Services/OrderLifecycleService.php"
+    ],
+    "examples/kindly-e-commerce-1122/app/View/Components/AppLayout.php": [],
+    "examples/kindly-e-commerce-1122/app/View/Components/GuestLayout.php": [],
+    "examples/kindly-e-commerce-1122/artisan": [],
+    "examples/kindly-e-commerce-1122/bootstrap/app.php": [],
+    "examples/kindly-e-commerce-1122/bootstrap/providers.php": [
+      "examples/kindly-e-commerce-1122/app/Providers/AppServiceProvider.php"
+    ],
+    "examples/kindly-e-commerce-1122/composer.json": [],
+    "examples/kindly-e-commerce-1122/config/app.php": [],
+    "examples/kindly-e-commerce-1122/config/auth.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/config/cache.php": [],
+    "examples/kindly-e-commerce-1122/config/database.php": [],
+    "examples/kindly-e-commerce-1122/config/filesystems.php": [],
+    "examples/kindly-e-commerce-1122/config/logging.php": [],
+    "examples/kindly-e-commerce-1122/config/mail.php": [],
+    "examples/kindly-e-commerce-1122/config/queue.php": [],
+    "examples/kindly-e-commerce-1122/config/services.php": [],
+    "examples/kindly-e-commerce-1122/config/session.php": [],
+    "examples/kindly-e-commerce-1122/config/stripe.php": [],
+    "examples/kindly-e-commerce-1122/database/factories/ProductFactory.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php"
+    ],
+    "examples/kindly-e-commerce-1122/database/factories/UserFactory.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/kindly-e-commerce-1122/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/kindly-e-commerce-1122/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/kindly-e-commerce-1122/database/migrations/2026_06_01_120000_create_commerce_tables.php": [],
+    "examples/kindly-e-commerce-1122/database/migrations/2026_06_01_160000_add_phase2_commerce_features.php": [],
+    "examples/kindly-e-commerce-1122/database/migrations/2026_06_01_170000_add_stripe_fields_to_orders.php": [],
+    "examples/kindly-e-commerce-1122/database/migrations/2026_06_02_210000_add_lifecycle_timestamps_to_orders.php": [],
+    "examples/kindly-e-commerce-1122/database/seeders/CouponSeeder.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Coupon.php"
+    ],
+    "examples/kindly-e-commerce-1122/database/seeders/DatabaseSeeder.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php"
+    ],
+    "examples/kindly-e-commerce-1122/docs/ARENA_DEEP_REVIEW_PHASE3.md": [],
+    "examples/kindly-e-commerce-1122/docs/ARENA_LOOP.md": [],
+    "examples/kindly-e-commerce-1122/docs/ARENA_REVIEW_PLAN.md": [],
+    "examples/kindly-e-commerce-1122/docs/ARENA_REVIEW_SPEC.md": [],
+    "examples/kindly-e-commerce-1122/docs/ARENA_REVIEW_STRIPE_PHASE3A.md": [],
+    "examples/kindly-e-commerce-1122/docs/BROWSER_VERIFICATION.md": [],
+    "examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md": [],
+    "examples/kindly-e-commerce-1122/docs/PRE_ACTION_PLAN.md": [],
+    "examples/kindly-e-commerce-1122/package.json": [],
+    "examples/kindly-e-commerce-1122/phpunit.xml": [],
+    "examples/kindly-e-commerce-1122/postcss.config.js": [],
+    "examples/kindly-e-commerce-1122/public/.htaccess": [],
+    "examples/kindly-e-commerce-1122/public/index.php": [],
+    "examples/kindly-e-commerce-1122/public/robots.txt": [],
+    "examples/kindly-e-commerce-1122/README.md": [],
+    "examples/kindly-e-commerce-1122/resources/css/app.css": [],
+    "examples/kindly-e-commerce-1122/resources/js/app.js": [],
+    "examples/kindly-e-commerce-1122/resources/views/admin/products/_form.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/admin/products/create.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/admin/products/edit.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/admin/products/index.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/auth/confirm-password.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/auth/forgot-password.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/auth/login.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/auth/register.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/auth/reset-password.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/auth/verify-email.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/cart/index.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/checkout/cancel.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/checkout/success.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/application-logo.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/auth-session-status.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/danger-button.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/dropdown-link.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/dropdown.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/input-error.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/input-label.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/modal.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/nav-link.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/primary-button.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/responsive-nav-link.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/secondary-button.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/components/text-input.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/dashboard.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/emails/orders/paid.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/emails/orders/shipped.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/layouts/app.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/layouts/guest.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/layouts/navigation.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/layouts/shop.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/orders/index.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/orders/show.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/profile/edit.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/profile/partials/delete-user-form.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/profile/partials/update-password-form.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/profile/partials/update-profile-information-form.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/shop/index.blade.php": [],
+    "examples/kindly-e-commerce-1122/resources/views/welcome.blade.php": [],
+    "examples/kindly-e-commerce-1122/routes/auth.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/ConfirmablePasswordController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/EmailVerificationNotificationController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/EmailVerificationPromptController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/NewPasswordController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/PasswordController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/RegisteredUserController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Auth/VerifyEmailController.php"
+    ],
+    "examples/kindly-e-commerce-1122/routes/console.php": [],
+    "examples/kindly-e-commerce-1122/routes/web.php": [
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Admin/OrderShipmentController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/Admin/ProductController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/CartController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/CheckoutController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/CouponController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/DevStripeSimulateController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/OrderController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/ProfileController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/ShopController.php",
+      "examples/kindly-e-commerce-1122/app/Http/Controllers/StripeWebhookController.php"
+    ],
+    "examples/kindly-e-commerce-1122/tailwind.config.js": [],
+    "examples/kindly-e-commerce-1122/tests/Feature/AdminOrderShipmentTest.php": [
+      "examples/kindly-e-commerce-1122/app/Mail/OrderShippedMail.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/AdminProductTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php",
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/Auth/AuthenticationTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/Auth/EmailVerificationTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/Auth/PasswordConfirmationTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/Auth/PasswordResetTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/Auth/PasswordUpdateTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/Auth/RegistrationTest.php": [],
+    "examples/kindly-e-commerce-1122/tests/Feature/CartTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/CheckoutTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php",
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/CouponTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php",
+      "examples/kindly-e-commerce-1122/database/seeders/CouponSeeder.php",
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/ExampleTest.php": [
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/KindlyEcommerceBrandingTest.php": [
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/OrderOwnershipTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/ProductCatalogTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/ProfileTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/StripeCheckoutExpiredTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/OrderItem.php",
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/StripeCheckoutTest.php": [
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php",
+      "examples/kindly-e-commerce-1122/database/seeders/ProductSeeder.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Feature/StripeWebhookTest.php": [
+      "examples/kindly-e-commerce-1122/app/Mail/OrderPaidMail.php",
+      "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "examples/kindly-e-commerce-1122/app/Models/OrderItem.php",
+      "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "examples/kindly-e-commerce-1122/app/Models/User.php"
+    ],
+    "examples/kindly-e-commerce-1122/tests/Support/SendsStripeWebhooks.php": [],
+    "examples/kindly-e-commerce-1122/tests/TestCase.php": [],
+    "examples/kindly-e-commerce-1122/tests/Unit/ExampleTest.php": [],
+    "examples/kindly-e-commerce-1122/vite.config.js": [],
+    "examples/kindly-login-1122/.env.example": [],
+    "examples/kindly-login-1122/.specify/extensions.yml": [],
+    "examples/kindly-login-1122/.specify/extensions/.registry": [],
+    "examples/kindly-login-1122/.specify/extensions/agent-context/agent-context-config.yml": [],
+    "examples/kindly-login-1122/.specify/extensions/agent-context/commands/speckit.agent-context.update.md": [],
+    "examples/kindly-login-1122/.specify/extensions/agent-context/extension.yml": [],
+    "examples/kindly-login-1122/.specify/extensions/agent-context/README.md": [],
+    "examples/kindly-login-1122/.specify/extensions/agent-context/scripts/bash/update-agent-context.sh": [],
+    "examples/kindly-login-1122/.specify/extensions/agent-context/scripts/powershell/update-agent-context.ps1": [],
+    "examples/kindly-login-1122/.specify/extensions/git/commands/speckit.git.commit.md": [],
+    "examples/kindly-login-1122/.specify/extensions/git/commands/speckit.git.feature.md": [],
+    "examples/kindly-login-1122/.specify/extensions/git/commands/speckit.git.initialize.md": [],
+    "examples/kindly-login-1122/.specify/extensions/git/commands/speckit.git.remote.md": [],
+    "examples/kindly-login-1122/.specify/extensions/git/commands/speckit.git.validate.md": [],
+    "examples/kindly-login-1122/.specify/extensions/git/config-template.yml": [],
+    "examples/kindly-login-1122/.specify/extensions/git/extension.yml": [],
+    "examples/kindly-login-1122/.specify/extensions/git/git-config.yml": [],
+    "examples/kindly-login-1122/.specify/extensions/git/README.md": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/bash/auto-commit.sh": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/bash/create-new-feature.sh": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/bash/git-common.sh": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/bash/initialize-repo.sh": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/powershell/auto-commit.ps1": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/powershell/create-new-feature.ps1": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/powershell/git-common.ps1": [],
+    "examples/kindly-login-1122/.specify/extensions/git/scripts/powershell/initialize-repo.ps1": [],
+    "examples/kindly-login-1122/.specify/init-options.json": [],
+    "examples/kindly-login-1122/.specify/integration.json": [],
+    "examples/kindly-login-1122/.specify/integrations/cursor-agent.manifest.json": [],
+    "examples/kindly-login-1122/.specify/integrations/speckit.manifest.json": [],
+    "examples/kindly-login-1122/.specify/memory/constitution.md": [],
+    "examples/kindly-login-1122/.specify/scripts/powershell/check-prerequisites.ps1": [],
+    "examples/kindly-login-1122/.specify/scripts/powershell/common.ps1": [],
+    "examples/kindly-login-1122/.specify/scripts/powershell/create-new-feature.ps1": [],
+    "examples/kindly-login-1122/.specify/scripts/powershell/setup-plan.ps1": [],
+    "examples/kindly-login-1122/.specify/scripts/powershell/setup-tasks.ps1": [],
+    "examples/kindly-login-1122/.specify/specs/001-kindly-login/plan.md": [],
+    "examples/kindly-login-1122/.specify/specs/001-kindly-login/spec.md": [],
+    "examples/kindly-login-1122/.specify/specs/001-kindly-login/tasks.md": [],
+    "examples/kindly-login-1122/.specify/templates/checklist-template.md": [],
+    "examples/kindly-login-1122/.specify/templates/constitution-template.md": [],
+    "examples/kindly-login-1122/.specify/templates/plan-template.md": [],
+    "examples/kindly-login-1122/.specify/templates/spec-template.md": [],
+    "examples/kindly-login-1122/.specify/templates/tasks-template.md": [],
+    "examples/kindly-login-1122/.specify/workflows/speckit/workflow.yml": [],
+    "examples/kindly-login-1122/.specify/workflows/workflow-registry.json": [],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/AuthenticatedSessionController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-login-1122/app/Http/Requests/Auth/LoginRequest.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/ConfirmablePasswordController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/EmailVerificationNotificationController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/EmailVerificationPromptController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/NewPasswordController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/PasswordController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/PasswordResetLinkController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/RegisteredUserController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php",
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Auth/VerifyEmailController.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Controller.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Controllers/Controller.php": [],
+    "examples/kindly-login-1122/app/Http/Controllers/ProfileController.php": [
+      "examples/kindly-login-1122/app/Http/Requests/ProfileUpdateRequest.php"
+    ],
+    "examples/kindly-login-1122/app/Http/Requests/Auth/LoginRequest.php": [],
+    "examples/kindly-login-1122/app/Http/Requests/ProfileUpdateRequest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/app/Models/User.php": [
+      "examples/kindly-login-1122/database/factories/UserFactory.php"
+    ],
+    "examples/kindly-login-1122/app/Providers/AppServiceProvider.php": [],
+    "examples/kindly-login-1122/app/View/Components/AppLayout.php": [],
+    "examples/kindly-login-1122/app/View/Components/GuestLayout.php": [],
+    "examples/kindly-login-1122/artisan": [],
+    "examples/kindly-login-1122/bootstrap/app.php": [],
+    "examples/kindly-login-1122/bootstrap/providers.php": [
+      "examples/kindly-login-1122/app/Providers/AppServiceProvider.php"
+    ],
+    "examples/kindly-login-1122/composer.json": [],
+    "examples/kindly-login-1122/config/app.php": [],
+    "examples/kindly-login-1122/config/auth.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/config/cache.php": [],
+    "examples/kindly-login-1122/config/database.php": [],
+    "examples/kindly-login-1122/config/filesystems.php": [],
+    "examples/kindly-login-1122/config/logging.php": [],
+    "examples/kindly-login-1122/config/mail.php": [],
+    "examples/kindly-login-1122/config/queue.php": [],
+    "examples/kindly-login-1122/config/services.php": [],
+    "examples/kindly-login-1122/config/session.php": [],
+    "examples/kindly-login-1122/database/factories/UserFactory.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/database/migrations/0001_01_01_000000_create_users_table.php": [],
+    "examples/kindly-login-1122/database/migrations/0001_01_01_000001_create_cache_table.php": [],
+    "examples/kindly-login-1122/database/migrations/0001_01_01_000002_create_jobs_table.php": [],
+    "examples/kindly-login-1122/database/seeders/DatabaseSeeder.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/docs/ARENA_LOOP.md": [],
+    "examples/kindly-login-1122/docs/ARENA_REVIEW_PLAN.md": [],
+    "examples/kindly-login-1122/docs/ARENA_REVIEW_SPEC.md": [],
+    "examples/kindly-login-1122/docs/BROWSER_VERIFICATION.md": [],
+    "examples/kindly-login-1122/docs/NEXT_SESSION.md": [],
+    "examples/kindly-login-1122/package.json": [],
+    "examples/kindly-login-1122/phpunit.xml": [],
+    "examples/kindly-login-1122/postcss.config.js": [],
+    "examples/kindly-login-1122/public/.htaccess": [],
+    "examples/kindly-login-1122/public/index.php": [],
+    "examples/kindly-login-1122/public/robots.txt": [],
+    "examples/kindly-login-1122/README.md": [],
+    "examples/kindly-login-1122/resources/css/app.css": [],
+    "examples/kindly-login-1122/resources/js/app.js": [],
+    "examples/kindly-login-1122/resources/views/auth/confirm-password.blade.php": [],
+    "examples/kindly-login-1122/resources/views/auth/forgot-password.blade.php": [],
+    "examples/kindly-login-1122/resources/views/auth/login.blade.php": [],
+    "examples/kindly-login-1122/resources/views/auth/register.blade.php": [],
+    "examples/kindly-login-1122/resources/views/auth/reset-password.blade.php": [],
+    "examples/kindly-login-1122/resources/views/auth/verify-email.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/application-logo.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/auth-session-status.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/danger-button.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/dropdown-link.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/dropdown.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/input-error.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/input-label.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/modal.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/nav-link.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/primary-button.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/responsive-nav-link.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/secondary-button.blade.php": [],
+    "examples/kindly-login-1122/resources/views/components/text-input.blade.php": [],
+    "examples/kindly-login-1122/resources/views/dashboard.blade.php": [],
+    "examples/kindly-login-1122/resources/views/layouts/app.blade.php": [],
+    "examples/kindly-login-1122/resources/views/layouts/guest.blade.php": [],
+    "examples/kindly-login-1122/resources/views/layouts/navigation.blade.php": [],
+    "examples/kindly-login-1122/resources/views/profile/edit.blade.php": [],
+    "examples/kindly-login-1122/resources/views/profile/partials/delete-user-form.blade.php": [],
+    "examples/kindly-login-1122/resources/views/profile/partials/update-password-form.blade.php": [],
+    "examples/kindly-login-1122/resources/views/profile/partials/update-profile-information-form.blade.php": [],
+    "examples/kindly-login-1122/resources/views/welcome.blade.php": [],
+    "examples/kindly-login-1122/routes/auth.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/AuthenticatedSessionController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/ConfirmablePasswordController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/EmailVerificationNotificationController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/EmailVerificationPromptController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/NewPasswordController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/PasswordController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/PasswordResetLinkController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/RegisteredUserController.php",
+      "examples/kindly-login-1122/app/Http/Controllers/Auth/VerifyEmailController.php"
+    ],
+    "examples/kindly-login-1122/routes/console.php": [],
+    "examples/kindly-login-1122/routes/web.php": [
+      "examples/kindly-login-1122/app/Http/Controllers/ProfileController.php"
+    ],
+    "examples/kindly-login-1122/tailwind.config.js": [],
+    "examples/kindly-login-1122/tests/Feature/Auth/AuthenticationTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/Auth/EmailVerificationTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/Auth/LoginSecurityTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/Auth/PasswordConfirmationTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/Auth/PasswordResetTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/Auth/PasswordUpdateTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/Auth/RegistrationTest.php": [],
+    "examples/kindly-login-1122/tests/Feature/Auth/SessionSecurityTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/ExampleTest.php": [],
+    "examples/kindly-login-1122/tests/Feature/KindlyLoginBrandingTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/Feature/ProfileTest.php": [
+      "examples/kindly-login-1122/app/Models/User.php"
+    ],
+    "examples/kindly-login-1122/tests/TestCase.php": [],
+    "examples/kindly-login-1122/tests/Unit/ExampleTest.php": [],
+    "examples/kindly-login-1122/vite.config.js": [],
+    "examples/laravel-admin-quickstart.md": [],
+    "examples/laravel-quickstart.md": [],
+    "examples/new-app.ps1": [],
+    "examples/note.txt": [],
+    "examples/skills-lock.json": [],
+    "examples/sql_query_script.txt": [],
+    "LARAVEL_SPECIALIST_CAPABILITIES.md": [],
+    "note.txt": [],
+    "package.json": [],
+    "phpunit.xml": [],
+    "public/.htaccess": [],
+    "public/index.php": [],
+    "public/robots.txt": [],
+    "README.md": [],
+    "resources/css/app.css": [],
+    "resources/js/app.js": [],
+    "resources/views/welcome.blade.php": [],
+    "ROADMAP.md": [],
+    "routes/api.php": [
+      "app/Http/Controllers/AuthController.php",
+      "app/Http/Controllers/TodoController.php"
+    ],
+    "routes/console.php": [],
+    "routes/web.php": [],
+    "safe-link-structure.md": [],
+    "SKILL.md": [],
+    "skills-lock.json": [],
+    "test.md": [],
+    "tests/Feature/AuthControllerTest.php": [
+      "app/Models/User.php"
+    ],
+    "tests/Feature/ExampleTest.php": [],
+    "tests/Feature/TodoControllerTest.php": [
+      "app/Models/Todo.php",
+      "app/Models/User.php"
+    ],
+    "tests/TestCase.php": [],
+    "tests/Unit/ExampleTest.php": [],
+    "tests/Unit/TodoModelTest.php": [
+      "app/Models/Todo.php"
+    ],
+    "vite.config.js": []
+  }
+}

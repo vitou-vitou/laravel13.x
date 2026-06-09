@@ -1,0 +1,2863 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 27,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Contracts/CreatesStripeCheckoutSession.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 7,
+      "classes": [
+        {
+          "name": "CreatesStripeCheckoutSession",
+          "startLine": 7,
+          "endLine": 10,
+          "methods": [
+            "createForOrder"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CreatesStripeCheckoutSession",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/Admin/OrderShipmentController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "store",
+          "startLine": 12,
+          "endLine": 23,
+          "params": [
+            "$order",
+            "$lifecycle"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderShipmentController",
+          "startLine": 10,
+          "endLine": 24,
+          "methods": [
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderShipmentController",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "store",
+          "callee": "$lifecycle->markShipped",
+          "lineNumber": 14
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n                ->route('orders.show', $order)->with",
+          "lineNumber": 15
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 15
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 15
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n            ->route('orders.show', $order)->with",
+          "lineNumber": 20
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 20
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/Admin/ProductController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "index",
+          "startLine": 14,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "create",
+          "startLine": 21,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 26,
+          "endLine": 36,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "edit",
+          "startLine": 38,
+          "endLine": 41,
+          "params": [
+            "$product"
+          ]
+        },
+        {
+          "name": "update",
+          "startLine": 43,
+          "endLine": 51,
+          "params": [
+            "$request",
+            "$product"
+          ]
+        },
+        {
+          "name": "destroy",
+          "startLine": 53,
+          "endLine": 60,
+          "params": [
+            "$product"
+          ]
+        },
+        {
+          "name": "validatedProduct",
+          "startLine": 65,
+          "endLine": 74,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "uniqueSlug",
+          "startLine": 76,
+          "endLine": 88,
+          "params": [
+            "$name"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProductController",
+          "startLine": 12,
+          "endLine": 89,
+          "methods": [
+            "index",
+            "create",
+            "store",
+            "edit",
+            "update",
+            "destroy",
+            "validatedProduct",
+            "uniqueSlug"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProductController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "index",
+          "callee": "Product::query()->orderBy('name')->get",
+          "lineNumber": 16
+        },
+        {
+          "caller": "index",
+          "callee": "Product::query()->orderBy",
+          "lineNumber": 16
+        },
+        {
+          "caller": "index",
+          "callee": "Product::query",
+          "lineNumber": 16
+        },
+        {
+          "caller": "index",
+          "callee": "view",
+          "lineNumber": 18
+        },
+        {
+          "caller": "index",
+          "callee": "compact",
+          "lineNumber": 18
+        },
+        {
+          "caller": "create",
+          "callee": "view",
+          "lineNumber": 23
+        },
+        {
+          "caller": "store",
+          "callee": "$this->validatedProduct",
+          "lineNumber": 28
+        },
+        {
+          "caller": "store",
+          "callee": "$this->uniqueSlug",
+          "lineNumber": 29
+        },
+        {
+          "caller": "store",
+          "callee": "Product::query()->create",
+          "lineNumber": 31
+        },
+        {
+          "caller": "store",
+          "callee": "Product::query",
+          "lineNumber": 31
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n            ->route('admin.products.index')->with",
+          "lineNumber": 33
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 33
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "edit",
+          "callee": "view",
+          "lineNumber": 40
+        },
+        {
+          "caller": "edit",
+          "callee": "compact",
+          "lineNumber": 40
+        },
+        {
+          "caller": "update",
+          "callee": "$this->validatedProduct",
+          "lineNumber": 45
+        },
+        {
+          "caller": "update",
+          "callee": "$product->update",
+          "lineNumber": 46
+        },
+        {
+          "caller": "update",
+          "callee": "redirect()\n            ->route('admin.products.index')->with",
+          "lineNumber": 48
+        },
+        {
+          "caller": "update",
+          "callee": "redirect()->route",
+          "lineNumber": 48
+        },
+        {
+          "caller": "update",
+          "callee": "redirect",
+          "lineNumber": 48
+        },
+        {
+          "caller": "destroy",
+          "callee": "$product->delete",
+          "lineNumber": 55
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect()\n            ->route('admin.products.index')->with",
+          "lineNumber": 57
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect()->route",
+          "lineNumber": 57
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "validatedProduct",
+          "callee": "$request->validate",
+          "lineNumber": 67
+        },
+        {
+          "caller": "validatedProduct",
+          "callee": "$request->boolean",
+          "lineNumber": 73
+        },
+        {
+          "caller": "uniqueSlug",
+          "callee": "Str::slug",
+          "lineNumber": 78
+        },
+        {
+          "caller": "uniqueSlug",
+          "callee": "Product::query()->where('slug', $slug)->exists",
+          "lineNumber": 82
+        },
+        {
+          "caller": "uniqueSlug",
+          "callee": "Product::query()->where",
+          "lineNumber": 82
+        },
+        {
+          "caller": "uniqueSlug",
+          "callee": "Product::query",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 8,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/CartController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "index",
+          "startLine": 19,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 33,
+          "endLine": 47,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "update",
+          "startLine": 49,
+          "endLine": 58,
+          "params": [
+            "$request",
+            "$product"
+          ]
+        },
+        {
+          "name": "destroy",
+          "startLine": 60,
+          "endLine": 65,
+          "params": [
+            "$product"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartController",
+          "startLine": 12,
+          "endLine": 66,
+          "methods": [
+            "__construct",
+            "index",
+            "store",
+            "update",
+            "destroy"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "index",
+          "callee": "$this->cart->totalCents",
+          "lineNumber": 21
+        },
+        {
+          "caller": "index",
+          "callee": "$this->coupons->discountCents",
+          "lineNumber": 22
+        },
+        {
+          "caller": "index",
+          "callee": "view",
+          "lineNumber": 24
+        },
+        {
+          "caller": "index",
+          "callee": "$this->cart->lines",
+          "lineNumber": 25
+        },
+        {
+          "caller": "index",
+          "callee": "max",
+          "lineNumber": 28
+        },
+        {
+          "caller": "index",
+          "callee": "$this->coupons->appliedCode",
+          "lineNumber": 29
+        },
+        {
+          "caller": "store",
+          "callee": "$request->validate",
+          "lineNumber": 35
+        },
+        {
+          "caller": "store",
+          "callee": "Product::query()\n            ->where('is_active', true)->findOrFail",
+          "lineNumber": 40
+        },
+        {
+          "caller": "store",
+          "callee": "Product::query()->where",
+          "lineNumber": 40
+        },
+        {
+          "caller": "store",
+          "callee": "Product::query",
+          "lineNumber": 40
+        },
+        {
+          "caller": "store",
+          "callee": "$this->cart->add",
+          "lineNumber": 44
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route('cart.index')->with",
+          "lineNumber": 46
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 46
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 46
+        },
+        {
+          "caller": "update",
+          "callee": "$request->validate",
+          "lineNumber": 51
+        },
+        {
+          "caller": "update",
+          "callee": "$this->cart->update",
+          "lineNumber": 55
+        },
+        {
+          "caller": "update",
+          "callee": "redirect()->route('cart.index')->with",
+          "lineNumber": 57
+        },
+        {
+          "caller": "update",
+          "callee": "redirect()->route",
+          "lineNumber": 57
+        },
+        {
+          "caller": "update",
+          "callee": "redirect",
+          "lineNumber": 57
+        },
+        {
+          "caller": "destroy",
+          "callee": "$this->cart->remove",
+          "lineNumber": 62
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect()->route('cart.index')->with",
+          "lineNumber": 64
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect()->route",
+          "lineNumber": 64
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/CheckoutController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 15,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 20,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "success",
+          "startLine": 35,
+          "endLine": 40,
+          "params": [
+            "$order"
+          ]
+        },
+        {
+          "name": "cancel",
+          "startLine": 42,
+          "endLine": 47,
+          "params": [
+            "$order"
+          ]
+        },
+        {
+          "name": "authorizeOrder",
+          "startLine": 49,
+          "endLine": 54,
+          "params": [
+            "$order"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CheckoutController",
+          "startLine": 13,
+          "endLine": 55,
+          "methods": [
+            "__construct",
+            "store",
+            "success",
+            "cancel",
+            "authorizeOrder"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CheckoutController",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "store",
+          "callee": "$this->placement->placeFromCart",
+          "lineNumber": 22
+        },
+        {
+          "caller": "store",
+          "callee": "$this->stripeCheckout->createForOrder",
+          "lineNumber": 23
+        },
+        {
+          "caller": "store",
+          "callee": "$order->refresh",
+          "lineNumber": 24
+        },
+        {
+          "caller": "store",
+          "callee": "LocalDevStripeCheckoutService::isLocalDevSession",
+          "lineNumber": 26
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n                ->route('checkout.success', $order)->with",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->away",
+          "lineNumber": 32
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 32
+        },
+        {
+          "caller": "success",
+          "callee": "$this->authorizeOrder",
+          "lineNumber": 37
+        },
+        {
+          "caller": "success",
+          "callee": "view",
+          "lineNumber": 39
+        },
+        {
+          "caller": "success",
+          "callee": "compact",
+          "lineNumber": 39
+        },
+        {
+          "caller": "cancel",
+          "callee": "$this->authorizeOrder",
+          "lineNumber": 44
+        },
+        {
+          "caller": "cancel",
+          "callee": "view",
+          "lineNumber": 46
+        },
+        {
+          "caller": "cancel",
+          "callee": "compact",
+          "lineNumber": 46
+        },
+        {
+          "caller": "authorizeOrder",
+          "callee": "auth()->id",
+          "lineNumber": 51
+        },
+        {
+          "caller": "authorizeOrder",
+          "callee": "auth",
+          "lineNumber": 51
+        },
+        {
+          "caller": "authorizeOrder",
+          "callee": "abort",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/CouponController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 11,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "store",
+          "startLine": 13,
+          "endLine": 24,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "destroy",
+          "startLine": 26,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CouponController",
+          "startLine": 9,
+          "endLine": 34,
+          "methods": [
+            "__construct",
+            "store",
+            "destroy"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CouponController",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "store",
+          "callee": "$request->validate",
+          "lineNumber": 15
+        },
+        {
+          "caller": "store",
+          "callee": "$this->coupons->apply",
+          "lineNumber": 19
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n            ->route('cart.index')->with",
+          "lineNumber": 21
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 21
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "destroy",
+          "callee": "$this->coupons->clear",
+          "lineNumber": 28
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect()\n            ->route('cart.index')->with",
+          "lineNumber": 30
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect()->route",
+          "lineNumber": 30
+        },
+        {
+          "caller": "destroy",
+          "callee": "redirect",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/DevStripeSimulateController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "store",
+          "startLine": 13,
+          "endLine": 38,
+          "params": [
+            "$order",
+            "$lifecycle"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "DevStripeSimulateController",
+          "startLine": 11,
+          "endLine": 39,
+          "methods": [
+            "store"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DevStripeSimulateController",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "store",
+          "callee": "app()->environment",
+          "lineNumber": 15
+        },
+        {
+          "caller": "store",
+          "callee": "app",
+          "lineNumber": 15
+        },
+        {
+          "caller": "store",
+          "callee": "abort",
+          "lineNumber": 16
+        },
+        {
+          "caller": "store",
+          "callee": "auth()->id",
+          "lineNumber": 19
+        },
+        {
+          "caller": "store",
+          "callee": "auth",
+          "lineNumber": 19
+        },
+        {
+          "caller": "store",
+          "callee": "abort",
+          "lineNumber": 20
+        },
+        {
+          "caller": "store",
+          "callee": "LocalDevStripeCheckoutService::isLocalDevSession",
+          "lineNumber": 23
+        },
+        {
+          "caller": "store",
+          "callee": "abort",
+          "lineNumber": 24
+        },
+        {
+          "caller": "store",
+          "callee": "$order->isPaid",
+          "lineNumber": 27
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n                ->route('orders.show', $order)->with",
+          "lineNumber": 28
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 28
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 28
+        },
+        {
+          "caller": "store",
+          "callee": "$lifecycle->markPaid",
+          "lineNumber": 33
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()\n            ->route('orders.show', $order)->with",
+          "lineNumber": 35
+        },
+        {
+          "caller": "store",
+          "callee": "redirect()->route",
+          "lineNumber": 35
+        },
+        {
+          "caller": "store",
+          "callee": "redirect",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/OrderController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "index",
+          "startLine": 11,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "show",
+          "startLine": 22,
+          "endLine": 33,
+          "params": [
+            "$order"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderController",
+          "startLine": 9,
+          "endLine": 34,
+          "methods": [
+            "index",
+            "show"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderController",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "index",
+          "callee": "Order::query()\n            ->where('user_id', auth()->id())\n            ->latest()\n            ->with('items.product')->get",
+          "lineNumber": 13
+        },
+        {
+          "caller": "index",
+          "callee": "Order::query()\n            ->where('user_id', auth()->id())\n            ->latest()->with",
+          "lineNumber": 13
+        },
+        {
+          "caller": "index",
+          "callee": "Order::query()\n            ->where('user_id', auth()->id())->latest",
+          "lineNumber": 13
+        },
+        {
+          "caller": "index",
+          "callee": "Order::query()->where",
+          "lineNumber": 13
+        },
+        {
+          "caller": "index",
+          "callee": "Order::query",
+          "lineNumber": 13
+        },
+        {
+          "caller": "index",
+          "callee": "auth()->id",
+          "lineNumber": 14
+        },
+        {
+          "caller": "index",
+          "callee": "auth",
+          "lineNumber": 14
+        },
+        {
+          "caller": "index",
+          "callee": "view",
+          "lineNumber": 19
+        },
+        {
+          "caller": "index",
+          "callee": "compact",
+          "lineNumber": 19
+        },
+        {
+          "caller": "show",
+          "callee": "auth()->user",
+          "lineNumber": 24
+        },
+        {
+          "caller": "show",
+          "callee": "auth",
+          "lineNumber": 24
+        },
+        {
+          "caller": "show",
+          "callee": "abort",
+          "lineNumber": 27
+        },
+        {
+          "caller": "show",
+          "callee": "$order->load",
+          "lineNumber": 30
+        },
+        {
+          "caller": "show",
+          "callee": "view",
+          "lineNumber": 32
+        },
+        {
+          "caller": "show",
+          "callee": "compact",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/ProfileController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "edit",
+          "startLine": 17,
+          "endLine": 22,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "update",
+          "startLine": 27,
+          "endLine": 38,
+          "params": [
+            "$request"
+          ]
+        },
+        {
+          "name": "destroy",
+          "startLine": 43,
+          "endLine": 59,
+          "params": [
+            "$request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileController",
+          "startLine": 12,
+          "endLine": 60,
+          "methods": [
+            "edit",
+            "update",
+            "destroy"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileController",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "edit",
+          "callee": "view",
+          "lineNumber": 19
+        },
+        {
+          "caller": "edit",
+          "callee": "$request->user",
+          "lineNumber": 20
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->fill",
+          "lineNumber": 29
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 29
+        },
+        {
+          "caller": "update",
+          "callee": "$request->validated",
+          "lineNumber": 29
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->isDirty",
+          "lineNumber": 31
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 31
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 32
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user()->save",
+          "lineNumber": 35
+        },
+        {
+          "caller": "update",
+          "callee": "$request->user",
+          "lineNumber": 35
+        },
+        {
+          "caller": "update",
+          "callee": "Redirect::route('profile.edit')->with",
+          "lineNumber": 37
+        },
+        {
+          "caller": "update",
+          "callee": "Redirect::route",
+          "lineNumber": 37
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->validateWithBag",
+          "lineNumber": 45
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->user",
+          "lineNumber": 49
+        },
+        {
+          "caller": "destroy",
+          "callee": "Auth::logout",
+          "lineNumber": 51
+        },
+        {
+          "caller": "destroy",
+          "callee": "$user->delete",
+          "lineNumber": 53
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session()->invalidate",
+          "lineNumber": 55
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session",
+          "lineNumber": 55
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session()->regenerateToken",
+          "lineNumber": 56
+        },
+        {
+          "caller": "destroy",
+          "callee": "$request->session",
+          "lineNumber": 56
+        },
+        {
+          "caller": "destroy",
+          "callee": "Redirect::to",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/ShopController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "index",
+          "startLine": 10,
+          "endLine": 18,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ShopController",
+          "startLine": 8,
+          "endLine": 19,
+          "methods": [
+            "index"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ShopController",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "index",
+          "callee": "Product::query()\n            ->where('is_active', true)\n            ->orderBy('name')->get",
+          "lineNumber": 12
+        },
+        {
+          "caller": "index",
+          "callee": "Product::query()\n            ->where('is_active', true)->orderBy",
+          "lineNumber": 12
+        },
+        {
+          "caller": "index",
+          "callee": "Product::query()->where",
+          "lineNumber": 12
+        },
+        {
+          "caller": "index",
+          "callee": "Product::query",
+          "lineNumber": 12
+        },
+        {
+          "caller": "index",
+          "callee": "view",
+          "lineNumber": 17
+        },
+        {
+          "caller": "index",
+          "callee": "compact",
+          "lineNumber": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Controllers/StripeWebhookController.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "__invoke",
+          "startLine": 13,
+          "endLine": 33,
+          "params": [
+            "$request",
+            "$handler"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "StripeWebhookController",
+          "startLine": 11,
+          "endLine": 34,
+          "methods": [
+            "__invoke"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StripeWebhookController",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__invoke",
+          "callee": "config",
+          "lineNumber": 15
+        },
+        {
+          "caller": "__invoke",
+          "callee": "is_string",
+          "lineNumber": 17
+        },
+        {
+          "caller": "__invoke",
+          "callee": "response",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->getContent",
+          "lineNumber": 21
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$request->header",
+          "lineNumber": 22
+        },
+        {
+          "caller": "__invoke",
+          "callee": "Webhook::constructEvent",
+          "lineNumber": 25
+        },
+        {
+          "caller": "__invoke",
+          "callee": "response",
+          "lineNumber": 27
+        },
+        {
+          "caller": "__invoke",
+          "callee": "$handler->handle",
+          "lineNumber": 30
+        },
+        {
+          "caller": "__invoke",
+          "callee": "response",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Http/Requests/ProfileUpdateRequest.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "rules",
+          "startLine": 17,
+          "endLine": 30,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileUpdateRequest",
+          "startLine": 10,
+          "endLine": 31,
+          "methods": [
+            "rules"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileUpdateRequest",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "rules",
+          "callee": "Rule::unique(User::class)->ignore",
+          "lineNumber": 27
+        },
+        {
+          "caller": "rules",
+          "callee": "Rule::unique",
+          "lineNumber": 27
+        },
+        {
+          "caller": "rules",
+          "callee": "$this->user",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Mail/OrderPaidMail.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 17,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "envelope",
+          "startLine": 21,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "content",
+          "startLine": 28,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderPaidMail",
+          "startLine": 13,
+          "endLine": 34,
+          "methods": [
+            "__construct",
+            "envelope",
+            "content"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderPaidMail",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Mail/OrderShippedMail.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 28,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 17,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "envelope",
+          "startLine": 21,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "content",
+          "startLine": 28,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderShippedMail",
+          "startLine": 13,
+          "endLine": 34,
+          "methods": [
+            "__construct",
+            "envelope",
+            "content"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderShippedMail",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Models/Coupon.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 16,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "discountCentsFor",
+          "startLine": 23,
+          "endLine": 34,
+          "params": [
+            "$subtotalCents"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Coupon",
+          "startLine": 7,
+          "endLine": 35,
+          "methods": [
+            "casts",
+            "discountCentsFor"
+          ],
+          "properties": [
+            "fillable"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Coupon",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "discountCentsFor",
+          "callee": "min",
+          "lineNumber": 30
+        },
+        {
+          "caller": "discountCentsFor",
+          "callee": "round",
+          "lineNumber": 30
+        },
+        {
+          "caller": "discountCentsFor",
+          "callee": "min",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Models/Order.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "isPending",
+          "startLine": 29,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "isPaid",
+          "startLine": 34,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "isShipped",
+          "startLine": 39,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "user",
+          "startLine": 44,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "items",
+          "startLine": 49,
+          "endLine": 52,
+          "params": []
+        },
+        {
+          "name": "formattedTotal",
+          "startLine": 54,
+          "endLine": 57,
+          "params": []
+        },
+        {
+          "name": "restoreStock",
+          "startLine": 59,
+          "endLine": 66,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Order",
+          "startLine": 9,
+          "endLine": 67,
+          "methods": [
+            "isPending",
+            "isPaid",
+            "isShipped",
+            "user",
+            "items",
+            "formattedTotal",
+            "restoreStock"
+          ],
+          "properties": [
+            "fillable",
+            "casts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Order",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "user",
+          "callee": "$this->belongsTo",
+          "lineNumber": 46
+        },
+        {
+          "caller": "items",
+          "callee": "$this->hasMany",
+          "lineNumber": 51
+        },
+        {
+          "caller": "formattedTotal",
+          "callee": "number_format",
+          "lineNumber": 56
+        },
+        {
+          "caller": "restoreStock",
+          "callee": "$this->loadMissing",
+          "lineNumber": 61
+        },
+        {
+          "caller": "restoreStock",
+          "callee": "$item->product->increment",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 7,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Models/OrderItem.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "order",
+          "startLine": 17,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "product",
+          "startLine": 22,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderItem",
+          "startLine": 8,
+          "endLine": 26,
+          "methods": [
+            "order",
+            "product"
+          ],
+          "properties": [
+            "fillable"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderItem",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "order",
+          "callee": "$this->belongsTo",
+          "lineNumber": 19
+        },
+        {
+          "caller": "product",
+          "callee": "$this->belongsTo",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Models/Product.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 23,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "orderItems",
+          "startLine": 30,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "formattedPrice",
+          "startLine": 35,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Product",
+          "startLine": 9,
+          "endLine": 39,
+          "methods": [
+            "casts",
+            "orderItems",
+            "formattedPrice"
+          ],
+          "properties": [
+            "fillable"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Product",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "orderItems",
+          "callee": "$this->hasMany",
+          "lineNumber": 32
+        },
+        {
+          "caller": "formattedPrice",
+          "callee": "number_format",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Models/User.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "casts",
+          "startLine": 25,
+          "endLine": 32,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 13,
+          "endLine": 33,
+          "methods": [
+            "casts"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Providers/AppServiceProvider.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "register",
+          "startLine": 16,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "boot",
+          "startLine": 36,
+          "endLine": 39,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppServiceProvider",
+          "startLine": 11,
+          "endLine": 40,
+          "methods": [
+            "register",
+            "boot"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppServiceProvider",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "register",
+          "callee": "$this->app->bind",
+          "lineNumber": 18
+        },
+        {
+          "caller": "register",
+          "callee": "$this->app->environment",
+          "lineNumber": 19
+        },
+        {
+          "caller": "register",
+          "callee": "$this->app->make",
+          "lineNumber": 20
+        },
+        {
+          "caller": "register",
+          "callee": "config",
+          "lineNumber": 23
+        },
+        {
+          "caller": "register",
+          "callee": "is_string",
+          "lineNumber": 25
+        },
+        {
+          "caller": "register",
+          "callee": "$this->app->make",
+          "lineNumber": 26
+        },
+        {
+          "caller": "register",
+          "callee": "$this->app->make",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/CartService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 124,
+      "nonEmptyLines": 100,
+      "functions": [
+        {
+          "name": "lines",
+          "startLine": 16,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "totalCents",
+          "startLine": 48,
+          "endLine": 51,
+          "params": []
+        },
+        {
+          "name": "isEmpty",
+          "startLine": 53,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "add",
+          "startLine": 58,
+          "endLine": 64,
+          "params": [
+            "$product",
+            "$quantity"
+          ]
+        },
+        {
+          "name": "update",
+          "startLine": 66,
+          "endLine": 77,
+          "params": [
+            "$product",
+            "$quantity"
+          ]
+        },
+        {
+          "name": "remove",
+          "startLine": 79,
+          "endLine": 84,
+          "params": [
+            "$product"
+          ]
+        },
+        {
+          "name": "clear",
+          "startLine": 86,
+          "endLine": 89,
+          "params": []
+        },
+        {
+          "name": "quantities",
+          "startLine": 94,
+          "endLine": 115,
+          "params": []
+        },
+        {
+          "name": "persist",
+          "startLine": 120,
+          "endLine": 123,
+          "params": [
+            "$quantities"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CartService",
+          "startLine": 9,
+          "endLine": 124,
+          "methods": [
+            "lines",
+            "totalCents",
+            "isEmpty",
+            "add",
+            "update",
+            "remove",
+            "clear",
+            "quantities",
+            "persist"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CartService",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "lines",
+          "callee": "$this->quantities",
+          "lineNumber": 18
+        },
+        {
+          "caller": "lines",
+          "callee": "collect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "lines",
+          "callee": "Product::query()\n            ->whereIn('id', array_keys($quantities))\n            ->where('is_active', true)\n            ->get()->keyBy",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lines",
+          "callee": "Product::query()\n            ->whereIn('id', array_keys($quantities))\n            ->where('is_active', true)->get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lines",
+          "callee": "Product::query()\n            ->whereIn('id', array_keys($quantities))->where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lines",
+          "callee": "Product::query()->whereIn",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lines",
+          "callee": "Product::query",
+          "lineNumber": 24
+        },
+        {
+          "caller": "lines",
+          "callee": "array_keys",
+          "lineNumber": 25
+        },
+        {
+          "caller": "lines",
+          "callee": "collect($quantities)\n            ->map(function (int $quantity, int $productId) use ($products) {\n                $product = $products->get($productId);\n\n                if ($product === null) {\n                    return null;\n                }\n\n                return [\n                    'product' => $product,\n                    'quantity' => $quantity,\n                    'line_total_cents' => $product->price_cents * $quantity,\n                ];\n            })\n            ->filter()->values",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lines",
+          "callee": "collect($quantities)\n            ->map(function (int $quantity, int $productId) use ($products) {\n                $product = $products->get($productId);\n\n                if ($product === null) {\n                    return null;\n                }\n\n                return [\n                    'product' => $product,\n                    'quantity' => $quantity,\n                    'line_total_cents' => $product->price_cents * $quantity,\n                ];\n            })->filter",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lines",
+          "callee": "collect($quantities)->map",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lines",
+          "callee": "collect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "lines",
+          "callee": "$products->get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "totalCents",
+          "callee": "$this->lines()->sum",
+          "lineNumber": 50
+        },
+        {
+          "caller": "totalCents",
+          "callee": "$this->lines",
+          "lineNumber": 50
+        },
+        {
+          "caller": "isEmpty",
+          "callee": "$this->quantities",
+          "lineNumber": 55
+        },
+        {
+          "caller": "add",
+          "callee": "$this->quantities",
+          "lineNumber": 60
+        },
+        {
+          "caller": "add",
+          "callee": "max",
+          "lineNumber": 62
+        },
+        {
+          "caller": "add",
+          "callee": "$this->persist",
+          "lineNumber": 63
+        },
+        {
+          "caller": "update",
+          "callee": "$this->quantities",
+          "lineNumber": 68
+        },
+        {
+          "caller": "update",
+          "callee": "$this->persist",
+          "lineNumber": 76
+        },
+        {
+          "caller": "remove",
+          "callee": "$this->quantities",
+          "lineNumber": 81
+        },
+        {
+          "caller": "remove",
+          "callee": "$this->persist",
+          "lineNumber": 83
+        },
+        {
+          "caller": "clear",
+          "callee": "Session::forget",
+          "lineNumber": 88
+        },
+        {
+          "caller": "quantities",
+          "callee": "Session::get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "quantities",
+          "callee": "is_array",
+          "lineNumber": 99
+        },
+        {
+          "caller": "persist",
+          "callee": "Session::put",
+          "lineNumber": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 9,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/CouponService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 71,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "appliedCode",
+          "startLine": 13,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "apply",
+          "startLine": 20,
+          "endLine": 36,
+          "params": [
+            "$code"
+          ]
+        },
+        {
+          "name": "clear",
+          "startLine": 38,
+          "endLine": 41,
+          "params": []
+        },
+        {
+          "name": "resolveForSubtotal",
+          "startLine": 43,
+          "endLine": 63,
+          "params": [
+            "$subtotalCents"
+          ]
+        },
+        {
+          "name": "discountCents",
+          "startLine": 65,
+          "endLine": 70,
+          "params": [
+            "$subtotalCents"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CouponService",
+          "startLine": 9,
+          "endLine": 71,
+          "methods": [
+            "appliedCode",
+            "apply",
+            "clear",
+            "resolveForSubtotal",
+            "discountCents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CouponService",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "appliedCode",
+          "callee": "Session::get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "appliedCode",
+          "callee": "is_string",
+          "lineNumber": 17
+        },
+        {
+          "caller": "apply",
+          "callee": "Coupon::query()\n            ->where('code', strtoupper(trim($code)))\n            ->where('is_active', true)->first",
+          "lineNumber": 22
+        },
+        {
+          "caller": "apply",
+          "callee": "Coupon::query()\n            ->where('code', strtoupper(trim($code)))->where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "apply",
+          "callee": "Coupon::query()->where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "apply",
+          "callee": "Coupon::query",
+          "lineNumber": 22
+        },
+        {
+          "caller": "apply",
+          "callee": "strtoupper",
+          "lineNumber": 23
+        },
+        {
+          "caller": "apply",
+          "callee": "trim",
+          "lineNumber": 23
+        },
+        {
+          "caller": "apply",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 28
+        },
+        {
+          "caller": "apply",
+          "callee": "Session::put",
+          "lineNumber": 33
+        },
+        {
+          "caller": "clear",
+          "callee": "Session::forget",
+          "lineNumber": 40
+        },
+        {
+          "caller": "resolveForSubtotal",
+          "callee": "$this->appliedCode",
+          "lineNumber": 45
+        },
+        {
+          "caller": "resolveForSubtotal",
+          "callee": "Coupon::query()\n            ->where('code', $code)\n            ->where('is_active', true)->first",
+          "lineNumber": 51
+        },
+        {
+          "caller": "resolveForSubtotal",
+          "callee": "Coupon::query()\n            ->where('code', $code)->where",
+          "lineNumber": 51
+        },
+        {
+          "caller": "resolveForSubtotal",
+          "callee": "Coupon::query()->where",
+          "lineNumber": 51
+        },
+        {
+          "caller": "resolveForSubtotal",
+          "callee": "Coupon::query",
+          "lineNumber": 51
+        },
+        {
+          "caller": "resolveForSubtotal",
+          "callee": "$this->clear",
+          "lineNumber": 57
+        },
+        {
+          "caller": "discountCents",
+          "callee": "$this->resolveForSubtotal",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/OrderLifecycleService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 35,
+      "functions": [
+        {
+          "name": "markPaid",
+          "startLine": 12,
+          "endLine": 26,
+          "params": [
+            "$order",
+            "$paymentIntentId"
+          ]
+        },
+        {
+          "name": "markShipped",
+          "startLine": 28,
+          "endLine": 43,
+          "params": [
+            "$order"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderLifecycleService",
+          "startLine": 10,
+          "endLine": 44,
+          "methods": [
+            "markPaid",
+            "markShipped"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderLifecycleService",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "markPaid",
+          "callee": "$order->isPending",
+          "lineNumber": 14
+        },
+        {
+          "caller": "markPaid",
+          "callee": "$order->update",
+          "lineNumber": 18
+        },
+        {
+          "caller": "markPaid",
+          "callee": "now",
+          "lineNumber": 21
+        },
+        {
+          "caller": "markPaid",
+          "callee": "$order->loadMissing",
+          "lineNumber": 24
+        },
+        {
+          "caller": "markPaid",
+          "callee": "Mail::to($order->user)->queue",
+          "lineNumber": 25
+        },
+        {
+          "caller": "markPaid",
+          "callee": "Mail::to",
+          "lineNumber": 25
+        },
+        {
+          "caller": "markShipped",
+          "callee": "$order->isPaid",
+          "lineNumber": 30
+        },
+        {
+          "caller": "markShipped",
+          "callee": "$order->update",
+          "lineNumber": 34
+        },
+        {
+          "caller": "markShipped",
+          "callee": "now",
+          "lineNumber": 36
+        },
+        {
+          "caller": "markShipped",
+          "callee": "$order->loadMissing",
+          "lineNumber": 39
+        },
+        {
+          "caller": "markShipped",
+          "callee": "Mail::to($order->user)->queue",
+          "lineNumber": 40
+        },
+        {
+          "caller": "markShipped",
+          "callee": "Mail::to",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/OrderPlacementService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "__construct",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "placeFromCart",
+          "startLine": 19,
+          "endLine": 78,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "OrderPlacementService",
+          "startLine": 12,
+          "endLine": 79,
+          "methods": [
+            "__construct",
+            "placeFromCart"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OrderPlacementService",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "placeFromCart",
+          "callee": "$this->cart->isEmpty",
+          "lineNumber": 21
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 22
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$this->cart->lines",
+          "lineNumber": 27
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 31
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "DB::transaction",
+          "lineNumber": 37
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$lines->sum",
+          "lineNumber": 38
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$this->coupons->discountCents",
+          "lineNumber": 39
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "max",
+          "lineNumber": 40
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$this->coupons->resolveForSubtotal",
+          "lineNumber": 41
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "Order::query()->create",
+          "lineNumber": 43
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "Order::query",
+          "lineNumber": 43
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "auth()->id",
+          "lineNumber": 44
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "auth",
+          "lineNumber": 44
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$line['product']->fresh",
+          "lineNumber": 53
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "ValidationException::withMessages",
+          "lineNumber": 56
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "OrderItem::query()->create",
+          "lineNumber": 61
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "OrderItem::query",
+          "lineNumber": 61
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$product->decrement",
+          "lineNumber": 68
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$this->cart->clear",
+          "lineNumber": 74
+        },
+        {
+          "caller": "placeFromCart",
+          "callee": "$this->coupons->clear",
+          "lineNumber": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/Stripe/FakeStripeCheckoutService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "functions": [
+        {
+          "name": "createForOrder",
+          "startLine": 10,
+          "endLine": 19,
+          "params": [
+            "$order"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "FakeStripeCheckoutService",
+          "startLine": 8,
+          "endLine": 20,
+          "methods": [
+            "createForOrder"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FakeStripeCheckoutService",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createForOrder",
+          "callee": "$order->update",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/Stripe/LocalDevStripeCheckoutService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "createForOrder",
+          "startLine": 16,
+          "endLine": 23,
+          "params": [
+            "$order"
+          ]
+        },
+        {
+          "name": "isLocalDevSession",
+          "startLine": 25,
+          "endLine": 28,
+          "params": [
+            "$sessionId"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "LocalDevStripeCheckoutService",
+          "startLine": 12,
+          "endLine": 29,
+          "methods": [
+            "createForOrder",
+            "isLocalDevSession"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LocalDevStripeCheckoutService",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createForOrder",
+          "callee": "$order->update",
+          "lineNumber": 18
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "route",
+          "lineNumber": 22
+        },
+        {
+          "caller": "isLocalDevSession",
+          "callee": "is_string",
+          "lineNumber": 27
+        },
+        {
+          "caller": "isLocalDevSession",
+          "callee": "str_starts_with",
+          "lineNumber": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "examples/kindly-e-commerce-1122/app/Services/Stripe/StripeCheckoutService.php",
+      "language": "php",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "createForOrder",
+          "startLine": 12,
+          "endLine": 47,
+          "params": [
+            "$order"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "StripeCheckoutService",
+          "startLine": 10,
+          "endLine": 48,
+          "methods": [
+            "createForOrder"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StripeCheckoutService",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createForOrder",
+          "callee": "config",
+          "lineNumber": 14
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "is_string",
+          "lineNumber": 16
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "Stripe::setApiKey",
+          "lineNumber": 20
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "Session::create",
+          "lineNumber": 22
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "config",
+          "lineNumber": 26
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "route",
+          "lineNumber": 38
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "route",
+          "lineNumber": 39
+        },
+        {
+          "caller": "createForOrder",
+          "callee": "$order->update",
+          "lineNumber": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    }
+  ]
+}
