@@ -1,0 +1,17 @@
+╔══════════════════════════════════════════════╗
+║        OCP MODEL MAP — CHEAT SHEET          ║
+║                                              ║
+║  Cursor Name    →  Actually Running          ║
+║  ─────────────────────────────────────────   ║
+║  GPT-5.5        →  Claude Opus 4.8    (TOP)  ║
+║  GPT-5.4        →  Claude Opus 4.7           ║
+║  Codex 5.3      →  Claude Opus 4.6           ║
+║  GPT-5.2        →  Claude Sonnet 4.6  (MID)  ║
+║  GPT-5.4 Mini   →  Claude Sonnet 4.6         ║
+║  GPT-5.1        →  Claude Sonnet 4.6         ║
+║  GPT-5.4 Nano   →  Claude Haiku 4.5  (FAST) ║
+║  GPT-5 Mini     →  Claude Haiku 4.5         ║
+║                                              ║
+║  TIP: Higher GPT number = stronger Claude    ║
+║  5.5=best  5.4=great  5.2=good  nano=fast    ║
+╚══════════════════════════════════════════════╝
