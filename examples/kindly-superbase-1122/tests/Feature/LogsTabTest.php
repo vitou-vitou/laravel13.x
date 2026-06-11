@@ -38,7 +38,7 @@ class LogsTabTest extends TestCase
     public function test_logs_tab_shows_five_most_recent_when_more_exist(): void
     {
         for ($index = 1; $index <= 6; $index++) {
-            ActivityLog::factory()->create([
+            ActivityLog::factory()->pending()->create([
                 'action' => 'sync_profiles',
                 'message' => "Log entry {$index}",
             ]);

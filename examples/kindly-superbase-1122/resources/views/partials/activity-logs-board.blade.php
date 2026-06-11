@@ -1,3 +1,40 @@
+@php
+    $showing = (int) ($activityLogs['showing'] ?? 0);
+    $total = (int) ($activityLogs['total'] ?? 0);
+    $hasMore = collect($activityLogs['groups'] ?? [])->contains(fn ($group) => ($group['has_more'] ?? false) === true);
+    $showingLabel = '';
+
+    if ($showing > 0) {
+        $showingLabel = ($hasMore || $total > $showing)
+            ? "Showing {$showing} of {$total} most recent"
+            : "Showing {$showing} most recent";
+    }
+@endphp
+
+<div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+    <div class="min-w-0 space-y-0.5">
+        <h3 class="text-base font-semibold text-zinc-900">Activity logs</h3>
+        <p
+            class="text-xs text-zinc-500 @if ($showingLabel === '') hidden @endif"
+            data-log-showing
+        >{{ $showingLabel }}</p>
+    </div>
+
+    <div class="flex flex-wrap gap-2" data-log-summary aria-label="Log status summary">
+        @foreach (\App\Models\ActivityLog::STATUSES as $status)
+            @php $count = (int) ($activityLogs['summary'][$status] ?? 0); @endphp
+            <div
+                class="inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 @if ($count === 0) border-zinc-100 bg-white opacity-60 @else border-zinc-200 bg-zinc-50 @endif"
+                data-log-summary-item
+                data-status="{{ $status }}"
+            >
+                @include('partials.log-status-badge', ['status' => $status])
+                <span class="text-xs font-medium tabular-nums text-zinc-600" data-log-summary-count>{{ $count }}</span>
+            </div>
+        @endforeach
+    </div>
+</div>
+
 <div class="relative" data-log-search-wrap>
     <label for="log-search" class="sr-only">Search by transaction ID</label>
     <input
