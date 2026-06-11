@@ -34,9 +34,13 @@ auth-state.json
 /public/storage
 /storage/*.key
 /storage/pail
-/graphify-out
+**/graphify-out/
 .firecrawl/
 _backups/
+.understand-anything/
+ruvector.db
+freellmapi/
+api.cloudflare.com
 /apps/*/node_modules
 /apps/*/vendor
 /apps/*/.env
