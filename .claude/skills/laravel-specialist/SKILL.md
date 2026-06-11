@@ -262,3 +262,22 @@ Run these at each workflow stage to confirm correctness before proceeding:
 Laravel 10+, Eloquent ORM, PHP 8.2+, API resources, Sanctum/Passport, queues, Horizon, Livewire, Inertia, Octane, Pest/PHPUnit, Redis, broadcasting, events/listeners, notifications, task scheduling
 
 [Documentation](https://jeffallan.github.io/claude-skills/skills/backend/laravel-specialist/)
+
+---
+
+## Cross-machine sync
+
+| Location | Purpose |
+|----------|---------|
+| `~/.cursor/skills/laravel-specialist/` | Personal skill (Cursor account sync) |
+| `$HOME/.cursor/skills/laravel-specialist/references/` | eloquent, routing, queues, livewire, testing |
+
+When a topic matches the Reference Guide table, **read the matching reference file first**.
+
+**PHP (Windows Herd):** `/c/Users/vitou/.config/herd/bin/php.bat artisan test` from each project directory.
+
+## Invocation
+
+```text
+Use laravel-specialist: add a Sanctum-protected API resource for orders with Pest tests.
+```
