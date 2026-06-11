@@ -1,0 +1,52 @@
+---
+description: Active 180+ / Spec-Kit session — kindly-login, kindly-e-commerce, booking-v1 MVPs. Read before continuing work.
+alwaysApply: true
+---
+
+# Session handoff (2026-06-01)
+
+**Read first:** `docs/SESSION_STATE.md` (repo root). **Example dev pitfalls:** `docs/EXAMPLE_DEV_LESSONS.md`.
+
+## Active projects (MVP complete — do not re-scaffold)
+
+| Path | Tests | Resume file |
+|------|-------|-------------|
+| `examples/kindly-login-1122` | 30/30 | `examples/kindly-login-1122/docs/NEXT_SESSION.md` |
+| `examples/kindly-e-commerce-1122` | 49/49 | `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md` |
+| `examples/booking-v1` | 15/15 | `examples/booking-v1/docs/NEXT_SESSION.md` |
+| `examples/clone-the-fb-nav` | 6/6 | `examples/clone-the-fb-nav/docs/NEXT_SESSION.md` |
+
+## If user says "continue" / "take controller"
+
+1. Read `docs/SESSION_STATE.md` → **Default next work**.
+2. Do **not** re-install Breeze, Sanctum, or re-run completed Spec-Kit tasks.
+3. **kindly-e-commerce:** Phase 3a Stripe done — next 3b lifecycle or OpenSpec; autonomous loop OK until blocker (Arena login, live Stripe keys).
+4. **kindly-login:** MVP complete — no rework unless auth routes change.
+5. **booking-v1:** Optional Grok Prompt C or OpenSpec/Filament — not greenfield.
+6. **clone-the-fb-nav:** MVP complete — pixel polish or OpenSpec only if user asks.
+
+## New example (greenfield)
+
+```bash
+export PATH="/d/laravel13.x/bin:$PATH"
+./bin/new-example <slug> ["Display Name"]
+```
+
+See `docs/NEW_EXAMPLE_SCAFFOLD.md` + `docs/EXAMPLE_DEV_LESSONS.md`. After scaffold: `./bin/verify-example <slug>`.
+
+## Workflow
+
+- Spec-Kit + Superpowers (TDD); OpenSpec only post-MVP.
+- Cursor skills sync (any PC, same account): `docs/CURSOR_SKILLS_SYNC.md`
+- Booking reviews: Grok. Login reviews: Arena Direct + claude-sonnet-4-6.
+
+## PHP (Windows Herd + Git Bash)
+
+**`php` is not on PATH** until `export PATH="/d/laravel13.x/bin:$PATH"` (see `docs/WINDOWS_HERD_GITBASH.md`).
+
+```bash
+export PATH="/d/laravel13.x/bin:$PATH"
+cd examples/<project> && php artisan test
+```
+
+**Example UI:** `npm run dev` → open **`APP_URL` from `.env`** (e.g. `http://clone-the-fb-nav.test`), not :5173. `new-example` runs `herd link` automatically.

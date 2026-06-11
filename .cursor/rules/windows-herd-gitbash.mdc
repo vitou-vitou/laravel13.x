@@ -1,0 +1,51 @@
+---
+description: Windows Git Bash + Laravel Herd — PHP PATH, artisan, npm dev. Read before shell commands in laravel13.x.
+alwaysApply: true
+---
+
+# Windows Herd + Git Bash (laravel13.x)
+
+**Full lessons:** `docs/EXAMPLE_DEV_LESSONS.md` — read before new `examples/*` work.
+
+## PHP is never bare `php` in Git Bash
+
+| Do | Don't |
+|----|--------|
+| `export PATH="/d/laravel13.x/bin:$PATH"` | Assume `php` works |
+| `/c/Users/vitou/.config/herd/bin/php.bat artisan …` | Install separate PHP |
+
+## New example (`bin/new-example <slug> "Name"`)
+
+1. Creates Laravel + Spec-Kit + **herd link** → `http://<slug>.test`
+2. Ends with **`bin/verify-example <slug>`** — must pass before telling user "done"
+3. User browser: **`APP_URL` from `.env`**, not `:5173`
+4. `npm run dev` = Vite only when `APP_URL` ends with `.test`
+
+## Known failures (fix, don't re-investigate)
+
+| Error | Script |
+|-------|--------|
+| `vendor/autoload.php` missing / `npm run dev` dies on artisan | `cd examples/<slug> && composer install` |
+| Herd 500 `getaddrinfo for redis failed` | `.env` has Docker `REDIS_HOST=redis` — use `.env.example` locals: `CACHE_STORE=file`, `SESSION_DRIVER=file`, `QUEUE_CONNECTION=sync`, `REDIS_HOST=127.0.0.1` |
+| `npm run dev` starts `artisan serve` not Vite-only | Set `APP_URL=http://<slug>.test` + `herd link <slug>` |
+| Unsupported cipher / APP_KEY | `./bin/fix-example-app-key <slug>` |
+| 500 after scaffold | `./bin/verify-example <slug>` then fix script |
+| `php` not found | `export PATH="/d/laravel13.x/bin:$PATH"` |
+| ngrok → Herd **404 Site not found** (OAuth) | `ngrok http 127.0.0.1:80 --traffic-policy-file ngrok-traffic-policy.yml` — not `ngrok http http://<slug>.test`; see `docs/EXAMPLE_DEV_LESSONS.md` |
+
+**Never** write `APP_KEY` from `artisan key:generate --show` (ANSI colors break encryption).
+
+## Agent checklist
+
+1. Run commands with `bin/php` or PATH export; show output.
+2. After scaffold: `verify-example` must pass.
+3. Tell user exact `http://<slug>.test` — not localhost:5173/8000 unless Herd failed.
+4. Do not re-scaffold MVPs in `docs/SESSION_STATE.md`.
+5. Committed `.env` in `examples/*` from `new-example` — use `fix-example-app-key` if corrupted.
+
+## Quick verify
+
+```bash
+export PATH="/d/laravel13.x/bin:$PATH"
+./bin/verify-example <slug>
+```

@@ -16,7 +16,10 @@
 | 500 **Unsupported cipher / incorrect key length** | `APP_KEY` contains ANSI `[33m` from `key:generate --show` | `./bin/fix-example-app-key <slug>` |
 | `No application encryption key` | Missing `.env` on fresh clone | `new-example` commits `.env`; else `cp .env.example .env` + fix script |
 | `artisan test` OK but browser 500 | Web uses bad `APP_KEY`; tests use `phpunit.xml` | Align both via `fix-example-app-key` |
-| Site not found / connection refused | Herd not linked | `cd examples/<slug> && herd link <slug> --update-env` |
+| Site not found / connection refused | Herd not linked | `cd examples/<slug> && herd link <slug>` |
+| `npm run dev` fails: `vendor/autoload.php` missing | Fresh clone; `vendor/` not installed | `cd examples/<slug> && composer install` |
+| Herd 500 `getaddrinfo for redis failed` | `.env` copied from Docker (`REDIS_HOST=redis`, cache/session on redis) | Match `.env.example` for local Herd: `file`/`sync` drivers, `REDIS_HOST=127.0.0.1` |
+| `npm run dev` runs `artisan serve` + wrong port hint | `APP_URL` not `*.test` (e.g. `localhost:8080`) | `APP_URL=http://<slug>.test` |
 | Herd **404 Site not found** through ngrok (OAuth/webhook callback) | `ngrok http http://<slug>.test` forwards ngrok hostname as `Host`; Herd has no matching site | See **OAuth / webhooks via ngrok** below — traffic policy + `127.0.0.1:80` |
 
 ---
