@@ -21,6 +21,12 @@ examples/**/.env
 .agent-browser-secrets/
 *.auth-state.json
 auth-state.json
+# Dependencies & installs (any depth — examples, apps, demos, nested projects)
+**/node_modules/
+**/vendor/
+**/.pnpm-store/
+**/bower_components/
+
 /node_modules
 /public/build
 /public/fonts-manifest.dev.json
@@ -30,6 +36,7 @@ auth-state.json
 /storage/pail
 /graphify-out
 .firecrawl/
+_backups/
 /apps/*/node_modules
 /apps/*/vendor
 /apps/*/.env
