@@ -1,0 +1,14 @@
+{
+  "name": "ocp-vision-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "POC: Claude subscription OAuth + /v1/messages vision (sidecar for OCP)",
+  "scripts": {
+    "poc": "node scripts/poc-vision.mjs",
+    "start": "node server.mjs",
+    "test:bridge": "node scripts/test-bridge-vision.mjs",
+    "test:agent-browser": "node scripts/test-agent-browser-vision.mjs",
+    "test:all-map-models": "node scripts/test-all-map-models-vision.mjs"
+  }
+}

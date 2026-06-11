@@ -111,3 +111,4 @@ Higher GPT number ≈ stronger Claude.
 | Cursor 404 / connection refused | Re-copy tunnel URL + `/v1`; terminal must stay open |
 | Long prompts fail on Windows | Re-run `install.bat` (applies prompt length patch) |
 | Wrong model in Cursor | Use GPT-5.x names; see `MODEL-MAP.txt` |
+| Screenshot / image ignored | Run **`../ocp-vision-bridge/start.bat`** — Cursor Base URL → `:3457/v1` (OCP stays on `:3456`) |

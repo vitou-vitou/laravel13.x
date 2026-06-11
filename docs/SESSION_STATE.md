@@ -62,6 +62,8 @@ export PATH="/d/laravel13.x/bin:$PATH"
 
 Full troubleshooting: **`docs/WINDOWS_HERD_GITBASH.md`**. **Lessons / pitfalls:** **`docs/EXAMPLE_DEV_LESSONS.md`**. Cursor rule: `.cursor/rules/windows-herd-gitbash.mdc`.
 
+**OCP (Claude Pro in any OpenAI-compatible IDE):** **`ocp/README.md`** — new PC: `ocp\install.bat` then `ocp\start.bat`; API key = any string (e.g. `ocp-local`); models: `ocp/MODEL-MAP.txt`. **Images:** `ocp\start.bat` then **`ocp-vision-bridge\start.bat`** — Cursor Base URL → `http://127.0.0.1:3457/v1` (bridge); OCP stays on `:3456`.
+
 ```bash
 # Spec-Kit on Windows
 export PYTHONIOENCODING=utf-8
@@ -236,4 +238,5 @@ POST /api/logout
 - `docs/study/180-laravel-project-types-study-packet.md`
 - `docs/guides/ui-adoption-workflow/` — UI/GitHub design adoption (8-principle study, impeccable context, pro runbook)
 - `docs/CURSOR_SKILLS_SYNC.md` — Spec-Kit / OpenSpec / Superpowers skills on any PC (same Cursor account)
+- `ocp/README.md` — OCP proxy (Claude subscription in Cursor / Cline / Continue); `install.bat` + `start.bat`
 - Skill: Spec-Kit + Superpowers (not Spec-Kit + OpenSpec together at init)
