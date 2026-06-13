@@ -1,0 +1,45 @@
+{
+  // Open: File → Open Workspace from File… → this file
+  // Swap "folders" below when your active examples change.
+  "folders": [
+    {
+      "path": ".",
+      "name": "repo (docs, bin, .cursor)"
+    },
+    {
+      "path": "examples/jwt",
+      "name": "jwt"
+    },
+    {
+      "path": "examples/dynamic-warm-view-1906",
+      "name": "dynamic-warm-view"
+    },
+    {
+      "path": "examples/booking-v1",
+      "name": "booking-v1"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/vendor": true,
+      "**/node_modules": true,
+      "**/storage/framework/cache": true,
+      "**/storage/framework/views": true,
+      "**/storage/logs": true,
+      "**/.git": true
+    },
+    "search.exclude": {
+      "**/vendor": true,
+      "**/node_modules": true,
+      "**/composer.lock": true,
+      "**/package-lock.json": true,
+      "**/storage": true,
+      "**/bootstrap/cache": true
+    },
+    "files.watcherExclude": {
+      "**/vendor/**": true,
+      "**/node_modules/**": true,
+      "**/storage/**": true
+    }
+  }
+}
