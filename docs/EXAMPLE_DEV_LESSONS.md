@@ -21,6 +21,55 @@
 | Herd 500 `getaddrinfo for redis failed` | `.env` copied from Docker (`REDIS_HOST=redis`, cache/session on redis) | Match `.env.example` for local Herd: `file`/`sync` drivers, `REDIS_HOST=127.0.0.1` |
 | `npm run dev` runs `artisan serve` + wrong port hint | `APP_URL` not `*.test` (e.g. `localhost:8080`) | `APP_URL=http://<slug>.test` |
 | Herd **404 Site not found** through ngrok (OAuth/webhook callback) | `ngrok http http://<slug>.test` forwards ngrok hostname as `Host`; Herd has no matching site | See **OAuth / webhooks via ngrok** below — traffic policy + `127.0.0.1:80` |
+| Docker `Bind for … failed: port is already allocated` | Host port taken (8080, 8082, …) | Change `ports:` in `docker-compose.yml` (e.g. `"8089:8080"`) + match `APP_URL` |
+| Docker `php: command not found` (same as Herd) | Git Bash PATH | `export PATH="/d/laravel13.x/bin:$PATH"` |
+| Docker container **500** on `/`, API works on Herd | `APP_KEY` not passed into container | Add `env_file: .env` (or `APP_KEY:`) to `docker-compose.yml`; restart compose |
+| Docker Desktop not running | Daemon pipe missing | Start Docker Desktop; retry `docker compose up --build` |
+| `Nothing to migrate` in Docker but tables missing locally | Separate DB files | Host uses `database/database.sqlite`; container path is `/var/www/html/database/database.sqlite` — mount volume if sharing |
+
+---
+
+## Docker + Render (ServerSideUp + SQLite)
+
+**Reference:** `examples/dynamic-warm-view-1906` (healthz, Sanctum, Tasks).
+
+**Cursor rule:** `.cursor/rules/examples-docker-render.mdc`
+
+### Local Docker
+
+```bash
+export PATH="/d/laravel13.x/bin:$PATH"
+cd examples/<slug>
+php artisan key:generate --force   # if .env has no key
+docker compose up --build
+curl http://localhost:8089/api/healthz   # use host port from compose
+```
+
+| Invariant | Why |
+|-----------|-----|
+| `env_file: .env` in compose | Container needs `APP_KEY`; inline `environment:` alone is not enough |
+| `serversideup/php:8.4-fpm-nginx` | Laravel automations (`AUTORUN_*`) |
+| `DB_DATABASE=/var/www/html/database/database.sqlite` | Absolute path inside container |
+| Volume mount `./database/database.sqlite:…` | Persist SQLite across container restarts |
+| Health check `/api/healthz` | Render + compose smoke test (DB ping) |
+
+### Render free tier
+
+- Blueprint: `render.yaml` with `runtime: docker`, `healthCheckPath: /api/healthz`, `plan: free`.
+- `APP_KEY`: `generateValue: true` in blueprint.
+- SQLite data is **ephemeral** on redeploy unless persistent disk added — document in README.
+
+### Dynamic example slug
+
+`dynamic-{adjective}-{noun}-{1000-9999}` — see `examples/new-app.ps1` word lists + `dynamic-` prefix.
+
+### Default 3-feature MVP (Docker/Render API)
+
+1. `GET /api/healthz` — readiness  
+2. Sanctum — register/login/logout/user  
+3. User-scoped Tasks CRUD  
+
+Out of scope for this template: Redis, queues, Horizon, OAuth, SPA build in Docker.
 
 ---
 
@@ -130,4 +179,4 @@ npm run dev
 - `docs/NEW_EXAMPLE_SCAFFOLD.md` — scaffold command  
 - `.cursor/rules/windows-herd-gitbash.mdc` — agent always-on rule  
 
-**Last consolidated:** 2026-06-06 (ngrok + Herd Host header, dashboard-v2 GitHub OAuth)
+**Last consolidated:** 2026-06-13 (Docker + Render, APP_KEY in compose, port conflicts)

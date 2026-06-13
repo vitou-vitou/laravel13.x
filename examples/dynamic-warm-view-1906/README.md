@@ -32,9 +32,15 @@ Seeded user: `test@example.com` / `password`
 ## Docker (ServerSideUp)
 
 ```bash
+# Ensure .env has APP_KEY (compose loads it via env_file)
+export PATH="/d/laravel13.x/bin:$PATH"
+php artisan key:generate --force
+
 docker compose up --build
-curl http://localhost:8080/api/healthz
+curl http://localhost:8089/api/healthz
 ```
+
+If port bind fails, change `"8089:8080"` in `docker-compose.yml` to a free host port.
 
 Image: [`serversideup/php:8.4-fpm-nginx`](https://hub.docker.com/r/serversideup/php)
 
