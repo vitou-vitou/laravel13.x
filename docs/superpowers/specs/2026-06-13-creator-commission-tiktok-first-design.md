@@ -361,4 +361,4 @@ This spec is operational design, not legal advice. Operator should have a local 
 
 **Pilot kit (Phase 1):** [../../creator-commission/README.md](../../creator-commission/README.md)
 
-Phase 2 optional: internal TikTok metadata CLI — see plan Phase 2.
+Phase 2 optional: internal TikTok metadata CLI — [../../tools/tiktok-metadata/README.md](../../tools/tiktok-metadata/README.md)

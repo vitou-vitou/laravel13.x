@@ -58,6 +58,10 @@ Label each revenue row **Confirmed** (payout received) or **Estimated** (dashboa
 | `skipped_creator` | Creator rejected or marked skip |
 | `error` | Publish failed; see notes |
 
+## Optional tooling
+
+- [TikTok metadata CLI](../../tools/tiktok-metadata/README.md) — authorized BUILD LIST helper (`--metadata-only`)
+
 ## Open operator decisions (set before day 1)
 
 - Monthly ops fee `$X` in local currency
