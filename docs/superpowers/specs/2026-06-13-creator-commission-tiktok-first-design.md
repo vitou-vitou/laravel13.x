@@ -357,4 +357,8 @@ This spec is operational design, not legal advice. Operator should have a local 
 
 ## Next Step
 
-After spec review: implementation plan for **pilot artifacts** (agreement outline, Sheet templates, onboarding checklist, optional TikTok metadata tooling) — see `docs/superpowers/plans/2026-06-13-creator-commission-pilot.md` when created.
+**Implementation plan:** [../plans/2026-06-13-creator-commission-pilot.md](../plans/2026-06-13-creator-commission-pilot.md)
+
+**Pilot kit (Phase 1):** [../../creator-commission/README.md](../../creator-commission/README.md)
+
+Phase 2 optional: internal TikTok metadata CLI — see plan Phase 2.
