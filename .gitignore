@@ -59,3 +59,4 @@ Thumbs.db
 examples/dashboard-v1/env
 !examples/dashboard-v2/.env
 !examples/kindly-superbase-1122/.env
+!examples/dynamic-warm-view-1906/.env
