@@ -8,8 +8,8 @@ description: >-
 
 # laravel13.x — UI phase (functional MVP → PRD look)
 
-**When:** Tests green, flows work, UI still default Breeze/gray.  
-**Not:** Greenfield scaffold (use **spec-kit** first). **Not:** Business-logic changes.
+**When:** Tests green, flows work, UI still default Breeze/gray — on an **existing Laravel** `examples/<slug>/` (user already chose Laravel).  
+**Not:** Greenfield scaffold (do **not** run `new-example` unless user explicitly picks Laravel). **Not:** Business-logic changes.
 
 ---
 

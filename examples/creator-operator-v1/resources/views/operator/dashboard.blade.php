@@ -1,67 +1,71 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Batch queue
-        </h2>
+        <div>
+            <h2 class="ops-page-title">Batch queue</h2>
+            <p class="ops-page-subtitle">Cross-creator publish log health at a glance</p>
+        </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @if (session('status'))
-                <div class="rounded-md bg-green-50 p-4 text-sm text-green-800">{{ session('status') }}</div>
-            @endif
+    <div class="ops-page">
+        <div class="ops-container ops-stack">
+            <x-flash />
 
             <x-batch-loop-rail />
 
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="bg-white shadow-sm rounded-lg p-4 border border-stone-100">
-                    <div class="text-sm text-stone-500">Creators</div>
-                    <div class="text-2xl font-semibold">{{ $creatorsCount }}</div>
+            <div class="ops-kpi-grid">
+                <div class="ops-kpi">
+                    <div class="ops-kpi-label">Creators</div>
+                    <div class="ops-kpi-value">{{ $creatorsCount }}</div>
                 </div>
-                <div class="bg-white shadow-sm rounded-lg p-4 border border-amber-100">
-                    <div class="text-sm text-stone-500">Step 5 · Pending approval</div>
-                    <div class="text-2xl font-semibold text-amber-600">{{ $pendingCount }}</div>
+                <div class="ops-kpi ops-kpi--amber">
+                    <div class="ops-kpi-label">Step 5 · Pending approval</div>
+                    <div class="ops-kpi-value">{{ $pendingCount }}</div>
                 </div>
-                <div class="bg-white shadow-sm rounded-lg p-4 border border-sky-100">
-                    <div class="text-sm text-stone-500">Step 6 · Ready to publish</div>
-                    <div class="text-2xl font-semibold text-sky-600">{{ $approvedCount }}</div>
+                <div class="ops-kpi ops-kpi--sky">
+                    <div class="ops-kpi-label">Step 6 · Ready to publish</div>
+                    <div class="ops-kpi-value">{{ $approvedCount }}</div>
                 </div>
-                <div class="bg-white shadow-sm rounded-lg p-4 border border-emerald-100">
-                    <div class="text-sm text-stone-500">Published (7d)</div>
-                    <div class="text-2xl font-semibold text-emerald-600">{{ $publishedThisWeek }}</div>
+                <div class="ops-kpi ops-kpi--emerald">
+                    <div class="ops-kpi-label">Published (7d)</div>
+                    <div class="ops-kpi-value">{{ $publishedThisWeek }}</div>
                 </div>
             </div>
 
             <div class="flex flex-wrap gap-3">
-                <a href="{{ route('operator.creators.index') }}" class="inline-flex items-center rounded-md bg-stone-900 px-4 py-2 text-sm text-white">All creators</a>
-                <a href="{{ route('operator.creators.create') }}" class="inline-flex items-center rounded-md border border-stone-300 bg-white px-4 py-2 text-sm text-stone-700">Onboard creator</a>
+                <a href="{{ route('operator.creators.index') }}" class="ops-btn-primary">All creators</a>
+                <a href="{{ route('operator.creators.create') }}" class="ops-btn-secondary">Onboard creator</a>
             </div>
 
-            <div class="bg-white shadow-sm rounded-lg overflow-hidden border border-stone-100">
-                <div class="px-4 py-3 border-b border-stone-100 font-medium">Publish log · recent</div>
-                <table class="min-w-full divide-y divide-stone-200 text-sm">
-                    <thead class="bg-stone-50">
+            <x-ops-panel title="Publish log · recent">
+                <table class="ops-table">
+                    <thead>
                         <tr>
-                            <th class="px-4 py-2 text-left">Creator</th>
-                            <th class="px-4 py-2 text-left">Title</th>
-                            <th class="px-4 py-2 text-left">Status</th>
-                            <th class="px-4 py-2 text-left">Logged</th>
+                            <th>Creator</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Logged</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-stone-100">
+                    <tbody>
                         @forelse ($recentEntries as $entry)
                             <tr>
-                                <td class="px-4 py-2">{{ $entry->creator->handle }}</td>
-                                <td class="px-4 py-2 truncate max-w-xs">{{ $entry->title_variant ?? '—' }}</td>
-                                <td class="px-4 py-2"><x-publish-status :status="$entry->status" /></td>
-                                <td class="px-4 py-2">{{ $entry->logged_on->toDateString() }}</td>
+                                <td class="font-medium">{{ $entry->creator->handle }}</td>
+                                <td class="truncate max-w-xs">{{ $entry->title_variant ?? '—' }}</td>
+                                <td><x-publish-status :status="$entry->status" /></td>
+                                <td class="text-stone-500 tabular-nums">{{ $entry->logged_on->toDateString() }}</td>
                             </tr>
                         @empty
-                            <tr><td colspan="4" class="px-4 py-6 text-stone-500">No publish log rows yet — start at step 4 (packaging) on a creator hub.</td></tr>
+                            <tr>
+                                <td colspan="4">
+                                    <x-empty-state title="No publish log rows yet">
+                                        Start at step 4 (packaging) on a creator hub.
+                                    </x-empty-state>
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
-            </div>
+            </x-ops-panel>
         </div>
     </div>
 </x-app-layout>

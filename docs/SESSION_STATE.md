@@ -21,6 +21,7 @@
 | Booking external review | **Grok** — done (`docs/GROK_REVIEW_*.md`) |
 | Login external review | **Arena.ai only** — no Grok (`docs/ARENA_LOOP.md`) |
 | Arena mode | **Direct** + **claude-sonnet-4-6** (not Battle, not Max) |
+| **Greenfield stack** | **Do not default to Laravel** — confirm stack or wait until user says pick Laravel / `new-example` (see `.cursor/rules/greenfield-stack-choice.mdc`) |
 
 ---
 
@@ -174,7 +175,7 @@ POST /api/logout
 
 7. **creator-operator-v1:** Mode D W1–W6 **done** (44/44) — optional Track B Stripe, CLI subprocess, OpenSpec; see `examples/creator-operator-v1/docs/NEXT_SESSION.md`.
 
-8. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+8. **New example scaffold:** only after user picks Laravel → `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
 
 9. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
 

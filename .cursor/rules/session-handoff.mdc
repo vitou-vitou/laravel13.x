@@ -15,7 +15,7 @@ alwaysApply: true
 | `examples/kindly-e-commerce-1122` | 49/49 | `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md` |
 | `examples/booking-v1` | 15/15 | `examples/booking-v1/docs/NEXT_SESSION.md` |
 | `examples/clone-the-fb-nav` | 6/6 | `examples/clone-the-fb-nav/docs/NEXT_SESSION.md` |
-| `examples/creator-operator-v1` | 44/44 | `examples/creator-operator-v1/docs/NEXT_SESSION.md` |
+| `examples/creator-operator-v1` | 52/52 | `examples/creator-operator-v1/docs/NEXT_SESSION.md` |
 
 ## If user says "continue" / "take controller"
 
@@ -27,7 +27,11 @@ alwaysApply: true
 6. **clone-the-fb-nav:** MVP complete — pixel polish or OpenSpec only if user asks.
 7. **creator-operator-v1:** MVP + Mode D complete — Track B Stripe, CLI import, or OpenSpec only if user asks.
 
-## New example (greenfield)
+## New example (greenfield) — **only after user picks Laravel**
+
+Do **not** run `new-example` by default. Confirm stack first (see `.cursor/rules/greenfield-stack-choice.mdc`).
+
+When user explicitly chooses Laravel:
 
 ```bash
 export PATH="/d/laravel13.x/bin:$PATH"

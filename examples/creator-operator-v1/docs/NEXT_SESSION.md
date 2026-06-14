@@ -2,7 +2,7 @@
 
 > **Parent handoff:** [`../../../docs/SESSION_STATE.md`](../../../docs/SESSION_STATE.md) — read that first in new chats.
 
-**Updated:** 2026-06-14 | **MVP + Mode D W1–W6:** complete | **Phase 6:** CLI + CSV + Stripe Track B | **Tests:** 52/52 | **Verify:** pass
+**Updated:** 2026-06-15 | **MVP + Mode D W1–W6:** complete | **Phase 6:** CLI + CSV + Stripe Track B | **UI polish:** full ops-console pass | **Tests:** 52/52 | **Verify:** pass
 
 ---
 
@@ -74,12 +74,23 @@ Full matrix: **[`docs/ROADMAP.md`](ROADMAP.md)**
 
 ---
 
+## UI polish (2026-06-15)
+
+Full visual pass — no logic changes:
+
+- `resources/css/app.css` — `.ops-*` design system (panels, KPIs, tables, buttons, flash, forms, guest shell)
+- Layouts: Instrument Sans, sticky nav with role badge, stone-50 shell (not gray Breeze)
+- Components: `x-ops-panel`, `x-flash`, `x-empty-state`; updated buttons, inputs, nav links, batch rail, publish status
+- All operator + creator surfaces, auth login, welcome, profile, billing, integrations, import, settlement, publish log
+
+See [`docs/DESIGN.md`](DESIGN.md) tokens section.
+
 ## Optional next work
 
 | Item | Notes |
 |------|-------|
 | Weekly email | Operator cadence notification |
-| UX polish | S/T columns in settlement table, per-period creator settlement route |
+| Settlement UX | S/T columns in table, per-period creator settlement route |
 | OpenSpec change | Post-MVP iteration via `/opsx:*` if requirements shift |
 
 ---

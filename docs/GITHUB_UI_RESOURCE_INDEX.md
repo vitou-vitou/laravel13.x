@@ -3,6 +3,8 @@
 You do **not** need to browse Dribbble or GitHub lists manually.  
 **You say:** project path + app type. **Agent picks:** references, component kit, photos, writes `DESIGN.md`, then polishes UI.
 
+**Stack:** Read `composer.json` / `package.json` first. Do **not** scaffold Laravel unless the user explicitly chose Laravel (see `.cursor/rules/greenfield-stack-choice.mdc`).
+
 **Also read:** [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) · [`MCP_SERVERS.md`](MCP_SERVERS.md) · [`BROWSER_VIDEO_MCP.md`](BROWSER_VIDEO_MCP.md) · [`ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md) · Agent skill **laravel-ui-phase** (`.cursor/skills/laravel-ui-phase/` or `.agents/skills/laravel-ui-phase/`)
 
 ---

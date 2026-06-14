@@ -1,61 +1,65 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Approval inbox — {{ '@'.$creator->handle }}</h2>
+        <div>
+            <h2 class="ops-page-title">Approval inbox</h2>
+            <p class="ops-page-subtitle">{{ '@'.$creator->handle }} · review packaged videos before publish</p>
+        </div>
     </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-8">
+    <div class="ops-page">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ops-stack">
             <x-batch-loop-rail :current="5" />
 
-            @if (session('status'))
-                <div class="rounded-md bg-green-50 p-4 text-sm text-green-800">{{ session('status') }}</div>
-            @endif
+            <x-flash />
 
-            <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-                <div class="px-4 py-3 border-b font-medium">Pending your approval</div>
+            <x-ops-panel title="Pending your approval">
                 @forelse ($pending as $entry)
-                    <div class="px-4 py-4 border-b border-gray-100 last:border-0">
-                        <div class="flex flex-wrap items-start justify-between gap-3">
-                            <div class="space-y-1">
-                                <div class="font-medium">{{ $entry->title_variant ?? 'Untitled package' }}</div>
-                                <div class="text-sm text-gray-500">{{ $entry->logged_on->toDateString() }}</div>
-                                <a href="{{ $entry->tiktok_url }}" class="text-sm text-indigo-600 hover:underline" target="_blank" rel="noopener">TikTok source</a>
+                    <div class="ops-approval-card">
+                        <div class="flex flex-wrap items-start justify-between gap-4">
+                            <div class="space-y-2 min-w-0 flex-1">
+                                <div class="font-semibold text-stone-900">{{ $entry->title_variant ?? 'Untitled package' }}</div>
+                                <div class="text-sm text-stone-500 tabular-nums">Logged {{ $entry->logged_on->toDateString() }}</div>
+                                <a href="{{ $entry->tiktok_url }}" class="ops-link text-sm inline-flex items-center gap-1" target="_blank" rel="noopener">
+                                    TikTok source
+                                    <span aria-hidden="true">↗</span>
+                                </a>
                                 @if ($entry->notes)
-                                    <p class="text-sm text-gray-600 mt-2">{{ $entry->notes }}</p>
+                                    <p class="text-sm text-stone-600 mt-2 leading-relaxed rounded-lg bg-stone-50 border border-stone-100 p-3">{{ $entry->notes }}</p>
                                 @endif
                             </div>
-                            <div class="flex gap-2">
+                            <div class="flex flex-wrap gap-2 shrink-0">
                                 <form method="POST" action="{{ route('creator.approvals.approve', $entry) }}">
                                     @csrf
                                     <x-primary-button>Approve</x-primary-button>
                                 </form>
                                 <form method="POST" action="{{ route('creator.approvals.reject', $entry) }}">
                                     @csrf
-                                    <button type="submit" class="inline-flex items-center rounded-md border border-stone-300 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-widest text-stone-700 shadow-sm hover:bg-stone-50">Skip</button>
+                                    <x-secondary-button>Skip</x-secondary-button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <p class="px-4 py-6 text-gray-500 text-sm">Nothing waiting — operator will notify you when the next batch is ready.</p>
+                    <x-empty-state title="Nothing waiting">
+                        Your operator will notify you when the next batch is ready for review.
+                    </x-empty-state>
                 @endforelse
-            </div>
+            </x-ops-panel>
 
             @if ($recent->isNotEmpty())
-                <div class="bg-white shadow-sm rounded-lg overflow-hidden">
-                    <div class="px-4 py-3 border-b font-medium">Recent decisions</div>
-                    <table class="min-w-full text-sm">
-                        <tbody class="divide-y divide-gray-100">
+                <x-ops-panel title="Recent decisions">
+                    <table class="ops-table">
+                        <tbody>
                             @foreach ($recent as $entry)
                                 <tr>
-                                    <td class="px-4 py-2">{{ $entry->title_variant ?? '—' }}</td>
-                                    <td class="px-4 py-2"><x-publish-status :status="$entry->status" /></td>
-                                    <td class="px-4 py-2 text-gray-500">{{ $entry->updated_at->diffForHumans() }}</td>
+                                    <td class="font-medium">{{ $entry->title_variant ?? '—' }}</td>
+                                    <td><x-publish-status :status="$entry->status" /></td>
+                                    <td class="text-stone-500">{{ $entry->updated_at->diffForHumans() }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </x-ops-panel>
             @endif
         </div>
     </div>

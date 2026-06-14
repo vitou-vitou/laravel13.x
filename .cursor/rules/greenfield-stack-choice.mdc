@@ -1,0 +1,30 @@
+---
+description: Greenfield builds — do not default to Laravel or new-example until user explicitly picks Laravel.
+alwaysApply: true
+---
+
+# Greenfield stack choice (user preference)
+
+**Do not assume Laravel** for new products, UX/UI work, or "build X" requests.
+
+## Before any greenfield scaffold
+
+1. **Confirm stack** with the user unless they already said e.g. "Laravel", `./bin/new-example`, "use laravel13.x examples", or picked a type from the 180+ catalog **with Laravel implied**.
+2. **Offer options** when unclear: extend existing `examples/*`, docs/runbooks only, n8n/automation (external), Next.js/React elsewhere, or **Laravel** via `new-example`.
+3. **Do not run** `./bin/new-example` until Laravel is explicitly chosen.
+
+## UX / UI polish
+
+- **Read the repo first** (`composer.json`, `package.json`, path) — match kit to **actual** stack (see `docs/GITHUB_UI_RESOURCE_INDEX.md` § Step 2).
+- **`laravel-ui-phase`** / **impeccable** / **design-taste-frontend** apply to **existing** Laravel examples or after user picks Laravel — not as a reason to scaffold Laravel.
+- **"AI pick my UI"** means agent picks references and tokens for the **current** project; it does not mean create a new Laravel app.
+
+## When Laravel *is* correct
+
+User says: `new-example`, `scaffold Laravel`, `pick Laravel`, `180 catalog #N` with Laravel path, or work continues inside `examples/<slug>/` on an existing Laravel example.
+
+Then: `docs/NEW_EXAMPLE_SCAFFOLD.md`, Spec-Kit + Superpowers, `verify-example`.
+
+## This repo
+
+`laravel13.x` **hosts** Laravel examples; it is not "every new idea must be Laravel."

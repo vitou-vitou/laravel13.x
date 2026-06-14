@@ -101,18 +101,27 @@ pending_approval ──approve──► approved ──mark published──► p
 
 ## Design tokens (ops console)
 
+**UI pass:** 2026-06-15 — full polish; CSS utilities in `resources/css/app.css` (`.ops-*`).
+
 Borrow admin patterns from [Flowbite application blocks](https://flowbite.com/blocks/application/) — dense tables, status pills, no marketing hero.
 
 | Token | Value | Use |
 |-------|--------|-----|
-| Page bg | `stone-50` | Operator/creator shells |
-| Panel | `white` + `shadow-sm` + `rounded-lg` | Tables, forms |
-| Primary action | `gray-900` / `indigo-600` links | Operator CTAs |
-| Success publish | `emerald-50` border panel | Mark published block |
-| Dev banner | `amber-50` | Login prefill only |
-| Font | Instrument Sans (Breeze default) | — |
+| Page bg | `stone-50` (`.ops-shell`) | Operator/creator shells |
+| Panel | `.ops-panel` — white, `rounded-xl`, `shadow-panel`, `border-stone-200/80` | Tables, forms |
+| Primary action | `.ops-btn-primary` — `stone-900` | Operator CTAs |
+| Secondary | `.ops-btn-secondary` | Cancel, Skip |
+| Links | `.ops-link` — `indigo-600` | In-table / header actions |
+| Success publish | `.ops-btn-success` + emerald fieldset | Mark published block |
+| Flash success | `.ops-flash-success` | Session status |
+| Flash warn | `.ops-flash-warn` | Dev login, mock billing, CLI missing |
+| Dev banner | `.ops-callout-dev` | Login prefill only |
+| Font | **Instrument Sans** (Bunny Fonts) | Replaces Figtree in layouts |
+| Focus | `focus-visible:ring-indigo-500` | Buttons, inputs, nav |
 
-**Status colors:** same as `x-publish-status` (amber / sky / emerald / stone / red).
+**Status colors:** `x-publish-status` — ring-inset pills (amber / sky / emerald / stone / red).
+
+**Inspiration (2026-06-15):** Flowbite admin KPI grid + dense tables; Page Flows approval card list pattern on creator inbox.
 
 ---
 
@@ -282,8 +291,12 @@ Borrow admin patterns from [Flowbite application blocks](https://flowbite.com/bl
 |-----------|-----|
 | `x-batch-loop-rail` | 7-step horizontal stepper; `:current="4"` |
 | `x-publish-status` | Status pill — colors match state machine |
-| `x-ops-panel` | White card with optional title bar |
-| Dev login banner | `auth/login` only |
+| `x-ops-panel` | White card with optional `:title` header |
+| `x-flash` | Session success + validation error banner |
+| `x-empty-state` | Table/list empty rows with title + copy |
+| `.ops-kpi` / `.ops-kpi-grid` | Dashboard KPI cards |
+| `.ops-chip-active` / `-inactive` | Status filters, creator hub subnav |
+| Dev login banner | `auth/login` — `.ops-callout-dev` |
 
 ---
 

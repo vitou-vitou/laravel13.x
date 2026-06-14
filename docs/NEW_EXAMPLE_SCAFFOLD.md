@@ -1,5 +1,7 @@
 # New Laravel example — scaffold
 
+**Gate:** Run this **only** when the user explicitly chooses Laravel (`new-example`, "pick Laravel", 180+ type with Laravel path). Otherwise confirm stack first — see `.cursor/rules/greenfield-stack-choice.mdc`.
+
 Creates `examples/<slug>/` with **Spec-Kit + Superpowers-ready** layout and **clone-the-fb-nav** dev ergonomics (no repeat debugging of PHP PATH, `.env`, or Vite :5173).
 
 ## Command

@@ -16,6 +16,8 @@ alwaysApply: true
 
 ## New example (`bin/new-example <slug> "Name"`)
 
+**Only when user explicitly picks Laravel** — see `.cursor/rules/greenfield-stack-choice.mdc`. Do not run by default on "build X" or UX requests.
+
 1. Creates Laravel + Spec-Kit + **herd link** → `http://<slug>.test`
 2. Ends with **`bin/verify-example <slug>`** — must pass before telling user "done"
 3. User browser: **`APP_URL` from `.env`**, not `:5173`

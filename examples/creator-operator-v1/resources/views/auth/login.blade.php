@@ -1,5 +1,4 @@
 <x-guest-layout>
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     @php
@@ -10,14 +9,14 @@
     @endphp
 
     @if ($devEnabled)
-        <div class="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+        <div class="ops-callout-dev mb-6">
             <p class="font-semibold">Development login</p>
-            <p class="mt-1 text-xs text-amber-800">Credentials are prefilled. Password is <code class="rounded bg-amber-100 px-1">password</code> for seeded users.</p>
+            <p class="mt-1 text-xs text-amber-800/90">Credentials are prefilled. Password is <code class="rounded bg-amber-100/80 px-1">password</code> for seeded users.</p>
             <div class="mt-3 flex flex-wrap gap-2">
                 @foreach ($devLogin['accounts'] ?? [] as $account)
                     <button
                         type="button"
-                        class="rounded-full border border-amber-300 bg-white px-3 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100"
+                        class="ops-chip-inactive cursor-pointer"
                         onclick="document.getElementById('email').value = @js($account['email']); document.getElementById('password').value = @js($devPassword);"
                     >
                         {{ $account['label'] }}
@@ -27,10 +26,9 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
 
-        <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input
@@ -46,10 +44,8 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
+        <div>
             <x-input-label for="password" :value="__('Password')" />
-
             <x-text-input
                 id="password"
                 class="block mt-1 w-full"
@@ -59,26 +55,24 @@
                 required
                 autocomplete="current-password"
             />
-
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+        <div class="flex items-center">
+            <label for="remember_me" class="inline-flex items-center cursor-pointer">
+                <input id="remember_me" type="checkbox" class="rounded border-stone-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ms-2 text-sm text-stone-600">{{ __('Remember me') }}</span>
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                <a class="text-sm text-stone-600 hover:text-stone-900 underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="ms-auto">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

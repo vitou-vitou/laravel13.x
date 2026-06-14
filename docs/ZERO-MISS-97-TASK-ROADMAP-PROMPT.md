@@ -6,7 +6,7 @@
 
 | | New app (180+) | Existing repo (PGI, GitHub, `D:\…`) | **MVP done + docs/UX slices** |
 |--|----------------|-------------------------------------|--------------------------------|
-| **1** | Pick type → `./bin/new-example slug` | **Audit first** (read code, no MD yet) | Read `examples/<slug>/docs/DESIGN.md` + parent `docs/` |
+| **1** | **Ask stack** — Laravel only if user picks → then `./bin/new-example slug` | **Audit first** (read code, no MD yet) | Read `examples/<slug>/docs/DESIGN.md` + parent `docs/` |
 | **2** | Agent → 97-task roadmap | Bug/feature → contributor prompt | **Mode D** → matrix + N tasks + parallel waves |
 | **3** | Waves build features | Big program → update roadmap, then waves | **4–5 agents per wave** (worktrees) |
 | **Skills** | spec-kit + superpowers | openspec + superpowers | openspec + superpowers + **impeccable** (UX) |
@@ -41,7 +41,7 @@ Read repo first; minimal diff; run project's test command before done.
 
 **Learn Cursor:** [cursor.com/learn](https://cursor.com/learn) → start with 4 lessons in [`docs/CURSOR_LEARN_MAP.md`](CURSOR_LEARN_MAP.md).
 
-**UI looks too basic?** Say **“AI pick my UI”** — [`GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md) (agent chooses Dribbble/Unsplash/kit; you don’t). Agent skill: **laravel-ui-phase** (`.agents/skills/laravel-ui-phase/` or `.cursor/skills/laravel-ui-phase/`).
+**UI looks too basic?** Say **“AI pick my UI”** — [`GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md) (agent chooses references for the **current** project stack; user does not paste Dribbble). On Laravel examples: skill **laravel-ui-phase**. **Does not** mean scaffold Laravel by default.
 
 Paste this **before** asking for a roadmap or before an agent writes T001–T097.  
 The agent must **finish the inventory gates** and show the **coverage matrix** before listing any tasks.
