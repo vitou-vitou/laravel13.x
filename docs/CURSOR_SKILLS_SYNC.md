@@ -21,6 +21,8 @@
 | `laravel-ui-phase/` | Post-MVP UI for `examples/*` (`AI pick my UI`) | AI pick my UI, Breeze gray, polish storefront |
 | `design-taste-frontend/` | Anti-slop (claude-skills pack in `.agents/skills/`) | landing redesign, anti-slop catalog |
 
+**MCP (global `~/.cursor/mcp.json` + plugins):** see [`docs/MCP_SERVERS.md`](MCP_SERVERS.md) — playwright, browsermcp, @21st-dev/magic, context7, **Notion plugin** (OAuth). Template: [`docs/cursor-mcp.example.json`](cursor-mcp.example.json) (Notion is plugin-only, not in JSON).
+
 **Do not** write to `~/.cursor/skills-cursor/` (Cursor built-ins only).
 
 ---

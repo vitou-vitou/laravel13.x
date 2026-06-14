@@ -50,6 +50,8 @@
 ## UI (2026-06-14) — full pass
 
 - **`docs/DESIGN.md`** — tokens + shared Blade components
+- **Taobao-tier catalog** — chip categories, dense feed, `docs/screenshots/` (iPhone 14 / Pixel 7 / iPad via Playwright MCP)
+- **MCP stack** — [`../../../docs/MCP_SERVERS.md`](../../../docs/MCP_SERVERS.md) (playwright, 21st magic, context7, browsermcp, **Notion plugin** — keys/OAuth in Cursor, not repo)
 - **75/75 tests** — money/trust + storefront/seller/buyer/promo suite
 - Refresh **http://marketplace-v2.test**
 

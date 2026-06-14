@@ -101,3 +101,13 @@ Unsplash placeholders via `Product::displayImageUrl()` until `image_path` set.
 **Admin:** dashboard, vendors, commission, disputes, payment audit  
 
 **Out of scope:** `welcome.blade.php` (home is catalog at `/`)
+
+## Visual QA (MCP)
+
+| Viewport | Screenshot |
+|----------|------------|
+| iPhone 14 (390×844) | `docs/screenshots/catalog-iphone-14.png` |
+| Pixel 7 (412×915) | `docs/screenshots/catalog-pixel-7.png` |
+| iPad (810×1080) | `docs/screenshots/catalog-tablet-ipad.png` |
+
+Re-capture: Playwright MCP → copy from `%USERPROFILE%` into `docs/screenshots/`. Agent routing: repo root [`docs/MCP_SERVERS.md`](../../../docs/MCP_SERVERS.md).

@@ -17,6 +17,7 @@
 | E-commerce path | `examples/kindly-e-commerce-1122` (catalog + cart + checkout MVP) |
 | SDD at greenfield | **Spec-Kit + Superpowers (TDD)** only — **no OpenSpec at init** |
 | OpenSpec | Post-MVP change orders only |
+| Session handoff | **Git** (`SESSION_STATE.md`, `NEXT_SESSION.md`) — canonical; **Notion** optional for tasks/notes via Cursor plugin |
 | Booking external review | **Grok** — done (`docs/GROK_REVIEW_*.md`) |
 | Login external review | **Arena.ai only** — no Grok (`docs/ARENA_LOOP.md`) |
 | Arena mode | **Direct** + **claude-sonnet-4-6** (not Battle, not Max) |
@@ -238,5 +239,6 @@ POST /api/logout
 - `docs/study/180-laravel-project-types-study-packet.md`
 - `docs/guides/ui-adoption-workflow/` — UI/GitHub design adoption (8-principle study, impeccable context, pro runbook)
 - `docs/CURSOR_SKILLS_SYNC.md` — Spec-Kit / OpenSpec / Superpowers skills on any PC (same Cursor account)
+- `docs/MCP_SERVERS.md` — Cursor MCP stack (playwright, context7, 21st magic, browsermcp, **Notion plugin**)
 - `ocp/README.md` — OCP proxy (Claude subscription in Cursor / Cline / Continue); `install.bat` + `start.bat`
 - Skill: Spec-Kit + Superpowers (not Spec-Kit + OpenSpec together at init)

@@ -22,9 +22,11 @@ Follow docs/GITHUB_UI_RESOURCE_INDEX.md § Agent auto-pick.
 Do:
 1. Pick inspiration + component kit + stock photo source (document choices in DESIGN.md with URLs)
 2. Write examples/.../docs/DESIGN.md (tokens, typography, cards, do-not-copy-checkout rules)
-3. Use impeccable + design-taste-frontend — audit existing pages first
-4. Implement polish — same routes, same business logic
-5. Run project test command; report before/after in 3 bullets
+3. Use context7 for Laravel/Livewire/package docs; @21st-dev/magic for new components if needed
+4. Use impeccable + design-taste-frontend — audit existing pages first
+5. Playwright MCP for mobile/tablet screenshots → examples/.../docs/screenshots/
+6. Implement polish — same routes, same business logic
+7. Run project test command; report before/after in 3 bullets
 
 I will not paste Dribbble links — you find suitable public references.
 ```
@@ -80,7 +82,20 @@ Use **public browse** (web search or fetch), prefer:
 
 **Avoid:** random Google images; Pexels if Unsplash blocked (per agency runbook).
 
-### Step 5 — Anti-patterns (always)
+### Step 5 — MCP tools (configured on dev machine)
+
+Use global MCP from [`MCP_SERVERS.md`](MCP_SERVERS.md) — keys live in `~/.cursor/mcp.json` only.
+
+| Step | MCP | Agent action |
+|------|-----|--------------|
+| Docs before Laravel/Livewire/Stripe edits | **context7** | `resolve-library-id` → `query-docs` for installed package versions |
+| Generate/refine UI blocks | **@21st-dev/magic** | `/ui …` or component builder; match `DESIGN.md` tokens |
+| Visual proof on `http://<slug>.test` | **playwright** | Device viewports → `examples/<slug>/docs/screenshots/` |
+| Logged-in browser test | **browsermcp** | Extension connected; vendor/admin flows |
+
+Still run **`php artisan test`** after UI changes. Still use **impeccable** + **design-taste-frontend** for polish passes.
+
+### Step 6 — Anti-patterns (always)
 
 From [`ui-adoption-workflow`](guides/ui-adoption-workflow/PRO-DEV-RUNBOOK.md):
 
@@ -101,7 +116,7 @@ If user says marketplace and path is `examples/marketplace-v2`:
 | Inspiration | SaaS/marketplace catalog patterns; Dribbble search “ecommerce product grid” |
 | Photos | Unsplash: `product`, `minimal product photography` |
 | Pages first | `catalog/index`, product detail, cart/checkout **shell** only |
-| Proof | `php artisan test` green + note visual changes in `docs/NEXT_SESSION.md` |
+| Proof | `php artisan test` green + Playwright screenshots in `docs/screenshots/` + note in `docs/NEXT_SESSION.md` |
 
 ---
 
