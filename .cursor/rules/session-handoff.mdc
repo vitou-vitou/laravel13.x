@@ -15,6 +15,7 @@ alwaysApply: true
 | `examples/kindly-e-commerce-1122` | 49/49 | `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md` |
 | `examples/booking-v1` | 15/15 | `examples/booking-v1/docs/NEXT_SESSION.md` |
 | `examples/clone-the-fb-nav` | 6/6 | `examples/clone-the-fb-nav/docs/NEXT_SESSION.md` |
+| `examples/creator-operator-v1` | 44/44 | `examples/creator-operator-v1/docs/NEXT_SESSION.md` |
 
 ## If user says "continue" / "take controller"
 
@@ -24,6 +25,7 @@ alwaysApply: true
 4. **kindly-login:** MVP complete — no rework unless auth routes change.
 5. **booking-v1:** Optional Grok Prompt C or OpenSpec/Filament — not greenfield.
 6. **clone-the-fb-nav:** MVP complete — pixel polish or OpenSpec only if user asks.
+7. **creator-operator-v1:** MVP + Mode D complete — Track B Stripe, CLI import, or OpenSpec only if user asks.
 
 ## New example (greenfield)
 
