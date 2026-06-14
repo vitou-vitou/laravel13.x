@@ -3,7 +3,7 @@
 You do **not** need to browse Dribbble or GitHub lists manually.  
 **You say:** project path + app type. **Agent picks:** references, component kit, photos, writes `DESIGN.md`, then polishes UI.
 
-**Also read:** [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) · [`ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md) · Agent skill **laravel-ui-phase** (`.cursor/skills/laravel-ui-phase/` or `.agents/skills/laravel-ui-phase/`)
+**Also read:** [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) · [`MCP_SERVERS.md`](MCP_SERVERS.md) · [`BROWSER_VIDEO_MCP.md`](BROWSER_VIDEO_MCP.md) · [`ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md) · Agent skill **laravel-ui-phase** (`.cursor/skills/laravel-ui-phase/` or `.agents/skills/laravel-ui-phase/`)
 
 ---
 

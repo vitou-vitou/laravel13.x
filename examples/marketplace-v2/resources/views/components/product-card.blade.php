@@ -3,38 +3,41 @@
 @php
     $minPrice = $product->variants->min('price_cents');
     $isNew = $product->created_at?->isAfter(now()->subDays(7));
+    $vendorRating = $product->vendor?->rating_count > 0 ? (float) $product->vendor->rating_avg : null;
 @endphp
 
-<a href="{{ route('catalog.show', $product) }}" class="store-card group flex flex-col">
-    <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+<a href="{{ route('catalog.show', $product) }}" class="store-card catalog-feed-card group flex flex-col">
+    <div class="relative aspect-square overflow-hidden bg-stone-100">
         <img
             src="{{ $product->displayImageUrl() }}"
             alt="{{ $product->name }}"
-            class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
             loading="lazy"
         />
-        <div class="absolute left-2 top-2 flex flex-wrap gap-1 sm:left-3 sm:top-3">
-            @if ($isNew)
-                <span class="rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white sm:px-2.5 sm:py-1 sm:text-xs">
-                    New
-                </span>
-            @endif
-            @if ($minPrice !== null)
-                <span class="rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold text-stone-800 backdrop-blur sm:px-2.5 sm:py-1 sm:text-xs">
-                    from ${{ number_format($minPrice / 100, 2) }}
-                </span>
-            @endif
-        </div>
+        @if ($isNew)
+            <div class="absolute left-1.5 top-1.5 sm:left-2 sm:top-2">
+                <span class="catalog-badge-new">New</span>
+            </div>
+        @endif
     </div>
-    <div class="flex flex-1 flex-col gap-0.5 p-3 sm:gap-1 sm:p-4">
-        <p class="truncate text-[10px] font-medium uppercase tracking-wide text-brand-600 sm:text-xs">
-            {{ $product->vendor?->store_name ?? 'Marketplace' }}
-        </p>
-        <h3 class="line-clamp-2 text-sm font-semibold text-stone-900 group-hover:text-brand-700 sm:text-base">
+    <div class="flex flex-1 flex-col gap-1 p-2 sm:gap-1.5 sm:p-3">
+        <h3 class="line-clamp-2 text-xs font-medium leading-snug text-stone-900 group-hover:text-brand-700 sm:text-sm sm:font-semibold">
             {{ $product->name }}
         </h3>
-        @if ($product->description)
-            <p class="hidden line-clamp-2 text-sm text-stone-500 sm:block">{{ $product->description }}</p>
-        @endif
+        <div class="mt-auto flex items-end justify-between gap-2 pt-0.5">
+            @if ($minPrice !== null)
+                <p class="catalog-price">
+                    <span class="text-[10px] font-semibold text-brand-600/90 sm:text-xs">$</span>{{ number_format($minPrice / 100, 2) }}
+                </p>
+            @endif
+            @if ($vendorRating !== null)
+                <p class="shrink-0 text-[10px] text-stone-500 sm:text-xs" aria-label="Vendor rating {{ number_format($vendorRating, 1) }}">
+                    <span class="text-amber-500" aria-hidden="true">★</span> {{ number_format($vendorRating, 1) }}
+                </p>
+            @endif
+        </div>
+        <p class="truncate text-[10px] text-stone-500 sm:text-xs">
+            {{ $product->vendor?->store_name ?? 'Marketplace' }}
+        </p>
     </div>
 </a>

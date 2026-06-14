@@ -33,6 +33,21 @@ No site exposes the **full interactive** UX of every Play Store app from a listi
 
 **Do not:** ship Taobao/Amazon branding, logos, or pixel-perfect clones of checkout/payment.
 
+### Taobao-tier catalog pass (2026-06-14)
+
+Borrowed from [Mobbin — Taobao iOS homepage / social feed](https://mobbin.com/search/apps?query=taobao) and [UI Notes](https://www.uinotes.com/) Chinese commerce feeds (visual reference only):
+
+| Pattern | Implementation |
+|---------|----------------|
+| Square image tiles in 2-col feed | `aspect-square` on `x-product-card` |
+| Price as primary card anchor (not overlay pill) | `.catalog-price` below title |
+| Horizontal category / chip scroll on mobile | `.chip-scroll` on category filters + home categories |
+| Denser mobile rhythm | `gap-2`, `p-2` card padding, `rounded-xl` feed cards |
+| Compact filter bar | `.catalog-filter-panel` — smaller controls on mobile |
+| Pill search bar | `rounded-full` search on catalog hero |
+| Social proof hint | Vendor ★ rating on card when `rating_count > 0` |
+| Feed section label | “For you” + item count above main grid |
+
 ## Tokens
 
 | Token | Value |
