@@ -40,6 +40,25 @@
       "headers": {
         "CONTEXT7_API_KEY": "YOUR_CONTEXT7_API_KEY"
       }
+    },
+    "sonarqube": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--init",
+        "--pull=always",
+        "-i",
+        "--rm",
+        "-e",
+        "SONARQUBE_TOKEN",
+        "-e",
+        "SONARQUBE_ORG",
+        "mcp/sonarqube"
+      ],
+      "env": {
+        "SONARQUBE_TOKEN": "YOUR_SONARQUBE_USER_TOKEN",
+        "SONARQUBE_ORG": "YOUR_SONARQUBE_ORG_KEY"
+      }
     }
   }
 }

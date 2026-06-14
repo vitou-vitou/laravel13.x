@@ -25,9 +25,10 @@ See also: [`cursor-notion-plugin.md`](cursor-notion-plugin.md) · [`BROWSER_VIDE
 | **aikido** | — | `~/.cursor/mcp.json` | `AIKIDO_API_KEY` ✓ |
 | **prompts.chat** | `user-prompts.chat` | `~/.cursor/mcp.json` | `PROMPTS_API_KEY` ✓ |
 | **superhuman-mail** | `user-superhuman-mail` | `~/.cursor/mcp.json` | OAuth |
+| **sonarqube** | `user-sonarqube` | `~/.cursor/mcp.json` + Docker | `SONARQUBE_TOKEN` + `SONARQUBE_ORG` or `SONARQUBE_URL` |
 | **cursor-ide-browser** | built-in | Cursor | — |
 
-GitHub / docs: [Notion MCP](https://developers.notion.com/docs/mcp) · [cursor-notion-plugin](https://github.com/makenotion/cursor-notion-plugin) · [playwright-mcp](https://github.com/microsoft/playwright-mcp) · [BrowserMCP/mcp](https://github.com/BrowserMCP/mcp) · [21st-dev/magic-mcp](https://github.com/21st-dev/magic-mcp) · [upstash/context7](https://github.com/upstash/context7)
+GitHub / docs: [Notion MCP](https://developers.notion.com/docs/mcp) · [cursor-notion-plugin](https://github.com/makenotion/cursor-notion-plugin) · [playwright-mcp](https://github.com/microsoft/playwright-mcp) · [BrowserMCP/mcp](https://github.com/BrowserMCP/mcp) · [21st-dev/magic-mcp](https://github.com/21st-dev/magic-mcp) · [upstash/context7](https://github.com/upstash/context7) · [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server)
 
 **Notion endpoint (plugin-managed):** `https://mcp.notion.com/mcp` — do **not** duplicate in `mcp.json`.
 
@@ -44,7 +45,7 @@ laravel13.x work
 ├── Visual QA @ http://<slug>.test        → playwright
 ├── Logged-in Chrome                      → browsermcp
 ├── Behavior / regressions                → php artisan test (always)
-└── Security on changed code              → aikido_full_scan
+└── Security on changed code              → aikido_full_scan (or sonarqube MCP for SonarCloud/Server issues)
 ```
 
 **Git wins for handoff.** Use Notion for personal task boards, meeting notes, or exporting a session summary — not as a replacement for `SESSION_STATE.md` / `NEXT_SESSION.md`.
@@ -148,12 +149,43 @@ Playwright MCP cannot write outside `C:\Users\vitou` — copy into the repo afte
 
 ---
 
+## SonarQube MCP (code quality + security)
+
+**Official repo:** [SonarSource/sonarqube-mcp-server](https://github.com/SonarSource/sonarqube-mcp-server) (picked over community forks — maintained by SonarSource, Antigravity MCP Store listing, Docker image `mcp/sonarqube`).
+
+**Search used:** `gh search repos "sonarqube mcp server"` → top hit `SonarSource/sonarqube-mcp-server`.
+
+### Install (Cursor + Docker)
+
+1. **Start Docker Desktop** (required — daemon was not running on this machine during install).
+2. Prefill config: [SonarQube MCP config generator](https://mcp.sonarqube.com/config-generator.html) — or use the block already added to `~/.cursor/mcp.json` from [`cursor-mcp.example.json`](cursor-mcp.example.json).
+3. Replace placeholders in `~/.cursor/mcp.json`:
+   - **SonarQube Cloud:** `SONARQUBE_TOKEN` + `SONARQUBE_ORG` (org key from SonarCloud)
+   - **SonarQube Cloud US:** also set `"SONARQUBE_URL": "https://sonarqube.us"` in `env` and add `"-e", "SONARQUBE_URL"` to `args`
+   - **Self-hosted Server:** swap `SONARQUBE_ORG` for `SONARQUBE_URL` (see example JSON in repo template)
+4. Pull image once: `docker pull mcp/sonarqube`
+5. Cursor → **Settings → MCP** → reload **sonarqube**
+
+**Token:** SonarCloud → My Account → Security → Generate Tokens (User token, not project token).
+
+**Cursor one-click (Cloud):** [Install deeplink](https://cursor.com/en-US/install-mcp?name=sonarqube&config=eyJlbnYiOnsiU09OQVJRVUJFX1RPS0VOIjoiWU9VUl9UT0tFTiIsIlNPTkFSUVVCRV9PUkciOiJZT1VSX1NPTkFSUVVCRV9PUkcifSwiY29tbWFuZCI6ImRvY2tlciBydW4gLS1pbml0IC0tcHVsbD1hbHdheXMgLWkgLS1ybSAtZSBTT05BUlFVQkVfVE9LRU4gLWUgU09OQVJRVUJFX09SRyBtY3Avc29uYXJxdWJlIn0%3D)
+
+Example prompts once connected:
+
+```text
+List open blocker issues for project laravel13-x on SonarQube
+Analyze this PHP snippet for security hotspots before I commit
+What's failing our quality gate on the main branch?
+```
+
+---
+
 ## New machine setup
 
 ### `~/.cursor/mcp.json` (manual servers)
 
 1. Copy [`cursor-mcp.example.json`](cursor-mcp.example.json) → `~/.cursor/mcp.json`
-2. Fill keys: [21st Magic Console](https://21st.dev/magic/console), [Context7 dashboard](https://context7.com/dashboard), Aikido, prompts.chat
+2. Fill keys: [21st Magic Console](https://21st.dev/magic/console), [Context7 dashboard](https://context7.com/dashboard), Aikido, prompts.chat, SonarQube token/org
 3. `npx playwright install chromium`
 4. Install [Browser MCP extension](https://browsermcp.io/) → **Connect**
 5. Reload all MCP servers in Cursor Settings
@@ -220,5 +252,6 @@ Run from example dir: `export PATH="/d/laravel13.x/bin:$PATH"`.
 | context7 empty / 401 | Check `CONTEXT7_API_KEY` header; reload **context7** |
 | notion tools missing | Cursor plugin installed; complete OAuth; reload **notion** |
 | notion duplicate server | Remove manual `mcp.notion.com` entry from `mcp.json` if plugin active |
+| sonarqube MCP red / no tools | Start **Docker Desktop**; `docker pull mcp/sonarqube`; set real `SONARQUBE_TOKEN` (not placeholder) |
 | Herd 404 | `herd link <slug>`; use `APP_URL` from `.env` |
 | Screenshot not in repo | Copy from `%USERPROFILE%\catalog-*.png` into `docs/screenshots/` |

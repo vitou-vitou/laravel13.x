@@ -4,12 +4,12 @@
 
 **One question:** *New app or existing code?*
 
-| | New app (180+) | Existing repo (PGI, GitHub, `D:\…`) |
-|--|----------------|-------------------------------------|
-| **1** | Pick type → `./bin/new-example slug` | **Audit first** (read code, no MD yet) |
-| **2** | Agent → 97-task roadmap | Bug/feature → paste contributor prompt |
-| **3** | Waves build features | Big program → update roadmap, then waves |
-| **Skills** | spec-kit + superpowers | openspec + superpowers |
+| | New app (180+) | Existing repo (PGI, GitHub, `D:\…`) | **MVP done + docs/UX slices** |
+|--|----------------|-------------------------------------|--------------------------------|
+| **1** | Pick type → `./bin/new-example slug` | **Audit first** (read code, no MD yet) | Read `examples/<slug>/docs/DESIGN.md` + parent `docs/` |
+| **2** | Agent → 97-task roadmap | Bug/feature → contributor prompt | **Mode D** → matrix + N tasks + parallel waves |
+| **3** | Waves build features | Big program → update roadmap, then waves | **4–5 agents per wave** (worktrees) |
+| **Skills** | spec-kit + superpowers | openspec + superpowers | openspec + superpowers + **impeccable** (UX) |
 
 **Daily dev (99% of time):** existing repo → describe bug/feature → test green. **No phases. No 97 tasks.**
 
@@ -55,6 +55,8 @@ The agent must **finish the inventory gates** and show the **coverage matrix** b
 | **Any repo** — `D:\phillipinsurancekh`, GitHub, frontend | [External repos — understand first](#external-repos-understand-first-then-update-md) |
 | **Cloning** or hardening existing code (full audit) | [Short prompt (existing clone)](#short-prompt-when-you-already-have-a-clone) |
 | Running waves after the roadmap exists | [Execution opener](#execution-opener-after-roadmap-exists) |
+| **MVP done — ship slices from DESIGN.md + `docs/`** | [Mode D — Docs + UX + parallel](#mode-d--docs--ux--parallel-post-mvp-slices) |
+| Parallel agent orchestration (template) | [`docs/prompts/97-parallel-agents-template.md`](prompts/97-parallel-agents-template.md) |
 | Full agent rules (Phases 0–6) | [Master prompt](#master-prompt-copy-everything-below-the-line) |
 | **Learn Cursor** (official course) | [`docs/CURSOR_LEARN_MAP.md`](CURSOR_LEARN_MAP.md) |
 | **Company repos** (Phillip, GitHub) + laravel13.x | [`docs/COMPANY_PROJECTS_WORKFLOW.md`](COMPANY_PROJECTS_WORKFLOW.md) |
@@ -81,8 +83,11 @@ Pick ONE primary mode and say it out loud:
 | **A — Harden** | Code exists; goal = tests, UAT, prod readiness |
 | **B — Greenfield** | Build MVP from scratch (like marketplace-v2) |
 | **C — Hybrid** | Harden + explicit net-new features listed by user |
+| **D — Docs + UX slices** | MVP shipped; extend from `examples/<slug>/docs/DESIGN.md` + parent `docs/` specs, CSV templates, checklists — **parallel waves required** |
 
 Also state: **Track A** (mock/CI, no live secrets) vs **Track B** (live UAT credentials required).
+
+**Mode D:** Task count is **N** (often 20–40), not forced to 97. Still use **sequential waves** with **4–5 parallel agents inside each wave**.
 
 ---
 
@@ -124,6 +129,21 @@ Build a matrix with columns:
 - **Upstream branches** not merged → spike/OOS row each
 
 **Hard stop:** If any inventory row is blank in "task ID" and not marked OOS → do not publish roadmap.
+
+**Mode D — add UX/docs columns to the matrix:**
+
+`Source doc | UX slice | Route | Field / CSV column | Screen element | Exists in UI? | Task ID | Wave | Parallel group | Action | OOS`
+
+**Mode D — mandatory doc sources (read files; no guessing):**
+
+1. `examples/<slug>/docs/DESIGN.md` — personas, IA, gap matrix, slice specs, components
+2. Parent specs — e.g. `docs/superpowers/specs/`, `docs/<domain>/README.md`, checklists
+3. CSV templates — every header column → form field, table column, or export column
+4. Weekly / operational checklists — every step → batch rail step, route, or OOS
+5. Existing routes + Blade — map **built** vs **DESIGN.md** (verify vs build)
+6. Copy / trust UX — approve vs skip labels, status enum values match CSV exactly
+
+**Mode D hard stop:** Every **gap matrix row** in DESIGN.md and every **slice acceptance** line → task ID or OOS. Every **CSV column** → mapped or OOS.
 
 ---
 
@@ -174,6 +194,21 @@ Format per task: `ID | Slice | Role | Week | Deps | Branch | DoD`
 
 Wave rules: worktree per task; no two agents same file; test green before next wave.
 
+**Parallel execution (all modes — especially Mode D):**
+
+| Rule | Detail |
+|------|--------|
+| Waves are **sequential** | Wave N+1 only after `php artisan test` green on merged Wave N |
+| Tasks inside a wave are **parallel** | Up to **4–5** concurrent agents (or Agent Teams / `dispatching-parallel-agents`) |
+| File ownership | No two parallel tasks edit the same file — split tasks or put in different waves |
+| Branch | `feat/T0xx-short-slug` or worktree per task |
+| Merge order | Lead integrates, resolves conflicts, runs full suite |
+| UX gate | Mode D: each `[build]` task lists **route + fields** from matrix; optional screenshot in NEXT_SESSION |
+
+Template for batch grouping: [`docs/prompts/97-parallel-agents-template.md`](prompts/97-parallel-agents-template.md).
+
+**Mode D wave table must include:** `Wave | Task IDs | Parallel group (A–E) | Files touched (paths) | UX acceptance (1 line)`.
+
 ---
 
 ### Phase 6 — Deliverables checklist
@@ -198,6 +233,190 @@ Project context for this run:
 
 [PASTE: repo path, branch, clone path, prod goal A/B/C, in-scope payment rails, entities, deadline]
 ```
+
+---
+
+## Mode D — Docs + UX + parallel (post-MVP slices)
+
+Use when **MVP is done** (publish log, auth, core flow) and the next work is **all slices** from a UX map plus parent `docs/` — e.g. `examples/creator-operator-v1` + `docs/creator-commission/`.
+
+**Not greenfield (B). Not a single bug (contributor).** This is the path for “build roadmap for **all of it** and **start everything**” with **parallel waves**.
+
+### What you get
+
+| Artifact | Path |
+|----------|------|
+| UX-aligned roadmap | `examples/<slug>/docs/ROADMAP.md` **or** `docs/<slug>-slice-roadmap.md` |
+| UX source of truth | `examples/<slug>/docs/DESIGN.md` (extend route/field tables as slices ship) |
+| Handoff | `examples/<slug>/docs/NEXT_SESSION.md` |
+| Coverage matrix | Inside roadmap — **zero blank rows** across docs + UX + code |
+
+**Reference:** `examples/creator-operator-v1/docs/DESIGN.md` (gap matrix + slices 1–5).
+
+### Pipeline
+
+```text
+Read DESIGN.md + parent docs/ + CSV templates
+        ↓
+Mode D inventory (code + UX + docs tables)
+        ↓
+Unified coverage matrix (zero blanks)
+        ↓
+N tasks (T001–T0NN) + wave table with parallel groups
+        ↓
+Wave 1…K — parallel inside wave, sequential across waves
+        ↓
+verify-example + test green + update DESIGN.md + NEXT_SESSION
+```
+
+### Step D1 — Docs + UX inventory (mandatory tables)
+
+Produce from **real files**:
+
+| # | Table | Contents |
+|---|--------|----------|
+| 1 | **Doc map** | Every linked spec, checklist, CSV path → purpose |
+| 2 | **IA / routes** | DESIGN.md routes vs `routes/web.php` — built / partial / missing |
+| 3 | **CSV columns** | Each template header → UI field, export, or OOS |
+| 4 | **Checklist steps** | Batch steps 1–7 → screen, action, or OOS |
+| 5 | **Gap matrix** | Every DESIGN.md gap row |
+| 6 | **Slice acceptance** | Each slice’s “Acceptance:” line → test or manual check task |
+| 7 | **Components** | `x-*` Blade components — exists / needs extend |
+| 8 | **Tests** | Feature tests per slice — exists / missing |
+
+**Hard stop:** Do not write T001 until tables 4–6 have no unmapped rows.
+
+### Step D2 — Coverage matrix (docs + UX + code)
+
+Minimum columns:
+
+`ID | Source | Slice | Route | Field/column | Code? | UX spec? | Task | Wave | Par | Action [build|verify|ux|docs|OOS]`
+
+Example rows (creator-operator):
+
+| Source | Slice | Route | Action |
+|--------|-------|-------|--------|
+| `weekly-metrics.csv` | 1 | `/operator/creators/{id}/metrics` | build |
+| `monthly-settlement.csv` | 2 | `/creator/settlement` | build |
+| `tools/tiktok-metadata` | 3 | `/operator/creators/{id}/import` | build |
+| DESIGN gap P2 | 4 | publish-log form | build (IG fields) |
+| Slice 4 | billing | `/operator/billing` | build |
+| Slice 5 | webhooks | `/operator/integrations` | build |
+| DESIGN § approvals | MVP | `/creator/approvals` | verify |
+
+### Step D3 — Write N tasks + parallel wave table
+
+- **N** = one task per matrix `[build]` or `[verify]` row (typically 25–45 for 5 slices).
+- Group into **waves of ~8–12 tasks**, **4–5 parallel** per wave by **disjoint file paths**.
+- Tag DoD: `[build]` `[verify]` `[ux]` `[docs]` `[test]`.
+
+**Wave planning rules:**
+
+1. **Wave 1:** schema + models (sequential, 1 agent) — blocks others.
+2. **Wave 2+:** parallel by slice **if** migrations already landed (e.g. metrics controller + settlement service in same wave only if different directories).
+3. Put all **navigation / shared layout** edits in one task or one sequential wave tail — avoids merge hell.
+4. **Webhooks + billing** often parallel (different controllers).
+5. End with **integration wave:** nav links, DESIGN.md route table update, full test run.
+
+Example wave table (creator-operator, illustrative):
+
+| Wave | Task IDs | Parallel | Focus |
+|------|----------|----------|-------|
+| W1 | T001–T003 | 1 agent | migrations, models, factories |
+| W2 | T004–T008 | A–E | metrics CRUD, settlement calculator, import service |
+| W3 | T009–T013 | A–D | billing config, webhooks, policies |
+| W4 | T014–T018 | A–E | Blade views per slice (separate view dirs) |
+| W5 | T019–T022 | A–D | feature tests per slice |
+| W6 | T023–T025 | 1–2 | nav, DESIGN.md sync, verify-example |
+
+### Step D4 — Copy-paste: roadmap + parallel (no code yet)
+
+```markdown
+Read docs/ZERO-MISS-97-TASK-ROADMAP-PROMPT.md — **Mode D — Docs + UX + parallel**.
+
+Do not write application code. Roadmap + unified matrix + wave table + handoff only.
+
+Project: examples/{{slug}}/
+UX map: examples/{{slug}}/docs/DESIGN.md
+Parent docs: [list paths, e.g. docs/creator-commission/, docs/superpowers/specs/...]
+CSV templates: [list paths]
+
+Follow Step D1–D3:
+- All mandatory inventory tables
+- Coverage matrix with **zero blank rows** (docs + UX + gaps + CSV columns)
+- N tasks with [build]/[verify]/[ux] tags
+- Wave table with **parallel groups** and **file ownership** (no same-file parallel)
+- Realistic scope note for ~10h parallel agent time
+
+Output:
+- examples/{{slug}}/docs/ROADMAP.md (replace lightweight phase list if present)
+- examples/{{slug}}/docs/NEXT_SESSION.md stub with Wave 1 opener
+
+Skill stack: openspec + superpowers + laravel-specialist + impeccable (UX copy/layout)
+Reference parallel template: docs/prompts/97-parallel-agents-template.md
+```
+
+### Step D5 — Copy-paste: execute one wave (parallel)
+
+```markdown
+Read examples/{{slug}}/docs/ROADMAP.md — Coverage matrix + **Wave {{N}}** table only.
+
+Use:
+- subagent-driven-development
+- using-git-worktrees
+- dispatching-parallel-agents (or Agent Teams — max 4–5 concurrent)
+
+Project: examples/{{slug}}/ — Mode D, Track A.
+
+Execute **Wave {{N}} only** (tasks {{Txxx}}–{{Tyyy}}):
+- One worktree / branch per parallel group (feat/T0xx-…)
+- No two agents on the same file
+- Each task: backend + Blade + feature test per matrix UX acceptance line
+- [verify] tasks: add tests only, no duplicate UI
+- Run `php artisan test` + `./bin/verify-example {{slug}}` before claiming wave done
+- Update NEXT_SESSION.md (pass count, next wave, any DESIGN.md route rows to mark built)
+
+Do **not** start Wave {{N+1}} in this session.
+```
+
+### Step D6 — “Start everything” opener (multi-wave session)
+
+For a single long session that runs **all waves** with parallel inside each:
+
+```markdown
+Read examples/{{slug}}/docs/ROADMAP.md (full matrix + all waves).
+
+Mode D — Docs + UX + parallel. Project: examples/{{slug}}/
+
+For each wave W1…WK **in order**:
+1. Dispatch up to 5 parallel agents (disjoint files) — dispatching-parallel-agents + git worktrees
+2. Merge, resolve conflicts, `php artisan test` green
+3. Only then start next wave
+
+After final wave:
+- Sync examples/{{slug}}/docs/DESIGN.md (IA table: mark routes built)
+- ./bin/verify-example {{slug}}
+- Update NEXT_SESSION.md and docs/SESSION_STATE.md if MVP+ slices complete
+
+Skills: openspec + superpowers + laravel-specialist + impeccable + subagent-driven-development + using-git-worktrees
+```
+
+### Mode D vs lightweight ROADMAP
+
+| Lightweight phases only | Mode D zero-miss |
+|-------------------------|------------------|
+| “Slice 1 in progress” | Every CSV column → task |
+| Easy to skip UX gaps | Gap matrix rows forced to task or OOS |
+| Serial implementation | **Parallel groups** per wave documented upfront |
+| No file ownership | Explicit paths — fewer merge conflicts |
+
+**Rule:** If user says **parallel is important**, always produce the **wave table with Par groups A–E** — never “implement slices 1–5” without parallel plan.
+
+### laravel13.x examples using Mode D today
+
+| Example | UX map | Parent docs |
+|---------|--------|-------------|
+| `creator-operator-v1` | `examples/creator-operator-v1/docs/DESIGN.md` | `docs/creator-commission/` |
 
 ---
 
@@ -546,6 +765,7 @@ When MVP matches your Project Brief **Success** section:
 | `./bin/new-example` + 180+ pick | **B — Greenfield** | List what **must be built** from decomposition |
 | Clone external repo (e.g. PGI uat) | **A — Harden** or **C — Hybrid** | Read what **already exists** in `app/`, tests, git branches |
 | MVP complete, new feature | **OpenSpec** | Change proposal — not a full 97-task greenfield |
+| MVP complete, **all DESIGN.md slices + docs/** | **D — Docs + UX + parallel** | DESIGN.md gap matrix + CSV columns + checklist steps → N tasks + wave table |
 
 ---
 
@@ -575,6 +795,7 @@ Use this when you **already have code** in `examples/pgi-agency-portal/` and you
 | Medium feature (new panel page, new service) | **OpenSpec** (`/opsx:propose` or openspec skill) | Re-scaffold the app |
 | Test hardening / UAT / many gaps | **Mode A** + `docs/pgi-agency-portal-97-task-roadmap.md` waves | Mode B greenfield |
 | Big net-new slice (e.g. Payway rail, Medical on Partners) | **Mode C Hybrid** — one matrix row + roadmap task or OpenSpec change | Blanket “rewrite all 97 tasks” |
+| **MVP done — ship all UX slices from DESIGN.md** | **Mode D** — [Docs + UX + parallel](#mode-d--docs--ux--parallel-post-mvp-slices) | Lightweight phase list without matrix |
 
 **PGI paths:**
 
@@ -873,6 +1094,21 @@ Before Wave N: confirm [verify] tasks for code that already exists; [build] only
 Wave {{N}} only. Merge + php artisan test green before next wave.
 ```
 
+**Docs + UX slices (Mode D)** — MVP done, parallel waves:
+
+```markdown
+Read examples/{{slug}}/docs/ROADMAP.md AND examples/{{slug}}/docs/DESIGN.md AND the Coverage matrix.
+
+Use **openspec** + superpowers + laravel-specialist + impeccable
++ subagent-driven-development + using-git-worktrees + dispatching-parallel-agents.
+
+Execute **Wave {{N}} only** — up to 4–5 parallel agents, disjoint files.
+Each task must satisfy its matrix UX acceptance line (route + fields + copy).
+[verify] = tests/docs only; [build] = code + Blade + test.
+
+Merge → php artisan test → ./bin/verify-example {{slug}} → update NEXT_SESSION → then Wave {{N+1}}.
+```
+
 ---
 
 ## Why this works
@@ -885,3 +1121,6 @@ Wave {{N}} only. Merge + php artisan test green before next wave.
 | Payway branch ignored | Phase 1 §13 upstream branches |
 | 10h plan impossible | Track A/B + realistic scope |
 | 97 tasks but wrong shape | Phase 4 distribution + exact count |
+| **Skipped UX slice / CSV column** | **Mode D Step D1 tables 3–6 + gap matrix** |
+| **Parallel merge conflicts** | **Wave table file ownership + max 4–5 agents** |
+| **DESIGN.md out of sync with routes** | **Mode D Step D6 — update IA table after last wave** |

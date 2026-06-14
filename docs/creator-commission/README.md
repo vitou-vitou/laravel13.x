@@ -61,6 +61,7 @@ Label each revenue row **Confirmed** (payout received) or **Estimated** (dashboa
 ## Optional tooling
 
 - [TikTok metadata CLI](../../tools/tiktok-metadata/README.md) — authorized BUILD LIST helper (`--metadata-only`)
+- **[Creator Operator portal](../../examples/creator-operator-v1/docs/NEXT_SESSION.md)** — web UI ([UX map](../../examples/creator-operator-v1/docs/DESIGN.md), [slice roadmap + Mode D parallel](../../examples/creator-operator-v1/docs/ROADMAP.md)) for publish log + creator approvals (`http://creator-operator-v1.test`)
 
 ## Open operator decisions (set before day 1)
 
