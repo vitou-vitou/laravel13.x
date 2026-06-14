@@ -41,7 +41,7 @@ Read repo first; minimal diff; run project's test command before done.
 
 **Learn Cursor:** [cursor.com/learn](https://cursor.com/learn) → start with 4 lessons in [`docs/CURSOR_LEARN_MAP.md`](CURSOR_LEARN_MAP.md).
 
-**UI looks too basic?** Functional MVP ≠ PRD UI → [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) + GitHub picks ([`GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md): Dribbble, Unsplash, DESIGN.md lists).
+**UI looks too basic?** Say **“AI pick my UI”** — [`GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md) (agent chooses Dribbble/Unsplash/kit; you don’t). Agent skill: **laravel-ui-phase** (`.agents/skills/laravel-ui-phase/` or `.cursor/skills/laravel-ui-phase/`).
 
 Paste this **before** asking for a roadmap or before an agent writes T001–T097.  
 The agent must **finish the inventory gates** and show the **coverage matrix** before listing any tasks.
@@ -59,7 +59,7 @@ The agent must **finish the inventory gates** and show the **coverage matrix** b
 | **Learn Cursor** (official course) | [`docs/CURSOR_LEARN_MAP.md`](CURSOR_LEARN_MAP.md) |
 | **Company repos** (Phillip, GitHub) + laravel13.x | [`docs/COMPANY_PROJECTS_WORKFLOW.md`](COMPANY_PROJECTS_WORKFLOW.md) |
 | **UI too basic vs PRD** | [`docs/FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) |
-| **Dribbble / Unsplash / GitHub UI lists** | [`docs/GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md) |
+| **Dribbble / Unsplash / GitHub UI lists** | [`docs/GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md) — **say “AI pick my UI”** · skill **laravel-ui-phase** |
 
 ---
 

@@ -1,40 +1,34 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Admin — Vendors</h2>
-    </x-slot>
+    <x-store-page title="Admin — Vendors">
+        <x-admin-subnav class="mt-6" />
+        <x-flash-status class="mt-6" />
 
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            @if (session('status'))
-                <div class="p-4 bg-green-100 text-green-800 rounded">{{ session('status') }}</div>
-            @endif
-
+        <div class="mt-6 space-y-3">
             @foreach ($vendors as $vendor)
-                <div class="bg-white shadow rounded p-4 flex justify-between items-center">
+                <div class="store-panel flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <p class="font-medium">{{ $vendor->store_name }}</p>
-                        <p class="text-sm text-gray-500">{{ $vendor->user->email }} — {{ $vendor->status->value }}</p>
+                        <p class="font-semibold text-stone-900">{{ $vendor->store_name }}</p>
+                        <p class="text-sm text-stone-500">{{ $vendor->user->email }} — {{ $vendor->status->value }}</p>
                     </div>
                     @if ($vendor->status->value === 'pending')
                         <form method="POST" action="{{ route('admin.vendors.approve', $vendor) }}">
                             @csrf
-                            <button class="px-3 py-1 bg-gray-800 text-white rounded text-sm">Approve</button>
+                            <button type="submit" class="btn-brand text-sm">Approve</button>
                         </form>
                     @elseif ($vendor->status->value === 'active')
                         <form method="POST" action="{{ route('admin.vendors.suspend', $vendor) }}">
                             @csrf
-                            <button class="px-3 py-1 border rounded text-sm">Suspend</button>
+                            <button type="submit" class="btn-brand-outline text-sm">Suspend</button>
                         </form>
                     @elseif ($vendor->status->value === 'suspended')
                         <form method="POST" action="{{ route('admin.vendors.activate', $vendor) }}">
                             @csrf
-                            <button class="px-3 py-1 bg-gray-800 text-white rounded text-sm">Reactivate</button>
+                            <button type="submit" class="btn-brand text-sm">Reactivate</button>
                         </form>
                     @endif
                 </div>
             @endforeach
-
             {{ $vendors->links() }}
         </div>
-    </div>
+    </x-store-page>
 </x-app-layout>

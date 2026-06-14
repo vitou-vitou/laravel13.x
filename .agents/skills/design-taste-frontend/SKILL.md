@@ -38,6 +38,17 @@ If you can confidently infer from context, **do not ask**. Just declare the desi
 ### 0.D Anti-Default Discipline
 Do not default to: AI-purple gradients, centered hero over dark mesh, three equal feature cards, generic glassmorphism on everything, infinite-loop micro-animations everywhere, Inter + slate-900. These are the LLM defaults. Reach past them deliberately based on the design read.
 
+### 0.E laravel13.x Blade examples (`examples/*`)
+
+When polishing Laravel Breeze + Tailwind Blade apps in **laravel13.x**:
+
+1. Read **laravel-ui-phase** and `docs/GITHUB_UI_RESOURCE_INDEX.md` — agent picks references; user does not paste Dribbble.
+2. Write/update `examples/<slug>/docs/DESIGN.md` (tokens, components, page scope).
+3. **Marketplace / shop:** image-forward grid, vendor line, sticky PDP buy box — see `examples/marketplace-v2`.
+4. **Admin Blade:** calm dense lists, subnav chips — not gray `shadow rounded` cards.
+5. Shared utilities: `.btn-brand`, `.store-panel`, `.store-input`, `x-store-page` pattern.
+6. Same routes and form actions; run `php artisan test` after polish.
+
 ---
 
 ## 1. THE THREE DIALS (Core Configuration)

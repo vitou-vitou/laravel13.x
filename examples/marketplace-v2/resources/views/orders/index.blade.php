@@ -1,20 +1,24 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">My Orders</h2>
-    </x-slot>
+    <x-store-page title="My orders" max="max-w-4xl">
+        <x-flash-status class="mt-6" />
 
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            @foreach ($orders as $order)
-                <div class="bg-white shadow rounded p-4 flex justify-between">
+        <div class="mt-6 space-y-4">
+            @forelse ($orders as $order)
+                <div class="store-panel flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <p class="font-medium">Order #{{ $order->id }}</p>
-                        <p class="text-sm text-gray-500">{{ $order->status->value }} — {{ $order->formattedTotal() }}</p>
+                        <p class="font-semibold text-stone-900">Order #{{ $order->id }}</p>
+                        <p class="text-sm text-stone-500">{{ $order->status->value }} — {{ $order->formattedTotal() }}</p>
                     </div>
-                    <a href="{{ route('orders.show', $order) }}" class="underline">View</a>
+                    <a href="{{ route('orders.show', $order) }}" class="link-brand text-sm">View details →</a>
                 </div>
-            @endforeach
-            {{ $orders->links() }}
+            @empty
+                <div class="store-panel text-center">
+                    <p class="font-medium text-stone-900">No orders yet</p>
+                    <a href="{{ route('catalog.index') }}" class="btn-brand mt-4 inline-flex">Start shopping</a>
+                </div>
+            @endforelse
+
+            <div class="pt-2">{{ $orders->links() }}</div>
         </div>
-    </div>
+    </x-store-page>
 </x-app-layout>

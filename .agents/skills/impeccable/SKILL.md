@@ -7,11 +7,23 @@ license: Apache 2.0
 
 Designs and iterates production-grade frontend interfaces. Real working code, committed design choices, exceptional craft.
 
+## laravel13.x examples (`examples/*`)
+
+When cwd is under `examples/<slug>/` or user invokes UI polish / **AI pick my UI**:
+
+1. Read **laravel-ui-phase** (`.agents/skills/laravel-ui-phase/SKILL.md`) and repo `docs/GITHUB_UI_RESOURCE_INDEX.md`.
+2. Run context loader from example dir (paths: `.agents/skills/impeccable/scripts/context.mjs` or synced `~/.cursor/skills/impeccable/scripts/context.mjs`). If output is `NO_PRODUCT_MD` but `docs/DESIGN.md` exists, **continue** — treat register as **product** (app UI); read `reference/product.md`.
+3. Prefer updating `docs/DESIGN.md` in the example over requiring PRODUCT.md.
+4. Do not change checkout, webhooks, or auth logic unless user asks.
+5. After CSS edits: `npm run build`; `php artisan test` from the example directory.
+
+**Reference:** `examples/marketplace-v2/docs/DESIGN.md` — tokens + Blade components (`x-store-page`, `.store-panel`, `.btn-brand`).
+
 ## Setup
 
 You MUST do these steps before proceeding:
 
-1. Run `node .cursor/skills/impeccable/scripts/context.mjs` once per session. If you've already seen its output in this conversation, do not re-run it. The script either prints the project's PRODUCT.md (and DESIGN.md when present) as a markdown block, or tells you it's missing. Follow whatever it prints. **If it reports `NO_PRODUCT_MD`, stop and follow `reference/init.md` before doing anything else.** If the output ends with an `UPDATE_AVAILABLE` directive, follow it (ask the user once about updating, then continue). It never blocks the current task.
+1. Run `node .cursor/skills/impeccable/scripts/context.mjs` once per session. If you've already seen its output in this conversation, do not re-run it. The script either prints the project's PRODUCT.md (and DESIGN.md when present) as a markdown block, or tells you it's missing. Follow whatever it prints. **If it reports `NO_PRODUCT_MD`**, stop and follow `reference/init.md` **unless** output starts with `DESIGN.md (laravel13.x example` — then read `reference/product.md` and **laravel-ui-phase** (see section above). If the output ends with an `UPDATE_AVAILABLE` directive, follow it (ask the user once about updating, then continue). It never blocks the current task.
 2. If the user invoked a sub-command (`craft`, `shape`, `audit`, `polish`, ...), you MUST read `reference/<command>.md` next. Non-optional. The reference defines the command's flow; without it you will skip steps the user expects.
 3. Familiarize yourself with any existing design system, conventions, and components in the code. Read at least one project file (CSS / tokens / theme / a representative component or page). **Required even when you've loaded a sub-command reference in step 2.** Don't reinvent the wheel; use what's there when it works, branch out when the UX wins.
 4. Read the matching register reference. **This is non-optional; skipping it produces generic output.** If the project is marketing, a landing page, a campaign, long-form content, or a portfolio (design IS the product), read `reference/brand.md`. If it is app UI, admin, a dashboard, or a tool (design SERVES the product), read `reference/product.md`. Pick by first match: (1) task cue ("landing page" vs "dashboard"); (2) surface in focus (the page, file, or route being worked on); (3) `register` field in PRODUCT.md.

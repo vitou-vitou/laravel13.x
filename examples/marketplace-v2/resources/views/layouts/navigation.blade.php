@@ -1,17 +1,15 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+<nav x-data="{ open: false }" class="border-b border-stone-200/80 bg-white/95 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 justify-between">
             <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                <div class="flex shrink-0 items-center">
+                    <a href="{{ route('home') }}" class="flex items-center gap-2">
+                        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-sm font-bold text-white">M</span>
+                        <span class="hidden font-semibold text-stone-900 sm:inline">{{ config('app.name') }}</span>
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-1 sm:-my-px sm:ms-8 sm:flex">
                     <x-nav-link :href="route('catalog.index')" :active="request()->routeIs('catalog.*') || request()->routeIs('home')">
                         Shop
                     </x-nav-link>
@@ -22,6 +20,11 @@
                         <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
                             Orders
                         </x-nav-link>
+                        @if (auth()->user()->isAdmin())
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                                Admin
+                            </x-nav-link>
+                        @endif
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             Dashboard
                         </x-nav-link>
@@ -34,7 +37,7 @@
                 @auth
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100 hover:text-stone-900">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -63,8 +66,8 @@
                     </x-slot>
                 </x-dropdown>
                 @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-600 underline me-4">Log in</a>
-                    <a href="{{ route('register') }}" class="text-sm text-gray-600 underline">Register</a>
+                    <a href="{{ route('login') }}" class="text-sm font-medium text-stone-600 hover:text-brand-700 me-4">Log in</a>
+                    <a href="{{ route('register') }}" class="btn-brand-outline text-sm">Register</a>
                 @endauth
             </div>
 

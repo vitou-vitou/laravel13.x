@@ -42,6 +42,10 @@ export function resolveContextDir(cwd = process.cwd()) {
   if (firstExisting(cwd, [...PRODUCT_NAMES, ...DESIGN_NAMES])) {
     return cwd;
   }
+  const exampleDesignDir = resolveExampleDesignDir(cwd);
+  if (exampleDesignDir) {
+    return exampleDesignDir;
+  }
   for (const rel of FALLBACK_DIRS) {
     const candidate = path.resolve(cwd, rel);
     if (firstExisting(candidate, [...PRODUCT_NAMES, ...DESIGN_NAMES])) {
@@ -78,6 +82,15 @@ function firstExisting(dir, names) {
     const abs = path.join(dir, name);
     if (fs.existsSync(abs)) return abs;
   }
+  return null;
+}
+
+/** laravel13.x examples: docs/DESIGN.md without PRODUCT.md */
+function resolveExampleDesignDir(cwd) {
+  const normalized = cwd.replace(/\\/g, '/');
+  if (!/\/examples\/[^/]+/.test(normalized)) return null;
+  const docsDir = path.join(cwd, 'docs');
+  if (firstExisting(docsDir, DESIGN_NAMES)) return docsDir;
   return null;
 }
 
@@ -223,6 +236,16 @@ async function cli() {
   const updateDirective = await computeUpdateDirective();
 
   if (!ctx.hasProduct) {
+    if (ctx.hasDesign) {
+      const parts = [
+        '# DESIGN.md (laravel13.x example — no PRODUCT.md)\n\n' + ctx.design.trim(),
+        'NEXT STEP: Register is `product` (app UI). Read `reference/product.md`. ' +
+          'Also read laravel-ui-phase skill and repo `docs/GITHUB_UI_RESOURCE_INDEX.md` when polishing Blade examples.',
+      ];
+      if (updateDirective) parts.push(updateDirective);
+      process.stdout.write(parts.join('\n\n---\n\n') + '\n');
+      process.exit(0);
+    }
     // Direct stdout message instead of relying on empty output as a signal
     // — cheap models miss the empty case more often than the explicit one.
     const parts = [

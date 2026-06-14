@@ -84,6 +84,8 @@ OPTIONALLY add caveman for token-efficient voice (does not replace SDD or Superp
 | **caveman** | Cursor plugin (optional) | `~/.cursor/plugins/cache/caveman/` — see `docs/CURSOR_SKILLS_SYNC.md` |
 | **This router** | Personal skills + local mirror | `~/.cursor/skills/spec-kit-openspec-superpowers/` |
 | **impeccable** | Personal skills + local mirror | `~/.cursor/skills/impeccable/` |
+| **laravel-ui-phase** | Personal skills + `.agents/skills/` mirror | UI polish after MVP (`AI pick my UI`) |
+| **design-taste-frontend** | `.agents/skills/` (claude-skills pack) | Anti-slop catalog/landing with impeccable |
 | **system-study-packet** | Personal skills + local mirror | `~/.cursor/skills/system-study-packet/` |
 | **8-principle-study** | Personal skills + local mirror | `~/.cursor/skills/8-principle-study/` |
 | **laravel-specialist** | Personal skills + local mirror | `~/.cursor/skills/laravel-specialist/` |
@@ -151,6 +153,10 @@ Use superpowers: TDD for the next task.
 
 ```text
 Use caveman: talk like caveman for the rest of this session.
+```
+
+```text
+Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
 ```
 
 ## Reference links

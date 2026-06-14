@@ -1,97 +1,132 @@
-# GitHub UI resource index (for real-world frontends)
+# UI resources — **AI picks for you**
 
-You asked for **GitHub `.md` lists** (like [Top-100-stars](https://github.com/EvanLi/Github-Ranking/blob/master/Top100/Top-100-stars.md)) that point to **Dribbble, Unsplash, UI kits**, etc. — so agents stop shipping gray Breeze defaults.
+You do **not** need to browse Dribbble or GitHub lists manually.  
+**You say:** project path + app type. **Agent picks:** references, component kit, photos, writes `DESIGN.md`, then polishes UI.
 
-**Use with:** [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) · [`guides/ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md)
-
----
-
-## Pick by need (start here)
-
-| You need… | Open this GitHub README (curated `.md`) |
-|-----------|----------------------------------------|
-| **Everything for devs** (photos, icons, Tailwind, inspiration) | [bradtraversy/design-resources-for-developers](https://github.com/bradtraversy/design-resources-for-developers) |
-| **Dribbble, Behance, UX tools** | [gztchan/awesome-design](https://github.com/gztchan/awesome-design) (also [snc/awesome-design](https://github.com/snc/awesome-design)) |
-| **DESIGN.md for AI agents** (brand-like UI from one file) | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) |
-| **Design tools/plugins** | [goabstract/Awesome-Design-Tools](https://github.com/goabstract/Awesome-Design-Tools) |
-| **Find more awesome lists** | [sindresorhus/awesome](https://github.com/sindresorhus/awesome) → search “design” |
-| **Ranked repos by stars** | [EvanLi/Github-Ranking Top-100-stars.md](https://github.com/EvanLi/Github-Ranking/blob/master/Top100/Top-100-stars.md) · [gitstar-ranking.com](https://gitstar-ranking.com/) |
-| **Laravel e-commerce UI process** (already in this repo) | [`docs/guides/ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md) |
+**Also read:** [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) · [`ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md) · Agent skill **laravel-ui-phase** (`.cursor/skills/laravel-ui-phase/` or `.agents/skills/laravel-ui-phase/`)
 
 ---
 
-## Fast picks (from bradtraversy list)
-
-| Type | Site | Listed in |
-|------|------|-----------|
-| Inspiration | [Dribbble](https://dribbble.com/) | design-resources § Design Inspiration |
-| Inspiration | [Behance](https://www.behance.net/) | same |
-| Inspiration | [Awwwards](https://www.awwwards.com/) | same |
-| Marketplace / SaaS layouts | [SaaS Landing Page](https://saaslandingpage.com/) | same |
-| Stock photos | [Unsplash](https://unsplash.com/) | design-resources § Stock Photos |
-| Stock photos | [Pexels](https://www.pexels.com/) | same |
-| Tailwind components | [daisyUI](https://daisyui.com/) · [Flowbite](https://flowbite.com) | design-resources § UI Components |
-| React/Livewire-style kits | [shadcn/ui](https://github.com/shadcn-ui/ui) | GitHub Top 100 (~116k ★) — patterns even for Blade |
-
-**Rule from our runbook:** Dribbble = **mood + layout rules**, not pixel-perfect checkout clone. See [`ui-adoption-workflow`](guides/ui-adoption-workflow/PRO-DEV-RUNBOOK.md).
-
----
-
-## Top GitHub stars relevant to UI (EvanLi ranking)
-
-| Repo | Why it matters |
-|------|----------------|
-| [shadcn-ui/ui](https://github.com/shadcn-ui/ui) | Component quality bar; copy patterns into Blade/Tailwind |
-| [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | Index of all awesome lists |
-| [agency-agents](https://github.com/msitarzewski/agency-agents) | Includes design agents (whimsy, UI) — already mirrored under `docs/agency-agents/` |
-
-Full table: [Top-100-stars.md](https://github.com/EvanLi/Github-Ranking/blob/master/Top100/Top-100-stars.md)
-
----
-
-## Agent workflow (3 steps)
-
-```text
-1. Pick reference  →  Dribbble shot OR SaaS Landing Page OR awesome-design-md DESIGN.md
-2. Write tokens    →  examples/<app>/docs/DESIGN.md  (colors, type, card style)
-3. Polish UI       →  impeccable + design-taste-frontend; tests stay green
-```
-
-**Paste to agent:**
+## One prompt (copy this only)
 
 ```markdown
-Read docs/GITHUB_UI_RESOURCE_INDEX.md and docs/FRONTEND_REAL_WORLD_GATE.md.
+AI pick my UI — you choose all references; I don't know UX/UI.
 
-Project: examples/marketplace-v2
-Reference: [paste Dribbble / saaslandingpage / VoltAgent DESIGN.md URL]
-Stock images: Unsplash only for product placeholders (cite search terms in commit msg).
+Project path: [examples/marketplace-v2 | D:\phillipinsurancekh\...]
+App type: [multi-vendor marketplace | admin dashboard | landing | insurance portal | Next.js app | other one line]
+Screens to polish: [catalog + PDP | whole storefront | one page name]
+Speed: [2 product UI — default | 3 brand polish]
 
-Use impeccable + design-taste-frontend. Create docs/DESIGN.md first.
-Redesign catalog + PDP only. php artisan test must stay green.
+Follow docs/GITHUB_UI_RESOURCE_INDEX.md § Agent auto-pick.
+
+Do:
+1. Pick inspiration + component kit + stock photo source (document choices in DESIGN.md with URLs)
+2. Write examples/.../docs/DESIGN.md (tokens, typography, cards, do-not-copy-checkout rules)
+3. Use impeccable + design-taste-frontend — audit existing pages first
+4. Implement polish — same routes, same business logic
+5. Run project test command; report before/after in 3 bullets
+
+I will not paste Dribbble links — you find suitable public references.
 ```
 
 ---
 
-## What lives only in laravel13.x (not on GitHub)
+## Agent auto-pick (rules for the AI)
 
-| Doc | Purpose |
-|-----|---------|
-| [`ui-adoption-workflow/`](guides/ui-adoption-workflow/README.md) | License, port map, anti-patterns, PR checklist |
-| [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md) | Functional MVP vs PRD UI |
-| [`ZERO-MISS` pocket card](ZERO-MISS-97-TASK-ROADMAP-PROMPT.md#pocket-card-remember-this) | When to run UI phase |
+When the user does **not** supply references, the agent **must** choose and **document** in `DESIGN.md`:
+
+### Step 1 — Classify app
+
+| App type | Default visual direction |
+|----------|---------------------------|
+| Multi-vendor marketplace | Clean commerce: strong product grid, trust cues, not gray Breeze |
+| Single-vendor e-commerce | Catalog + cart like modern DTC shop |
+| Admin / Filament | Keep Filament; polish customer-facing only unless asked |
+| Insurance / B2B portal | Calm, trustworthy, dense forms OK, clear steps |
+| Landing / marketing | One hero, one CTA, editorial type |
+| Next.js / React SPA | shadcn-style patterns or project’s existing component lib |
+
+### Step 2 — Pick kit (match stack)
+
+| Stack in repo | Agent picks (default) |
+|---------------|------------------------|
+| Laravel + Tailwind (Breeze) | **daisyUI** or **Flowbite** patterns ported to Blade — not raw gray cards |
+| Laravel + Filament | Filament theme tokens + polished Blade/Livewire **storefront** pages |
+| Vue in Laravel | Flowbite Vue or existing project components |
+| Next.js + Tailwind | **shadcn/ui** patterns if compatible; else Flowbite |
+| Unknown | Read `package.json` / `composer.json` first |
+
+### Step 3 — Pick inspiration (agent searches, user does not)
+
+Use **public browse** (web search or fetch), prefer:
+
+| Need | Where agent looks |
+|------|-------------------|
+| Marketplace / shop layout | [SaaS Landing Page](https://saaslandingpage.com/) · [Land-book](https://land-book.com/) · “multi vendor marketplace UI” |
+| Product grid mood | [Dribbble](https://dribbble.com/search/marketplace) search terms: `marketplace`, `ecommerce grid`, `product catalog` |
+| Trust / checkout feel | Real sites (Etsy/Shopify **patterns only** — do not clone branding) |
+| DESIGN.md template | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) — pick closest **e-commerce / SaaS** file |
+| Deep link lists | [bradtraversy/design-resources-for-developers](https://github.com/bradtraversy/design-resources-for-developers) |
+
+**Record in DESIGN.md:** 2–3 inspiration URLs + what was borrowed (spacing, card, nav — not logos).
+
+### Step 4 — Stock images
+
+| Use | Source |
+|-----|--------|
+| Product placeholders | [Unsplash](https://unsplash.com/) (search terms in DESIGN.md) |
+| Avatars / empty states | [undraw.co](https://undraw.co/) or [humaaans](https://www.humaaans.com/) |
+
+**Avoid:** random Google images; Pexels if Unsplash blocked (per agency runbook).
+
+### Step 5 — Anti-patterns (always)
+
+From [`ui-adoption-workflow`](guides/ui-adoption-workflow/PRO-DEV-RUNBOOK.md):
+
+- No full Dribbble pixel clone on **checkout / payment**
+- No new fonts every session — pick **one** pair in DESIGN.md
+- No skill roulette — this session: `impeccable` + `design-taste-frontend` only
+- Tests / webhooks / auth logic **unchanged**
 
 ---
 
-## Refresh this index
+## Default pick: `marketplace-v2`
 
-Re-run discovery occasionally:
+If user says marketplace and path is `examples/marketplace-v2`:
 
-```bash
-# Top starred repos (filter design-related locally)
-curl -sL "https://raw.githubusercontent.com/EvanLi/Github-Ranking/master/Top100/Top-100-stars.md" | rg -i "design|ui|tailwind|shadcn"
+| Choice | Agent default |
+|--------|----------------|
+| Kit | daisyUI-style cards + Tailwind (Blade, no new npm major unless approved) |
+| Inspiration | SaaS/marketplace catalog patterns; Dribbble search “ecommerce product grid” |
+| Photos | Unsplash: `product`, `minimal product photography` |
+| Pages first | `catalog/index`, product detail, cart/checkout **shell** only |
+| Proof | `php artisan test` green + note visual changes in `docs/NEXT_SESSION.md` |
 
-# Dev design mega-list (sections change — link to repo, don't copy whole file)
-# https://github.com/bradtraversy/design-resources-for-developers
-```
+---
 
-Bookmark the **bradtraversy** repo for day-to-day; bookmark **awesome-design-md** when you want agent-readable DESIGN.md templates.
+## GitHub `.md` lists (agent uses internally — you skip)
+
+| List | When agent opens it |
+|------|-------------------|
+| [bradtraversy/design-resources-for-developers](https://github.com/bradtraversy/design-resources-for-developers) | Icons, fonts, Tailwind blocks, Dribbble section |
+| [gztchan/awesome-design](https://github.com/gztchan/awesome-design) | Extra UX tools |
+| [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) | Starting DESIGN.md |
+| [EvanLi Top-100-stars](https://github.com/EvanLi/Github-Ranking/blob/master/Top100/Top-100-stars.md) | Discover high-star UI repos (e.g. shadcn) |
+
+---
+
+## Speed tiers (agent sets expectations)
+
+| Tier | What user gets | Time |
+|------|----------------|------|
+| **1** | Fix worst page only | 1 session |
+| **2** | DESIGN.md + catalog + PDP (default) | 1–2 sessions |
+| **3** | Full storefront + mobile pass | Multi-session OpenSpec |
+
+Functional MVP (tests only) is **separate** — see [`FRONTEND_REAL_WORLD_GATE.md`](FRONTEND_REAL_WORLD_GATE.md).
+
+---
+
+## Refresh
+
+Agent may re-check [gitstar-ranking.com](https://gitstar-ranking.com/) or Top-100-stars for new UI repos; update **§ Default pick** if a better default kit appears. User does not need to run this.

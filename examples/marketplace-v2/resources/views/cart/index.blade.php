@@ -1,52 +1,57 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Cart</h2>
-    </x-slot>
-
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            @if (session('status'))
-                <div class="p-4 bg-green-100 text-green-800 rounded">{{ session('status') }}</div>
-            @endif
+    <x-store-page title="Your cart" max="max-w-4xl">
+        <x-flash-status class="mt-6" />
 
             @if ($lines->isEmpty())
-                <p class="bg-white shadow rounded p-6">Your cart is empty. <a href="{{ route('catalog.index') }}" class="underline">Browse products</a></p>
+                <div class="store-card mt-6 p-10 text-center">
+                    <p class="text-lg font-medium text-stone-900">Your cart is empty</p>
+                    <p class="mt-1 text-stone-500">Browse the catalog and add a variant to get started.</p>
+                    <a href="{{ route('catalog.index') }}" class="btn-brand mt-6 inline-flex">Browse products</a>
+                </div>
             @else
-                <div class="bg-white shadow rounded p-6 space-y-4">
+                <div class="store-card mt-6 divide-y divide-stone-100">
                     @foreach ($lines as $line)
-                        <div class="flex justify-between items-center border-b pb-3">
+                        <div class="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
                             <div>
-                                <p class="font-medium">{{ $line->variant->product->name }} — {{ $line->variant->name }}</p>
-                                <p class="text-sm text-gray-500">{{ $line->variant->product->vendor->store_name }}</p>
+                                <p class="font-semibold text-stone-900">{{ $line->variant->product->name }} — {{ $line->variant->name }}</p>
+                                <p class="text-sm text-stone-500">{{ $line->variant->product->vendor->store_name }}</p>
                             </div>
-                            <form method="POST" action="{{ route('cart.update', $line->variant) }}" class="flex items-center gap-2">
+                            <form method="POST" action="{{ route('cart.update', $line->variant) }}" class="flex items-center gap-3">
                                 @csrf
                                 @method('PATCH')
-                                <input type="number" name="quantity" value="{{ $line->quantity }}" min="0" class="border rounded w-20">
-                                <button class="text-sm underline">Update</button>
+                                <input type="number" name="quantity" value="{{ $line->quantity }}" min="0" class="store-input w-24">
+                                <button type="submit" class="text-sm font-medium text-brand-600 hover:text-brand-700">Update</button>
                             </form>
-                            <p class="font-medium">${{ number_format($line->lineTotalCents() / 100, 2) }}</p>
+                            <p class="font-semibold text-stone-900">${{ number_format($line->lineTotalCents() / 100, 2) }}</p>
                         </div>
                     @endforeach
+                </div>
 
-                    <div class="pt-4 space-y-2">
-                        <h3 class="font-semibold">By vendor</h3>
+                <div class="store-card mt-6 p-6">
+                    <h2 class="font-semibold text-stone-900">Order summary</h2>
+                    <div class="mt-4 space-y-2 text-sm text-stone-600">
                         @foreach ($vendorSubtotals as $subtotal)
-                            <p class="text-sm">{{ $subtotal['vendor_name'] }}: ${{ number_format($subtotal['subtotal_cents'] / 100, 2) }}</p>
+                            <div class="flex justify-between">
+                                <span>{{ $subtotal['vendor_name'] }}</span>
+                                <span>${{ number_format($subtotal['subtotal_cents'] / 100, 2) }}</span>
+                            </div>
                         @endforeach
-                        <p class="text-lg font-bold">Total: ${{ number_format($totalCents / 100, 2) }}</p>
                     </div>
+                    <p class="mt-4 border-t border-stone-100 pt-4 text-xl font-bold text-stone-900">
+                        Total: ${{ number_format($totalCents / 100, 2) }}
+                    </p>
 
                     @auth
-                        <form method="POST" action="{{ route('checkout.store') }}">
+                        <form method="POST" action="{{ route('checkout.store') }}" class="mt-6">
                             @csrf
-                            <button class="px-4 py-2 bg-gray-800 text-white rounded">Checkout</button>
+                            <button type="submit" class="btn-brand">Checkout</button>
                         </form>
                     @else
-                        <p class="text-sm"><a href="{{ route('login') }}" class="underline">Log in</a> to checkout.</p>
+                        <p class="mt-6 text-sm text-stone-600">
+                            <a href="{{ route('login') }}" class="font-medium text-brand-600 hover:text-brand-700">Log in</a> to checkout.
+                        </p>
                     @endauth
                 </div>
             @endif
-        </div>
-    </div>
+    </x-store-page>
 </x-app-layout>

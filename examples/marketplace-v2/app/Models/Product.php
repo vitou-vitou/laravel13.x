@@ -76,4 +76,25 @@ class Product extends Model
     {
         return $this->status === ProductStatus::Active;
     }
+
+    /**
+     * Storefront image: uploaded file or deterministic Unsplash placeholder.
+     */
+    public function displayImageUrl(): string
+    {
+        if ($this->image_path) {
+            return asset('storage/'.$this->image_path);
+        }
+
+        $placeholders = [
+            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1572635196237-14bfb6538315?w=800&q=80&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=800&q=80&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=80&auto=format&fit=crop',
+        ];
+
+        return $placeholders[$this->id % count($placeholders)];
+    }
 }

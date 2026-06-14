@@ -12,7 +12,16 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['"Plus Jakarta Sans"', 'Figtree', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                brand: {
+                    50: '#ecfdf5',
+                    100: '#d1fae5',
+                    500: '#10b981',
+                    600: '#059669',
+                    700: '#047857',
+                },
             },
         },
     },

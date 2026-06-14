@@ -3,9 +3,17 @@
 > **Roadmap:** [`../../../docs/marketplace-v1-97-task-roadmap.md`](../../../docs/marketplace-v1-97-task-roadmap.md)  
 > **Parent:** [`../../../docs/SESSION_STATE.md`](../../../docs/SESSION_STATE.md)
 
-**Updated:** 2026-06-14 | **Tests:** 38/38 | **MVP + ship phase complete**
+**Updated:** 2026-06-14 | **Tests:** 39/39 | **MVP + storefront UI pass**
 
 ---
+
+## UI (2026-06-14) — full pass
+
+- **`docs/DESIGN.md`** — tokens + shared Blade components (`store-page`, `flash-status`, `admin-subnav`)
+- **All customer/vendor/admin Blade pages** aligned to DESIGN.md (not only catalog)
+- Auth uses branded guest layout; Breeze components use `btn-brand` / `store-input`
+- **39/39 tests** — behavior unchanged
+- Refresh **http://marketplace-v2.test**
 
 ## Done
 

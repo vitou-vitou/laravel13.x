@@ -1,23 +1,24 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            <div class="bg-white shadow-sm sm:rounded-lg p-6 text-gray-900 space-y-2">
-                <p>You're logged in as <strong>{{ auth()->user()->name }}</strong> ({{ auth()->user()->role->value }}).</p>
-                <p><a href="{{ route('catalog.index') }}" class="underline">Browse shop</a> · <a href="{{ route('cart.index') }}" class="underline">Cart</a> · <a href="{{ route('orders.index') }}" class="underline">Orders</a></p>
-                @if (!auth()->user()->isVendor())
-                    <p><a href="{{ route('vendor.apply') }}" class="underline">Apply to sell</a></p>
+    <x-store-page title="Dashboard">
+        <div class="store-panel mt-6 space-y-4">
+            <p class="text-stone-700">
+                You're logged in as <strong>{{ auth()->user()->name }}</strong>
+                <span class="text-stone-500">({{ auth()->user()->role->value }})</span>
+            </p>
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route('catalog.index') }}" class="admin-subnav-link">Shop</a>
+                <a href="{{ route('cart.index') }}" class="admin-subnav-link">Cart</a>
+                <a href="{{ route('orders.index') }}" class="admin-subnav-link">Orders</a>
+                @if (! auth()->user()->isVendor())
+                    <a href="{{ route('vendor.apply') }}" class="admin-subnav-link">Apply to sell</a>
                 @endif
                 @if (auth()->user()->isVendor() && auth()->user()->vendor)
-                    <p><a href="{{ route('vendor.dashboard') }}" class="underline">Vendor dashboard</a></p>
+                    <a href="{{ route('vendor.dashboard') }}" class="admin-subnav-link">Vendor dashboard</a>
                 @endif
                 @if (auth()->user()->isAdmin())
-                    <p><a href="{{ route('admin.vendors.index') }}" class="underline">Admin: vendors</a></p>
+                    <a href="{{ route('admin.dashboard') }}" class="admin-subnav-link">Admin</a>
                 @endif
             </div>
         </div>
-    </div>
+    </x-store-page>
 </x-app-layout>

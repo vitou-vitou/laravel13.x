@@ -18,6 +18,8 @@
 | `laravel-specialist/` | Laravel 10+ models, APIs, queues, Livewire, tests | Laravel, Eloquent, Sanctum, Pest |
 | `domain-publish-pipeline/` | Domain research → study → calendar → 3am schedule → report | topic to daily post, Angkor, TikTok schedule, content factory |
 | `impeccable/` | Frontend UI design, polish, audit | design, polish, `$impeccable` |
+| `laravel-ui-phase/` | Post-MVP UI for `examples/*` (`AI pick my UI`) | AI pick my UI, Breeze gray, polish storefront |
+| `design-taste-frontend/` | Anti-slop (claude-skills pack in `.agents/skills/`) | landing redesign, anti-slop catalog |
 
 **Do not** write to `~/.cursor/skills-cursor/` (Cursor built-ins only).
 
@@ -81,6 +83,7 @@ Copy of personal skills for backup and new machines:
 ├── 8-principle-study/
 ├── laravel-specialist/
 ├── domain-publish-pipeline/
+├── laravel-ui-phase/
 └── impeccable/
 ```
 
@@ -189,6 +192,12 @@ POST-MVP (laravel13.x repo)
   superpowers: same TDD loop during apply
   caveman (optional): same voice layer as greenfield
 
+UI PHASE (examples/* — after tests green)
+  laravel-ui-phase: read docs/GITHUB_UI_RESOURCE_INDEX.md → write docs/DESIGN.md
+  impeccable + design-taste-frontend: audit/polish Blade (same routes)
+  superpowers: verification-before-completion (php artisan test)
+  User says: "AI pick my UI" or "polish all pages"
+
 SESSION RESUME
   User says "continue" → read docs/SESSION_STATE.md
 ```
@@ -227,7 +236,11 @@ Use superpowers: implement the next task with TDD.
 ```
 
 ```text
-Use impeccable: audit the checkout page UX in kindly-e-commerce.
+Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages, keep tests green.
+```
+
+```text
+Use impeccable: audit checkout UX in examples/kindly-e-commerce-1122.
 ```
 
 ```text

@@ -13,7 +13,7 @@
 | **Typical output** | Breeze layout, gray-100, simple grid | Typography, brand, imagery, empty states, mobile |
 | **When** | Waves 1–10 / 97 tasks | **Separate phase** after MVP (or explicit from day 1) |
 
-**marketplace-v2:** 38 tests, checkout/Stripe/vendor/admin **work** — `spec.md` was never filled with visual requirements; roadmap tasks say `frontend` meaning **pages exist**, not **polished shop**.
+**marketplace-v2:** 39 tests, checkout/Stripe/vendor/admin **work** — **UI phase complete** (see `examples/marketplace-v2/docs/DESIGN.md`). Functional spec had no visual requirements; roadmap `frontend` tasks meant pages exist; polish is now a separate completed phase.
 
 **Contrast:** `clone-the-fb-nav` has `docs/DESIGN.md` + reference PNG → closer to PRD because **design was in scope**.
 
@@ -24,7 +24,7 @@
 1. **97-task roadmaps** — backend, auth, payments, tenant scope first.  
 2. **Superpowers TDD** — asserts behavior, not pixels.  
 3. **Spec-Kit stub** — `spec.md` often TBD; no screen list, no reference URL.  
-4. **No design skill in pocket card** — agents default to Laravel Breeze/Tailwind boilerplate.  
+4. **Design skill** — use **laravel-ui-phase** + [`GITHUB_UI_RESOURCE_INDEX.md`](GITHUB_UI_RESOURCE_INDEX.md); say **“AI pick my UI”** (agent picks references; you don’t browse Dribbble).  
 5. **“Ship” task** — test suite green, not “matches mockup”.
 
 ---

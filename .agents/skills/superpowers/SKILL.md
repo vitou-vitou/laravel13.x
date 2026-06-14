@@ -41,6 +41,7 @@ If a sub-skill might apply (even 1% chance), **read its reference file before ac
 | 2+ independent tasks, no shared state | [reference/dispatching-parallel-agents.md](reference/dispatching-parallel-agents.md) |
 | Major step complete, need review | [reference/requesting-code-review.md](reference/requesting-code-review.md) |
 | Received review feedback | [reference/receiving-code-review.md](reference/receiving-code-review.md) |
+| UI polish after MVP (laravel13.x `examples/*`) | **laravel-ui-phase** + **impeccable** + **design-taste-frontend**; read `docs/GITHUB_UI_RESOURCE_INDEX.md` |
 | Isolated feature workspace | [reference/using-git-worktrees.md](reference/using-git-worktrees.md) |
 | All tests pass, decide merge/PR/cleanup | [reference/finishing-a-development-branch.md](reference/finishing-a-development-branch.md) |
 | Authoring or editing skills | [reference/writing-skills.md](reference/writing-skills.md) |
@@ -78,6 +79,8 @@ During Spec-Kit implement or OpenSpec apply:
 5. `subagent-driven-development` for parallel independent tasks
 
 PHP tests (Windows Herd): `/c/Users/vitou/.config/herd/bin/php.bat artisan test` from each `examples/*` directory.
+
+**UI phase (optional, after tests green):** **laravel-ui-phase** → DESIGN.md → impeccable polish → verify tests again. User trigger: **AI pick my UI**.
 
 ---
 

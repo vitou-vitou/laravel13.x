@@ -1,51 +1,47 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Order #{{ $order->id }}</h2>
-    </x-slot>
+    <x-store-page :title="'Order #'.$order->id" max="max-w-4xl">
+        <x-flash-status class="mt-6" />
 
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
-            @if (session('status'))
-                <div class="p-4 bg-green-100 text-green-800 rounded">{{ session('status') }}</div>
-            @endif
+        <div class="store-panel mt-6 space-y-6">
+            <div class="flex flex-wrap gap-4 text-sm">
+                <p>Status: <span class="font-semibold text-stone-900">{{ $order->status->value }}</span></p>
+                <p>Total: <span class="font-semibold text-stone-900">{{ $order->formattedTotal() }}</span></p>
+            </div>
 
-            <div class="bg-white shadow rounded p-6 space-y-4">
-                <p>Status: <strong>{{ $order->status->value }}</strong></p>
-                <p>Total: <strong>{{ $order->formattedTotal() }}</strong></p>
-
-                @foreach ($order->groups as $group)
-                    <div class="border rounded p-4 space-y-2">
-                        <p class="font-medium">{{ $group->vendor->store_name }}</p>
-                        <p class="text-sm text-gray-500">Group status: {{ $group->status->value }}</p>
+            @foreach ($order->groups as $group)
+                <div class="rounded-xl border border-stone-100 bg-stone-50/50 p-4 space-y-3">
+                    <div>
+                        <p class="font-semibold text-stone-900">{{ $group->vendor->store_name }}</p>
+                        <p class="text-sm text-stone-500">Group status: {{ $group->status->value }}</p>
                         @if ($group->tracking_number)
-                            <p class="text-sm">Tracking: {{ $group->tracking_number }}</p>
-                        @endif
-                        <ul class="mt-2 text-sm">
-                            @foreach ($group->lines as $line)
-                                <li class="flex justify-between gap-4">
-                                    <span>{{ $line->product_name_snapshot }} ({{ $line->variant_name_snapshot }}) × {{ $line->quantity }}</span>
-                                    @if ($order->isPaid() && $line->variant)
-                                        <a href="{{ route('reviews.create', [$order, $line->variant->product_id]) }}" class="underline text-xs">Review</a>
-                                    @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                        @if ($order->isPaid() && ! $group->dispute && in_array($group->status->value, ['shipped', 'delivered', 'completed'], true))
-                            <form method="POST" action="{{ route('disputes.store', $group) }}" class="mt-2 space-y-2">
-                                @csrf
-                                <textarea name="reason" rows="2" class="w-full border rounded text-sm" placeholder="Describe the issue" required></textarea>
-                                <button class="text-sm underline text-red-700">File dispute</button>
-                            </form>
-                        @elseif ($group->dispute)
-                            <a href="{{ route('disputes.show', $group->dispute) }}" class="text-sm underline">View dispute</a>
+                            <p class="text-sm text-stone-600">Tracking: {{ $group->tracking_number }}</p>
                         @endif
                     </div>
-                @endforeach
+                    <ul class="space-y-2 text-sm">
+                        @foreach ($group->lines as $line)
+                            <li class="flex flex-wrap items-center justify-between gap-2">
+                                <span class="text-stone-700">{{ $line->product_name_snapshot }} ({{ $line->variant_name_snapshot }}) × {{ $line->quantity }}</span>
+                                @if ($order->isPaid() && $line->variant)
+                                    <a href="{{ route('reviews.create', [$order, $line->variant->product_id]) }}" class="link-brand text-xs">Review</a>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                    @if ($order->isPaid() && ! $group->dispute && in_array($group->status->value, ['shipped', 'delivered', 'completed'], true))
+                        <form method="POST" action="{{ route('disputes.store', $group) }}" class="space-y-2 border-t border-stone-200 pt-3">
+                            @csrf
+                            <textarea name="reason" rows="2" class="store-input text-sm" placeholder="Describe the issue" required></textarea>
+                            <button type="submit" class="text-sm font-medium text-red-600 hover:text-red-700">File dispute</button>
+                        </form>
+                    @elseif ($group->dispute)
+                        <a href="{{ route('disputes.show', $group->dispute) }}" class="link-brand text-sm">View dispute →</a>
+                    @endif
+                </div>
+            @endforeach
 
-                @if ($order->isPending())
-                    <p class="text-sm text-gray-600">Complete payment via Stripe checkout. If you already paid, refresh in a moment.</p>
-                @endif
-            </div>
+            @if ($order->isPending())
+                <p class="text-sm text-stone-600">Complete payment via Stripe checkout. If you already paid, refresh in a moment.</p>
+            @endif
         </div>
-    </div>
+    </x-store-page>
 </x-app-layout>

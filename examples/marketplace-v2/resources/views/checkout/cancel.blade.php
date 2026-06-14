@@ -1,14 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Checkout cancelled</h2>
-    </x-slot>
-
-    <div class="py-8">
-        <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow rounded p-6 space-y-4">
-                <p class="text-sm text-gray-600">Payment for order #{{ $order->id }} was not completed.</p>
-                <p><a href="{{ route('orders.show', $order) }}" class="text-sm underline">View order</a></p>
+    <x-store-page title="Checkout cancelled" max="max-w-xl">
+        <div class="store-panel mt-6 space-y-4">
+            <p class="text-stone-600">Payment for order #{{ $order->id }} was not completed.</p>
+            <div class="flex flex-wrap gap-3">
+                <a href="{{ route('orders.show', $order) }}" class="btn-brand">View order</a>
+                <a href="{{ route('cart.index') }}" class="btn-brand-outline">Back to cart</a>
             </div>
         </div>
-    </div>
+    </x-store-page>
 </x-app-layout>
