@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# OAuth 403 access_denied: app in Testing mode — add your Gmail as test user.
+set -euo pipefail
+
+EMAIL="${1:-pakvitou168@gmail.com}"
+
+cat <<EOF
+Error 403: access_denied — "${EMAIL}" is not a test user.
+
+FIX (Google Cloud Console, ~1 min):
+
+1. Open OAuth consent screen:
+   https://console.cloud.google.com/apis/credentials/consent
+
+2. Scroll to **Test users** → **Add users**
+
+3. Add: ${EMAIL}
+
+4. Save
+
+5. Retry Gmail login:
+   ./bin/gws-auth-login
+
+Note: Publishing status stays "Testing" — that's fine for personal use.
+      Only listed test users can approve Gmail read access.
+
+If Gmail API scope shows "unverified": still OK for test users.
+Enable Gmail API if needed:
+   https://console.cloud.google.com/apis/library/gmail.googleapis.com
+EOF
+
+cmd.exe //c start "" "https://console.cloud.google.com/apis/credentials/consent" 2>/dev/null || true

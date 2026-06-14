@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Enter TikTok 6-digit code on an open agent-browser session (or reopen signup).
+set -euo pipefail
+
+CODE="${1:-${TIKTOK_CODE:-}}"
+[[ -n "$CODE" ]] || { echo "Usage: ./bin/tiktok-signup-enter-code 123456"; exit 1; }
+
+if ! command -v agent-browser >/dev/null 2>&1; then
+  echo "agent-browser not installed" >&2
+  exit 1
+fi
+
+ab() { agent-browser "$@"; }
+
+ab snapshot -i >/tmp/tiktok-snap.txt
+code_ref="$(grep 'textbox "Enter 6-digit code"' /tmp/tiktok-snap.txt | grep -oE 'ref=e[0-9]+' | head -1 | cut -d= -f2)"
+next_ref="$(grep 'button "Next"' /tmp/tiktok-snap.txt | grep -oE 'ref=e[0-9]+' | head -1 | cut -d= -f2)"
+
+[[ -n "$code_ref" ]] || { echo "Code field not found — run tiktok-signup-run first or open signup page." >&2; exit 1; }
+
+ab fill "@$code_ref" "$CODE"
+ab wait 500
+ab click "@$next_ref"
+ab wait 2000
+echo "Code entered, Next clicked."

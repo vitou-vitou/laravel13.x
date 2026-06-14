@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursor IDE — Study Packet (Print)</title>
+<style>
+  *{box-sizing:border-box}
+  html{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+  body{margin:0;background:#ffffff;color:#1a1d24;
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px 80px}
+  a{color:#2a4bd0;text-decoration:none}
+  header.title{text-align:center;padding:40px 20px 26px;border-bottom:2px solid #c7ccd6;margin-bottom:8px}
+  header.title h1{font-size:36px;margin:0 0 6px;color:#10131a;letter-spacing:-.5px}
+  header.title .sub{color:#5a6270;font-size:16px}
+  header.title .method{display:inline-block;margin-top:14px;font-size:12.5px;color:#0a6b56;
+    border:1px solid #c7ccd6;border-radius:999px;padding:5px 13px;background:#f3f6fb}
+  h2.step{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#0a6b56;margin:42px 0 4px}
+  h2.principle{font-size:25px;margin:8px 0 4px;color:#10131a;letter-spacing:-.3px;break-after:avoid}
+  h2.principle .num{display:block;color:#2a4bd0;font-size:12.5px;letter-spacing:2px;
+    text-transform:uppercase;margin-bottom:5px}
+  h3{font-size:18px;margin:22px 0 4px;color:#10131a;break-after:avoid}
+  h4{font-size:15px;margin:16px 0 3px;color:#222733}
+  p{margin:7px 0}
+  .lead{color:#4a525f;font-size:16px}
+  section{border-top:1px solid #e4e7ee;margin-top:14px;padding-top:6px}
+  .callout{background:#f4f7fb;border:1px solid #d4d9e3;border-left:4px solid #2a4bd0;
+    border-radius:9px;padding:12px 16px;margin:15px 0;break-inside:avoid}
+  .callout.take{border-left-color:#0a6b56}
+  .callout.warn{border-left-color:#b8860b}
+  .callout.diagram{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    white-space:pre;overflow-x:auto;font-size:12px;line-height:1.45;color:#1a1d24}
+  .callout h4{margin-top:0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{border:1px solid #d4d9e3;padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:#e9edf4;color:#10131a;font-weight:600}
+  tr{break-inside:avoid}
+  tr:nth-child(even) td{background:#f6f8fc}
+  code{background:#eef1f6;border:1px solid #d4d9e3;border-radius:5px;padding:1px 5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:#0a5a48}
+  .chip{display:inline-block;background:#eef1f6;border:1px solid #d4d9e3;border-radius:999px;
+    padding:2px 9px;font-size:11.5px;color:#4a525f;margin:2px 4px 2px 0}
+  .qa{border:1px solid #d4d9e3;border-radius:9px;margin:10px 0;overflow:hidden;break-inside:avoid}
+  .qa .q{background:#f4f7fb;padding:9px 14px;font-weight:600;color:#10131a}
+  .qa .a{padding:9px 14px;color:#1d3a31}
+  .qa .a::before{content:"A. ";font-weight:600;color:#0a6b56}
+  .tick{display:inline-block;width:14px;height:14px;border:1px solid #9aa3b2;border-radius:3px;vertical-align:middle}
+  ol li,ul li{margin:4px 0}
+  footer{color:#5a6270;font-size:12.5px;text-align:center;padding:34px 20px 0;border-top:1px solid #d4d9e3;margin-top:30px}
+  @page{margin:14mm}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="title">
+  <h1>Cursor IDE</h1>
+  <div class="sub">A Structured Study Packet &middot; for the power user brushing up</div>
+  <div class="method">Built with an 8-principle learning method &middot; print / read edition</div>
+</header>
+
+<section style="border-top:none">
+  <h2 class="step">Front matter</h2>
+  <h3>How to use this packet</h3>
+  <p>This is a learning system, not a feature list. Work it in two passes.
+  <strong>Step 1 (Principles 1–4)</strong> rebuilds a correct mental model of how Cursor works — its
+  primitives, context engine, and agent loop. <strong>Step 2 (Principles 5–8)</strong> makes it stick
+  through retrieval, spacing, mixing, and overlearning. The retention is in Step 2.</p>
+  <p>Content verified mid-2026 (Cursor 3.x, Composer 2.5, Cloud Agents, <code>.cursor/rules/</code>,
+  MCP/hooks/skills, Hobby/Pro/Business/Enterprise pricing). Cursor ships fast — treat exact numbers as
+  "true as of now," concepts as durable.</p>
+  <div class="callout"><h4>The 8 principles at a glance</h4>
+    <strong>Understanding —</strong> 1) Map of the system · 2) Clear explanations · 3) Different media · 4) Short lessons<br>
+    <strong>Automaticity —</strong> 5) Test yourself · 6) Wait to review · 7) Mix it up · 8) Don't stop</div>
+  <div class="callout warn"><h4>The four lenses used throughout</h4>
+    <span class="chip">Solo senior dev — flow &amp; craft</span>
+    <span class="chip">Manager — team standards &amp; review</span>
+    <span class="chip">CEO — cost, security, ROI</span>
+    <span class="chip">Unlimited — extend &amp; orchestrate</span></div>
+</section>
+
+<h2 class="step">Step 1 — Understanding</h2>
+<p class="lead">Goal: a correct, simple mental model — what Cursor is made of and how a request flows through it.</p>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 1</span>A map of the system</h2>
+  <p>Cursor is an <strong>AI-native code editor</strong> — a fork of VS Code by Anysphere that keeps VS
+  Code's extensions, themes, and keybindings, but rebuilds the editing loop around AI. Three layers:
+  <em>interaction primitives</em> (how you talk to it), the <em>context engine</em> (what it knows about
+  your code), and the <em>agent runtime</em> (what it can do on its own).</p>
+  <h4>How a request flows</h4>
+  <table>
+    <tr><th>#</th><th>Stage</th><th>What happens</th></tr>
+    <tr><td>1</td><td>Intent</td><td>You trigger a primitive: Tab, Inline Edit (<code>Ctrl/Cmd+K</code>), Chat (<code>Ctrl/Cmd+L</code>), or Agent/Composer.</td></tr>
+    <tr><td>2</td><td>Context assembly</td><td>Cursor gathers open files, <code>@</code>-mentions, the semantic codebase index, and matching rules.</td></tr>
+    <tr><td>3</td><td>Rules + routing</td><td>Active rules are prepended; the request routes to a model (Composer, Claude, GPT-5, o-series), optionally Max Mode.</td></tr>
+    <tr><td>4</td><td>Generation</td><td>The model proposes edits, an answer, or a multi-step plan.</td></tr>
+    <tr><td>5</td><td>Action (agent only)</td><td>Agent runs terminal commands, reads output, edits files, browses <code>@web</code>, calls MCP tools — looping until done.</td></tr>
+    <tr><td>6</td><td>Review &amp; apply</td><td>You see a diff and accept/reject per hunk.</td></tr>
+  </table>
+  <h4>The components</h4>
+  <table>
+    <tr><th>Component</th><th>What it is</th></tr>
+    <tr><td><strong>Tab</strong></td><td>Predictive autocomplete suggesting multi-line / multi-location edits, not just the next token.</td></tr>
+    <tr><td><strong>Inline Edit</strong> (<code>Ctrl/Cmd+K</code>)</td><td>Natural-language edit on a selection or at the cursor, in place.</td></tr>
+    <tr><td><strong>Chat / Ask</strong> (<code>Ctrl/Cmd+L</code>)</td><td>A read-oriented side conversation about the codebase; doesn't act on its own.</td></tr>
+    <tr><td><strong>Composer / Agent</strong></td><td>Agentic mode: plans and executes multi-file changes with tools (terminal, files, web, MCP).</td></tr>
+    <tr><td><strong>Context engine</strong></td><td><code>@</code>-symbols + the embeddings-based codebase index for semantic retrieval.</td></tr>
+    <tr><td><strong>Rules</strong></td><td><code>.cursor/rules/</code> (and legacy <code>.cursorrules</code>) — persistent instructions injected into context.</td></tr>
+    <tr><td><strong>Extensions</strong> (MCP, hooks, skills)</td><td>Plug external tools, lifecycle automation, and reusable capabilities into the agent.</td></tr>
+    <tr><td><strong>Cloud / Background Agents</strong></td><td>Agents in isolated cloud VMs, parallel across repos, reporting back asynchronously.</td></tr>
+  </table>
+  <div class="callout take"><h4>Map takeaway</h4>Everything in Cursor is one of three things: a
+  <strong>primitive</strong> you trigger, the <strong>context</strong> it assembles, or the
+  <strong>agent loop</strong> it runs.</div>
+</section>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 2</span>Clear, simple explanations</h2>
+  <h3>What makes Cursor different from "VS Code + Copilot"?</h3>
+  <p>Copilot bolts AI onto an editor as a suggestion engine. Cursor rebuilds the editor <em>around</em> an
+  agent: a unified context engine indexes your whole repo, and an agent runtime runs commands and edits
+  many files in a loop. The difference is architectural — Cursor treats the editor as a runtime the agent
+  operates, not a textbox it autocompletes.</p>
+  <h3>What is Tab, really?</h3>
+  <p><strong>Tab</strong> is Cursor's predictive editing model. Beyond completing the current line, it
+  predicts the <em>next edit</em> — often multi-line or jumping to another location implied by your change
+  (e.g. updating a call site after a rename). It's the most-used feature; recent Tab reached very high
+  acceptance (~72%), which is why it feels like the editor reads your intent.</p>
+  <h3>Inline Edit vs Chat vs Agent — when does each fire?</h3>
+  <p><strong>Inline Edit</strong> (<code>Ctrl/Cmd+K</code>) = a surgical in-place change. <strong>Chat/Ask</strong>
+  (<code>Ctrl/Cmd+L</code>) = questions and exploration; reads and explains but doesn't act.
+  <strong>Agent/Composer</strong> = "go do it" multi-file work where the model plans, runs tools, and
+  applies changes. Rule of thumb: <em>Ask to understand, Inline to tweak, Agent to build.</em></p>
+  <h3>How does Cursor know about my codebase?</h3>
+  <p>It builds a <strong>semantic index</strong>: files are chunked and embedded into vectors so the model
+  retrieves code by meaning, not filename. You steer it with <strong><code>@</code>-symbols</strong> —
+  <code>@file</code>, <code>@folder</code>, <code>@code</code>, <code>@docs</code>, <code>@git</code>,
+  <code>@web</code>. Context hygiene is the biggest lever on output quality.</p>
+  <h3>What is the context window, and what is Max Mode?</h3>
+  <p>The <strong>context window</strong> is how much text the model holds at once — by default ~<strong>200k
+  tokens</strong> (~15k lines). <strong>Max Mode</strong> expands that ceiling for large models at higher
+  token cost. Use it for sprawling refactors; skip it for small edits where extra context just adds noise
+  and spend.</p>
+  <h3>What are Rules and why do they matter more than prompts?</h3>
+  <p><strong>Rules</strong> are persistent instructions injected into context on relevant requests. Modern
+  Cursor uses <code>.cursor/rules/</code> — multiple <code>.mdc</code> files loading conditionally:
+  <em>Always</em> (every request), <em>Auto-Attached</em> (when files matching a glob are in context),
+  <em>Agent-Requested</em> (the model pulls it), or <em>Manual</em> (you <code>@</code>-mention it). Legacy
+  single <code>.cursorrules</code> still works, but folder rules keep the system prompt small. Rules beat
+  one-off prompts because they're versioned, shared, and automatic.</p>
+  <h3>What is MCP, and how do hooks and skills extend it?</h3>
+  <p><strong>MCP (Model Context Protocol)</strong> is an open standard connecting the agent to external
+  tools and data (databases, issue trackers, browsers, internal APIs) through a uniform interface.
+  <strong>Hooks</strong> run your own logic at lifecycle points (before/after an edit or command) to gate
+  or shape behaviour. <strong>Skills</strong> are reusable, pinnable capability bundles. Together they turn
+  Cursor into a programmable agent platform — available on Pro and above.</p>
+  <h3>What are Cloud / Background Agents?</h3>
+  <p>A <strong>Cloud Agent</strong> runs in an isolated cloud VM with its own terminal, browser, and file
+  system. It works across multiple repos in parallel and reports results back asynchronously — fire a task
+  and keep working. "Build in Parallel" spawns subagents to tackle pieces concurrently.</p>
+  <h3>How does Cursor cost money — requests, credits, seats?</h3>
+  <p>Tiers: <strong>Hobby</strong> (free; limited Tab + slow requests), <strong>Pro</strong> (~$20/mo;
+  unlimited Tab + a pool of fast requests, then a slow queue), <strong>Business</strong> (~$40/seat/mo;
+  adds SSO, admin controls, zero-data-retention), <strong>Enterprise</strong> (custom). "Fast" requests are
+  prioritised compute; heavy operations (Max Mode, big agent runs) consume more. <em>Tab is cheap and flat;
+  agentic runs and Max Mode are where spend concentrates.</em></p>
+  <div class="callout take"><h4>Explanation takeaway</h4>The one organising idea:
+  <strong>context quality drives everything.</strong> <strong>Common misconception:</strong> that a bigger
+  model or Max Mode fixes bad output — usually the fix is better-scoped context and a good rule, not more
+  tokens.</div>
+</section>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 3</span>Use different media</h2>
+  <h4>One-line summary</h4>
+  <div class="callout">Cursor is a VS Code–based editor rebuilt around an AI agent: a semantic index and
+  <code>@</code>-context feed models that autocomplete (Tab), edit in place, and — in Agent mode — run tools
+  to make multi-file changes, steered by persistent rules and extended by MCP, hooks, skills, and cloud
+  agents.</div>
+  <h4>Diagram — the request loop</h4>
+  <div class="callout diagram">  YOU
+   |  trigger
+   v
+ PRIMITIVE -- Tab . Inline(Ctrl+K) . Chat(Ctrl+L) . Agent
+   |
+   v
+ CONTEXT ENGINE
+   |- @-symbols (file/folder/docs/web/git)
+   |- semantic codebase index  (embeddings)
+   '- RULES  (.cursor/rules/ -> Always | Auto | Requested | Manual)
+   |
+   v
+ MODEL ROUTING -- Composer . Claude . GPT-5 . o-series   [+ Max Mode = bigger window]
+   |
+   v
+ AGENT LOOP (agent only)
+   run cmd -> read output -> edit files -> @web -> MCP tool --+
+        ^________________ repeat until done _________________|
+   |
+   v
+ DIFF -> you accept/reject per hunk
+        (or dispatch a CLOUD AGENT: isolated VM, parallel, async)</div>
+  <h4>Analogy</h4>
+  <div class="callout">A <strong>workshop with a skilled apprentice</strong>. <em>Tab</em> finishes your
+  sentence as you work. <em>Inline Edit</em> hands them one part: "make this fit." <em>Chat</em> asks about
+  the project without letting them touch anything. <em>Agent</em> says "build this shelf" and lets them
+  fetch tools, cut wood, and check their work — while you inspect the result. <em>Rules</em> are the shop's
+  posted standards. <em>MCP</em> gives them keys to the supply room. <em>Cloud agents</em> are a second
+  apprentice working in another room, reporting back.</div>
+  <h4>Comparison table — Cursor vs neighbours</h4>
+  <table>
+    <tr><th>Tool</th><th>Core model</th><th>Best at</th><th>Watch-out</th></tr>
+    <tr><td><strong>Cursor</strong></td><td>AI-native editor (VS Code fork) + agent runtime</td><td>Whole-repo agentic edits with tight review</td><td>Cost concentrates in agent/Max runs</td></tr>
+    <tr><td>GitHub Copilot</td><td>Autocomplete + chat on your editor</td><td>Inline suggestions, broad IDE support</td><td>Less of a unified repo-wide agent loop</td></tr>
+    <tr><td>VS Code (plain)</td><td>Editor; AI via extensions</td><td>Familiarity, ecosystem</td><td>No native agent/context engine</td></tr>
+    <tr><td>CLI agents (e.g. Claude Code)</td><td>Terminal-driven agent</td><td>Scripting, headless/CI flows</td><td>No rich in-editor diff/Tab UX</td></tr>
+  </table>
+  <div class="callout take"><h4>Media takeaway</h4>Remember the loop:
+  <strong>primitive → context → model → (agent loop) → diff.</strong></div>
+</section>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 4</span>Short lessons</h2>
+  <h4>Lesson 1 — The four primitives, and choosing between them</h4>
+  <p>Tab predicts edits as you type; Inline Edit (Ctrl+K) changes a selection in place; Chat (Ctrl+L)
+  explains without acting; Agent/Composer plans and executes multi-file work. Pick by <em>blast radius</em>:
+  bigger and more autonomous → move toward Agent.</p>
+  <h4>Lesson 2 — Context is something you steer</h4>
+  <p>The index gives the model a searchable memory of your repo, but best results come from pointing
+  explicitly with <code>@file</code>, <code>@folder</code>, <code>@docs</code>, <code>@git</code>,
+  <code>@web</code>. Less but relevant beats dumping everything. <span class="chip">Solo senior dev</span></p>
+  <h4>Lesson 3 — Rules are your standards-as-code</h4>
+  <p>Put conventions in <code>.cursor/rules/</code> as scoped <code>.mdc</code> files: <em>Always</em> for
+  universal style, <em>Auto-Attached</em> globs for per-area rules, <em>Agent-Requested</em> for situational
+  guidance. This is how a team gets consistent agent output without everyone re-prompting.
+  <span class="chip">Manager</span></p>
+  <h4>Lesson 4 — Models and Max Mode are a cost/benefit dial</h4>
+  <p>Cursor routes among Composer, Claude, GPT-5, and o-series; Max Mode trades money for a much larger
+  context window. Reach for Max on large cross-cutting refactors; otherwise the default window is faster,
+  cheaper, often cleaner. <span class="chip">CEO</span></p>
+  <h4>Lesson 5 — Extend the agent with MCP, hooks, and skills</h4>
+  <p>MCP connects external tools/data behind one protocol; hooks run your logic at lifecycle points (gate a
+  command, lint after an edit); skills bundle reusable capabilities you pin. This makes Cursor a platform
+  tailored to your stack. <span class="chip">Unlimited</span></p>
+  <h4>Lesson 6 — Cloud agents change the unit of work</h4>
+  <p>Background/Cloud Agents run in isolated VMs, in parallel, across repos, reporting asynchronously. The
+  skill shifts from "writing code with help" to "<em>dispatching and reviewing</em> agent work" —
+  decomposition and review become the bottleneck. <span class="chip">Unlimited</span> <span class="chip">Manager</span></p>
+  <div class="callout take"><h4>Short-lessons takeaway</h4>Choose primitives by blast radius, steer context
+  deliberately, encode standards as rules, treat Max Mode as a cost dial, extend via MCP/hooks/skills, and
+  learn to dispatch and review cloud agents.</div>
+</section>
+
+<h2 class="step">Step 2 — Automaticity</h2>
+<p class="lead">Understanding fades. Retrieval, spacing, mixing, and overlearning turn it into durable
+recall. This is the half most people skip — and the half that works.</p>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 5</span>Test yourself</h2>
+  <p>Cover the answers, recall from memory, then check. The struggle is what builds the memory.</p>
+  <div class="qa"><div class="q">Q1. Cursor is a fork of which editor, and who makes it?</div><div class="a">A fork of <strong>VS Code</strong>, made by <strong>Anysphere</strong>. Keeps VS Code's extensions, themes, keybindings.</div></div>
+  <div class="qa"><div class="q">Q2. Name the four interaction primitives and two keyboard triggers.</div><div class="a"><strong>Tab</strong>, <strong>Inline Edit</strong> (Ctrl/Cmd+K), <strong>Chat/Ask</strong> (Ctrl/Cmd+L), <strong>Agent/Composer</strong>.</div></div>
+  <div class="qa"><div class="q">Q3. What does Tab predict beyond the current line?</div><div class="a">The <strong>next edit</strong> — multi-line, and edits at another location implied by your change (e.g. a call site after a rename).</div></div>
+  <div class="qa"><div class="q">Q4. How does Cursor retrieve relevant code semantically?</div><div class="a">A <strong>semantic index</strong>: files chunked and embedded as vectors, retrieved by meaning. Steered with <code>@</code>-symbols.</div></div>
+  <div class="qa"><div class="q">Q5. Default context window, and what does Max Mode do?</div><div class="a">~<strong>200k tokens</strong> (~15k lines). <strong>Max Mode</strong> expands the ceiling for large models at higher cost — for sprawling refactors.</div></div>
+  <div class="qa"><div class="q">Q6. Name the four rule activation types in <code>.cursor/rules/</code>.</div><div class="a"><strong>Always</strong>, <strong>Auto-Attached</strong> (glob), <strong>Agent-Requested</strong>, <strong>Manual</strong> (@-mention).</div></div>
+  <div class="qa"><div class="q">Q7. What does MCP stand for and do?</div><div class="a"><strong>Model Context Protocol</strong> — an open standard connecting the agent to external tools/data through a uniform interface.</div></div>
+  <div class="qa"><div class="q">Q8. In Agent mode, list three tools the agent can use.</div><div class="a">Any three: run <strong>terminal commands</strong> + read output, <strong>file ops</strong>, <strong><code>@web</code></strong>, the <strong>semantic index</strong>, <strong>MCP tools</strong>.</div></div>
+  <div class="qa"><div class="q">Q9. What distinguishes a Cloud/Background Agent from the in-editor agent?</div><div class="a">Runs in an <strong>isolated cloud VM</strong>, works across <strong>multiple repos in parallel</strong>, reports back <strong>asynchronously</strong>.</div></div>
+  <div class="qa"><div class="q">Q10. Which paid tier first adds SSO + zero-data-retention, and roughly the cost?</div><div class="a"><strong>Business</strong>, ~<strong>$40/seat/mo</strong> — adds SSO, admin controls, ZDR over Pro.</div></div>
+  <div class="qa"><div class="q">Q11. Why do rules beat repeating instructions each prompt?</div><div class="a">Rules are <strong>persistent, versioned, shared, automatic</strong> — injected on relevant requests without re-typing.</div></div>
+  <div class="qa"><div class="q">Q12. State the single biggest lever on Cursor output quality.</div><div class="a"><strong>Context quality</strong> — scoping the right code/conventions in, not picking a bigger model or Max Mode.</div></div>
+
+  <h3>Flashcards</h3>
+  <p class="lead">Cover the right column, recall, then check.</p>
+  <table>
+    <tr><th style="width:42%">Prompt</th><th>Answer</th></tr>
+    <tr><td>What is Cursor, in one line?</td><td>An AI-native code editor — a VS Code fork by Anysphere rebuilt around an agent + context engine.</td></tr>
+    <tr><td>Tab vs Inline Edit?</td><td>Tab predicts your next edit as you type; Inline Edit (Ctrl+K) applies a natural-language change in place.</td></tr>
+    <tr><td>Chat/Ask vs Agent?</td><td>Ask reads &amp; explains without acting; Agent plans &amp; executes multi-file changes with tools.</td></tr>
+    <tr><td>What feeds the model context?</td><td>@-symbols + the semantic codebase index + active rules.</td></tr>
+    <tr><td>@-symbols, name four</td><td>@file, @folder, @docs, @git, @web (any four).</td></tr>
+    <tr><td>Default context window?</td><td>~200k tokens (~15k lines).</td></tr>
+    <tr><td>What does Max Mode do?</td><td>Expands the context window for large models, at higher token cost — for big refactors.</td></tr>
+    <tr><td>Where do rules live now?</td><td>.cursor/rules/ as scoped .mdc files (legacy: single .cursorrules).</td></tr>
+    <tr><td>Four rule activation types</td><td>Always, Auto-Attached (glob), Agent-Requested, Manual.</td></tr>
+    <tr><td>What is MCP?</td><td>Model Context Protocol — open standard connecting the agent to external tools/data.</td></tr>
+    <tr><td>Hooks vs Skills?</td><td>Hooks run your logic at agent lifecycle points; Skills are reusable, pinnable capability bundles.</td></tr>
+    <tr><td>Agent-mode tools (3)</td><td>Run terminal cmds + read output, file ops, @web, semantic index, MCP tools.</td></tr>
+    <tr><td>What is a Cloud Agent?</td><td>An agent in an isolated cloud VM — parallel, multi-repo, asynchronous reporting.</td></tr>
+    <tr><td>Tiers &amp; ZDR</td><td>Hobby(free) · Pro(~$20) · Business(~$40/seat, +SSO +ZDR) · Enterprise.</td></tr>
+    <tr><td>Biggest lever on output quality?</td><td>Context quality — scope the right code/rules in; not a bigger model or Max Mode.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 6</span>Wait to review</h2>
+  <p>Space reviews at expanding gaps. Tick each session.</p>
+  <table>
+    <tr><th>When</th><th>What to do</th><th>Done</th></tr>
+    <tr><td>Today</td><td>Read the whole packet. Do the Principle 5 quiz once, open-book on misses.</td><td><span class="tick"></span></td></tr>
+    <tr><td>Day 1</td><td>Flashcards cold (cover answers). Re-draw the request-loop diagram from memory.</td><td><span class="tick"></span></td></tr>
+    <tr><td>Day 3</td><td>Quiz closed-book. Re-read only the ideas you missed in Principle 2.</td><td><span class="tick"></span></td></tr>
+    <tr><td>Day 7</td><td>Interleaved quiz (Principle 7). Note any lens you're weak on.</td><td><span class="tick"></span></td></tr>
+    <tr><td>Day 14</td><td>Flashcards + teach one concept aloud (MCP, or the Max-Mode trade-off).</td><td><span class="tick"></span></td></tr>
+    <tr><td>Day 30</td><td>Cold full self-test: both quizzes, no notes. Anything shaky → back into rotation.</td><td><span class="tick"></span></td></tr>
+  </table>
+  <p class="lead">Why spacing works: each near-forget-then-retrieve signals the memory is worth keeping.
+  Re-reading feels easier but builds far less durable recall.</p>
+</section>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 7</span>Mix it up</h2>
+  <p>This quiz jumps between primitives, context, rules, cost, security, and extension — out of order — so
+  you practise <em>choosing</em> the right idea.</p>
+  <div class="qa"><div class="q">B1. CEO weighing rollout: which tier gives ZDR + SSO, and why care?</div><div class="a"><strong>Business</strong> (~$40/seat). ZDR + SSO matter for <strong>compliance and IP protection</strong> when code can't leave under retention.</div></div>
+  <div class="qa"><div class="q">B2. A teammate's agent keeps ignoring your naming convention. Fix at team level — how?</div><div class="a">Add an <strong>Always</strong> (or glob Auto-Attached) rule in <code>.cursor/rules/</code>, commit it. Every agent run inherits it.</div></div>
+  <div class="qa"><div class="q">B3. Rename a variable in a 12-line function. Which primitive, and why not Agent?</div><div class="a"><strong>Inline Edit (Ctrl+K)</strong> or <strong>Tab</strong> — minimal blast radius. Agent is overkill and adds review cost.</div></div>
+  <div class="qa"><div class="q">B4. Agent gives wrong output on a big refactor. Two fixes <em>before</em> Max Mode?</div><div class="a">Tighten <strong>context scope</strong> (point at the right files via <code>@</code>) and add/clarify a <strong>rule</strong>. Context &gt; raw tokens.</div></div>
+  <div class="qa"><div class="q">B5. Architectural difference between Cursor and "VS Code + Copilot"?</div><div class="a">Cursor is built <strong>around an agent</strong> (unified context engine + agent runtime running tools); Copilot bolts suggestions onto the editor.</div></div>
+  <div class="qa"><div class="q">B6. Agent must query internal Postgres and Jira. What connects those?</div><div class="a"><strong>MCP</strong> servers expose those systems to the agent through one protocol.</div></div>
+  <div class="qa"><div class="q">B7. Why dispatch a Cloud Agent instead of the in-editor agent?</div><div class="a">For <strong>long/parallel work across repos asynchronously</strong> in isolated VMs while you keep working; review later.</div></div>
+  <div class="qa"><div class="q">B8. Distinguish Chat/Ask from Agent in one sentence.</div><div class="a">Ask <strong>reads and explains</strong> without acting; Agent <strong>plans and executes</strong> changes with tools.</div></div>
+  <div class="qa"><div class="q">B9. Cost intuition: where does spend concentrate?</div><div class="a">Tab is cheap/flat; <strong>agentic runs and Max Mode</strong> consume most (fast requests / larger context).</div></div>
+  <div class="qa"><div class="q">B10. A rule that only applies when editing test files — which type and mechanism?</div><div class="a"><strong>Auto-Attached</strong> with a <strong>glob</strong> (e.g. <code>*.test.ts</code>) in a <code>.cursor/rules/</code> <code>.mdc</code> file.</div></div>
+  <div class="qa"><div class="q">B11. A hook use-case that improves safety on an autonomous agent.</div><div class="a">Gate/validate a terminal command before it runs, or auto-lint/format after an edit — logic at lifecycle points.</div></div>
+  <div class="qa"><div class="q">B12. Solo senior dev: what daily habit most improves results?</div><div class="a"><strong>Context hygiene</strong> — explicitly <code>@</code>-mention relevant files/docs and keep rules current, not dump the whole repo.</div></div>
+  <p class="lead">Why mixing helps: real work never arrives labelled by topic. Interleaving trains the cue
+  "which idea fits <em>this</em> situation" — the skill you actually use.</p>
+</section>
+
+<section>
+  <h2 class="principle"><span class="num">Principle 8</span>Don't stop</h2>
+  <p>Most people quit at first correct answer. Practice <em>after</em> first success is what makes recall
+  fast and automatic under pressure.</p>
+  <table>
+    <tr><th>Stage</th><th>You can…</th><th>Do this</th></tr>
+    <tr><td>First correct</td><td>Recall with effort and hints</td><td>Repeat it later the same day; don't assume it's learned.</td></tr>
+    <tr><td>Comfortable</td><td>Answer cold, slowly</td><td>Speed up: flashcards until a clean round; explain the loop diagram unaided.</td></tr>
+    <tr><td>Automatic</td><td>Answer instantly and teach it</td><td>Maintain with monthly cold tests; apply in real Cursor work.</td></tr>
+  </table>
+  <h4>Overlearning plan</h4>
+  <ul>
+    <li>Run the flashcards until <strong>three flawless rounds</strong> in a row.</li>
+    <li>Once a month, a <strong>cold self-test</strong> of both quizzes — no notes.</li>
+    <li><strong>Teach it:</strong> explain MCP, the rule activation types, and the Max-Mode trade-off to a colleague.</li>
+    <li><strong>Apply it:</strong> on your next real task, pick the primitive by blast radius and write one new <code>.cursor/rules/</code> file.</li>
+  </ul>
+  <div class="callout take"><h4>Final takeaway</h4>Step 1 gave the model — primitive → context → model →
+  agent loop → diff, extended by rules, MCP, and cloud agents. Step 2 makes it permanent: <strong>test,
+  space, mix, overlearn.</strong> Knowledge becomes durable through practice <em>after</em> first success —
+  don't stop at "I understood it."</div>
+</section>
+
+<section>
+  <h2 class="step">Appendix</h2>
+  <h3>Quick-reference glossary</h3>
+  <table>
+    <tr><th>Term</th><th>Plain-language definition</th></tr>
+    <tr><td>Anysphere</td><td>The company that builds Cursor.</td></tr>
+    <tr><td>Tab</td><td>Predictive editing suggesting your next edit, often multi-line or at another location.</td></tr>
+    <tr><td>Inline Edit (Ctrl+K)</td><td>Natural-language edit applied in place to a selection or at the cursor.</td></tr>
+    <tr><td>Chat / Ask (Ctrl+L)</td><td>A read-oriented conversation about the codebase; explains, doesn't act.</td></tr>
+    <tr><td>Composer / Agent</td><td>Agentic mode that plans and executes multi-file changes using tools.</td></tr>
+    <tr><td>Codebase index</td><td>Embeddings-based semantic memory of your repo for meaning-based retrieval.</td></tr>
+    <tr><td>@-symbols</td><td>Mentions (@file, @folder, @docs, @git, @web) that inject specific context.</td></tr>
+    <tr><td>Context window</td><td>Max text a model holds at once; ~200k tokens by default.</td></tr>
+    <tr><td>Max Mode</td><td>Expands the context window for large models, at higher token cost.</td></tr>
+    <tr><td>Rules</td><td>Persistent instructions in .cursor/rules/ (or legacy .cursorrules) injected into context.</td></tr>
+    <tr><td>Activation types</td><td>How a rule loads: Always, Auto-Attached (glob), Agent-Requested, Manual.</td></tr>
+    <tr><td>MCP</td><td>Model Context Protocol — open standard to connect the agent to external tools/data.</td></tr>
+    <tr><td>Hooks</td><td>Your logic run at agent lifecycle points to gate or shape behaviour.</td></tr>
+    <tr><td>Skills</td><td>Reusable, pinnable capability bundles for the agent.</td></tr>
+    <tr><td>Cloud / Background Agent</td><td>Agent in an isolated cloud VM; parallel, multi-repo, asynchronous.</td></tr>
+    <tr><td>Fast vs slow requests</td><td>Prioritised vs queued AI compute; Pro includes a fast pool then a slow queue.</td></tr>
+    <tr><td>Zero-data-retention (ZDR)</td><td>Mode (Business+) where your code isn't retained — for compliance/IP.</td></tr>
+  </table>
+  <p class="lead"><strong>Further study:</strong> read Cursor's official docs on Rules and MCP, then build
+  one real <code>.cursor/rules/</code> file and connect one MCP server.</p>
+</section>
+
+<footer>Cursor IDE study packet · 8-principle learning method · print / read edition · content verified
+mid-2026 (Cursor 3.x / Composer 2.5 / Cloud Agents). Re-check exact limits and prices against official
+docs before relying on them.</footer>
+
+</div>
+</body>
+</html>

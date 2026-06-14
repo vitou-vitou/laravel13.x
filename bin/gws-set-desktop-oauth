@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Save Desktop OAuth credentials for gws Gmail (separate from Web SSO GOOGLE_*).
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+ENV_FILE="${DASHBOARD_ENV:-$REPO_ROOT/examples/dashboard-v1/.env}"
+
+[[ -f "$ENV_FILE" ]] || { echo "Missing: $ENV_FILE" >&2; exit 1; }
+
+CLIENT_ID="${1:-}"
+SECRET="${2:-}"
+
+if [[ -z "$CLIENT_ID" ]]; then
+  echo "Desktop OAuth Client ID (from Cloud Console → Desktop app):"
+  read -r CLIENT_ID
+fi
+if [[ -z "$SECRET" ]]; then
+  echo "Desktop OAuth Client secret (GOCSPX-…):"
+  read -r -s SECRET
+  echo
+fi
+
+[[ -n "$CLIENT_ID" && -n "$SECRET" ]] || { echo "Cancelled." >&2; exit 1; }
+
+set_kv() {
+  local key="$1" val="$2"
+  if grep -q "^${key}=" "$ENV_FILE"; then
+    sed -i "s|^${key}=.*|${key}=${val}|" "$ENV_FILE"
+  else
+    echo "${key}=${val}" >> "$ENV_FILE"
+  fi
+}
+
+set_kv GWS_GOOGLE_CLIENT_ID "$CLIENT_ID"
+set_kv GWS_GOOGLE_CLIENT_SECRET "$SECRET"
+
+"$REPO_ROOT/bin/gws-sync-from-dashboard-env"
+echo
+echo "Now run: gws auth login --services gmail --readonly"

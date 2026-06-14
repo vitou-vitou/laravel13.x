@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Set GOOGLE_CLIENT_ID in examples/dashboard-v1/.env (pairs with set-google-client-secret).
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+ENV_FILE="$ROOT/.env"
+REPO_ROOT="$(cd "$ROOT/../.." && pwd)"
+
+CLIENT_ID="${1:-}"
+if [[ -z "$CLIENT_ID" ]]; then
+  echo "Paste Google OAuth Client ID (ends with .apps.googleusercontent.com):"
+  read -r CLIENT_ID
+fi
+
+[[ -n "$CLIENT_ID" ]] || { echo "Empty — cancelled." >&2; exit 1; }
+
+if grep -q '^GOOGLE_CLIENT_ID=' "$ENV_FILE"; then
+  sed -i "s|^GOOGLE_CLIENT_ID=.*|GOOGLE_CLIENT_ID=$CLIENT_ID|" "$ENV_FILE"
+else
+  echo "GOOGLE_CLIENT_ID=$CLIENT_ID" >> "$ENV_FILE"
+fi
+
+export PATH="/d/laravel13.x/bin:$PATH"
+(cd "$ROOT" && php artisan config:clear)
+
+echo "Updated GOOGLE_CLIENT_ID in .env"
+
+if [[ -x "$REPO_ROOT/bin/gws-sync-from-dashboard-env" ]]; then
+  "$REPO_ROOT/bin/gws-sync-from-dashboard-env" 2>/dev/null || \
+    echo "Run ./bin/set-google-client-secret when you have the GOCSPX secret."
+fi

@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+# TikTok email signup: fill form, send code, optionally pull code from Gmail and click Next.
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+EMAIL="${EMAIL:-}"
+PASSWORD="${PASSWORD:-TestPass123!@#}"
+BIRTH_MONTH="${BIRTH_MONTH:-January}"
+BIRTH_DAY="${BIRTH_DAY:-15}"
+BIRTH_YEAR="${BIRTH_YEAR:-1995}"
+SKIP_GMAIL="${SKIP_GMAIL:-0}"
+SCREENSHOT="${SCREENSHOT:-$REPO_ROOT/assets/tiktok-signup-filled.png}"
+
+usage() {
+  cat <<EOF
+Usage: EMAIL=you@gmail.com [PASSWORD='...'] ./bin/tiktok-signup-run
+
+Env:
+  EMAIL          Required — your real Gmail (must match gws auth account for auto-code)
+  PASSWORD       Default: TestPass123!@#
+  BIRTH_MONTH    Default: January
+  BIRTH_DAY      Default: 15
+  BIRTH_YEAR     Default: 1995
+  SKIP_GMAIL=1   Fill form + Send code only; do not poll Gmail
+  MAX_WAIT       Seconds to poll Gmail (default 120, used by gmail-tiktok-code)
+
+Manual blockers (you do once):
+  ./bin/gws-gmail-prep
+  ./bin/gws-set-client-secret ~/Downloads/client_secret_....json
+  gws auth login --services gmail --readonly
+EOF
+  exit 1
+}
+
+[[ -n "$EMAIL" ]] || usage
+
+if ! command -v agent-browser >/dev/null 2>&1; then
+  echo "Install: npm install -g agent-browser && agent-browser install" >&2
+  exit 1
+fi
+
+ab() { agent-browser "$@"; }
+
+pick_option() {
+  local combobox_ref="$1"
+  local option_label="$2"
+  ab snapshot -i >/tmp/tiktok-snap.txt
+  local generic_ref
+  generic_ref="$(grep -A2 "combobox.*ref=$combobox_ref" /tmp/tiktok-snap.txt | grep 'generic.*onclick' | grep -oE 'ref=e[0-9]+' | head -1 | cut -d= -f2)"
+  [[ -n "$generic_ref" ]] || generic_ref="$(grep -B1 "combobox.*ref=$combobox_ref" /tmp/tiktok-snap.txt | grep 'generic.*onclick' | grep -oE 'ref=e[0-9]+' | head -1 | cut -d= -f2)"
+  ab click "@$generic_ref"
+  ab wait 400
+  ab snapshot -i >/tmp/tiktok-snap.txt
+  local opt_ref
+  opt_ref="$(grep "option \"$option_label\"" /tmp/tiktok-snap.txt | grep -oE 'ref=e[0-9]+' | head -1 | cut -d= -f2)"
+  [[ -n "$opt_ref" ]] || { echo "Option not found: $option_label" >&2; cat /tmp/tiktok-snap.txt; exit 1; }
+  ab click "@$opt_ref"
+  ab wait 300
+}
+
+find_ref() {
+  local pattern="$1"
+  ab snapshot -i >/tmp/tiktok-snap.txt
+  grep -E "$pattern" /tmp/tiktok-snap.txt | grep -oE 'ref=e[0-9]+' | head -1 | cut -d= -f2
+}
+
+echo "==> TikTok signup for $EMAIL"
+
+ab open "https://www.tiktok.com/signup"
+ab wait --load networkidle
+
+use_email="$(find_ref 'Use phone or email')"
+ab click "@$use_email"
+ab wait 1000
+
+signup_email="$(find_ref 'Sign up with email')"
+[[ -n "$signup_email" ]] && ab click "@$signup_email" && ab wait 800
+
+pick_option "e8" "$BIRTH_MONTH"
+pick_option "e9" "$BIRTH_DAY"
+pick_option "e10" "$BIRTH_YEAR"
+
+email_ref="$(find_ref 'textbox \"Email address\"')"
+pass_ref="$(find_ref 'textbox \"Password\"')"
+check_ref="$(find_ref 'checkbox.*Get trending content')"
+send_ref="$(find_ref 'button \"Send code\"')"
+
+ab fill "@$email_ref" "$EMAIL"
+ab fill "@$pass_ref" "$PASSWORD"
+ab check "@$check_ref"
+ab click "@$send_ref"
+ab wait 2000
+
+mkdir -p "$(dirname "$SCREENSHOT")"
+ab screenshot "$SCREENSHOT" || true
+echo "  Screenshot: $SCREENSHOT"
+
+if [[ "$SKIP_GMAIL" == "1" ]]; then
+  echo "SKIP_GMAIL=1 — form filled, Send code clicked. Enter code manually."
+  exit 0
+fi
+
+CODE=""
+if CODE="$("$REPO_ROOT/bin/gmail-tiktok-code" 2>/dev/null)"; then
+  echo "  Gmail code: $CODE"
+else
+  echo "  Gmail auto-fetch failed (complete ./bin/gws-gmail-prep manually)."
+  echo "  When ready: CODE=\$(./bin/gmail-tiktok-code) EMAIL=$EMAIL ./bin/tiktok-signup-enter-code \"\$CODE\""
+  exit 2
+fi
+
+code_ref="$(find_ref 'textbox \"Enter 6-digit code\"')"
+next_ref="$(find_ref 'button \"Next\"')"
+ab fill "@$code_ref" "$CODE"
+ab wait 500
+ab click "@$next_ref"
+ab wait 2000
+ab screenshot "${SCREENSHOT%.png}-done.png" || true
+echo "==> Done — check browser / screenshot for result."
+ab close

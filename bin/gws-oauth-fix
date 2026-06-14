@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Fix gws Gmail OAuth redirect_uri_mismatch (Web client vs localhost loopback).
+set -euo pipefail
+
+cat <<'EOF'
+gws auth login failed: redirect_uri_mismatch
+
+Your dashboard OAuth client is type "Web application". gws uses a dynamic
+localhost port (e.g. http://localhost:52921) which is NOT pre-registered.
+
+FIX (pick one):
+
+A) Desktop OAuth client (recommended for gws Gmail)
+   1. https://console.cloud.google.com/apis/credentials
+   2. Create Credentials → OAuth client ID → Desktop app
+   3. Put new Client ID + Secret in examples/dashboard-v1/.env
+      (or separate GWS_* vars — dashboard SSO can keep Web client)
+   4. ./bin/gws-sync-from-dashboard-env
+   5. gws auth login --services gmail --readonly
+
+B) Same Web client — add loopback URIs (may still fail on random ports)
+   Edit OAuth client → Authorized redirect URIs → add:
+     http://localhost
+     http://127.0.0.1
+   Then retry: gws auth login --services gmail --readonly
+   If it still fails, use option A.
+
+After auth works:
+  ./bin/gmail-tiktok-code
+  ./bin/tiktok-signup-enter-code XXXXXX
+EOF
+
+cmd.exe //c start "" "https://console.cloud.google.com/apis/credentials" 2>/dev/null || true

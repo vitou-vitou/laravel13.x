@@ -1,0 +1,210 @@
+#!/usr/bin/env bash
+# Run independent mail-code-notifier setup tracks in parallel; report roadmap status.
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONFIG_ENV="${MAIL_CODE_CONFIG:-$HOME/.config/mail-code-notifier/env}"
+TMPDIR="${TMPDIR:-/tmp}/mail-code-notifier-$$"
+START_GMAIL_LOGIN=0
+RUN_TESTS=0
+
+usage() {
+  cat <<EOF
+Usage: ./bin/mail-code-notifier-parallel-prep [options]
+
+Independent tracks (can finish in any order; checks run in parallel):
+
+  Track A — Gmail OAuth     ./bin/gws-gmail-prep + gws auth login (browser)
+  Track B — Telegram bot    @BotFather token + chat_id in $CONFIG_ENV
+  Track C — Scripts         bin/gmail-code-notify, telegram-notify (already in repo)
+  Track D — TikTok optional gmail-tiktok-code + tiktok-signup-run (needs A)
+
+Options:
+  --start-gmail-login   Start 'gws auth login' in background (finish in browser)
+  --test                After all tracks green, send Telegram test ping
+  -h, --help            This help
+
+Examples:
+  ./bin/mail-code-notifier-parallel-prep
+  ./bin/mail-code-notifier-parallel-prep --start-gmail-login
+  ./bin/mail-code-notifier-parallel-prep --test
+EOF
+  exit 0
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --start-gmail-login) START_GMAIL_LOGIN=1; shift ;;
+    --test) RUN_TESTS=1; shift ;;
+    -h|--help) usage ;;
+    *) echo "Unknown option: $1" >&2; exit 1 ;;
+  esac
+done
+
+mkdir -p "$TMPDIR"
+trap 'rm -rf "$TMPDIR"' EXIT
+
+load_config() {
+  if [[ -f "$CONFIG_ENV" ]]; then
+    # shellcheck disable=SC1090
+    set -a
+    source "$CONFIG_ENV"
+    set +a
+  fi
+}
+
+track_gmail() {
+  local missing=0
+  echo "==> Track A: Gmail OAuth"
+  if ! command -v gws >/dev/null 2>&1; then
+    echo "  FAIL: gws not installed (npm install -g @googleworkspace/cli)"
+    exit 1
+  fi
+  echo "  OK: gws $(gws --version 2>/dev/null | head -1)"
+
+  if [[ -f "${GWS_CONFIG_DIR:-$HOME/.config/gws}/client_secret.json" ]]; then
+    echo "  OK: client_secret.json"
+  else
+    echo "  FAIL: missing client_secret.json — run ./bin/gws-gmail-prep"
+    missing=1
+  fi
+
+  if gws auth status 2>/dev/null | grep -q '"auth_method": "none"'; then
+    echo "  BLOCKED: browser OAuth required"
+    echo "  RUN: gws auth login --services gmail --readonly"
+    missing=1
+  else
+    echo "  OK: gws Gmail authenticated"
+  fi
+
+  [[ "$missing" -eq 0 ]]
+}
+
+track_telegram() {
+  local missing=0
+  echo "==> Track B: Telegram"
+  load_config
+  if [[ -f "$CONFIG_ENV" ]]; then
+    echo "  OK: config $CONFIG_ENV"
+  else
+    echo "  WARN: no $CONFIG_ENV (create with TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID)"
+    missing=1
+  fi
+  if [[ -n "${TELEGRAM_BOT_TOKEN:-}" ]]; then
+    echo "  OK: TELEGRAM_BOT_TOKEN set"
+  else
+    echo "  FAIL: set TELEGRAM_BOT_TOKEN (@BotFather)"
+    missing=1
+  fi
+  if [[ -n "${TELEGRAM_CHAT_ID:-}" ]]; then
+    echo "  OK: TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}"
+  else
+    echo "  FAIL: set TELEGRAM_CHAT_ID (./bin/mail-code-notify-prep --show-chat-id)"
+    missing=1
+  fi
+  [[ "$missing" -eq 0 ]]
+}
+
+track_scripts() {
+  local f missing=0 base
+  echo "==> Track C: Scripts"
+  for f in \
+    "$REPO_ROOT/bin/lib/mail-code-common.sh" \
+    "$REPO_ROOT/bin/gmail-code-notify" \
+    "$REPO_ROOT/bin/telegram-notify" \
+    "$REPO_ROOT/bin/mail-code-notify-prep" \
+    "$REPO_ROOT/bin/gmail-tiktok-code"; do
+    base="$(basename "$f")"
+    if [[ ! -f "$f" ]]; then
+      echo "  FAIL: missing: $f"
+      missing=1
+    elif [[ "$f" == *.sh ]] && [[ -r "$f" ]]; then
+      echo "  OK: $base (library)"
+    elif [[ -x "$f" ]]; then
+      echo "  OK: $base"
+    else
+      echo "  FAIL: not executable: $f"
+      missing=1
+    fi
+  done
+  [[ "$missing" -eq 0 ]]
+}
+
+track_tiktok() {
+  echo "==> Track D: TikTok optional"
+  if gws auth status 2>/dev/null | grep -q '"auth_method": "none"'; then
+    echo "  SKIP: needs Track A (Gmail OAuth)"
+    exit 2
+  fi
+  if command -v agent-browser >/dev/null 2>&1; then
+    echo "  OK: agent-browser installed"
+  else
+    echo "  WARN: agent-browser missing (TikTok signup automation)"
+    exit 2
+  fi
+  echo "  READY: EMAIL=you@gmail.com ./bin/tiktok-signup-run"
+  exit 0
+}
+
+echo "==> mail-code-notifier parallel roadmap"
+echo "    Tracks A + B are independent — do both at once in separate terminals."
+echo
+
+track_gmail >"$TMPDIR/a.log" 2>&1 &
+pid_a=$!
+track_telegram >"$TMPDIR/b.log" 2>&1 &
+pid_b=$!
+track_scripts >"$TMPDIR/c.log" 2>&1 &
+pid_c=$!
+track_tiktok >"$TMPDIR/d.log" 2>&1 &
+pid_d=$!
+
+status_a=0 status_b=0 status_c=0 status_d=0
+wait "$pid_a" || status_a=$?
+wait "$pid_b" || status_b=$?
+wait "$pid_c" || status_c=$?
+wait "$pid_d" || status_d=$?
+
+cat "$TMPDIR/a.log" "$TMPDIR/b.log" "$TMPDIR/c.log" "$TMPDIR/d.log"
+echo
+
+if [[ "$START_GMAIL_LOGIN" -eq 1 ]] && [[ "$status_a" -ne 0 ]]; then
+  if [[ -f "${GWS_CONFIG_DIR:-$HOME/.config/gws}/client_secret.json" ]]; then
+    echo "==> Starting Gmail OAuth in background (complete in browser)..."
+    gws auth login --services gmail --readonly &
+    echo "  PID $! — watch terminal for OAuth URL"
+  fi
+fi
+
+ready=0
+[[ "$status_a" -eq 0 && "$status_b" -eq 0 && "$status_c" -eq 0 ]] && ready=1
+
+echo "==> Summary"
+printf "  Track A Gmail:    %s\n" "$([[ "$status_a" -eq 0 ]] && echo DONE || echo PENDING)"
+printf "  Track B Telegram: %s\n" "$([[ "$status_b" -eq 0 ]] && echo DONE || echo PENDING)"
+printf "  Track C Scripts:  %s\n" "$([[ "$status_c" -eq 0 ]] && echo DONE || echo PENDING)"
+if [[ "$status_d" -eq 0 ]]; then
+  echo "  Track D TikTok:   READY"
+elif [[ "$status_d" -eq 2 ]]; then
+  echo "  Track D TikTok:   SKIP (needs A)"
+else
+  echo "  Track D TikTok:   PENDING"
+fi
+
+if [[ "$ready" -eq 1 ]]; then
+  echo
+  echo "All core tracks ready. Run:"
+  echo "  ./bin/gmail-code-notify"
+  if [[ "$RUN_TESTS" -eq 1 ]]; then
+    "$REPO_ROOT/bin/mail-code-notify-prep" --test
+  fi
+  exit 0
+fi
+
+echo
+echo "Parallel next steps (independent — pick any order):"
+[[ "$status_a" -ne 0 ]] && echo "  [A] gws auth login --services gmail --readonly"
+[[ "$status_b" -ne 0 ]] && echo "  [B] Create $CONFIG_ENV with TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID"
+[[ "$status_c" -ne 0 ]] && echo "  [C] chmod +x bin/gmail-code-notify bin/telegram-notify"
+echo "  Re-check: ./bin/mail-code-notifier-parallel-prep"
+exit 1
