@@ -5,22 +5,28 @@ namespace App\Http\Controllers\Operator;
 use App\Enums\PublishStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Creator;
+use App\Services\TikTokMetadataCliRunner;
 use App\Services\TikTokMetadataImportService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use RuntimeException;
 
 class TikTokImportController extends Controller
 {
     public function __construct(
         protected TikTokMetadataImportService $importService,
+        protected TikTokMetadataCliRunner $cliRunner,
     ) {}
 
     public function index(Creator $creator): View
     {
         $this->authorize('update', $creator);
 
-        return view('operator.import.index', compact('creator'));
+        return view('operator.import.index', [
+            'creator' => $creator,
+            'cliConfigured' => $this->cliRunner->isConfigured(),
+        ]);
     }
 
     public function preview(Request $request, Creator $creator): View
@@ -31,15 +37,26 @@ class TikTokImportController extends Controller
             'jsonl' => ['required', 'string', 'max:500000'],
         ]);
 
-        $parsed = $this->importService->parseJsonl($validated['jsonl']);
-        $candidates = $this->importService->candidatesForCreator($creator, $parsed);
+        return $this->previewFromJsonl($creator, $validated['jsonl'], source: 'paste');
+    }
 
-        return view('operator.import.index', [
-            'creator' => $creator,
-            'jsonl' => $validated['jsonl'],
-            'candidates' => $candidates,
-            'parsedCount' => count($parsed),
+    public function fetchCli(Request $request, Creator $creator): View|RedirectResponse
+    {
+        $this->authorize('update', $creator);
+
+        $validated = $request->validate([
+            'limit' => ['nullable', 'integer', 'min:1', 'max:100'],
         ]);
+
+        try {
+            $jsonl = $this->cliRunner->fetchJsonl($creator, $validated['limit'] ?? null);
+        } catch (RuntimeException $exception) {
+            return redirect()
+                ->route('operator.creators.import.index', $creator)
+                ->withErrors(['cli' => $exception->getMessage()]);
+        }
+
+        return $this->previewFromJsonl($creator, $jsonl, source: 'cli', cliConfigured: true);
     }
 
     public function store(Request $request, Creator $creator): RedirectResponse
@@ -69,7 +86,7 @@ class TikTokImportController extends Controller
                 'tiktok_url' => $url,
                 'title_variant' => $validated['titles'][$url] ?? null,
                 'status' => PublishStatus::PendingApproval,
-                'notes' => 'Imported from TikTok metadata JSONL (BUILD LIST).',
+                'notes' => 'Imported from TikTok metadata (BUILD LIST).',
             ]);
 
             $created++;
@@ -78,5 +95,20 @@ class TikTokImportController extends Controller
         return redirect()
             ->route('operator.creators.show', $creator)
             ->with('status', "{$created} publish log row(s) added from import.");
+    }
+
+    private function previewFromJsonl(Creator $creator, string $jsonl, string $source, bool $cliConfigured = false): View
+    {
+        $parsed = $this->importService->parseJsonl($jsonl);
+        $candidates = $this->importService->candidatesForCreator($creator, $parsed);
+
+        return view('operator.import.index', [
+            'creator' => $creator,
+            'jsonl' => $jsonl,
+            'candidates' => $candidates,
+            'parsedCount' => count($parsed),
+            'importSource' => $source,
+            'cliConfigured' => $cliConfigured || $this->cliRunner->isConfigured(),
+        ]);
     }
 }

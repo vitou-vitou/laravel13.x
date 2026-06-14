@@ -2,7 +2,7 @@
 
 > **Parent handoff:** [`../../../docs/SESSION_STATE.md`](../../../docs/SESSION_STATE.md) — read that first in new chats.
 
-**Updated:** 2026-06-14 | **MVP + Mode D W1–W6:** complete | **Tests:** 44/44 | **Verify:** pass
+**Updated:** 2026-06-14 | **MVP + Mode D W1–W6:** complete | **Phase 6:** CLI + CSV + Stripe Track B | **Tests:** 52/52 | **Verify:** pass
 
 ---
 
@@ -60,12 +60,26 @@ Full matrix: **[`docs/ROADMAP.md`](ROADMAP.md)**
 
 ---
 
+## Phase 6 status
+
+| Item | Status |
+|------|--------|
+| Track B Stripe (Cashier, `/settings/subscription`) | **Done** (enable with `OPERATOR_BILLING_MODE=stripe` + Stripe keys) |
+| TikTok CLI subprocess (`TikTokMetadataCliRunner`) | **Done** — POST `/operator/creators/{id}/import/cli` |
+| CSV export (publish log + settlement) | **Done** — export links on creator + settlement pages |
+| Weekly email | **OOS** |
+| Interactive checklist dashboard | **OOS** |
+
+**CLI:** `config/tiktok-import.php` defaults to `../../../tools/tiktok-metadata/scrape_tiktok.py`. Server needs `python` + `pip install -r requirements.txt` in that folder.
+
+---
+
 ## Optional next work
 
 | Item | Notes |
 |------|-------|
-| Track B Stripe | `/settings/subscription` + Cashier — see `examples/billing-saas` |
-| Python subprocess | Wire real `tools/tiktok-metadata` CLI instead of JSONL paste |
+| Weekly email | Operator cadence notification |
+| UX polish | S/T columns in settlement table, per-period creator settlement route |
 | OpenSpec change | Post-MVP iteration via `/opsx:*` if requirements shift |
 
 ---

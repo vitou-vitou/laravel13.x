@@ -1,6 +1,16 @@
 <?php
 
 return [
+    /*
+    | mock — Track A: operator_plan column + radio form (CI / local default)
+    | stripe — Track B: Cashier subscription gates Pro creator limit
+    */
+    'mode' => env('OPERATOR_BILLING_MODE', 'mock'),
+
+    'stripe_prices' => [
+        'pro' => env('STRIPE_PRICE_PRO'),
+    ],
+
     'default_plan' => 'starter',
 
     'plans' => [

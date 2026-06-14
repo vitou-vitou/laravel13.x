@@ -2,7 +2,10 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Monthly settlement — {{ '@'.$creator->handle }}</h2>
-            <a href="{{ route('operator.creators.settlement.create', $creator) }}" class="text-sm text-indigo-600 hover:underline">Add period</a>
+            <div class="flex gap-3 text-sm">
+                <a href="{{ route('operator.creators.settlement.create', $creator) }}" class="text-indigo-600 hover:underline">Add period</a>
+                <a href="{{ route('operator.creators.settlement.export', $creator) }}" class="text-stone-600 hover:underline">Export CSV</a>
+            </div>
         </div>
     </x-slot>
 

@@ -2,8 +2,9 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-center justify-between gap-2">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ '@'.$creator->handle }}</h2>
-            <div class="flex gap-3 text-sm">
+            <div class="flex flex-wrap gap-3 text-sm">
                 <a href="{{ route('operator.creators.publish-log.create', $creator) }}" class="text-indigo-600 hover:underline">Add publish row (step 4)</a>
+                <a href="{{ route('operator.creators.publish-log.export', $creator) }}" class="text-stone-600 hover:underline">Export CSV</a>
                 <a href="{{ route('operator.creators.edit', $creator) }}" class="text-stone-600 hover:underline">Onboarding</a>
             </div>
         </div>

@@ -12,8 +12,11 @@ use App\Http\Controllers\Operator\MonthlySettlementController as OperatorMonthly
 use App\Http\Controllers\Operator\PublishLogController as OperatorPublishLogController;
 use App\Http\Controllers\Operator\TikTokImportController as OperatorTikTokImportController;
 use App\Http\Controllers\Operator\WeeklyMetricController as OperatorWeeklyMetricController;
+use App\Http\Controllers\Operator\CsvExportController as OperatorCsvExportController;
+use App\Http\Controllers\Settings\SubscriptionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -46,7 +49,11 @@ Route::middleware(['auth', 'verified', 'role:operator'])->prefix('operator')->na
 
     Route::get('creators/{creator}/import', [OperatorTikTokImportController::class, 'index'])->name('creators.import.index');
     Route::post('creators/{creator}/import/preview', [OperatorTikTokImportController::class, 'preview'])->name('creators.import.preview');
+    Route::post('creators/{creator}/import/cli', [OperatorTikTokImportController::class, 'fetchCli'])->name('creators.import.cli');
     Route::post('creators/{creator}/import', [OperatorTikTokImportController::class, 'store'])->name('creators.import.store');
+
+    Route::get('creators/{creator}/publish-log/export', [OperatorCsvExportController::class, 'publishLog'])->name('creators.publish-log.export');
+    Route::get('creators/{creator}/settlement/export', [OperatorCsvExportController::class, 'settlement'])->name('creators.settlement.export');
 
     Route::get('billing', [OperatorBillingController::class, 'index'])->name('billing.index');
     Route::post('billing/plan', [OperatorBillingController::class, 'updatePlan'])->name('billing.plan');
@@ -64,6 +71,14 @@ Route::middleware(['auth', 'verified', 'role:creator'])->prefix('creator')->name
     Route::get('/reports', [CreatorReportsController::class, 'index'])->name('reports.index');
     Route::get('/settlement', [CreatorSettlementController::class, 'index'])->name('settlement.index');
 });
+
+Route::middleware(['auth', 'verified', 'role:operator'])->group(function () {
+    Route::get('/settings/subscription', [SubscriptionController::class, 'show'])->name('settings.subscription');
+    Route::post('/settings/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('settings.subscription.checkout');
+    Route::post('/settings/subscription/portal', [SubscriptionController::class, 'portal'])->name('settings.subscription.portal');
+});
+
+Route::post('/stripe/webhook', [CashierWebhookController::class, 'handleWebhook'])->name('cashier.webhook');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
