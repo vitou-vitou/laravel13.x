@@ -19,9 +19,11 @@ class CheckoutService
     public function __construct(
         private CartService $cart,
         private CommissionService $commission,
+        private PromoCodeService $promoCodes,
+        private ShippingAddressService $shippingAddresses,
     ) {}
 
-    public function placeFromCart(): Order
+    public function placeFromCart(?int $shippingAddressId = null): Order
     {
         if (! auth()->check()) {
             throw ValidationException::withMessages([
@@ -54,14 +56,28 @@ class CheckoutService
         }
 
         $commissionBps = $this->commission->defaultBps();
+        $subtotalCents = $lines->sum(fn (CartLine $line) => $line->lineTotalCents());
+        $promo = $this->promoCodes->appliedPromo();
 
-        $order = DB::transaction(function () use ($lines, $commissionBps) {
-            $totalCents = $lines->sum(fn (CartLine $line) => $line->lineTotalCents());
+        if ($promo !== null) {
+            $this->promoCodes->assertUsableForSubtotal($promo, $subtotalCents, $lines);
+        }
 
+        $discountCents = $promo ? $this->promoCodes->discountCents($promo, $subtotalCents, $lines) : 0;
+        $totalCents = $subtotalCents - $discountCents;
+
+        $shippingAddress = $this->shippingAddresses->resolveForCheckout(auth()->user(), $shippingAddressId);
+        $shippingSnapshot = $shippingAddress?->toSnapshot();
+
+        $order = DB::transaction(function () use ($lines, $commissionBps, $subtotalCents, $discountCents, $totalCents, $promo, $shippingSnapshot) {
             $order = Order::query()->create([
                 'user_id' => auth()->id(),
+                'promo_code_id' => $promo?->id,
                 'status' => OrderStatus::PendingPayment,
+                'subtotal_cents' => $subtotalCents,
+                'discount_cents' => $discountCents,
                 'total_cents' => $totalCents,
+                'shipping_address_snapshot' => $shippingSnapshot,
             ]);
 
             $grouped = $lines->groupBy(fn (CartLine $line) => $line->variant->product->vendor_id);
@@ -117,6 +133,7 @@ class CheckoutService
 
         $this->cart->clear();
         $this->cart->cart()->update(['status' => 'checked_out']);
+        $this->promoCodes->clearSession();
 
         return $order;
     }

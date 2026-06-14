@@ -30,9 +30,11 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="{{ ($stickyCartCount ?? 0) > 0 && ! request()->routeIs('cart.index', 'checkout.success', 'checkout.cancel') ? 'pb-24 sm:pb-0' : '' }}">
                 {{ $slot }}
             </main>
+
+            <x-sticky-cart-bar />
         </div>
     </body>
 </html>

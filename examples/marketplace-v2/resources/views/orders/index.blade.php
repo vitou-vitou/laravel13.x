@@ -8,6 +8,12 @@
                     <div>
                         <p class="font-semibold text-stone-900">Order #{{ $order->id }}</p>
                         <p class="text-sm text-stone-500">{{ $order->status->value }} — {{ $order->formattedTotal() }}</p>
+                        @if ($order->isPaid() && $order->groups->isNotEmpty())
+                            @php($group = $order->groups->first())
+                            <div class="mt-2 max-w-md">
+                                <x-order-timeline :group="$group" :order-paid="true" />
+                            </div>
+                        @endif
                     </div>
                     <a href="{{ route('orders.show', $order) }}" class="link-brand text-sm">View details →</a>
                 </div>

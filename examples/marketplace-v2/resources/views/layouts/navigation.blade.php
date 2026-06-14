@@ -20,6 +20,14 @@
                         <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
                             Orders
                         </x-nav-link>
+                        <x-nav-link :href="route('wishlist.index')" :active="request()->routeIs('wishlist.*')">
+                            Wishlist
+                        </x-nav-link>
+                        @if (auth()->user()->isVendor())
+                            <x-nav-link :href="route('vendor.dashboard')" :active="request()->routeIs('vendor.*')">
+                                Vendor
+                            </x-nav-link>
+                        @endif
                         @if (auth()->user()->isAdmin())
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
                                 Admin
@@ -49,6 +57,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('account.addresses.index')">
+                            Addresses
+                        </x-dropdown-link>
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>

@@ -65,6 +65,7 @@ Use **public browse** (web search or fetch), prefer:
 | Marketplace / shop layout | [SaaS Landing Page](https://saaslandingpage.com/) · [Land-book](https://land-book.com/) · “multi vendor marketplace UI” |
 | Product grid mood | [Dribbble](https://dribbble.com/search/marketplace) search terms: `marketplace`, `ecommerce grid`, `product catalog` |
 | Trust / checkout feel | Real sites (Etsy/Shopify **patterns only** — do not clone branding) |
+| **Mobile app UX** (Play/App Store apps) | [Mobbin](https://mobbin.com/) · [Page Flows](https://pageflows.com/) · [Screenlane](https://screenlane.com/) · Chinese apps: [UI Notes](https://www.uinotes.com/) — see `examples/marketplace-v2/docs/DESIGN.md` § Mobile app UX |
 | DESIGN.md template | [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) — pick closest **e-commerce / SaaS** file |
 | Deep link lists | [bradtraversy/design-resources-for-developers](https://github.com/bradtraversy/design-resources-for-developers) |
 

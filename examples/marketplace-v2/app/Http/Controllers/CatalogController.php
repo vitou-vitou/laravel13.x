@@ -2,50 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\OrderGroupStatus;
 use App\Enums\ProductStatus;
 use App\Models\Category;
 use App\Models\Product;
+use App\Services\CatalogQueryService;
+use App\Services\RecentlyViewedService;
+use App\Services\WishlistService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CatalogController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request, CatalogQueryService $catalog, RecentlyViewedService $recentlyViewed): View
     {
         $categories = Category::query()->orderBy('name')->get();
-        $query = $request->string('q');
+        $products = $catalog->paginate(12);
+        $isHome = $request->routeIs('home');
 
-        if ($query->isNotEmpty()) {
-            $ids = Product::search($query->toString())
-                ->get()
-                ->pluck('id');
-
-            $products = Product::query()
-                ->withoutGlobalScopes()
-                ->whereIn('id', $ids)
-                ->where('status', ProductStatus::Active)
-                ->with(['vendor', 'variants', 'category'])
-                ->when($request->filled('category'), function ($builder) use ($request) {
-                    $builder->whereHas('category', fn ($q) => $q->where('slug', $request->string('category')));
-                })
-                ->paginate(12);
-        } else {
-            $products = Product::query()
-                ->withoutGlobalScopes()
-                ->where('status', ProductStatus::Active)
-                ->with(['vendor', 'variants', 'category'])
-                ->when($request->filled('category'), function ($builder) use ($request) {
-                    $builder->whereHas('category', fn ($q) => $q->where('slug', $request->string('category')));
-                })
-                ->latest()
-                ->paginate(12);
-        }
-
-        return view('catalog.index', compact('products', 'categories'));
+        return view('catalog.index', [
+            'products' => $products,
+            'categories' => $categories,
+            'isHome' => $isHome,
+            'featuredCategories' => $isHome ? $recentlyViewed->featuredCategories() : collect(),
+            'recentlyViewed' => $isHome ? $recentlyViewed->products() : collect(),
+            'sort' => $catalog->sort(),
+            'minPrice' => $request->input('min_price'),
+            'maxPrice' => $request->input('max_price'),
+        ]);
     }
 
-    public function show(int $product): View
+    public function show(int $product, WishlistService $wishlist, RecentlyViewedService $recentlyViewed): View
     {
         $product = Product::query()
             ->withoutGlobalScopes()
@@ -54,6 +40,10 @@ class CatalogController extends Controller
             ->with(['vendor', 'variants', 'category', 'reviews.user'])
             ->firstOrFail();
 
-        return view('catalog.show', compact('product'));
+        $recentlyViewed->record($product->id);
+
+        $isWishlisted = auth()->check() && $wishlist->isWishlisted(auth()->user(), $product);
+
+        return view('catalog.show', compact('product', 'isWishlisted'));
     }
 }

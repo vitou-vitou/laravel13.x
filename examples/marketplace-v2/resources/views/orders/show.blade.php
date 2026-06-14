@@ -8,14 +8,34 @@
                 <p>Total: <span class="font-semibold text-stone-900">{{ $order->formattedTotal() }}</span></p>
             </div>
 
+            @if ($order->isPaid())
+                <p class="rounded-lg border border-stone-200 bg-stone-50/80 px-4 py-3 text-sm text-stone-600">
+                    <span class="font-medium text-stone-900">Buyer protection:</span>
+                    Problems with a shipment? File a dispute on the vendor section below. Refunds are reviewed by admins when eligible.
+                </p>
+            @endif
+
+            @if ($order->shipping_address_snapshot)
+                <div class="rounded-xl border border-stone-100 bg-white p-4 text-sm text-stone-600">
+                    <p class="font-medium text-stone-900">Ship to</p>
+                    <p class="mt-1">{{ $order->shipping_address_snapshot['name'] ?? '' }}</p>
+                    <p>{{ $order->shipping_address_snapshot['line1'] ?? '' }}</p>
+                    @if (! empty($order->shipping_address_snapshot['line2']))
+                        <p>{{ $order->shipping_address_snapshot['line2'] }}</p>
+                    @endif
+                    <p>
+                        {{ $order->shipping_address_snapshot['city'] ?? '' }},
+                        {{ $order->shipping_address_snapshot['region'] ?? '' }}
+                        {{ $order->shipping_address_snapshot['postal_code'] ?? '' }}
+                    </p>
+                </div>
+            @endif
+
             @foreach ($order->groups as $group)
                 <div class="rounded-xl border border-stone-100 bg-stone-50/50 p-4 space-y-3">
                     <div>
                         <p class="font-semibold text-stone-900">{{ $group->vendor->store_name }}</p>
-                        <p class="text-sm text-stone-500">Group status: {{ $group->status->value }}</p>
-                        @if ($group->tracking_number)
-                            <p class="text-sm text-stone-600">Tracking: {{ $group->tracking_number }}</p>
-                        @endif
+                        <x-order-timeline :group="$group" :order-paid="$order->isPaid()" class="mt-3" />
                     </div>
                     <ul class="space-y-2 text-sm">
                         @foreach ($group->lines as $line)

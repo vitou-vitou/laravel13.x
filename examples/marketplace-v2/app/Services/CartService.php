@@ -48,6 +48,11 @@ class CartService
         return $this->lines()->sum(fn (CartLine $line) => $line->lineTotalCents());
     }
 
+    public function itemCount(): int
+    {
+        return (int) $this->lines()->sum('quantity');
+    }
+
     /**
      * @return array<int, array{vendor_id: int, vendor_name: string, subtotal_cents: int}>
      */

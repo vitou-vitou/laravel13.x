@@ -29,7 +29,7 @@ class PayoutTest extends TestCase
         $vendor = Vendor::factory()->create();
         $group = OrderGroup::factory()->create([
             'vendor_id' => $vendor->id,
-            'status' => OrderGroupStatus::Shipped,
+            'status' => OrderGroupStatus::Delivered,
             'subtotal_cents' => 10000,
             'commission_bps' => 1000,
         ]);

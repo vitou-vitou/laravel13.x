@@ -18,7 +18,7 @@ class OrderController extends Controller implements HasMiddleware
     {
         $orders = auth()->user()
             ->orders()
-            ->with(['groups.vendor', 'payment'])
+            ->with(['groups.vendor', 'payment', 'groups'])
             ->latest()
             ->paginate(10);
 

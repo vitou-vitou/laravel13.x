@@ -17,6 +17,33 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_login_form_prefills_dev_credentials_when_enabled(): void
+    {
+        config([
+            'dev-login.enabled' => true,
+            'dev-login.email' => 'admin@marketplace.local',
+            'dev-login.password' => 'password',
+        ]);
+
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+        $response->assertSee('Development login', false);
+        $response->assertSee('value="admin@marketplace.local"', false);
+        $response->assertSee('value="password"', false);
+    }
+
+    public function test_login_form_is_empty_when_dev_prefill_disabled(): void
+    {
+        config(['dev-login.enabled' => false]);
+
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('Development login', false);
+        $response->assertDontSee('value="admin@marketplace.local"', false);
+    }
+
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
         $user = User::factory()->create();

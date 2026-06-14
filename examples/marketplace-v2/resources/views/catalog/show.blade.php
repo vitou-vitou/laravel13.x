@@ -1,13 +1,13 @@
 <x-app-layout>
-    <div class="bg-stone-50">
-        <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-            <nav class="mb-6 text-sm text-stone-500">
+    <div class="bg-stone-50 pb-4 sm:pb-8">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+            <nav class="mb-4 text-sm text-stone-500 sm:mb-6">
                 <a href="{{ route('catalog.index') }}" class="hover:text-brand-600">Shop</a>
                 <span class="mx-2">/</span>
                 <span class="text-stone-800">{{ $product->name }}</span>
             </nav>
 
-            <div class="grid gap-10 lg:grid-cols-2">
+            <div class="grid gap-6 lg:grid-cols-2 lg:gap-10">
                 <div class="overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-sm">
                     <img
                         src="{{ $product->displayImageUrl() }}"
@@ -17,11 +17,19 @@
                 </div>
 
                 <div class="lg:sticky lg:top-8 lg:self-start">
-                    <div class="rounded-2xl border border-stone-200/80 bg-white p-6 shadow-sm sm:p-8">
+                    <div class="rounded-2xl border border-stone-200/80 bg-white p-5 shadow-sm sm:p-8">
                         <p class="text-sm font-semibold uppercase tracking-wide text-brand-600">
                             {{ $product->vendor->store_name }}
                         </p>
-                        <h1 class="mt-2 text-3xl font-bold tracking-tight text-stone-900">{{ $product->name }}</h1>
+                        <h1 class="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{{ $product->name }}</h1>
+                        @auth
+                            <form method="POST" action="{{ route('wishlist.store', $product) }}" class="mt-3">
+                                @csrf
+                                <button type="submit" class="min-h-11 text-sm font-medium {{ ($isWishlisted ?? false) ? 'text-red-600' : 'text-stone-500' }} hover:text-red-600">
+                                    {{ ($isWishlisted ?? false) ? '♥ Saved' : '♡ Save to wishlist' }}
+                                </button>
+                            </form>
+                        @endauth
                         @if ($product->category)
                             <p class="mt-2 text-sm text-stone-500">{{ $product->category->name }}</p>
                         @endif
@@ -31,7 +39,7 @@
                             @csrf
                             <div>
                                 <label for="product_variant_id" class="block text-sm font-medium text-stone-700">Variant</label>
-                                <select id="product_variant_id" name="product_variant_id" class="store-input mt-1" required>
+                                <select id="product_variant_id" name="product_variant_id" class="store-input mt-1 min-h-11" required>
                                     @foreach ($product->variants as $variant)
                                         <option value="{{ $variant->id }}">
                                             {{ $variant->name }} — {{ $variant->formattedPrice() }} ({{ $variant->stock_qty }} in stock)
@@ -41,9 +49,9 @@
                             </div>
                             <div>
                                 <label for="quantity" class="block text-sm font-medium text-stone-700">Quantity</label>
-                                <input id="quantity" type="number" name="quantity" value="1" min="1" class="store-input mt-1 w-28">
+                                <input id="quantity" type="number" name="quantity" value="1" min="1" class="store-input mt-1 min-h-11 w-28">
                             </div>
-                            <button type="submit" class="btn-brand w-full sm:w-auto">Add to cart</button>
+                            <button type="submit" class="btn-brand min-h-11 w-full sm:w-auto">Add to cart</button>
                         </form>
                     </div>
                 </div>

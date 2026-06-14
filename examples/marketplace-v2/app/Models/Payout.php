@@ -20,12 +20,17 @@ class Payout extends Model
         'order_group_id',
         'status',
         'amount_cents',
+        'stripe_transfer_id',
+        'scheduled_for',
+        'released_at',
     ];
 
     protected function casts(): array
     {
         return [
             'status' => PayoutStatus::class,
+            'scheduled_for' => 'datetime',
+            'released_at' => 'datetime',
         ];
     }
 

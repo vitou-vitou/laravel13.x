@@ -16,8 +16,12 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'promo_code_id',
         'status',
+        'subtotal_cents',
+        'discount_cents',
         'total_cents',
+        'shipping_address_snapshot',
         'stripe_checkout_session_id',
         'paid_at',
     ];
@@ -27,12 +31,18 @@ class Order extends Model
         return [
             'status' => OrderStatus::class,
             'paid_at' => 'datetime',
+            'shipping_address_snapshot' => 'array',
         ];
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function promoCode(): BelongsTo
+    {
+        return $this->belongsTo(PromoCode::class);
     }
 
     public function groups(): HasMany

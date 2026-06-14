@@ -1,5 +1,10 @@
 @props(['product'])
 
+@php
+    $minPrice = $product->variants->min('price_cents');
+    $isNew = $product->created_at?->isAfter(now()->subDays(7));
+@endphp
+
 <a href="{{ route('catalog.show', $product) }}" class="store-card group flex flex-col">
     <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
         <img
@@ -8,21 +13,28 @@
             class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
             loading="lazy"
         />
-        @if ($product->variants->isNotEmpty())
-            <span class="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-stone-800 backdrop-blur">
-                from ${{ number_format($product->variants->min('price_cents') / 100, 2) }}
-            </span>
-        @endif
+        <div class="absolute left-2 top-2 flex flex-wrap gap-1 sm:left-3 sm:top-3">
+            @if ($isNew)
+                <span class="rounded-full bg-brand-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white sm:px-2.5 sm:py-1 sm:text-xs">
+                    New
+                </span>
+            @endif
+            @if ($minPrice !== null)
+                <span class="rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold text-stone-800 backdrop-blur sm:px-2.5 sm:py-1 sm:text-xs">
+                    from ${{ number_format($minPrice / 100, 2) }}
+                </span>
+            @endif
+        </div>
     </div>
-    <div class="flex flex-1 flex-col gap-1 p-4">
-        <p class="text-xs font-medium uppercase tracking-wide text-brand-600">
+    <div class="flex flex-1 flex-col gap-0.5 p-3 sm:gap-1 sm:p-4">
+        <p class="truncate text-[10px] font-medium uppercase tracking-wide text-brand-600 sm:text-xs">
             {{ $product->vendor?->store_name ?? 'Marketplace' }}
         </p>
-        <h3 class="line-clamp-2 text-base font-semibold text-stone-900 group-hover:text-brand-700">
+        <h3 class="line-clamp-2 text-sm font-semibold text-stone-900 group-hover:text-brand-700 sm:text-base">
             {{ $product->name }}
         </h3>
         @if ($product->description)
-            <p class="line-clamp-2 text-sm text-stone-500">{{ $product->description }}</p>
+            <p class="hidden line-clamp-2 text-sm text-stone-500 sm:block">{{ $product->description }}</p>
         @endif
     </div>
 </a>

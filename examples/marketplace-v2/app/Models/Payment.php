@@ -17,6 +17,7 @@ class Payment extends Model
         'order_id',
         'status',
         'amount_cents',
+        'refunded_cents',
         'stripe_payment_intent_id',
     ];
 
@@ -35,5 +36,15 @@ class Payment extends Model
     public function auditLogs(): HasMany
     {
         return $this->hasMany(PaymentAuditLog::class);
+    }
+
+    public function refunds(): HasMany
+    {
+        return $this->hasMany(Refund::class);
+    }
+
+    public function refundableCents(): int
+    {
+        return max(0, $this->amount_cents - $this->refunded_cents);
     }
 }

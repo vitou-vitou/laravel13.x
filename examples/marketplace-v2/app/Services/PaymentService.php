@@ -8,6 +8,7 @@ use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\PaymentAuditLog;
+use App\Services\PromoCodeService;
 use Illuminate\Support\Facades\DB;
 
 class PaymentService
@@ -15,7 +16,7 @@ class PaymentService
     public function markPaid(Order $order, ?string $stripePaymentIntentId = null): Order
     {
         return DB::transaction(function () use ($order, $stripePaymentIntentId) {
-            $order = $order->fresh(['payment', 'groups']);
+            $order = $order->fresh(['payment', 'groups', 'promoCode']);
 
             $order->update([
                 'status' => OrderStatus::Paid,
@@ -24,6 +25,10 @@ class PaymentService
 
             foreach ($order->groups as $group) {
                 $group->update(['status' => OrderGroupStatus::Confirmed]);
+            }
+
+            if ($order->promo_code_id) {
+                app(PromoCodeService::class)->recordUse($order->promoCode);
             }
 
             if ($order->payment) {
@@ -48,8 +53,30 @@ class PaymentService
         });
     }
 
-    private function transitionPayment(Payment $payment, PaymentStatus $to, ?string $intentId = null): void
+    public function recordRefund(Payment $payment, int $amountCents, string $note): Payment
     {
+        return DB::transaction(function () use ($payment, $amountCents, $note) {
+            $payment = $payment->fresh();
+            $newRefunded = $payment->refunded_cents + $amountCents;
+
+            $payment->update(['refunded_cents' => $newRefunded]);
+
+            $toStatus = $newRefunded >= $payment->amount_cents
+                ? PaymentStatus::Refunded
+                : PaymentStatus::Completed;
+
+            $this->transitionPayment($payment->fresh(), $toStatus, null, $note);
+
+            return $payment->fresh();
+        });
+    }
+
+    private function transitionPayment(
+        Payment $payment,
+        PaymentStatus $to,
+        ?string $intentId = null,
+        ?string $note = null,
+    ): void {
         $from = $payment->status;
 
         $payment->update([
@@ -61,6 +88,7 @@ class PaymentService
             'payment_id' => $payment->id,
             'from_status' => $from?->value,
             'to_status' => $to->value,
+            'note' => $note,
         ]);
     }
 }

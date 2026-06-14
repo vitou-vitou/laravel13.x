@@ -38,4 +38,12 @@
     .admin-subnav-link {
         @apply rounded-xl border border-stone-200 bg-white px-4 py-2 text-sm font-medium text-stone-700 shadow-sm transition hover:border-brand-600 hover:text-brand-700;
     }
+
+    .catalog-grid .store-card {
+        @apply hover:translate-y-0 sm:hover:-translate-y-0.5;
+    }
+
+    .sticky-cart-bar .btn-brand {
+        @apply min-h-11;
+    }
 }

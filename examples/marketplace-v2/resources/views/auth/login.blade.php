@@ -10,17 +10,7 @@
     @endphp
 
     @if ($devEnabled)
-        <div
-            class="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950"
-            x-data="{
-                email: @js(old('email', $devEmail)),
-                password: @js($devPassword),
-                pick(accountEmail) {
-                    this.email = accountEmail;
-                    this.password = @js($devPassword);
-                },
-            }"
-        >
+        <div class="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
             <p class="font-semibold">Development login</p>
             <p class="mt-1 text-xs text-amber-800">Credentials are prefilled. Password is <code class="rounded bg-amber-100 px-1">password</code> for seeded users.</p>
             <div class="mt-3 flex flex-wrap gap-2">
@@ -28,7 +18,7 @@
                     <button
                         type="button"
                         class="rounded-full border border-amber-300 bg-white px-3 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100"
-                        @click="pick(@js($account['email']))"
+                        onclick="document.getElementById('email').value = @js($account['email']); document.getElementById('password').value = @js($devPassword);"
                     >
                         {{ $account['label'] }}
                     </button>
@@ -49,7 +39,6 @@
                 type="email"
                 name="email"
                 :value="old('email', $devEmail)"
-                @if ($devEnabled) x-model="email" @endif
                 required
                 autofocus
                 autocomplete="username"
@@ -66,7 +55,7 @@
                 class="block mt-1 w-full"
                 type="password"
                 name="password"
-                @if ($devEnabled) x-bind:value="password" x-model="password" @else value="" @endif
+                :value="$devEnabled ? $devPassword : ''"
                 required
                 autocomplete="current-password"
             />

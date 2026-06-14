@@ -6,6 +6,7 @@ use App\Contracts\CreatesStripeCheckoutSession;
 use App\Models\Order;
 use App\Services\CheckoutService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\View\View;
@@ -22,9 +23,13 @@ class CheckoutController extends Controller implements HasMiddleware
         return [new Middleware('auth')];
     }
 
-    public function store(): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $order = $this->checkout->placeFromCart();
+        $validated = $request->validate([
+            'shipping_address_id' => ['nullable', 'integer', 'exists:shipping_addresses,id'],
+        ]);
+
+        $order = $this->checkout->placeFromCart($validated['shipping_address_id'] ?? null);
         $checkoutUrl = $this->stripeCheckout->createForOrder($order);
 
         if (str_starts_with($checkoutUrl, 'http')) {

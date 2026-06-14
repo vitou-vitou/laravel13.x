@@ -9,7 +9,10 @@
         <div class="mt-6 space-y-3">
             @foreach ($orders as $order)
                 <div class="store-panel">
-                    <p class="font-semibold text-stone-900">Order #{{ $order->id }} — {{ $order->status->value }}</p>
+                    <p class="font-semibold text-stone-900">
+                        <a href="{{ route('admin.orders.show', $order) }}" class="hover:text-brand-700">Order #{{ $order->id }}</a>
+                        — {{ $order->status->value }}
+                    </p>
                     <p class="text-sm text-stone-500">{{ $order->user->email }} — {{ $order->formattedTotal() }}</p>
                 </div>
             @endforeach
