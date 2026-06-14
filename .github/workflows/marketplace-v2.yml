@@ -1,0 +1,34 @@
+name: marketplace-v2
+
+on:
+  push:
+    paths:
+      - 'examples/marketplace-v2/**'
+      - '.github/workflows/marketplace-v2.yml'
+  pull_request:
+    paths:
+      - 'examples/marketplace-v2/**'
+      - '.github/workflows/marketplace-v2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/marketplace-v2
+
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+
+      - uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - run: composer install --prefer-dist --no-interaction --no-progress
+      - run: cp .env.example .env
+      - run: php artisan test

@@ -303,8 +303,20 @@ The **12-week** calendar is the product planning horizon; the **10-hour** plan i
 
 ```bash
 export PATH="/d/laravel13.x/bin:$PATH"
-./bin/new-example marketplace-v1 "Multi-vendor Marketplace"
-./bin/verify-example marketplace-v1
+./bin/new-example marketplace-v2 "Multi-vendor Marketplace"   # already scaffolded
+./bin/verify-example marketplace-v2
 ```
 
-Then run Claude Code with the opener above against `examples/marketplace-v1`.
+Then run Claude Code with the opener above against `examples/marketplace-v2`.
+
+---
+
+## Build status (2026-06-14)
+
+| Waves | Tasks | Status |
+|-------|-------|--------|
+| 1–6 | T001–T050 | **Done** — domain, catalog, cart, checkout |
+| 7–12 | T051–T097 | **Done** in `examples/marketplace-v2` (**38 tests** green, `verify-example` passes) |
+
+**App:** `examples/marketplace-v2` @ http://marketplace-v2.test  
+**Resume:** `examples/marketplace-v2/docs/NEXT_SESSION.md`
