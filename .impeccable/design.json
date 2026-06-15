@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-23T00:00:00.000Z",
+  "title": "Design System: Laravel 13 Monorepo",
+  "extensions": {
+    "colorMeta": {
+      "welcome-bg": {
+        "role": "neutral",
+        "displayName": "Charcoal Base",
+        "canonical": "oklch(0.135 0.009 70)",
+        "tonalRamp": [
+          "oklch(0.12 0.008 70)",
+          "oklch(0.135 0.009 70)",
+          "oklch(0.16 0.009 70)",
+          "oklch(0.19 0.009 68)",
+          "oklch(0.24 0.011 70)",
+          "oklch(0.33 0.014 68)",
+          "oklch(0.48 0.012 72)",
+          "oklch(0.58 0.012 75)"
+        ]
+      },
+      "welcome-accent": {
+        "role": "primary",
+        "displayName": "Wheat Signal",
+        "canonical": "oklch(0.74 0.065 82)",
+        "tonalRamp": [
+          "oklch(0.35 0.03 82)",
+          "oklch(0.45 0.04 82)",
+          "oklch(0.55 0.05 82)",
+          "oklch(0.65 0.06 82)",
+          "oklch(0.74 0.065 82)",
+          "oklch(0.8 0.072 82)",
+          "oklch(0.86 0.075 82)",
+          "oklch(0.92 0.06 82)"
+        ]
+      },
+      "welcome-fg": {
+        "role": "neutral",
+        "displayName": "Parchment Headline",
+        "canonical": "oklch(0.97 0.006 75)",
+        "tonalRamp": [
+          "oklch(0.58 0.012 75)",
+          "oklch(0.65 0.012 75)",
+          "oklch(0.72 0.014 78)",
+          "oklch(0.8 0.012 75)",
+          "oklch(0.88 0.01 76)",
+          "oklch(0.93 0.01 78)",
+          "oklch(0.97 0.006 75)",
+          "oklch(0.99 0.004 75)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page H1 on welcome; tight tracking, semibold."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Lead paragraphs; muted variant for secondary copy."
+      },
+      "label": {
+        "displayName": "Kicker",
+        "purpose": "Uppercase app name line above headline."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "welcome-in",
+        "value": "780ms cubic-bezier(0.16, 1, 0.3, 1) both",
+        "purpose": "Staggered fade-up for hero, copy, CTA, footer."
+      },
+      {
+        "name": "ease-interaction",
+        "value": "200ms ease-out",
+        "purpose": "Color transitions on links and buttons."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA on welcome (e.g. Open admin).",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\">Open admin</button>",
+      "css": ".ds-btn-primary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 12px 24px; font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; color: oklch(0.135 0.009 70); background: oklch(0.74 0.065 82); border: none; border-radius: 0.375rem; cursor: pointer; transition: background 200ms ease-out, transform 200ms ease-out; -webkit-tap-highlight-color: transparent; } .ds-btn-primary:hover { background: oklch(0.8 0.072 82); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus { outline: none; } .ds-btn-primary:focus-visible { outline: 2px solid oklch(0.74 0.065 82 / 0.5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Accent Link",
+      "kind": "custom",
+      "refersTo": "link-accent",
+      "description": "Inline documentation link in body copy.",
+      "html": "<a href=\"#\" class=\"ds-link-accent\">the Filament panel docs</a>",
+      "css": ".ds-link-accent { font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif; font-size: 1.125rem; font-weight: 500; color: oklch(0.74 0.065 82); text-decoration: underline; text-decoration-color: oklch(0.74 0.065 82 / 0.4); text-underline-offset: 0.22em; transition: color 200ms ease-out, text-decoration-color 200ms ease-out; -webkit-tap-highlight-color: transparent; } .ds-link-accent:hover { color: oklch(0.8 0.072 82); text-decoration-color: oklch(0.74 0.065 82 / 0.6); } .ds-link-accent:active { transform: translateY(1px); } .ds-link-accent:focus { outline: none; } .ds-link-accent:focus-visible { border-radius: 2px; outline: 2px solid oklch(0.74 0.065 82 / 0.5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Skip to Content",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "Accessibility skip link; visible on keyboard focus only.",
+      "html": "<a href=\"#main\" class=\"ds-skip-link\">Skip to content</a>",
+      "css": ".ds-skip-link { position: absolute; left: 1rem; top: 1rem; z-index: 50; padding: 10px 16px; font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: oklch(0.97 0.006 75); background: oklch(0.19 0.009 68); border-radius: 0.375rem; text-decoration: none; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; overflow: hidden; white-space: nowrap; width: 1px; } .ds-skip-link:focus { clip: auto; clip-path: none; height: auto; width: auto; overflow: visible; outline: 2px solid oklch(0.74 0.065 82 / 0.5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Display Heading",
+      "kind": "custom",
+      "refersTo": "typography.display",
+      "description": "Welcome page H1.",
+      "html": "<h1 class=\"ds-display\">welcome to basic laravel filamentphp</h1>",
+      "css": ".ds-display { font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif; font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.038em; color: oklch(0.97 0.006 75); text-wrap: balance; margin: 0; }"
+    },
+    {
+      "name": "Kicker Label",
+      "kind": "chip",
+      "refersTo": "typography.label",
+      "description": "Uppercase app name above headline.",
+      "html": "<p class=\"ds-kicker\">Laravel</p>",
+      "css": ".ds-kicker { font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif; font-size: 0.8125rem; font-weight: 500; line-height: 1.4; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.58 0.012 75); margin: 0 0 1.125rem; }"
+    },
+    {
+      "name": "Footer Meta",
+      "kind": "custom",
+      "refersTo": "typography.label",
+      "description": "Version line with top border.",
+      "html": "<footer class=\"ds-footer\"><span class=\"ds-footer-text\">PHP 8.4</span><span class=\"ds-footer-dot\" aria-hidden=\"true\">·</span><span class=\"ds-footer-text\">Laravel v13</span></footer>",
+      "css": ".ds-footer { max-width: 42rem; margin-top: 4.5rem; padding-top: 1.75rem; border-top: 1px solid oklch(0.33 0.014 68); font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; } .ds-footer-text { color: oklch(0.48 0.012 72); font-variant-numeric: tabular-nums; } .ds-footer-dot { margin: 0 0.5rem; color: oklch(0.38 0.012 70); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Filament Threshold",
+    "overview": "A developer opens the repo at night, laptop glow on a desk, scanning whether this skeleton is worth wiring up. The welcome surface is a single calm gate: warm charcoal ground, wheat-gold accent only where action lives, type that reads fast without shouting. Depth comes from tonal steps and a whisper of film grain, not cards or drop shadows. Motion is a short staggered fade-up, then stillness.\n\nThis system explicitly rejects SaaS landing clichés (hero metrics, icon-card grids, gradient text, glass panels, purple-on-black defaults). Filament apps under apps/ may use their own UI; this document governs the root welcome landing and shared @theme tokens in resources/css/app.css.",
+    "keyCharacteristics": [
+      "OKLCH palette with low chroma neutrals and one warm accent (hue ~70–82)",
+      "Dark-by-scene: dim ambient use, not dark mode because dev tools",
+      "Flat elevation; borders and lightness steps define structure",
+      "Outfit for welcome; Instrument Sans reserved as default sans stack",
+      "Motion: state and entrance only; cubic-bezier(0.16, 1, 0.3, 1) ease-out; respects motion-reduce",
+      "Max content width ~42rem; generous vertical rhythm on hero and footer"
+    ],
+    "rules": [
+      {
+        "name": "The One Wheat Rule",
+        "body": "Accent wheat appears only on interactive elements and selection, never as a full-bleed hero wash. If more than ~10% of the viewport reads as accent, remove a use.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Neutral Rule",
+        "body": "No pure #000 or #fff. Every neutral carries a trace of hue 70–78 at chroma 0.009–0.014.",
+        "section": "colors"
+      },
+      {
+        "name": "The 42rem Column Rule",
+        "body": "Main copy and footer share max-w-[42rem] so the eye stays in one column on large screens.",
+        "section": "typography"
+      },
+      {
+        "name": "The Outfit-Only Welcome Rule",
+        "body": "welcome.blade.php uses font-outfit on body. Do not mix Instrument Sans on that page without a deliberate exception.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Gate Rule",
+        "body": "Surfaces stay flush until interaction (hover brightens accent, active translateY(1px) on buttons/links). Do not add drop shadows to static layout blocks.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use OKLCH tokens from @theme in resources/css/app.css for all welcome colors.",
+      "Do keep accent wheat on links, buttons, focus, and selection only.",
+      "Do use Outfit on the welcome page and respect motion-reduce.",
+      "Do maintain 44px minimum touch targets (min-h-11) on primary controls.",
+      "Do use tonal borders (welcome-border, welcome-divider) instead of shadows for separation."
+    ],
+    "donts": [
+      "Don't use pure black or white backgrounds or text.",
+      "Don't ship generic SaaS landing patterns: hero metrics, three identical icon cards, gradient headlines.",
+      "Don't use AI tool marketing aesthetics: glassmorphism, neon accents, chat-bubble chrome, over-animated heroes.",
+      "Don't leave stock Laravel/Filament gray as the only identity.",
+      "Don't add gradient text, glass blur cards, or colored left-border stripes on callouts.",
+      "Don't deploy identical icon+heading+body card grids on the welcome surface.",
+      "Don't use bounce or elastic easing; use ease-out quart/expo curves only.",
+      "Don't animate layout properties (width, height, margin); opacity and transform only.",
+      "Don't paste generic purple/indigo SaaS palettes or observability-dark-blue reflexes over this warm hue-70 family.",
+      "Don't use modal-first flows when inline or progressive disclosure would do."
+    ]
+  }
+}

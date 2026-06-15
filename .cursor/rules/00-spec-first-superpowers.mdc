@@ -1,0 +1,20 @@
+---
+description: "Spec-First 守门规则：阻止未经规范确认就写代码"
+globs: "*"
+alwaysApply: true
+---
+
+## Spec-First 守门规则
+
+任何新功能、Bugfix、重构任务，必须先完成 SDD 规范流程并获用户明确确认后，才允许写代码。
+
+**检测逻辑**：
+- 识别到编码任务 → 检查是否已有用户确认的 Spec
+- 无已确认 Spec → 引导输入 `/super-spec` 启动规范流程
+- 用户催促跳过 → 礼貌拒绝："根据 spec-first 规则，需先完成规范流程。请输入 /super-spec 启动。"
+
+**模式选择**：Spec-Kit 与 OpenSpec 二选一（默认 OpenSpec），读取项目根 `.spec-mode` 文件判断。
+
+**完整流程由 `spec-kit-openspec-superpowers` Skill 驱动，本规则仅作为始终生效的守门员。**
+
+**laravel13.x:** 还须遵守 `spec-kit-openspec-superpowers/laravel13-x-policy.md`（绿场 Spec-Kit、后期 OpenSpec、勿混用）。
