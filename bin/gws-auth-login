@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# gws Gmail OAuth — run in Git Bash; opens full URL safely (Windows cmd strips &params).
+set -euo pipefail
+
+export PATH="/d/laravel13.x/bin:${PATH:-}"
+
+if ! gws auth status 2>/dev/null | grep -q '"client_config_exists": true'; then
+  echo "Missing client_secret.json — run ./bin/gws-sync-from-dashboard-env first" >&2
+  exit 1
+fi
+
+URL_FILE="${TMPDIR:-/tmp}/gws-auth-url.txt"
+: > "$URL_FILE"
+
+echo "Starting gws auth login (Desktop OAuth)..."
+echo "Complete sign-in in the browser window that opens."
+echo
+
+# Run login; capture URL line; open via PowerShell so &response_type=code is preserved
+gws auth login --services gmail --readonly 2>&1 | tee /tmp/gws-auth-login.log | while IFS= read -r line; do
+  echo "$line"
+  if [[ "$line" =~ https://accounts.google.com/o/oauth2/auth ]]; then
+    url="${line#"${line%%[![:space:]]*}"}"
+    url="${url%%[[:space:]]*}"
+    printf '%s' "$url" > "$URL_FILE"
+    if command -v powershell.exe >/dev/null 2>&1; then
+      powershell.exe -NoProfile -Command "Start-Process '$url'" >/dev/null 2>&1 || true
+    fi
+  fi
+done
+
+if gws auth status 2>/dev/null | grep -qv '"auth_method": "none"'; then
+  echo
+  echo "Gmail auth OK."
+  gws auth status 2>&1 | grep -E 'auth_method|credential_source|storage' || true
+  exit 0
+fi
+
+echo
+echo "Auth not finished. Run this again, or paste the URL from above into Chrome/Edge manually." >&2
+exit 1

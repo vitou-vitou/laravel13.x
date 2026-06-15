@@ -16,6 +16,8 @@ alwaysApply: true
 
 ## New example (`bin/new-example <slug> "Name"`)
 
+**Only when user explicitly picks Laravel** — see `.cursor/rules/greenfield-stack-choice.mdc`. Do not run by default on "build X" or UX requests.
+
 1. Creates Laravel + Spec-Kit + **herd link** → `http://<slug>.test`
 2. Ends with **`bin/verify-example <slug>`** — must pass before telling user "done"
 3. User browser: **`APP_URL` from `.env`**, not `:5173`
@@ -31,6 +33,9 @@ alwaysApply: true
 | Unsupported cipher / APP_KEY | `./bin/fix-example-app-key <slug>` |
 | 500 after scaffold | `./bin/verify-example <slug>` then fix script |
 | `php` not found | `export PATH="/d/laravel13.x/bin:$PATH"` |
+| Docker port already allocated | Change host port in `docker-compose.yml` (e.g. `8089:8080`) |
+| Docker 500, missing encryption key | Add `env_file: .env` to compose — container needs `APP_KEY` |
+| Docker Desktop not running | Start Docker Desktop before `docker compose up` |
 | ngrok → Herd **404 Site not found** (OAuth) | `ngrok http 127.0.0.1:80 --traffic-policy-file ngrok-traffic-policy.yml` — not `ngrok http http://<slug>.test`; see `docs/EXAMPLE_DEV_LESSONS.md` |
 
 **Never** write `APP_KEY` from `artisan key:generate --show` (ANSI colors break encryption).

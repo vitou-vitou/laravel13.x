@@ -1,0 +1,2 @@
+period_start,period_end,platform,gross_payout_local,currency,payout_status,s_views,t_views,attributed_revenue,commission_rate_pct,monthly_ops_fee,commission_amount,creator_net,notes
+2026-06-01,2026-06-30,youtube,100.00,USD,estimated,50000,120000,41.67,15,0,6.25,35.42,S/T example: 50000/120000 * 100 — delete before real use

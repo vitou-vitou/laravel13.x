@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Fetch latest TikTok verification code from Gmail via gws (requires gws auth login).
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=lib/mail-code-common.sh
+source "$REPO_ROOT/bin/lib/mail-code-common.sh"
+
+QUERY="${GMAIL_TIKTOK_QUERY:-from:tiktok newer_than:2h (verification OR code OR verify)}"
+MAX_WAIT="${MAX_WAIT:-120}"
+POLL="${POLL:-8}"
+
+mail_code_require_gws
+
+fetch_once() {
+  local line code
+  line="$(mail_code_fetch_gmail_once "$QUERY")" || return 1
+  code="${line%%$'\t'*}"
+  echo "$code"
+}
+
+if [[ "${1:-}" == "--once" ]]; then
+  fetch_once && exit 0
+  echo "No TikTok code found yet." >&2
+  exit 1
+fi
+
+echo "Polling Gmail for TikTok code (max ${MAX_WAIT}s, query: $QUERY)..." >&2
+elapsed=0
+while [[ "$elapsed" -lt "$MAX_WAIT" ]]; do
+  if code="$(fetch_once)"; then
+    echo "$code"
+    exit 0
+  fi
+  sleep "$POLL"
+  elapsed=$((elapsed + POLL))
+done
+
+echo "Timeout: no TikTok verification email found." >&2
+exit 1

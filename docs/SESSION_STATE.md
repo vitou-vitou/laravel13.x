@@ -17,9 +17,11 @@
 | E-commerce path | `examples/kindly-e-commerce-1122` (catalog + cart + checkout MVP) |
 | SDD at greenfield | **Spec-Kit + Superpowers (TDD)** only — **no OpenSpec at init** |
 | OpenSpec | Post-MVP change orders only |
+| Session handoff | **Git** (`SESSION_STATE.md`, `NEXT_SESSION.md`) — canonical; **Notion** optional for tasks/notes via Cursor plugin |
 | Booking external review | **Grok** — done (`docs/GROK_REVIEW_*.md`) |
 | Login external review | **Arena.ai only** — no Grok (`docs/ARENA_LOOP.md`) |
 | Arena mode | **Direct** + **claude-sonnet-4-6** (not Battle, not Max) |
+| **Greenfield stack** | **Do not default to Laravel** — confirm stack or wait until user says pick Laravel / `new-example` (see `.cursor/rules/greenfield-stack-choice.mdc`) |
 
 ---
 
@@ -33,6 +35,7 @@
 | `examples/clone-the-fb-nav` | **MVP complete** | 6/6 | None (static UI) | FB desktop top-nav study; Spec-Kit `001-fb-top-nav` |
 | `examples/dashboard-v1` | **MVP complete** | 115/115 | Breeze + Filament + Reverb + Socialite | Commerce + email + Echo + Google SSO + theme modes |
 | `examples/dashboard-v2` | **GitHub OAuth MVP** | 35/35 | Breeze + GitHub Socialite | Session auth + optional GitHub login |
+| `examples/creator-operator-v1` | **MVP + Mode D slices 1–5** | 44/44 | Breeze session (operator + creator) | Publish log, metrics, settlement, import, billing mock, webhooks |
 
 ---
 
@@ -170,9 +173,11 @@ POST /api/logout
 
 6. **dashboard-v2:** GitHub OAuth MVP — Breeze + Socialite; set `GITHUB_CLIENT_*` for live login.
 
-7. **New example scaffold:** `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+7. **creator-operator-v1:** Mode D W1–W6 **done** (44/44) — optional Track B Stripe, CLI subprocess, OpenSpec; see `examples/creator-operator-v1/docs/NEXT_SESSION.md`.
 
-8. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
+8. **New example scaffold:** only after user picks Laravel → `./bin/new-example <slug> "Name"` → `docs/NEW_EXAMPLE_SCAFFOLD.md`
+
+9. **Do not** start another greenfield app without explicit user pick from 180+ catalog (or `new-example`).
 
 ---
 
@@ -226,6 +231,28 @@ POST /api/logout
 
 ---
 
+## `examples/creator-operator-v1`
+
+**What it is:** Laravel 13 + Breeze — operator/creator roles, weekly batch publish log, approvals, metrics, settlement (S÷T), TikTok JSONL import, mock billing limits, outbound webhooks.
+
+**Spec-Kit:** `.specify/specs/001-creator_operator_v1/` (MVP complete)
+
+**Mode D:** `docs/ROADMAP.md` — T001–T032, **6 waves complete** (Track A mock billing)
+
+**Key tests:** `PublishLogFlowTest`, `WeeklyMetricsTest`, `MonthlySettlementTest`, `TikTokImportTest`, `OperatorBillingTest`, `IntegrationWebhookTest`, `PublishLogFieldsTest` + Breeze (44 total)
+
+**Browser:** http://creator-operator-v1.test
+
+**Demo:** `operator@creator-operator.local` / `creator@creator-operator.local` — password `password`
+
+**Do not redo:** Breeze scaffold, Mode D W1–W6 slices, Spec-Kit MVP tasks.
+
+**Post-MVP only:** Track B Stripe (`/settings/subscription`), Python CLI subprocess for `tools/tiktok-metadata`, CSV export, weekly email, interactive checklist dashboard, OpenSpec.
+
+**Detail file:** `examples/creator-operator-v1/docs/NEXT_SESSION.md` · **UX:** `docs/DESIGN.md`
+
+---
+
 ## Agent transcript (full chat)
 
 `C:\Users\vitou\.cursor\projects\d-laravel13-x/agent-transcripts/b7d613e8-d8c2-4ba4-b7ca-c5b437273cc8/b7d613e8-d8c2-4ba4-b7ca-c5b437273cc8.jsonl`
@@ -238,5 +265,6 @@ POST /api/logout
 - `docs/study/180-laravel-project-types-study-packet.md`
 - `docs/guides/ui-adoption-workflow/` — UI/GitHub design adoption (8-principle study, impeccable context, pro runbook)
 - `docs/CURSOR_SKILLS_SYNC.md` — Spec-Kit / OpenSpec / Superpowers skills on any PC (same Cursor account)
+- `docs/MCP_SERVERS.md` — Cursor MCP stack (playwright, context7, 21st magic, browsermcp, **Notion plugin**)
 - `ocp/README.md` — OCP proxy (Claude subscription in Cursor / Cline / Continue); `install.bat` + `start.bat`
 - Skill: Spec-Kit + Superpowers (not Spec-Kit + OpenSpec together at init)

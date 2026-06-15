@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+# Check gws Gmail + Telegram config for mail-code-notifier scripts.
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CONFIG_ENV="${MAIL_CODE_CONFIG:-$HOME/.config/mail-code-notifier/env}"
+MISSING=0
+SHOW_CHAT_ID=0
+SEND_TEST=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --show-chat-id) SHOW_CHAT_ID=1; shift ;;
+    --test) SEND_TEST=1; shift ;;
+    -h|--help)
+      cat <<EOF
+Usage: ./bin/mail-code-notify-prep [--show-chat-id] [--test]
+
+Checks gws Gmail auth and Telegram bot config.
+
+Config file (optional): $CONFIG_ENV
+  TELEGRAM_BOT_TOKEN=...
+  TELEGRAM_CHAT_ID=...
+
+Setup:
+  1. ./bin/gws-gmail-prep && gws auth login --services gmail --readonly
+  2. Create bot via @BotFather -> TELEGRAM_BOT_TOKEN
+  3. Message your bot once, then: ./bin/mail-code-notify-prep --show-chat-id
+  4. Save token + chat_id to $CONFIG_ENV
+  5. ./bin/mail-code-notify-prep --test
+EOF
+      exit 0
+      ;;
+    *) echo "Unknown option: $1" >&2; exit 1 ;;
+  esac
+done
+
+load_config() {
+  if [[ -f "$CONFIG_ENV" ]]; then
+    # shellcheck disable=SC1090
+    set -a
+    source "$CONFIG_ENV"
+    set +a
+    echo "  OK: loaded $CONFIG_ENV"
+  else
+    echo "  INFO: no config file at $CONFIG_ENV (env vars still work)"
+  fi
+}
+
+echo "==> mail-code-notify-prep"
+load_config
+
+if ! command -v gws >/dev/null 2>&1; then
+  echo "  INSTALL: npm install -g @googleworkspace/cli"
+  MISSING=1
+else
+  echo "  OK: gws $(gws --version 2>/dev/null | head -1)"
+fi
+
+if gws auth status 2>/dev/null | grep -q '"auth_method": "none"'; then
+  echo "  MANUAL: gws auth login --services gmail --readonly"
+  echo "          (run ./bin/gws-gmail-prep first if OAuth JSON missing)"
+  MISSING=1
+else
+  echo "  OK: gws Gmail authenticated"
+fi
+
+TOKEN="${TELEGRAM_BOT_TOKEN:-}"
+CHAT_ID="${TELEGRAM_CHAT_ID:-}"
+
+if [[ -n "$TOKEN" ]]; then
+  echo "  OK: TELEGRAM_BOT_TOKEN set"
+else
+  echo "  MANUAL: set TELEGRAM_BOT_TOKEN (from @BotFather)"
+  MISSING=1
+fi
+
+if [[ -n "$CHAT_ID" ]]; then
+  echo "  OK: TELEGRAM_CHAT_ID=$CHAT_ID"
+else
+  echo "  MANUAL: set TELEGRAM_CHAT_ID (run with --show-chat-id after messaging your bot)"
+  MISSING=1
+fi
+
+if [[ "$SHOW_CHAT_ID" -eq 1 ]]; then
+  if [[ -z "$TOKEN" ]]; then
+    echo "Need TELEGRAM_BOT_TOKEN to call getUpdates." >&2
+    exit 1
+  fi
+  echo
+  echo "==> Recent updates (message your bot first if empty):"
+  curl -fsS "https://api.telegram.org/bot${TOKEN}/getUpdates" | python3 -m json.tool 2>/dev/null \
+    || curl -fsS "https://api.telegram.org/bot${TOKEN}/getUpdates"
+  echo
+  echo "Look for result[].message.chat.id in the JSON above."
+fi
+
+if [[ "$SEND_TEST" -eq 1 ]]; then
+  if [[ "$MISSING" -ne 0 ]]; then
+    echo "Fix missing items before --test." >&2
+    exit 1
+  fi
+  echo
+  echo "==> Sending test Telegram message..."
+  "$REPO_ROOT/bin/telegram-notify" "mail-code-notifier: ok"
+  echo "  OK: test message sent"
+fi
+
+echo
+if [[ "$MISSING" -eq 0 && "$SHOW_CHAT_ID" -eq 0 && "$SEND_TEST" -eq 0 ]]; then
+  echo "Ready. Try:"
+  echo "  ./bin/gmail-code-notify --dry-run --once"
+  echo "  ./bin/mail-code-notify-prep --test"
+  exit 0
+fi
+
+if [[ "$MISSING" -ne 0 ]]; then
+  echo "Finish MANUAL steps above, then:"
+  echo "  ./bin/mail-code-notify-prep --test"
+  exit 1
+fi
+
+exit 0

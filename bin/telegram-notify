@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# Send a message via Telegram Bot API.
+set -euo pipefail
+
+CONFIG_ENV="${MAIL_CODE_CONFIG:-$HOME/.config/mail-code-notifier/env}"
+DRY_RUN=0
+
+usage() {
+  cat <<EOF
+Usage: ./bin/telegram-notify "message text"
+       ./bin/telegram-notify --dry-run "message text"
+
+Env (or $CONFIG_ENV):
+  TELEGRAM_BOT_TOKEN   Bot token from @BotFather
+  TELEGRAM_CHAT_ID     Your chat id (see ./bin/mail-code-notify-prep --show-chat-id)
+
+Optional:
+  MAIL_CODE_CONFIG     Path to env file with token/chat_id
+EOF
+  exit 1
+}
+
+load_config() {
+  if [[ -f "$CONFIG_ENV" ]]; then
+    # shellcheck disable=SC1090
+    set -a
+    source "$CONFIG_ENV"
+    set +a
+  fi
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run) DRY_RUN=1; shift ;;
+    -h|--help) usage ;;
+    *) break ;;
+  esac
+done
+
+[[ $# -ge 1 ]] || usage
+
+MESSAGE="$*"
+load_config
+
+TOKEN="${TELEGRAM_BOT_TOKEN:-}"
+CHAT_ID="${TELEGRAM_CHAT_ID:-}"
+
+if [[ -z "$TOKEN" || -z "$CHAT_ID" ]]; then
+  echo "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID." >&2
+  echo "Set env vars or create: $CONFIG_ENV" >&2
+  exit 1
+fi
+
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "DRY RUN telegram -> chat_id=$CHAT_ID"
+  echo "$MESSAGE"
+  exit 0
+fi
+
+RESPONSE="$(curl -fsS -X POST "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+  --data-urlencode "chat_id=${CHAT_ID}" \
+  --data-urlencode "text=${MESSAGE}" \
+  --data-urlencode "disable_web_page_preview=true")"
+
+if echo "$RESPONSE" | grep -q '"ok":true'; then
+  exit 0
+fi
+
+echo "Telegram API error: $RESPONSE" >&2
+exit 1

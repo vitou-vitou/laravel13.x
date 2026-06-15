@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Check gws + Gmail skill readiness; create config dir. Manual OAuth is the only human step.
+set -euo pipefail
+
+GWS_DIR="${GWS_CONFIG_DIR:-$HOME/.config/gws}"
+CLIENT="$GWS_DIR/client_secret.json"
+MISSING=0
+
+echo "==> gws-gmail-prep"
+
+if ! command -v gws >/dev/null 2>&1; then
+  echo "  INSTALL: npm install -g @googleworkspace/cli"
+  MISSING=1
+else
+  echo "  OK: gws $(gws --version 2>/dev/null | head -1)"
+fi
+
+mkdir -p "$GWS_DIR"
+echo "  OK: config dir $GWS_DIR"
+
+if [[ -f "$CLIENT" ]]; then
+  echo "  OK: client_secret.json present"
+else
+  REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+  if [[ -x "$REPO_ROOT/bin/gws-sync-from-dashboard-env" ]]; then
+    if "$REPO_ROOT/bin/gws-sync-from-dashboard-env" >/dev/null 2>&1; then
+      echo "  OK: client_secret.json synced from examples/dashboard-v1/.env"
+    else
+      echo "  MANUAL: dashboard-v1/.env GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET empty"
+      echo "          (same OAuth as dashboard SSO — paste secret via examples/dashboard-v1/bin/set-google-client-secret)"
+      echo "          Or: ./bin/gws-set-client-secret /path/to/downloaded.json"
+      MISSING=1
+    fi
+  else
+    echo "  MANUAL: save Google OAuth JSON to: $CLIENT"
+    MISSING=1
+  fi
+fi
+
+AUTH_JSON="$(gws auth status 2>/dev/null || true)"
+if echo "$AUTH_JSON" | grep -q '"auth_method": "none"'; then
+  echo "  MANUAL: after client_secret.json exists, run:"
+  echo "          gws auth login --services gmail --readonly"
+  MISSING=1
+elif echo "$AUTH_JSON" | grep -q '"auth_method"'; then
+  echo "  OK: gws auth configured"
+else
+  echo "  WARN: could not read auth status"
+fi
+
+if command -v agent-browser >/dev/null 2>&1; then
+  echo "  OK: agent-browser installed"
+else
+  echo "  INSTALL: npm install -g agent-browser && agent-browser install"
+  MISSING=1
+fi
+
+if [[ -f "$HOME/.agents/skills/gws-gmail/SKILL.md" ]]; then
+  echo "  OK: gws-gmail skill"
+else
+  echo "  INSTALL: npx skills add googleworkspace/cli@gws-gmail -g -y"
+fi
+
+echo
+if [[ "$MISSING" -eq 0 ]]; then
+  echo "Ready. Try: ./bin/gmail-tiktok-code"
+  exit 0
+fi
+
+echo "Finish MANUAL steps above, then:"
+echo "  EMAIL=you@gmail.com PASSWORD='YourPass123!' ./bin/tiktok-signup-run"
+exit 1

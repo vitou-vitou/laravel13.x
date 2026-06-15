@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+# Poll Gmail for a verification code and notify Telegram when found.
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# shellcheck source=lib/mail-code-common.sh
+source "$REPO_ROOT/bin/lib/mail-code-common.sh"
+
+CONFIG_ENV="${MAIL_CODE_CONFIG:-$HOME/.config/mail-code-notifier/env}"
+QUERY="${GMAIL_CODE_QUERY:-newer_than:2h (verification OR code OR verify)}"
+MAX_WAIT="${MAX_WAIT:-120}"
+POLL="${POLL:-8}"
+NOTIFY_PREFIX="${NOTIFY_PREFIX:-Verification}"
+ONCE=0
+NO_NOTIFY=0
+DRY_RUN=0
+SKIP_DEDUP=0
+
+usage() {
+  cat <<EOF
+Usage: ./bin/gmail-code-notify [options]
+
+Poll Gmail via gws, extract OTP/code, send to Telegram.
+
+Options:
+  --once         Single fetch attempt (no poll loop)
+  --no-notify    Print code only; skip Telegram
+  --dry-run      Show Telegram payload without sending
+  --skip-dedup   Notify even if same message id as last run
+  -h, --help     This help
+
+Env:
+  GMAIL_CODE_QUERY   Gmail search query (default: verification emails, last 2h)
+  CODE_REGEX         Regex for code extraction (default: 6 digits)
+  MAX_WAIT           Poll timeout seconds (default: 120)
+  POLL               Poll interval seconds (default: 8)
+  NOTIFY_PREFIX      Telegram message prefix (default: Verification)
+  TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID  (or $CONFIG_ENV)
+
+Examples:
+  ./bin/mail-code-notify-prep --test
+  GMAIL_CODE_QUERY='from:tiktok newer_than:1h' NOTIFY_PREFIX=TikTok ./bin/gmail-code-notify
+  ./bin/gmail-code-notify --once --no-notify
+EOF
+  exit 1
+}
+
+load_config() {
+  if [[ -f "$CONFIG_ENV" ]]; then
+    # shellcheck disable=SC1090
+    set -a
+    source "$CONFIG_ENV"
+    set +a
+  fi
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --once) ONCE=1; shift ;;
+    --no-notify) NO_NOTIFY=1; shift ;;
+    --dry-run) DRY_RUN=1; shift ;;
+    --skip-dedup) SKIP_DEDUP=1; shift ;;
+    -h|--help) usage ;;
+    *) echo "Unknown option: $1" >&2; usage ;;
+  esac
+done
+
+load_config
+mail_code_require_gws
+
+build_telegram_message() {
+  local code="$1" subject="$2" from_line="$3"
+  local msg="${NOTIFY_PREFIX} code: ${code}"
+  [[ -n "$from_line" ]] && msg="${msg}"$'\n'"From: ${from_line}"
+  [[ -n "$subject" ]] && msg="${msg}"$'\n'"Subject: ${subject}"
+  echo "$msg"
+}
+
+process_hit() {
+  local line="$1"
+  local code id subject from_line msg
+  IFS=$'\t' read -r code id subject from_line <<<"$line"
+
+  if [[ "$SKIP_DEDUP" -eq 0 ]] && mail_code_is_duplicate "$id"; then
+    echo "Already notified for message $id (use --skip-dedup to resend)." >&2
+    return 1
+  fi
+
+  echo "$code"
+
+  if [[ "$NO_NOTIFY" -eq 1 ]]; then
+    mail_code_mark_notified "$id"
+    return 0
+  fi
+
+  msg="$(build_telegram_message "$code" "$subject" "$from_line")"
+  TG_ARGS=()
+  [[ "$DRY_RUN" -eq 1 ]] && TG_ARGS+=(--dry-run)
+  "$REPO_ROOT/bin/telegram-notify" "${TG_ARGS[@]}" "$msg"
+  mail_code_mark_notified "$id"
+  return 0
+}
+
+try_fetch() {
+  local line
+  line="$(mail_code_fetch_gmail_once "$QUERY")" || return 1
+  process_hit "$line"
+}
+
+if [[ "$ONCE" -eq 1 ]]; then
+  try_fetch && exit 0
+  echo "No verification code found." >&2
+  exit 1
+fi
+
+echo "Polling Gmail for code (max ${MAX_WAIT}s, query: $QUERY)..." >&2
+elapsed=0
+while [[ "$elapsed" -lt "$MAX_WAIT" ]]; do
+  if try_fetch; then
+    exit 0
+  fi
+  sleep "$POLL"
+  elapsed=$((elapsed + POLL))
+done
+
+echo "Timeout: no verification code email found." >&2
+exit 1

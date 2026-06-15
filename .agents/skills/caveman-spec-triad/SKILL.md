@@ -49,7 +49,12 @@ caveman + triad
    - If user says **continue** or resumes laravel13.x work → read `docs/SESSION_STATE.md` first
    - Project rules: `.cursor/rules/session-handoff.mdc`, `.cursor/rules/windows-herd-gitbash.mdc`
 
-5. **Confirm stack** — one short caveman reply: voice ON, triad loaded, SDD not started, ask what task (greenfield / post-MVP / small fix).
+5. **Confirm stack** — one short caveman reply: voice ON, triad loaded, SDD not started, ask what task (greenfield / post-MVP / small fix / **UI polish**).
+
+6. **UI too basic?** (after MVP / tests green)
+   - Read **laravel-ui-phase** skill (`.agents/skills/laravel-ui-phase/SKILL.md`)
+   - User says **"AI pick my UI"** → `docs/GITHUB_UI_RESOURCE_INDEX.md` + **impeccable** + **design-taste-frontend**
+   - Caveman voice OK; still write `examples/*/docs/DESIGN.md`, still run tests
 
 ---
 

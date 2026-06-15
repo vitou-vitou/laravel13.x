@@ -1,5 +1,7 @@
 # New Laravel example — scaffold
 
+**Gate:** Run this **only** when the user explicitly chooses Laravel (`new-example`, "pick Laravel", 180+ type with Laravel path). Otherwise confirm stack first — see `.cursor/rules/greenfield-stack-choice.mdc`.
+
 Creates `examples/<slug>/` with **Spec-Kit + Superpowers-ready** layout and **clone-the-fb-nav** dev ergonomics (no repeat debugging of PHP PATH, `.env`, or Vite :5173).
 
 ## Command
@@ -73,3 +75,13 @@ php artisan config:clear
 - `composer`, `npm`, `node`
 
 See also: `docs/WINDOWS_HERD_GITBASH.md`
+
+## Docker + Render variant
+
+For **ServerSideUp Docker + SQLite + Render free tier**, copy patterns from `examples/dynamic-warm-view-1906`:
+
+- `Dockerfile` → `serversideup/php:8.4-fpm-nginx`
+- `docker-compose.yml` → **`env_file: .env`** (container needs `APP_KEY`), non-default host port if 8080 busy
+- `render.yaml` → `healthCheckPath: /api/healthz`
+- Pitfalls: `docs/EXAMPLE_DEV_LESSONS.md` § Docker + Render
+- Agent rule: `.cursor/rules/examples-docker-render.mdc`

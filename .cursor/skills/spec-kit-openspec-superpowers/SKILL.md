@@ -92,6 +92,38 @@ TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-de
 
 Each gate is a hard stop — nothing moves forward until all checks pass. If a gate fails, fix the issue and re-evaluate. Full gate criteria: [references/quality-gates.md](references/quality-gates.md)
 
+## Cross-machine sync (same Cursor account)
+
+| Piece | Sync method | Location |
+|-------|-------------|----------|
+| **spec-kit** | Personal skills + local mirror | `~/.cursor/skills/spec-kit/` |
+| **openspec** | Personal skills + local mirror | `~/.cursor/skills/openspec/` |
+| **superpowers** | Personal skills + local mirror | `~/.cursor/skills/superpowers/` |
+| **caveman** | Cursor plugin (optional) | `~/.cursor/plugins/cache/caveman/` — see `docs/CURSOR_SKILLS_SYNC.md` |
+| **This router** | Personal skills + local mirror | `~/.cursor/skills/spec-kit-openspec-superpowers/` |
+| **impeccable** | Personal skills + local mirror | `~/.cursor/skills/impeccable/` |
+| **laravel-ui-phase** | Personal skills + `.agents/skills/` mirror | UI polish after MVP (`AI pick my UI`) |
+| **design-taste-frontend** | `.agents/skills/` (claude-skills pack) | Anti-slop catalog/landing with impeccable |
+| **system-study-packet** | Personal skills + local mirror | `~/.cursor/skills/system-study-packet/` |
+| **8-principle-study** | Personal skills + local mirror | `~/.cursor/skills/8-principle-study/` |
+| **laravel-specialist** | Personal skills + local mirror | `~/.cursor/skills/laravel-specialist/` |
+| **Superpowers plugin** | Cursor marketplace (optional) | Install per machine |
+| **Project policy** | Git only | `docs/SESSION_STATE.md`, `.cursor/rules/session-handoff.mdc` |
+| **CLI tools** | Install per machine | `specify`, `openspec` |
+
+### Setup on a new PC
+
+1. Sign in to the **same Cursor account**.
+2. **Settings → Sync** — enable skills sync if available.
+3. Confirm `~/.cursor/skills/` contains: `spec-kit/`, `openspec/`, `superpowers/`.
+4. Install CLIs:
+   ```bash
+   uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+   npm install -g @fission-ai/openspec@latest
+   ```
+5. Optional: install **Superpowers plugin** in Cursor.
+6. Clone `laravel13.x`; if skills missing: `cp -r .cursor/skills/* ~/.cursor/skills/`
+
 ## Anti-Rush Protection
 
 If the user asks to skip the spec phase, politely decline and redirect to `/super-spec`. The whole point of this skill is preventing premature implementation.
@@ -119,3 +151,53 @@ This repo has a **locked triad policy** — read before mode auto-selection:
 - [laravel13-x-policy.md](laravel13-x-policy.md) — greenfield → Spec-Kit + Superpowers (no OpenSpec at init); post-MVP → OpenSpec + Superpowers; never both SDD layers on one feature
 - [triad-router.SKILL.md](triad-router.SKILL.md) — manual tool-choice router (invoke single skills: `spec-kit`, `openspec`, `superpowers`, `caveman`)
 - On `continue`: read `docs/SESSION_STATE.md` first
+
+### Invocation
+
+#### Full stack (Caveman + triad manuals — no auto SDD)
+
+```text
+/Caveman spec kit Openspec Superpower
+```
+
+```text
+Use caveman spec kit openspec superpower:
+```
+
+Loads **caveman-spec-triad** skill: persistent caveman voice + triad router + laravel13.x policy. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
+
+#### Router only
+
+```text
+Use spec-kit-openspec-superpowers: verify my triad setup on this machine.
+```
+
+#### Single tools
+
+```text
+Use spec-kit: /speckit.tasks in the current project.
+```
+
+```text
+Use openspec: /opsx:apply add-order-lifecycle.
+```
+
+```text
+Use superpowers: TDD for the next task.
+```
+
+```text
+Use caveman: talk like caveman for the rest of this session.
+```
+
+```text
+Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
+```
+
+### Reference links
+
+- Spec-Kit: https://github.com/github/spec-kit
+- OpenSpec: https://github.com/Fission-AI/OpenSpec
+- Superpowers: https://github.com/obra/superpowers
+- Caveman: https://github.com/JuliusBrussee/caveman (Matt Pocock-style token compression; includes cavecrew subagents)
+- Sync manifest: `docs/CURSOR_SKILLS_SYNC.md` (in laravel13.x)

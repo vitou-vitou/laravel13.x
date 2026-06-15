@@ -1,0 +1,46 @@
+---
+description: Auto commit and push after completed work using the user's git commit protocol (no confirmation prompt).
+alwaysApply: true
+---
+
+# Auto commit + push (laravel13.x)
+
+When you **finish substantive implementation** (features, docs deliverables, fixes the user requested), **commit and push without asking** — unless the user said question-only, review-only, or explicitly said not to commit/push this session.
+
+## Do automatically after completed work
+
+1. Run in **parallel**: `git status`, `git diff`, `git log -5 --oneline`
+2. Draft a Conventional Commits message (why > what); subject concise; body when needed
+3. **Do not** stage `.env`, credentials, or `tools/tiktok-metadata/downloads/`
+4. Commit via HEREDOC:
+
+```bash
+git commit -m "$(cat <<'EOF'
+subject line
+
+Optional body.
+EOF
+)"
+```
+
+5. `git pull --rebase origin main` (or current branch) if push may be non-fast-forward
+6. `git push -u origin HEAD` (or `git push origin <branch>`)
+7. Report commit hash + branch in the completion summary
+
+## Git safety (always)
+
+- NEVER update git config; NEVER force-push main/master; NEVER skip hooks unless user asked
+- NEVER commit secrets; warn if user explicitly asked to commit sensitive files
+- NEVER amend unless user rules allow (hook auto-fix on your commit, unpushed, etc.)
+- If commit hook fails: fix and **new** commit — do not amend a failed commit
+
+## When NOT to auto commit/push
+
+- User only asked a question or review (no code/docs change)
+- No changes to commit
+- User said "don't commit" / "don't push" in this thread
+- Work is intentionally WIP and user asked to stop mid-task
+
+## Commit message style
+
+Match recent repo history (often short `type: description` subjects). Prefer `docs:`, `feat:`, `fix:`, `chore:` as appropriate.

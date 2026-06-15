@@ -1,0 +1,398 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply text-stone-900 antialiased;
+    }
+}
+
+@layer components {
+    /* ── Shell & layout ── */
+    .ops-shell {
+        @apply min-h-screen bg-stone-50;
+    }
+
+    .ops-page {
+        @apply py-8;
+    }
+
+    .ops-container {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .ops-container-narrow {
+        @apply max-w-3xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .ops-container-form {
+        @apply max-w-2xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .ops-stack {
+        @apply space-y-6;
+    }
+
+    /* ── Page header (slot) ── */
+    .ops-page-title {
+        @apply text-xl font-semibold tracking-tight text-stone-900;
+    }
+
+    .ops-page-subtitle {
+        @apply text-sm text-stone-500 mt-0.5;
+    }
+
+    /* ── Panels ── */
+    .ops-panel {
+        @apply bg-white rounded-xl border border-stone-200/80 shadow-panel overflow-hidden;
+    }
+
+    .ops-panel-body {
+        @apply p-5 sm:p-6;
+    }
+
+    .ops-panel-header {
+        @apply px-5 py-3.5 border-b border-stone-100 bg-stone-50/60 text-sm font-semibold text-stone-800;
+    }
+
+    .ops-panel-footer {
+        @apply px-5 py-3 border-t border-stone-100 bg-stone-50/40 text-xs text-stone-500;
+    }
+
+    /* ── KPI cards ── */
+    .ops-kpi-grid {
+        @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-4;
+    }
+
+    .ops-kpi {
+        @apply bg-white rounded-xl border border-stone-200/80 shadow-panel p-4 sm:p-5;
+    }
+
+    .ops-kpi-label {
+        @apply text-xs font-medium uppercase tracking-wide text-stone-500;
+    }
+
+    .ops-kpi-value {
+        @apply mt-1 text-2xl font-semibold tabular-nums text-stone-900;
+    }
+
+    .ops-kpi--amber {
+        @apply border-amber-200/80;
+    }
+
+    .ops-kpi--amber .ops-kpi-value {
+        @apply text-amber-700;
+    }
+
+    .ops-kpi--sky {
+        @apply border-sky-200/80;
+    }
+
+    .ops-kpi--sky .ops-kpi-value {
+        @apply text-sky-700;
+    }
+
+    .ops-kpi--emerald {
+        @apply border-emerald-200/80;
+    }
+
+    .ops-kpi--emerald .ops-kpi-value {
+        @apply text-emerald-700;
+    }
+
+    /* ── Tables ── */
+    .ops-table-wrap {
+        @apply bg-white rounded-xl border border-stone-200/80 shadow-panel overflow-x-auto;
+    }
+
+    .ops-table {
+        @apply min-w-full divide-y divide-stone-100 text-sm;
+    }
+
+    .ops-table thead {
+        @apply bg-stone-50/80;
+    }
+
+    .ops-table th {
+        @apply px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-stone-500;
+    }
+
+    .ops-table td {
+        @apply px-4 py-2.5 text-stone-700;
+    }
+
+    .ops-table tbody {
+        @apply divide-y divide-stone-100;
+    }
+
+    .ops-table tbody tr:hover {
+        @apply bg-stone-50/50;
+    }
+
+    /* ── Buttons ── */
+    .ops-btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors bg-stone-900 text-white hover:bg-stone-800 active:bg-stone-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .ops-btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors border border-stone-300 bg-white text-stone-700 shadow-sm hover:bg-stone-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .ops-btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors text-stone-600 hover:bg-stone-100 hover:text-stone-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .ops-btn-success {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors bg-emerald-700 text-white hover:bg-emerald-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .ops-btn-sm {
+        @apply px-3 py-1.5 text-xs;
+    }
+
+    /* ── Links ── */
+    .ops-link {
+        @apply text-indigo-600 hover:text-indigo-800 font-medium underline-offset-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded;
+    }
+
+    .ops-link-muted {
+        @apply text-stone-600 hover:text-stone-900 font-medium underline-offset-2 hover:underline;
+    }
+
+    .ops-link-danger {
+        @apply text-red-600 hover:text-red-800 font-medium underline-offset-2 hover:underline;
+    }
+
+    /* ── Forms ── */
+    .ops-input {
+        @apply block w-full rounded-lg border-stone-300 shadow-sm text-stone-900 placeholder:text-stone-400 focus:border-indigo-500 focus:ring-indigo-500;
+    }
+
+    .ops-textarea {
+        @apply ops-input font-mono text-xs;
+    }
+
+    .ops-select {
+        @apply ops-input;
+    }
+
+    .ops-label {
+        @apply block text-sm font-medium text-stone-700;
+    }
+
+    .ops-fieldset {
+        @apply rounded-xl border border-stone-200 bg-stone-50/50 p-4 space-y-3;
+    }
+
+    .ops-fieldset-legend {
+        @apply text-sm font-semibold text-stone-800 px-1;
+    }
+
+    .ops-fieldset--publish {
+        @apply border-emerald-200 bg-emerald-50/40;
+    }
+
+    .ops-fieldset--publish .ops-fieldset-legend {
+        @apply text-emerald-900;
+    }
+
+    .ops-fieldset--ig {
+        @apply border-pink-200 bg-pink-50/40;
+    }
+
+    .ops-fieldset--ig .ops-fieldset-legend {
+        @apply text-pink-900;
+    }
+
+    /* ── Flash messages ── */
+    .ops-flash-success {
+        @apply rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900;
+    }
+
+    .ops-flash-error {
+        @apply rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900;
+    }
+
+    .ops-flash-info {
+        @apply rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm text-indigo-900;
+    }
+
+    .ops-flash-warn {
+        @apply rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950;
+    }
+
+    /* ── Empty states ── */
+    .ops-empty {
+        @apply px-4 py-10 text-center text-sm text-stone-500;
+    }
+
+    .ops-empty-title {
+        @apply font-medium text-stone-700;
+    }
+
+    /* ── Filter chips ── */
+    .ops-chip-active {
+        @apply inline-flex items-center rounded-full border border-stone-900 bg-stone-900 px-3 py-1 text-xs font-medium text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
+    }
+
+    .ops-chip-inactive {
+        @apply inline-flex items-center rounded-full border border-stone-300 bg-white px-3 py-1 text-xs font-medium text-stone-700 transition-colors hover:bg-stone-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500;
+    }
+
+    /* ── Meta grid ── */
+    .ops-meta-grid {
+        @apply bg-white rounded-xl border border-stone-200/80 shadow-panel p-5 sm:p-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm;
+    }
+
+    .ops-meta-label {
+        @apply text-xs font-medium uppercase tracking-wide text-stone-500;
+    }
+
+    .ops-meta-value {
+        @apply mt-0.5 font-medium text-stone-900;
+    }
+
+    /* ── Approval cards ── */
+    .ops-approval-card {
+        @apply px-5 py-5 border-b border-stone-100 last:border-0 hover:bg-stone-50/40 transition-colors space-y-4;
+    }
+
+    .ops-page--approvals {
+        @apply pb-28 sm:pb-8;
+    }
+
+    .ops-approval-actions {
+        @apply flex flex-col sm:flex-row gap-3 sm:justify-end sticky bottom-0 -mx-5 px-5 py-4 sm:static sm:mx-0 sm:px-0 sm:py-0 bg-white/95 backdrop-blur-sm border-t border-stone-100 sm:border-0 sm:bg-transparent sm:backdrop-blur-none z-20;
+    }
+
+    .ops-btn-touch {
+        @apply min-h-12 text-base sm:min-h-0 sm:text-sm px-6;
+    }
+
+    /* ── TikTok thumbnails ── */
+    .ops-thumb {
+        @apply relative overflow-hidden rounded-lg border border-stone-200 bg-stone-100;
+    }
+
+    .ops-thumb--sm {
+        @apply w-12 h-16;
+    }
+
+    .ops-thumb--md {
+        @apply w-20 h-28;
+    }
+
+    .ops-thumb--lg {
+        @apply w-full sm:w-36 h-48 sm:h-52;
+    }
+
+    .ops-thumb-link {
+        @apply block w-full h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-lg;
+    }
+
+    .ops-thumb-img {
+        @apply w-full h-full object-cover;
+    }
+
+    .ops-thumb-placeholder {
+        @apply flex flex-col items-center justify-center w-full h-full text-stone-400 bg-gradient-to-br from-stone-100 to-stone-200/80;
+    }
+
+    .ops-thumb-placeholder-icon {
+        @apply text-lg font-semibold text-stone-500;
+    }
+
+    .ops-thumb--sm .ops-thumb-placeholder-label {
+        @apply mt-0 text-[8px] leading-tight normal-case tracking-normal;
+    }
+
+    /* ── Lightweight charts ── */
+    .ops-chart-grid {
+        @apply grid gap-4 lg:grid-cols-2;
+    }
+
+    .ops-chart {
+        @apply bg-white rounded-xl border border-stone-200/80 shadow-panel p-5;
+    }
+
+    .ops-chart-title {
+        @apply text-sm font-semibold text-stone-800 mb-4;
+    }
+
+    .ops-chart-empty {
+        @apply text-sm text-stone-500 py-6 text-center;
+    }
+
+    .ops-chart-bars {
+        @apply flex items-end justify-between gap-2 h-36;
+    }
+
+    .ops-chart-bar-col {
+        @apply flex-1 flex flex-col items-center gap-1 min-w-0;
+    }
+
+    .ops-chart-bar-value {
+        @apply text-[11px] font-medium text-stone-600;
+    }
+
+    .ops-chart-bar-track {
+        @apply w-full flex-1 flex items-end justify-center min-h-[4px];
+    }
+
+    .ops-chart-bar-fill {
+        @apply w-full max-w-[2rem] rounded-t-md transition-all;
+    }
+
+    .ops-chart-bar-label {
+        @apply text-[10px] font-medium text-stone-500 uppercase;
+    }
+
+    /* ── Callout banners ── */
+    .ops-callout-dev {
+        @apply rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950;
+    }
+
+    /* ── Guest auth shell ── */
+    .ops-guest-shell {
+        @apply min-h-screen flex flex-col sm:justify-center items-center pt-8 sm:pt-0 bg-stone-50;
+    }
+
+    .ops-guest-card {
+        @apply w-full sm:max-w-md mt-6 px-6 py-8 bg-white shadow-panel border border-stone-200/80 overflow-hidden sm:rounded-2xl;
+    }
+
+    .ops-guest-brand {
+        @apply text-lg font-semibold tracking-tight text-stone-900;
+    }
+
+    .ops-guest-tagline {
+        @apply text-xs text-stone-500 mt-1;
+    }
+
+    /* ── Nav ── */
+    .ops-nav {
+        @apply bg-white/95 backdrop-blur-sm border-b border-stone-200 sticky top-0 z-40;
+    }
+
+    .ops-nav-brand {
+        @apply flex items-center gap-2 font-semibold text-stone-900 tracking-tight hover:text-stone-700 transition-colors;
+    }
+
+    .ops-nav-badge {
+        @apply hidden sm:inline-flex items-center rounded-md bg-stone-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-stone-600;
+    }
+
+    .ops-header-bar {
+        @apply border-b border-stone-200/80 bg-white/80 backdrop-blur-sm;
+    }
+
+    .ops-header-inner {
+        @apply max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8;
+    }
+
+    /* ── Event tags ── */
+    .ops-tag {
+        @apply inline-flex items-center rounded-md bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-700;
+    }
+}

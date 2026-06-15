@@ -1,0 +1,43 @@
+---
+description: Docker (ServerSideUp) + Render + SQLite patterns for examples/* — read when scaffolding or debugging container deploys.
+globs: examples/**/Dockerfile, examples/**/docker-compose.yml, examples/**/render.yaml
+alwaysApply: false
+---
+
+# Examples — Docker + Render (lessons from dynamic-warm-view-1906)
+
+**Full matrix:** `docs/EXAMPLE_DEV_LESSONS.md` § Docker + Render.
+
+## Reference example
+
+`examples/dynamic-warm-view-1906` — healthz + Sanctum + Tasks, ServerSideUp image, SQLite, `render.yaml` (free tier).
+
+## Agent checklist (Docker local)
+
+1. **PHP on host:** `export PATH="/d/laravel13.x/bin:$PATH"` before any `php` / `artisan`.
+2. **APP_KEY in container:** `docker-compose.yml` must pass `.env` (`env_file: .env`) or explicit `APP_KEY`. Missing key → 500 on web routes.
+3. **Port conflicts:** If `Bind for … failed: port is already allocated`, change host port (e.g. `8089:8080`) and update `APP_URL`.
+4. **Smoke test API, not welcome:** `curl http://localhost:<port>/api/healthz` — not `/` (Vite assets may 500 in API-only Docker builds).
+5. **SQLite:** Set `DB_DATABASE=/var/www/html/database/database.sqlite`; mount `./database/database.sqlite` for persistence across restarts.
+6. **Image:** `serversideup/php:8.4-fpm-nginx` with `AUTORUN_ENABLED=true` for migrate + storage link.
+7. **After local key change:** `php artisan key:generate --force` on host updates `.env`; restart compose so container picks up key.
+
+## Agent checklist (Render)
+
+1. `render.yaml`: `runtime: docker`, `healthCheckPath: /api/healthz`, `plan: free`.
+2. `APP_KEY`: use `generateValue: true` in Render dashboard / blueprint.
+3. SQLite on Render is **ephemeral** — document; do not promise durable data on free tier without persistent disk.
+
+## Greenfield naming
+
+Dynamic slug: `dynamic-{adjective}-{noun}-{1000-9999}` (e.g. `dynamic-warm-view-1906`).
+
+## SDD stack
+
+Greenfield: **Spec-Kit + Superpowers** (`spec-kit-openspec-superpowers` Path A). Not OpenSpec at init.
+
+## Do not
+
+- Run `php artisan key:generate --show` into `.env` (ANSI breaks encryption).
+- Assume `php` works in Git Bash without PATH export.
+- Use `8080` blindly — check for port conflicts on Windows.

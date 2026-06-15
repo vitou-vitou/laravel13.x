@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Continue Gmail + TikTok pipeline: sync dashboard OAuth → gws login → signup (best effort).
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export PATH="$REPO_ROOT/bin:${PATH:-}"
+EMAIL="${EMAIL:-}"
+PASSWORD="${PASSWORD:-TestPass123!@#}"
+SKIP_BROWSER="${SKIP_BROWSER:-0}"
+
+echo "==> continue-gmail-tiktok"
+echo
+
+# 1) Sync OAuth from dashboard-v1 .env if possible
+if "$REPO_ROOT/bin/gws-sync-from-dashboard-env" 2>/dev/null; then
+  echo
+else
+  echo "OAuth not in dashboard-v1/.env yet."
+  echo "  Open: https://console.cloud.google.com/apis/credentials"
+  echo "  Set GOOGLE_CLIENT_ID in examples/dashboard-v1/.env"
+  echo "  Run:  cd examples/dashboard-v1 && ./bin/set-google-client-secret"
+  echo
+fi
+
+gws_authed() {
+  gws auth status 2>/dev/null | grep -q '"auth_method": "none"' && return 1
+  gws auth status 2>/dev/null | grep -q '"credential_source": "none"' && return 1
+  return 0
+}
+
+# 2) gws Gmail auth
+if gws auth status 2>/dev/null | grep -q '"auth_method": "none"'; then
+  if [[ -f "${GWS_CONFIG_DIR:-$HOME/.config/gws}/client_secret.json" ]]; then
+    echo "==> gws auth login (complete in browser if it opens)..."
+    gws auth login --services gmail --readonly || true
+  else
+    echo "Skip gws login — no client_secret.json yet."
+  fi
+else
+  echo "OK: gws Gmail already authenticated."
+fi
+
+# 3) Test Gmail TikTok code fetch (non-fatal)
+if gws_authed; then
+  echo
+  echo "==> Gmail TikTok search (latest)..."
+  gws gmail +triage --query 'from:tiktok newer_than:7d' --max 3 --format table 2>/dev/null || true
+fi
+
+# 4) TikTok signup
+if [[ -z "$EMAIL" ]]; then
+  echo
+  echo "TikTok signup skipped — set EMAIL=your.real@gmail.com and re-run:"
+  echo "  EMAIL=you@gmail.com $0"
+  exit 0
+fi
+
+if [[ "$SKIP_BROWSER" == "1" ]]; then
+  echo "SKIP_BROWSER=1 — stopping before agent-browser."
+  exit 0
+fi
+
+echo
+echo "==> TikTok signup for $EMAIL"
+EMAIL="$EMAIL" PASSWORD="$PASSWORD" "$REPO_ROOT/bin/tiktok-signup-run"

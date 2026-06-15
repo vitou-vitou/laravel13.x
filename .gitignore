@@ -59,3 +59,6 @@ Thumbs.db
 examples/dashboard-v1/env
 !examples/dashboard-v2/.env
 !examples/kindly-superbase-1122/.env
+!examples/dynamic-warm-view-1906/.env
+!examples/marketplace-v2/.env
+!examples/creator-operator-v1/.env

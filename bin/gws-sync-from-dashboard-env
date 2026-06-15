@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# Build ~/.config/gws/client_secret.json from examples/dashboard-v1/.env (GOOGLE_CLIENT_*).
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+ENV_FILE="${DASHBOARD_ENV:-$REPO_ROOT/examples/dashboard-v1/.env}"
+GWS_DIR="${GWS_CONFIG_DIR:-$HOME/.config/gws}"
+DEST="$GWS_DIR/client_secret.json"
+export PATH="$REPO_ROOT/bin:${PATH:-}"
+PHP="${PHP:-php}"
+
+[[ -f "$ENV_FILE" ]] || { echo "Missing: $ENV_FILE" >&2; exit 1; }
+
+read_env() {
+  "$PHP" -r '
+    $key = $argv[1];
+    foreach (file($argv[2], FILE_IGNORE_NEW_LINES) as $line) {
+      if (!str_starts_with($line, $key."=")) continue;
+      $v = trim(substr($line, strlen($key)+1));
+      $v = trim($v, " \"'\''\r");
+      echo $v;
+      exit(0);
+    }
+  ' "$1" "$ENV_FILE" 2>/dev/null || true
+}
+
+CLIENT_ID="$(read_env GWS_GOOGLE_CLIENT_ID)"
+CLIENT_SECRET="$(read_env GWS_GOOGLE_CLIENT_SECRET)"
+SOURCE_NOTE="GWS_GOOGLE_* (Desktop OAuth for gws Gmail)"
+if [[ -z "$CLIENT_ID" || -z "$CLIENT_SECRET" ]]; then
+  CLIENT_ID="$(read_env GOOGLE_CLIENT_ID)"
+  CLIENT_SECRET="$(read_env GOOGLE_CLIENT_SECRET)"
+  SOURCE_NOTE="GOOGLE_* (Web OAuth — gws auth may redirect_uri_mismatch; use GWS_GOOGLE_* Desktop client)"
+fi
+REDIRECT="$(read_env GOOGLE_REDIRECT_URI)"
+APP_URL="$(read_env APP_URL)"
+REDIRECT="${REDIRECT//\$\{APP_URL\}/$APP_URL}"
+PROJECT_ID="${GCP_PROJECT_ID:-${GOOGLE_CLOUD_PROJECT:-195017816002}}"
+
+if [[ -z "$CLIENT_ID" || -z "$CLIENT_SECRET" ]]; then
+  echo "dashboard-v1 .env: need Desktop OAuth for gws Gmail:" >&2
+  echo "  GWS_GOOGLE_CLIENT_ID + GWS_GOOGLE_CLIENT_SECRET" >&2
+  echo "  (keep GOOGLE_* for dashboard Web SSO — different client types)" >&2
+  echo "  File: $ENV_FILE" >&2
+  echo "  1. Cloud Console → Create OAuth → Desktop app" >&2
+  echo "  2. ./bin/gws-set-desktop-oauth" >&2
+  echo "  3. ./bin/gws-sync-from-dashboard-env" >&2
+  exit 1
+fi
+
+REDIRECT="${REDIRECT:-http://127.0.0.1}"
+mkdir -p "$GWS_DIR"
+
+export GWS_SYNC_CID="$CLIENT_ID" GWS_SYNC_CSEC="$CLIENT_SECRET" GWS_SYNC_REDIR="$REDIRECT" GWS_SYNC_DEST="$DEST" GWS_SYNC_PID="$PROJECT_ID"
+"$PHP" -r '
+$out = [
+  "installed" => [
+    "client_id" => getenv("GWS_SYNC_CID"),
+    "project_id" => getenv("GWS_SYNC_PID"),
+    "client_secret" => getenv("GWS_SYNC_CSEC"),
+    "auth_uri" => "https://accounts.google.com/o/oauth2/auth",
+    "token_uri" => "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url" => "https://www.googleapis.com/oauth2/v1/certs",
+    "redirect_uris" => array_values(array_unique(array_filter([
+      "http://127.0.0.1",
+      "http://localhost",
+      getenv("GWS_SYNC_REDIR") ?: null,
+    ]))),
+  ],
+];
+file_put_contents(getenv("GWS_SYNC_DEST"), json_encode($out, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
+'
+
+chmod 600 "$DEST" 2>/dev/null || true
+
+echo "Synced gws client_secret.json from dashboard-v1 .env"
+echo "  Source: $ENV_FILE ($SOURCE_NOTE)"
+echo "  Dest:   $DEST"
+echo "  Client: ${CLIENT_ID:0:24}…"
+echo
+echo "Next (opens browser once):"
+echo "  gws auth login --services gmail --readonly"

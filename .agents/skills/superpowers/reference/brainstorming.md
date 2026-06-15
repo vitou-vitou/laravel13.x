@@ -17,6 +17,8 @@ Do NOT invoke any implementation skill, write any code, scaffold any project, or
 
 Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short (a few sentences for truly simple projects), but you MUST present it and get approval.
 
+**laravel13.x exception — UI-only polish:** When user says **"AI pick my UI"** or invokes **laravel-ui-phase** on an `examples/*` app with tests already green, skip full brainstorming. Read `docs/GITHUB_UI_RESOURCE_INDEX.md`, update `examples/<slug>/docs/DESIGN.md`, then use **impeccable** + **design-taste-frontend**. No new feature spec; presentation only.
+
 ## Checklist
 
 You MUST create a task for each of these items and complete them in order:
