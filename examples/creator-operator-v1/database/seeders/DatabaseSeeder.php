@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
             'creator_id' => $creator->id,
             'logged_on' => now()->toDateString(),
             'tiktok_url' => 'https://www.tiktok.com/@pilotcreator/video/7123456789012345678',
+            'tiktok_thumbnail_url' => url('/images/demo-video-thumb.svg'),
             'title_variant' => 'Example SEO title | hook here',
             'status' => PublishStatus::PendingApproval,
             'notes' => 'Seeded pending row — approve as creator to test flow.',
@@ -62,6 +63,7 @@ class DatabaseSeeder extends Seeder
             'creator_id' => $creator->id,
             'logged_on' => now()->subDay()->toDateString(),
             'tiktok_url' => 'https://www.tiktok.com/@pilotcreator/video/7123456789012345679',
+            'tiktok_thumbnail_url' => url('/images/demo-video-thumb.svg'),
             'title_variant' => 'Already live example',
             'yt_url' => 'https://youtube.com/shorts/abc123',
             'ig_url' => 'https://instagram.com/reel/xyz789',
@@ -84,5 +86,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         unset($operator, $creatorUser, $creator);
+
+        if ($this->seedFlagEnabled('SEED_KHMER_DEMO')) {
+            $this->call(KhmerTravelDemoSeeder::class);
+        }
+    }
+
+    private function seedFlagEnabled(string $key): bool
+    {
+        $value = $_ENV[$key] ?? $_SERVER[$key] ?? getenv($key);
+
+        return filter_var($value ?: false, FILTER_VALIDATE_BOOLEAN);
     }
 }

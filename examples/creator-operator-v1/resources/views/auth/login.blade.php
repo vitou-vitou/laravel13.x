@@ -9,21 +9,23 @@
     @endphp
 
     @if ($devEnabled)
-        <div class="ops-callout-dev mb-6">
-            <p class="font-semibold">Development login</p>
-            <p class="mt-1 text-xs text-amber-800/90">Credentials are prefilled. Password is <code class="rounded bg-amber-100/80 px-1">password</code> for seeded users.</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-                @foreach ($devLogin['accounts'] ?? [] as $account)
-                    <button
-                        type="button"
-                        class="ops-chip-inactive cursor-pointer"
-                        onclick="document.getElementById('email').value = @js($account['email']); document.getElementById('password').value = @js($devPassword);"
-                    >
-                        {{ $account['label'] }}
-                    </button>
-                @endforeach
+        <details class="mb-6 rounded-xl border border-stone-200 bg-stone-50 text-sm">
+            <summary class="cursor-pointer px-4 py-3 font-medium text-stone-700 select-none">Demo accounts</summary>
+            <div class="px-4 pb-4 pt-1 space-y-2">
+                <p class="text-xs text-stone-500">Quick-fill for local testing. Password is <code class="rounded bg-stone-200/80 px-1">password</code>.</p>
+                <div class="flex flex-wrap gap-2">
+                    @foreach ($devLogin['accounts'] ?? [] as $account)
+                        <button
+                            type="button"
+                            class="ops-chip-inactive cursor-pointer"
+                            onclick="document.getElementById('email').value = @js($account['email']); document.getElementById('password').value = @js($devPassword);"
+                        >
+                            {{ $account['label'] }}
+                        </button>
+                    @endforeach
+                </div>
             </div>
-        </div>
+        </details>
     @endif
 
     <form method="POST" action="{{ route('login') }}" class="space-y-4">

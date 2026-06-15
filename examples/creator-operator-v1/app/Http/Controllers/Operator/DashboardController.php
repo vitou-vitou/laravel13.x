@@ -6,10 +6,16 @@ use App\Enums\PublishStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Creator;
 use App\Models\PublishLogEntry;
+use App\Services\OperatorDashboardCharts;
+use App\Services\TikTokThumbnailService;
 use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
+    public function __construct(
+        protected OperatorDashboardCharts $charts,
+    ) {}
+
     public function __invoke(): View
     {
         return view('operator.dashboard', [
@@ -28,7 +34,19 @@ class DashboardController extends Controller
                 ->with('creator')
                 ->latest()
                 ->limit(10)
-                ->get(),
+                ->get()
+                ->tap(function ($entries): void {
+                    $thumbService = app(TikTokThumbnailService::class);
+                    foreach ($entries as $entry) {
+                        if (blank($entry->tiktok_thumbnail_url) && filled($entry->tiktok_url)) {
+                            $thumbService->hydrateEntry($entry);
+                            $entry->refresh();
+                        }
+                    }
+                }),
+            'publishVelocity' => $this->charts->publishVelocityLast7Days(),
+            'pendingTrend' => $this->charts->pendingQueueTrendLast7Days(),
+            'pendingByCreator' => $this->charts->pendingByCreator(),
         ]);
     }
 }

@@ -60,6 +60,7 @@
                 <table class="ops-table">
                     <thead>
                         <tr>
+                            <th class="w-14"></th>
                             <th>Date</th>
                             <th>Title</th>
                             <th>Status</th>
@@ -69,6 +70,13 @@
                     <tbody>
                         @forelse ($entries as $entry)
                             <tr>
+                                <td>
+                                    <x-tiktok-thumb
+                                        :url="$entry->tiktok_url"
+                                        :thumbnail="$entry->tiktok_thumbnail_url"
+                                        size="sm"
+                                    />
+                                </td>
                                 <td class="tabular-nums text-stone-500">{{ $entry->logged_on->toDateString() }}</td>
                                 <td class="max-w-xs truncate font-medium">{{ $entry->title_variant ?? '—' }}</td>
                                 <td><x-publish-status :status="$entry->status" /></td>
@@ -81,7 +89,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <x-empty-state title="No rows in publish log">
                                         Add from weekly batch step 4 (packaging).
                                     </x-empty-state>

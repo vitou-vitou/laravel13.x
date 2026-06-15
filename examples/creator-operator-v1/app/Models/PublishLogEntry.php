@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'creator_id',
     'logged_on',
     'tiktok_url',
+    'tiktok_thumbnail_url',
     'yt_url',
     'ig_url',
     'yt_video_id',

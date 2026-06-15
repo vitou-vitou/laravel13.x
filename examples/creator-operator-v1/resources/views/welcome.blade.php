@@ -53,9 +53,13 @@
             </ol>
         </div>
 
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+            <a href="{{ route('login') }}" class="ops-btn-primary">Sign in to your portal</a>
+            <p class="text-sm text-stone-500">Operator batch queue or creator approval inbox</p>
+        </div>
+
         <p class="mt-8 text-xs text-stone-400">
-            Spec: docs/superpowers/specs/2026-06-13-creator-commission-tiktok-first-design.md
-            · UI map: examples/creator-operator-v1/docs/DESIGN.md
+            Weekly batch ops for TikTok-first creators — cross-post to Shorts and Reels with creator approval.
         </p>
     </main>
 </body>

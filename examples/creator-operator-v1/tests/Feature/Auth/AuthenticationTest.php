@@ -28,7 +28,7 @@ class AuthenticationTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
-        $response->assertSee('Development login', false);
+        $response->assertSee('Demo accounts', false);
         $response->assertSee('value="operator@creator-operator.local"', false);
         $response->assertSee('value="password"', false);
     }
@@ -40,7 +40,7 @@ class AuthenticationTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
-        $response->assertDontSee('Development login', false);
+        $response->assertDontSee('Demo accounts', false);
         $response->assertDontSee('value="operator@creator-operator.local"', false);
     }
 

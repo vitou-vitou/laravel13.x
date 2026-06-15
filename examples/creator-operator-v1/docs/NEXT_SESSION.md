@@ -2,7 +2,7 @@
 
 > **Parent handoff:** [`../../../docs/SESSION_STATE.md`](../../../docs/SESSION_STATE.md) — read that first in new chats.
 
-**Updated:** 2026-06-15 | **MVP + Mode D W1–W6:** complete | **Phase 6:** CLI + CSV + Stripe Track B | **UI polish:** full ops-console pass | **Tests:** 52/52 | **Verify:** pass
+**Updated:** 2026-06-15 | **MVP + Mode D W1–W6:** complete | **Phase 6:** CLI + CSV + Stripe Track B | **UI polish:** ops-console + competitive UX audit | **Tests:** 56/56 | **Verify:** pass
 
 ---
 
@@ -37,7 +37,7 @@
 | Creator hub subnav | `components/creator-hub-nav.blade.php` |
 | Policies | `app/Policies/CreatorPolicy.php`, `PublishLogEntryPolicy.php` |
 | Seed demo accounts + sample metric | `database/seeders/DatabaseSeeder.php` |
-| Feature tests | `tests/Feature/*` — 44 tests total |
+| Feature tests | `tests/Feature/*` — 56 tests total |
 
 **Flow:** operator adds row → `pending_approval` → creator approves → `approved` → operator publishes → `published` → metrics/settlement in step 7.
 
@@ -67,12 +67,24 @@ Full matrix: **[`docs/ROADMAP.md`](ROADMAP.md)**
 | Track B Stripe (Cashier, `/settings/subscription`) | **Done** (enable with `OPERATOR_BILLING_MODE=stripe` + Stripe keys) |
 | TikTok CLI subprocess (`TikTokMetadataCliRunner`) | **Done** — POST `/operator/creators/{id}/import/cli` |
 | CSV export (publish log + settlement) | **Done** — export links on creator + settlement pages |
-| Weekly email | **OOS** |
-| Interactive checklist dashboard | **OOS** |
+| Weekly email | **Partial** — approval batch email on new pending rows |
+| Interactive checklist dashboard | **Partial** — 7-day velocity + pending charts on `/operator` |
 
 **CLI:** `config/tiktok-import.php` defaults to `../../../tools/tiktok-metadata/scrape_tiktok.py`. Server needs `python` + `pip install -r requirements.txt` in that folder.
 
 ---
+
+## Competitive UX audit (2026-06-15)
+
+Audit gaps shipped:
+
+- `TikTokThumbnailService` + `x-tiktok-thumb` on approvals, dashboard, creator hub
+- `OperatorDashboardCharts` — CSS bar charts on operator dashboard
+- Sticky mobile Approve/Skip + larger tap targets on creator inbox
+- `ApprovalBatchReadyMail` when operator adds pending rows (import or packaging)
+- Login: collapsible Demo accounts; welcome CTA polish
+
+Tests: `tests/Feature/CompetitiveUxAuditTest.php`
 
 ## UI polish (2026-06-15)
 
@@ -89,7 +101,7 @@ See [`docs/DESIGN.md`](DESIGN.md) tokens section.
 
 | Item | Notes |
 |------|-------|
-| Weekly email | Operator cadence notification |
+| Weekly operator cadence email | Full batch summary (approval email done) |
 | Settlement UX | S/T columns in table, per-period creator settlement route |
 | OpenSpec change | Post-MVP iteration via `/opsx:*` if requirements shift |
 

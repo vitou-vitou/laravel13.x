@@ -26,5 +26,11 @@ return [
             'price_monthly' => 49,
             'description' => 'Up to 25 creators — small agency roster.',
         ],
+        'demo' => [
+            'label' => 'Demo',
+            'creator_limit' => 500,
+            'price_monthly' => 0,
+            'description' => 'Khmer travel demo roster — up to 500 creators (local seed only).',
+        ],
     ],
 ];

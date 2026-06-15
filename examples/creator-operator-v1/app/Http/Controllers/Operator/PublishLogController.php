@@ -7,7 +7,9 @@ use App\Enums\PublishStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Creator;
 use App\Models\PublishLogEntry;
+use App\Services\ApprovalBatchNotifier;
 use App\Services\IntegrationWebhookDispatcher;
+use App\Services\TikTokThumbnailService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -17,6 +19,8 @@ class PublishLogController extends Controller
 {
     public function __construct(
         protected IntegrationWebhookDispatcher $webhookDispatcher,
+        protected TikTokThumbnailService $thumbnailService,
+        protected ApprovalBatchNotifier $batchNotifier,
     ) {}
     public function create(Creator $creator): View
     {
@@ -36,11 +40,14 @@ class PublishLogController extends Controller
             'notes' => ['nullable', 'string', 'max:5000'],
         ]);
 
-        PublishLogEntry::query()->create([
+        $entry = PublishLogEntry::query()->create([
             ...$validated,
             'creator_id' => $creator->id,
             'status' => PublishStatus::PendingApproval,
         ]);
+
+        $this->thumbnailService->hydrateEntry($entry);
+        $this->batchNotifier->notifyIfNeeded($creator);
 
         return redirect()
             ->route('operator.creators.show', $creator)

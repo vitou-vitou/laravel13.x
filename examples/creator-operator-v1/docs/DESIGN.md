@@ -115,7 +115,7 @@ Borrow admin patterns from [Flowbite application blocks](https://flowbite.com/bl
 | Success publish | `.ops-btn-success` + emerald fieldset | Mark published block |
 | Flash success | `.ops-flash-success` | Session status |
 | Flash warn | `.ops-flash-warn` | Dev login, mock billing, CLI missing |
-| Dev banner | `.ops-callout-dev` | Login prefill only |
+| Dev banner | Collapsible `Demo accounts` on login | Local prefill only |
 | Font | **Instrument Sans** (Bunny Fonts) | Replaces Figtree in layouts |
 | Focus | `focus-visible:ring-indigo-500` | Buttons, inputs, nav |
 
@@ -141,8 +141,10 @@ Borrow admin patterns from [Flowbite application blocks](https://flowbite.com/bl
 | Element | Maps to |
 |---------|---------|
 | KPI cards | Creators · Pending approval · Ready to publish · Published (7d) |
+| **7-day charts** | Publish velocity (by `posted_time`) · Pending queue (by `logged_on`) |
+| **Pending by creator** | Horizontal bar list when any creator has pending rows |
 | Batch loop rail | Full 7-step reminder (highlight: queue health) |
-| Recent publish log | Cross-creator slice of Publish log tab |
+| Recent publish log | Cross-creator slice with **TikTok thumb** column |
 | Actions | All creators · Onboard creator (= onboarding runbook week 0) |
 
 ### Creator hub `/operator/creators/{id}`
@@ -180,10 +182,11 @@ Borrow admin patterns from [Flowbite application blocks](https://flowbite.com/bl
 
 | Element | Maps to |
 |---------|---------|
-| Pending cards | Title, date, TikTok link, packaging notes |
+| Pending cards | **TikTok thumb** (`x-tiktok-thumb`) · title · date · source link · notes |
+| Mobile actions | Sticky `.ops-approval-actions` · `.ops-btn-touch` (48px tap targets) |
 | Approve | → `approved` |
 | Skip | → `skipped_creator` (not “Reject”) |
-| Recent decisions | Last non-pending rows |
+| Recent decisions | Last non-pending rows with thumb column |
 
 ---
 
@@ -197,12 +200,14 @@ Borrow admin patterns from [Flowbite application blocks](https://flowbite.com/bl
 | Packaging IG-specific fields | **Built** — notes + IG fieldset on edit |
 | `posted_time`, `yt_video_id`, 7d views in UI | **Built** |
 | Onboarding tab fields split across creator form | OK |
-| Interactive batch checklist on dashboard | **OOS** |
+| Interactive batch checklist on dashboard | **Partial** — KPI + 7-day charts (2026-06-15 audit) |
+| TikTok preview thumbs | **Built** — oEmbed cache + `tiktok_thumbnail_url` |
+| Approval batch email | **Built** — `ApprovalBatchReadyMail` on new pending rows |
 | Operator billing (mock plan + limit) | **Built** (Slice 4 Track A) |
 | Live Stripe portal | **OOS** Track B |
 | n8n webhooks | **Built** (Slice 5) |
 | CSV export download | **OOS** |
-| Weekly email report | **OOS** |
+| Weekly email report | **OOS** (approval batch email **built** 2026-06-15) |
 
 ---
 

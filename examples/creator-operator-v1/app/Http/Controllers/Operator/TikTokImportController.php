@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Operator;
 use App\Enums\PublishStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Creator;
+use App\Services\ApprovalBatchNotifier;
 use App\Services\TikTokMetadataCliRunner;
 use App\Services\TikTokMetadataImportService;
+use App\Services\TikTokThumbnailService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,6 +19,8 @@ class TikTokImportController extends Controller
     public function __construct(
         protected TikTokMetadataImportService $importService,
         protected TikTokMetadataCliRunner $cliRunner,
+        protected TikTokThumbnailService $thumbnailService,
+        protected ApprovalBatchNotifier $batchNotifier,
     ) {}
 
     public function index(Creator $creator): View
@@ -81,7 +85,7 @@ class TikTokImportController extends Controller
                 continue;
             }
 
-            $creator->publishLogEntries()->create([
+            $entry = $creator->publishLogEntries()->create([
                 'logged_on' => now()->toDateString(),
                 'tiktok_url' => $url,
                 'title_variant' => $validated['titles'][$url] ?? null,
@@ -89,7 +93,12 @@ class TikTokImportController extends Controller
                 'notes' => 'Imported from TikTok metadata (BUILD LIST).',
             ]);
 
+            $this->thumbnailService->hydrateEntry($entry);
             $created++;
+        }
+
+        if ($created > 0) {
+            $this->batchNotifier->notifyIfNeeded($creator, $created);
         }
 
         return redirect()
