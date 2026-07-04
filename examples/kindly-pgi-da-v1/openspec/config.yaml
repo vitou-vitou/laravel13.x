@@ -1,0 +1,17 @@
+schema: spec-driven
+
+context: |
+  Project: kindly-pgi-da-v1 (Laravel 13, Breeze, Blade + Tailwind, SQLite/Herd)
+  URL: http://kindly-pgi-da-v1.test
+  Tests: php artisan test (must stay green after each change)
+  SDD: OpenSpec post-MVP + Superpowers TDD during /opsx:apply
+  Do not re-scaffold. Extend existing services (Cart, Checkout, Payment, PromoCode).
+  UI: follow docs/DESIGN.md and x-store-page / btn-brand patterns.
+
+rules:
+  proposal:
+    - Include Non-goals
+    - One change = one shippable slice (1–2 sessions)
+  tasks:
+    - Red-green-refactor per task
+    - Feature tests for each user-visible behavior
