@@ -67,6 +67,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('application_id')->constrained()->cascadeOnDelete();
             $table->string('state', 64)->unique();
+            $table->string('client_state', 128);
             $table->string('code_challenge', 128);
             $table->string('code_challenge_method', 10)->default('S256');
             $table->string('redirect_uri');

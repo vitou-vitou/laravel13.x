@@ -42,6 +42,7 @@ class StartController extends Controller
             $application,
             $validated['redirect_uri'],
             $validated['code_challenge'],
+            $validated['state'],
             $flow
         );
 

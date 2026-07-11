@@ -11,6 +11,7 @@ class AuthSession extends Model
     protected $fillable = [
         'application_id',
         'state',
+        'client_state',
         'code_challenge',
         'code_challenge_method',
         'redirect_uri',

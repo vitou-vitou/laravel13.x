@@ -36,3 +36,12 @@ Register at `/register`, complete onboarding, then integrate using the snippet f
 ```bash
 php artisan test
 ```
+
+## Prove it works (tests + live HTTP smoke)
+
+```bash
+php artisan serve
+php artisan telegramauth:verify
+```
+
+This runs all PHPUnit tests, then hits every auth endpoint against the running server.

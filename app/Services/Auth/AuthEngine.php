@@ -24,11 +24,13 @@ class AuthEngine
         Application $application,
         string $redirectUri,
         string $codeChallenge,
+        string $clientState,
         string $flow = 'widget'
     ): AuthSession {
         return AuthSession::query()->create([
             'application_id' => $application->id,
             'state' => Str::random(40),
+            'client_state' => $clientState,
             'code_challenge' => $codeChallenge,
             'code_challenge_method' => 'S256',
             'redirect_uri' => $redirectUri,
@@ -57,7 +59,7 @@ class AuthEngine
 
         return $this->buildRedirectUrl($session->redirect_uri, [
             'code' => $code,
-            'state' => $session->state,
+            'state' => $session->client_state,
         ]);
     }
 
@@ -95,7 +97,7 @@ class AuthEngine
 
         return $this->buildRedirectUrl($session->redirect_uri, [
             'code' => $code,
-            'state' => $session->state,
+            'state' => $session->client_state,
         ]);
     }
 
