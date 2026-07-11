@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+# Bootstrap Laravel deps in current git worktree (composer, npm, .env).
+#
+# Usage:
+#   bootstrap-worktree                    # repo root only
+#   bootstrap-worktree <example-slug>     # root + examples/<slug>
+#   bootstrap-worktree <slug> --env-source /path/to/.env
+#   bootstrap-worktree <slug> --skip-verify
+#
+# Env:
+#   LARAVEL_MAIN_CLONE  Main repo path for .env copy (default: D:/laravel13.x)
+#
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+export PATH="$REPO_ROOT/bin:${PATH:-}"
+
+SLUG=""
+ENV_SOURCE=""
+SKIP_VERIFY=0
+MAIN_CLONE="${LARAVEL_MAIN_CLONE:-D:/laravel13.x}"
+
+usage() {
+  echo "Usage: bootstrap-worktree [example-slug] [--env-source PATH] [--skip-verify]"
+  exit "${1:-1}"
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --env-source)
+      [[ $# -ge 2 ]] || usage
+      ENV_SOURCE="$2"
+      shift 2
+      ;;
+    --skip-verify)
+      SKIP_VERIFY=1
+      shift
+      ;;
+    -h|--help)
+      usage 0
+      ;;
+    *)
+      [[ -z "$SLUG" ]] || usage
+      SLUG="$1"
+      shift
+      ;;
+  esac
+done
+
+ok() { echo "  OK: $1"; }
+step() { echo "==> $1"; }
+
+detect_main_clone() {
+  if [[ -d "$MAIN_CLONE/.git" || -f "$MAIN_CLONE/.git" ]]; then
+    echo "$MAIN_CLONE"
+    return 0
+  fi
+  local line path branch
+  while IFS= read -r line; do
+    path="${line%% *}"
+    branch="${line#*[}"
+    branch="${branch%]}"
+    if [[ "$branch" == "main" || "$branch" == "master" ]]; then
+      echo "$path"
+      return 0
+    fi
+  done < <(git -C "$REPO_ROOT" worktree list 2>/dev/null || true)
+}
+
+install_node() {
+  local dir="$1"
+  [[ -f "$dir/package.json" ]] || return 0
+  step "npm ci in $dir"
+  (cd "$dir" && npm ci)
+  ok "npm ci"
+}
+
+install_composer() {
+  local dir="$1"
+  [[ -f "$dir/composer.json" ]] || return 0
+  step "composer install in $dir"
+  (cd "$dir" && composer install --no-interaction)
+  ok "composer install"
+}
+
+copy_env() {
+  local target_dir="$1"
+  local rel="${2:-}"
+  local dest="$target_dir/.env"
+
+  [[ -f "$dest" ]] && { ok ".env already exists ($dest)"; return 0; }
+
+  local candidates=()
+  [[ -n "$ENV_SOURCE" ]] && candidates+=("$ENV_SOURCE")
+  [[ -n "$rel" && -n "$MAIN_PATH" ]] && candidates+=("$MAIN_PATH/$rel/.env")
+  candidates+=("$target_dir/.env.example")
+
+  for src in "${candidates[@]}"; do
+    [[ -f "$src" ]] || continue
+    cp "$src" "$dest"
+    ok ".env copied from $src"
+    return 0
+  done
+
+  echo "  WARN: no .env source found for $target_dir — create .env manually"
+}
+
+MAIN_PATH="$(detect_main_clone || true)"
+WORKTREE_PATH="$(git -C "$REPO_ROOT" rev-parse --show-toplevel 2>/dev/null || echo "$REPO_ROOT")"
+BRANCH="$(git -C "$REPO_ROOT" branch --show-current 2>/dev/null || echo unknown)"
+
+step "bootstrap-worktree"
+echo "  worktree: $WORKTREE_PATH"
+echo "  branch:   $BRANCH"
+[[ -n "$MAIN_PATH" ]] && echo "  main:     $MAIN_PATH" || echo "  main:     (not found — set LARAVEL_MAIN_CLONE)"
+
+install_composer "$REPO_ROOT"
+install_node "$REPO_ROOT"
+
+if [[ -n "$SLUG" ]]; then
+  TARGET="$REPO_ROOT/examples/$SLUG"
+  [[ -d "$TARGET" ]] || { echo "No directory: $TARGET"; exit 1; }
+
+  step "example: $SLUG"
+  copy_env "$TARGET" "examples/$SLUG"
+  install_composer "$TARGET"
+  install_node "$TARGET"
+
+  if [[ -x "$REPO_ROOT/bin/fix-example-app-key" ]]; then
+    step "fix-example-app-key $SLUG"
+    "$REPO_ROOT/bin/fix-example-app-key" "$SLUG" || true
+  fi
+
+  if [[ "$SKIP_VERIFY" -eq 0 && -x "$REPO_ROOT/bin/verify-example" ]]; then
+    step "verify-example $SLUG"
+    "$REPO_ROOT/bin/verify-example" "$SLUG"
+  fi
+fi
+
+step "Done — open APP_URL from .env (Herd), not :5173"
