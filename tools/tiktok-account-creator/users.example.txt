@@ -1,3 +1,0 @@
-# One account per line: email:password
-# Accounts are also merged from scratch users.txt when present.
-user+alias@gmail.com:YourTikTokPassword
