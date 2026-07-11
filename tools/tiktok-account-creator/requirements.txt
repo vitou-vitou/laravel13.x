@@ -1,0 +1,3 @@
+selenium>=4.0,<5
+# Optional: browser=chrome_uc in settings.json
+# undetected-chromedriver>=3.5

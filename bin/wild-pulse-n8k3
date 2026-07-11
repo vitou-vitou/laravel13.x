@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Repo wrapper for projects/wild-pulse-n8k3
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+exec python "$ROOT/projects/wild-pulse-n8k3/play.py" "$@"

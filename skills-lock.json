@@ -19,6 +19,12 @@
       "skillPath": "skills/brandkit/SKILL.md",
       "computedHash": "735007879f5110aeae1e981a53fe74a12afde70347f9773dacd50e4697a091bf"
     },
+    "browser-automation": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/browser-automation/SKILL.md",
+      "computedHash": "1e4be6136d3e36b13136263ee680794c77c60466c842d280b5c96e0489b79f97"
+    },
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
@@ -43,6 +49,12 @@
       "skillPath": "skills/executing-plans/SKILL.md",
       "computedHash": "b41c919caf1bb07fbacb0e29899ac513f9eb11cd4dd695975ad352c2c03cc4d7"
     },
+    "extension-email-verification": {
+      "source": "caffeinelabs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/extension-email-verification/SKILL.md",
+      "computedHash": "e9acb2ad72e02467f3850d2728c6164a625b14909adfaee2346e5c9e374bfcd7"
+    },
     "finishing-a-development-branch": {
       "source": "obra/superpowers",
       "sourceType": "github",
@@ -60,6 +72,18 @@
       "sourceType": "github",
       "skillPath": "skills/gpt-tasteskill/SKILL.md",
       "computedHash": "7bd1bfdda0e51016ca222693401a65fc0dd9bf9487e0bd5b1740ba510f6f963a"
+    },
+    "gws-gmail": {
+      "source": "googleworkspace/cli",
+      "sourceType": "github",
+      "skillPath": "skills/gws-gmail/SKILL.md",
+      "computedHash": "31b12bd4bfa3fe1b5132067c597f85f5d3456060658a904a54ed6cb5b32ab6e4"
+    },
+    "gws-gmail-triage": {
+      "source": "googleworkspace/cli",
+      "sourceType": "github",
+      "skillPath": "skills/gws-gmail-triage/SKILL.md",
+      "computedHash": "12cae23da45451794098c6d8d93cb5e6163f141135769f3e986d565d4c1a8b45"
     },
     "high-end-visual-design": {
       "source": "Leonxlnx/taste-skill",
@@ -84,6 +108,12 @@
       "sourceType": "github",
       "skillPath": "skills/imagegen-frontend-web/SKILL.md",
       "computedHash": "27255c7c50181e58add156b2aa2bd5325285b85f04027e4c8b73742d98d7be0a"
+    },
+    "imap-smtp-email": {
+      "source": "boomsystel-code/openclaw-workspace",
+      "sourceType": "github",
+      "skillPath": "skills/imap-smtp-email/SKILL.md",
+      "computedHash": "f165b5f481b21969ae85e64efd27091b0587799d8997daa53134311c419a58cd"
     },
     "industrial-brutalist-ui": {
       "source": "Leonxlnx/taste-skill",
@@ -126,6 +156,12 @@
       "sourceType": "github",
       "skillPath": "skills/requesting-code-review/SKILL.md",
       "computedHash": "874f3786b05007a8b4a60452a4cd89b9917c645d34b6b1e40ea05037d12f0e67"
+    },
+    "selenium-automation": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "selenium-automation/SKILL.md",
+      "computedHash": "d5a8774fb2183b5d1823da6c291c0c0d6f19b80c9ef5f6022fca5ecd34eb0c0f"
     },
     "stitch-design-taste": {
       "source": "Leonxlnx/taste-skill",

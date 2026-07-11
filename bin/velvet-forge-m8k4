@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Wrapper for velvet-forge-m8k4 MLBB farm exe
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/../projects/velvet-forge-m8k4" && pwd)"
+EXE="$ROOT/publish/velvet-forge-m8k4.exe"
+if [[ ! -f "$EXE" ]]; then
+  echo "Build first: cd projects/velvet-forge-m8k4 && dotnet publish src/VelvetForge -c Release -o publish" >&2
+  exit 1
+fi
+cd "$ROOT"
+exec "$EXE" "$@"

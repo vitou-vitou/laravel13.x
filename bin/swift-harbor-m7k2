@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Wrapper: projects/swift-harbor-m7k2 TikTok farm (Shell 100%)
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec bash "$REPO_ROOT/projects/swift-harbor-m7k2/farm.sh" "$@"

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.profiles/
+accounts.json
+.env
+debug-*.png
+*.log

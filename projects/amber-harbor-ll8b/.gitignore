@@ -1,0 +1,6 @@
+bin/
+obj/
+settings.json
+data/
+*.user
+publish/

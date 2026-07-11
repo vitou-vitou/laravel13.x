@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# TikTok farm TS — signup / login / post (Playwright, headed window)
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO_ROOT/tools/tiktok-farm-ts"
+if [[ ! -d node_modules ]]; then
+  npm install
+  npx playwright install chrome
+fi
+exec npx tsx src/cli.ts "$@"

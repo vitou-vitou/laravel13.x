@@ -1,0 +1,10 @@
+{
+  "email": "your-gmail-username-without-domain",
+  "eMailEnd": "gmail.com",
+  "gmailPass": "your-16-char-app-password",
+  "password": "your-tiktok-account-password",
+  "maxAccountsPerDay": 3,
+  "ldplayerHome": "D:/LDPlayer/LDPlayer9",
+  "ldplayerIndex": 0,
+  "tiktokPackage": "com.zhiliaoapp.musically"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "lunar-signal-hp66",
+  "version": "0.1.0",
+  "description": "Generate random project slugs: adjective-noun-randomid (TypeScript CLI)",
+  "type": "module",
+  "bin": {
+    "lunar-signal": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "dev": "tsx src/cli.ts",
+    "generate": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}

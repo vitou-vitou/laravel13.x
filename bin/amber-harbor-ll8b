@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Repo wrapper for amber-harbor-ll8b
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+PROJECT="$ROOT/projects/amber-harbor-ll8b"
+EXE="$PROJECT/publish/amber-harbor-ll8b.exe"
+if [[ -x "$EXE" ]]; then
+  cd "$PROJECT"
+  exec "$EXE" "$@"
+fi
+export PATH="/c/Program Files/dotnet:$PATH"
+cd "$PROJECT"
+exec dotnet run --project src/AmberHarbor -- "$@"

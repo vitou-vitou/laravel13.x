@@ -1,0 +1,12 @@
+{
+  "ldplayerHome": "D:/LDPlayer/LDPlayer9",
+  "ldplayerIndex": 0,
+  "mlbbPackage": "com.mobile.legends",
+  "heroName": "Layla",
+  "gameMode": "classic",
+  "playDurationSeconds": 480,
+  "screenWidth": 1600,
+  "screenHeight": 900,
+  "preferAdb": true,
+  "inputBackend": "auto"
+}

@@ -1,0 +1,5 @@
+settings.json
+data/accounts.json
+screenshots/
+.profiles/
+*.log

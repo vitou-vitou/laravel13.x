@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B12B3199-CD29-4E7E-B8A1-D3F88A51B156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmberHarbor", "src\AmberHarbor\AmberHarbor.csproj", "{A9898EC7-F026-4EB0-88E2-731D8D3B1D51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9898EC7-F026-4EB0-88E2-731D8D3B1D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9898EC7-F026-4EB0-88E2-731D8D3B1D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9898EC7-F026-4EB0-88E2-731D8D3B1D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9898EC7-F026-4EB0-88E2-731D8D3B1D51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A9898EC7-F026-4EB0-88E2-731D8D3B1D51} = {B12B3199-CD29-4E7E-B8A1-D3F88A51B156}
+	EndGlobalSection
+EndGlobal

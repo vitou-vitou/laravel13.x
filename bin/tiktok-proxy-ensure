@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Auto-provision egress for TikTok signup bot (Tor + free pool). No user prompts.
+set -euo pipefail
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO_ROOT/tools/tiktok-account-creator"
+export PATH="/d/laravel13.x/bin:$PATH"
+python diagnose.py proxy --refresh "$@"

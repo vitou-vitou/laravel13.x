@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec "$(cd "$(dirname "$0")/.." && pwd)/projects/crisp-spark-4e97/farm.sh" "$@"

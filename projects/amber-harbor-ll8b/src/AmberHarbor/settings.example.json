@@ -1,0 +1,29 @@
+{
+  "email": "pakvitou168",
+  "eMailEnd": "gmail.com",
+  "gmailPass": "YOUR_GMAIL_APP_PASSWORD",
+  "password": "YOUR_TIKTOK_PASSWORD",
+  "maxAccountsPerDay": 3,
+  "ldplayerHome": "D:/LDPlayer/LDPlayer9",
+  "ldplayerIndex": 0,
+  "tiktokPackage": "com.zhiliaoapp.musically",
+  "fleet": {
+    "templateIndex": 0,
+    "instanceCount": 1,
+    "launchStaggerSeconds": 5,
+    "resolution": "720,1280,320",
+    "memoryMb": 2048,
+    "cpuCount": 2,
+    "vpn": {
+      "package": "com.surfshark.vpnclient.android",
+      "targetCountry": "US",
+      "verifyUrl": "https://ipinfo.io/json"
+    }
+  },
+  "apps": {
+    "surfsharkApk": "",
+    "tiktokApk": "",
+    "playStorePackage": "com.android.vending",
+    "installTimeoutSeconds": 180
+  }
+}

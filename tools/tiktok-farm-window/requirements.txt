@@ -1,0 +1,1 @@
+-r ../tiktok-account-creator/requirements.txt

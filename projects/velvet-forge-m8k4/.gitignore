@@ -1,0 +1,7 @@
+settings.json
+data/
+publish/
+bin/
+obj/
+*.user
+*.suo

@@ -1,0 +1,11 @@
+{
+  "ldplayerHome": "D:/LDPlayer/LDPlayer9",
+  "ldplayerIndex": 0,
+  "gameWidth": 1600,
+  "gameHeight": 900,
+  "mlbbPackage": "com.mobile.legends",
+  "heroName": "any",
+  "playMode": "practice",
+  "playDurationSec": 60,
+  "screenshotDir": "tmp/screenshots"
+}
