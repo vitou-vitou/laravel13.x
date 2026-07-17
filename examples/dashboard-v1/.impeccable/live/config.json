@@ -1,0 +1,8 @@
+{
+  "files": [
+    "resources/views/vendor/filament-panels/components/layout/base.blade.php"
+  ],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

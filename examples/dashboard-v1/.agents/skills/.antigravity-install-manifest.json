@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-06-07T09:48:24.408Z",
+  "entries": [
+    "agenttrace-session-audit",
+    "api-endpoint-builder",
+    "brooks-lint",
+    "bug-hunter",
+    "codebase-audit-pre-push",
+    "docker-expert",
+    "docs",
+    "gdb-cli",
+    "github-actions-advanced",
+    "global-chat-agent-discovery",
+    "hono",
+    "jq",
+    "kubestellar-console",
+    "logic-lens",
+    "mise-configurator",
+    "performance-optimizer",
+    "playwright-java",
+    "python-pptx-generator",
+    "rayden-code",
+    "runapi-cli",
+    "skill-check",
+    "squirrel",
+    "technical-change-tracker",
+    "tmux",
+    "vibecode-production-qa-validator"
+  ]
+}

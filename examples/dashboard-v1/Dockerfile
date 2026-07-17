@@ -1,0 +1,86 @@
+# syntax=docker/dockerfile:1
+
+# --- Stage 1: PHP/Composer dependencies ---
+# Digest-pinned for reproducible builds (refresh with docker buildx imagetools inspect).
+FROM composer:2@sha256:41959f55087549989efcdfe953977b64e98e07ca0d7532d7e4b7fe1a90cc4159 AS vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+# --ignore-platform-reqs: this build stage's PHP lacks ext-intl/gd/etc;
+# the runtime image (stage 3) installs them, so platform checks are deferred.
+RUN composer install \
+    --no-dev --no-scripts --no-interaction \
+    --prefer-dist --optimize-autoloader --no-progress \
+    --ignore-platform-reqs
+
+# --- Stage 2: Frontend assets (Vite) ---
+FROM node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 AS assets
+WORKDIR /app
+# Vite bakes VITE_* into the bundle at build time (see resources/js/echo.js).
+# Pass these via Coolify build args so the Reverb websocket client has real values.
+ARG VITE_APP_NAME="Analytics Dashboard"
+ARG VITE_REVERB_APP_KEY
+ARG VITE_REVERB_HOST
+ARG VITE_REVERB_PORT=443
+ARG VITE_REVERB_SCHEME=https
+ENV VITE_APP_NAME=${VITE_APP_NAME} \
+    VITE_REVERB_APP_KEY=${VITE_REVERB_APP_KEY} \
+    VITE_REVERB_HOST=${VITE_REVERB_HOST} \
+    VITE_REVERB_PORT=${VITE_REVERB_PORT} \
+    VITE_REVERB_SCHEME=${VITE_REVERB_SCHEME}
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+# vendor needed so any vite plugin resolving from vendor works
+COPY --from=vendor /app/vendor ./vendor
+RUN npm run build
+
+# --- Stage 3: Runtime ---
+# PHP 8.4 to match the locked dependencies (some use 8.4-only syntax, e.g.
+# property hooks in symfony/http-foundation). composer.json allows ^8.3.
+FROM php:8.4-fpm-alpine@sha256:32f8a445cf279d8911841f9f818d3383dfa96ffce42ee23bc1fe3fea3f13bb0c AS runtime
+
+# System deps + PHP extensions
+RUN apk add --no-cache \
+        nginx supervisor bash \
+        postgresql-dev libpng-dev libzip-dev icu-dev \
+        freetype-dev libjpeg-turbo-dev libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install \
+        pdo_pgsql pgsql bcmath pcntl gd zip intl \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del .build-deps
+
+WORKDIR /var/www/html
+
+# App source
+COPY . .
+# Built vendor + assets from earlier stages
+COPY --from=vendor /app/vendor ./vendor
+COPY --from=assets /app/public/build ./public/build
+
+# Config files
+COPY docker/php.ini /usr/local/etc/php/conf.d/zz-app.ini
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Non-root hardening (Risk #3): the container runs as www-data. nginx therefore
+# listens on 8080 (>1024) and needs writable pid/temp/log dirs; supervisord
+# writes its pidfile to /tmp. Laravel writable dirs are chowned too.
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && mkdir -p /run/nginx /var/lib/nginx/tmp /var/log/nginx \
+    && chown -R www-data:www-data /run/nginx /var/lib/nginx /var/log/nginx
+
+USER www-data
+
+# Both web (nginx) and reverb listen on 8080 now.
+EXPOSE 8080
+
+# Healthcheck is role-specific (web=HTTP/up, reverb=ws port) so it lives in
+# docker-compose.yml per service, not here — an image-level check would wrongly
+# flag the worker/scheduler roles (no HTTP listener) as unhealthy.
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

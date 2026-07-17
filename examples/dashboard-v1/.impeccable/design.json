@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-06T00:00:00.000Z",
+  "title": "Design System: Analytics Dashboard",
+  "extensions": {
+    "colorMeta": {
+      "primary-500": {
+        "role": "primary",
+        "displayName": "Signal Amber",
+        "canonical": "oklch(0.769 0.188 70.08)",
+        "tonalRamp": [
+          "oklch(0.279 0.077 45.635)",
+          "oklch(0.414 0.112 45.904)",
+          "oklch(0.473 0.137 46.201)",
+          "oklch(0.555 0.163 48.998)",
+          "oklch(0.666 0.179 58.318)",
+          "oklch(0.769 0.188 70.08)",
+          "oklch(0.828 0.189 84.429)",
+          "oklch(0.987 0.022 95.277)"
+        ]
+      },
+      "gray-500": {
+        "role": "neutral",
+        "displayName": "Secondary Text",
+        "canonical": "oklch(0.552 0.016 285.938)",
+        "tonalRamp": [
+          "oklch(0.141 0.005 285.823)",
+          "oklch(0.21 0.006 285.885)",
+          "oklch(0.274 0.006 286.033)",
+          "oklch(0.37 0.013 285.805)",
+          "oklch(0.442 0.017 285.786)",
+          "oklch(0.552 0.016 285.938)",
+          "oklch(0.705 0.015 286.067)",
+          "oklch(0.985 0 0)"
+        ]
+      },
+      "login-surface-light": {
+        "role": "neutral",
+        "displayName": "Whisper Amber",
+        "canonical": "oklch(0.97 0.008 75)",
+        "tonalRamp": [
+          "oklch(0.16 0.012 75)",
+          "oklch(0.28 0.05 75)",
+          "oklch(0.92 0.04 75)",
+          "oklch(0.97 0.008 75)",
+          "oklch(0.985 0.005 75)",
+          "oklch(0.99 0.003 75)",
+          "oklch(0.995 0.002 75)",
+          "oklch(1 0 75)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Page heading",
+        "purpose": "Filament fi-header-heading and dashboard page titles only."
+      },
+      "label": {
+        "displayName": "Nav group / table cap",
+        "purpose": "Uppercase 10px sidebar groups and table header cells via admin-polish."
+      },
+      "body-storefront": {
+        "displayName": "Storefront body",
+        "purpose": "Figtree body copy on Breeze layouts, shop, and auth."
+      }
+    },
+    "shadows": [
+      {
+        "name": "login-card-lift",
+        "value": "0 1px 2px oklch(0.2 0.02 75 / 0.06), 0 12px 40px oklch(0.2 0.02 75 / 0.08)",
+        "purpose": "Admin login card on fi-simple-main."
+      },
+      {
+        "name": "stat-hover",
+        "value": "0 4px 16px oklch(0.2 0.02 75 / 0.08)",
+        "purpose": "CommerceOverview stat tiles on hover."
+      },
+      {
+        "name": "breeze-card",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Public dashboard KPI and chart cards (shadow-sm)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-stat-hover",
+        "value": "180ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Stats overview widget box-shadow transition."
+      },
+      {
+        "name": "ease-breeze",
+        "value": "150ms ease-out",
+        "purpose": "Breeze buttons, nav links, theme toggle segments."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filament filled action; amber 600 default, 500 on hover.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Save changes</button>",
+      "css": ".ds-btn-primary { background: oklch(0.666 0.179 58.318); color: oklch(0.985 0 0); padding: 0.5rem 1rem; font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; border: none; border-radius: 0.5rem; cursor: pointer; transition: background 180ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn-primary:hover { background: oklch(0.769 0.188 70.08); } .ds-btn-primary:focus-visible { outline: 2px solid oklch(0.769 0.188 70.08); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Neutral outline action for non-destructive secondary tasks.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Cancel</button>",
+      "css": ".ds-btn-secondary { background: oklch(0.967 0.001 286.375); color: oklch(0.21 0.006 285.885); padding: 0.5rem 1rem; font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; border: 1px solid oklch(0.92 0.004 286.32); border-radius: 0.5rem; cursor: pointer; transition: background 150ms ease-out; } .ds-btn-secondary:hover { background: oklch(0.92 0.004 286.32); } .ds-btn-secondary:focus-visible { outline: 2px solid oklch(0.552 0.016 285.938); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Filament field input; neutral border, primary focus ring on admin forms.",
+      "html": "<div class=\"ds-input-wrap\"><label class=\"ds-input-label\" for=\"ds-email\">Email</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"you@example.com\" /></div>",
+      "css": ".ds-input-label { display: block; font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: oklch(0.21 0.006 285.885); margin-bottom: 0.375rem; } .ds-input { width: 100%; padding: 0.5rem 0.75rem; font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 1rem; color: oklch(0.141 0.005 285.823); background: oklch(0.985 0 0); border: 1px solid oklch(0.92 0.004 286.32); border-radius: 0.5rem; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); transition: border-color 150ms ease-out, box-shadow 150ms ease-out; } .ds-input:focus-visible { outline: none; border-color: oklch(0.769 0.188 70.08); box-shadow: 0 0 0 3px oklch(0.769 0.188 70.08 / 0.25); }"
+    },
+    {
+      "name": "Sidebar Nav Item",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "Filament sidebar link; primary when active, gray when idle.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item ds-nav-item-active\" href=\"#\"><svg class=\"ds-nav-icon\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\" fill=\"currentColor\" width=\"20\" height=\"20\"><path d=\"M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z\"/></svg>Orders</a><a class=\"ds-nav-item\" href=\"#\">Customers</a><p class=\"ds-nav-group\">Sales</p></nav>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 0.25rem; font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; } .ds-nav-group { font-size: 0.625rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: oklch(0.552 0.016 285.938); margin: 1rem 0 0.25rem 0.75rem; } .ds-nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; text-decoration: none; color: oklch(0.552 0.016 285.938); transition: background 150ms ease-out, color 150ms ease-out; } .ds-nav-item:hover { background: oklch(0.967 0.001 286.375); color: oklch(0.21 0.006 285.885); } .ds-nav-item-active { background: oklch(0.987 0.022 95.277); color: oklch(0.666 0.179 58.318); } .ds-nav-icon { flex-shrink: 0; }"
+    },
+    {
+      "name": "Stats Overview Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "CommerceOverview widget stat; flat at rest, lifted shadow on hover.",
+      "html": "<div class=\"ds-stat-card\"><p class=\"ds-stat-label\">Paid revenue</p><p class=\"ds-stat-value\">$12,480.00</p><p class=\"ds-stat-desc\">All paid orders</p></div>",
+      "css": ".ds-stat-card { background: oklch(0.985 0 0); border: 1px solid oklch(0.92 0.004 286.32); border-radius: 0.75rem; padding: 1.25rem 1.5rem; transition: box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-stat-card:hover { box-shadow: 0 4px 16px oklch(0.2 0.02 75 / 0.08); } .ds-stat-label { font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: oklch(0.552 0.016 285.938); margin: 0; } .ds-stat-value { font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; color: oklch(0.141 0.005 285.823); margin: 0.5rem 0 0; } .ds-stat-desc { font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; color: oklch(0.723 0.219 149.579); margin: 0.5rem 0 0; }"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "button-primary",
+      "description": "Filament semantic badge for env and tunnel states.",
+      "html": "<span class=\"ds-badge ds-badge-success\">HMR active</span> <span class=\"ds-badge ds-badge-gray\">Built assets</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; padding: 0.125rem 0.5rem; font-family: \"Inter Variable\", ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; border-radius: 0.375rem; } .ds-badge-success { background: oklch(0.95 0.05 149); color: oklch(0.45 0.15 149); } .ds-badge-gray { background: oklch(0.967 0.001 286.375); color: oklch(0.442 0.017 285.786); }"
+    },
+    {
+      "name": "Auth Link Accent",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "Breeze auth secondary links and focus rings using amber, not indigo.",
+      "html": "<a class=\"ds-auth-link\" href=\"#\">Forgot password?</a>",
+      "css": ".ds-auth-link { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: oklch(0.666 0.179 58.318); text-decoration: none; border-radius: 0.125rem; transition: color 150ms ease-out; } .ds-auth-link:hover { color: oklch(0.769 0.188 70.08); } .ds-auth-link:focus-visible { outline: 2px solid oklch(0.769 0.188 70.08); outline-offset: 2px; }"
+    },
+    {
+      "name": "Application Brand Mark",
+      "kind": "custom",
+      "refersTo": "card-surface",
+      "description": "Amber-tinted icon tile with Figtree app name on nav and guest layouts.",
+      "html": "<div class=\"ds-brand\"><span class=\"ds-brand-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\" fill=\"currentColor\" width=\"20\" height=\"20\"><path d=\"M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z\"/></svg></span><span class=\"ds-brand-name\">Analytics Dashboard</span></div>",
+      "css": ".ds-brand { display: inline-flex; align-items: center; gap: 0.625rem; } .ds-brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 0.5rem; background: oklch(0.769 0.188 70.08 / 0.1); color: oklch(0.666 0.179 58.318); } .ds-brand-name { font-family: Figtree, ui-sans-serif, system-ui, sans-serif; font-size: 1.125rem; font-weight: 600; color: oklch(0.21 0.006 285.885); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Operations Desk",
+    "overview": "This system serves operators and developers who manage catalog, sales, access, and local dev tooling across long sessions. The Filament admin at /admin is the canonical surface: familiar Linear/Stripe density, predictable sidebar groups, and amber reserved for action and selection. The Breeze storefront and analytics dashboard share the same Laravel app but use a lighter Figtree stack with gray neutrals and selective amber on auth and brand marks.\n\nThe aesthetic is calm, capable, and operational. Surfaces stay flat at rest; depth appears only on login cards, stat tiles on hover, and modal overlays. Dark mode is first-class on both Filament and Breeze.",
+    "keyCharacteristics": [
+      "Restrained amber accent on primary actions, active nav, and brand icon only",
+      "Filament v5 defaults plus admin-polish render hook for login backdrop and table/nav typography",
+      "Two registers in one repo: product admin (Inter, Filament tokens) and storefront (Figtree, Tailwind gray scale)",
+      "Semantic colors for status badges and CommerceOverview stats, never as decoration",
+      "Motion limited to 150 to 250 ms state feedback",
+      "Navigation groups fixed: Catalog, Sales, Development, Access"
+    ],
+    "rules": [
+      {
+        "name": "The Amber Sparingly Rule",
+        "body": "Primary amber appears on buttons, active navigation, primary-tinted stats, and auth links only. It must not flood backgrounds, table rows, or chart fills.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted Neutral Rule",
+        "body": "Neutrals carry a slight cool gray bias in Filament and warm page wash on login. Never use pure #000 or #fff.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Display in Data Rule",
+        "body": "Display-sized type is forbidden on table headers, form labels, and metric labels.",
+        "section": "typography"
+      },
+      {
+        "name": "The Fixed Scale Rule",
+        "body": "Product UI uses fixed rem sizes, not fluid clamp headings.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Surfaces are flat at rest. Shadows appear only as a response to hover, login focus, or modal overlay.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Glass Rule",
+        "body": "Login uses a soft radial wash, not backdrop blur or glassmorphism.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Filament Color::Amber as the sole admin primary via AdminPanelProvider.",
+      "Do register admin-polish on PanelsRenderHook::STYLES_AFTER for login backdrop, nav group labels, table headers, and stat hover.",
+      "Do keep navigation groups as Catalog, Sales, Development, Access with Development holding tunnel admin and playground only.",
+      "Do support dark mode on admin and Breeze with theme-init and segmented light/dark/auto toggle.",
+      "Do write empty states and widget descriptions that say what to do next.",
+      "Do use semantic Filament colors for status in CommerceOverview, not decorative gradients."
+    ],
+    "donts": [
+      "Don't ship hero metrics with gradient accents and decorative motion.",
+      "Don't use side-stripe card accents.",
+      "Don't put display fonts or oversized display type in tables or form labels.",
+      "Don't reinvent nav patterns.",
+      "Don't use glassmorphism, gradient text, or neon accents as default treatments.",
+      "Don't flood screens with amber.",
+      "Don't add orchestrated page-load animation sequences."
+    ]
+  }
+}

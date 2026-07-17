@@ -1,0 +1,27 @@
+{
+  "id": "58244491",
+  "phase": "agent_error",
+  "pageUrl": "/admin/users",
+  "sourceFile": null,
+  "previewFile": null,
+  "previewMode": null,
+  "expectedVariants": 3,
+  "arrivedVariants": 0,
+  "visibleVariant": 0,
+  "paramValues": {},
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 1,
+  "activeOwner": "19e12d45",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [
+    {
+      "error": "agent_error",
+      "message": "Reset: no agent poll loop was running. Start live mode in Cursor and keep polling."
+    }
+  ],
+  "updatedAt": "2026-06-06T12:52:37.392Z"
+}
