@@ -1,0 +1,168 @@
+services:
+  web:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: web
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    ports:
+      - "8080:8080"
+    healthcheck:
+      # Laravel /up health route (bootstrap/app.php). nginx listens on :8080
+      # (non-root container, Risk #3).
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/up || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          memory: 256M
+    restart: unless-stopped
+
+  reverb:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: reverb
+    env_file: .env
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    healthcheck:
+      # Reverb is a websocket server: a plain HTTP GET returns 404, so check the
+      # TCP port is accepting connections instead (php is in the image).
+      test: ["CMD-SHELL", "php -r \"exit(@fsockopen('127.0.0.1',8080)?0:1);\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          memory: 128M
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: worker
+    env_file: .env
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+        reservations:
+          memory: 256M
+    restart: unless-stopped
+
+  scheduler:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: scheduler
+    env_file: .env
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 256M
+        reservations:
+          memory: 128M
+    restart: unless-stopped
+
+  # One-shot migration release task (Risk #5). Runs once before web/worker/
+  # scheduler start, so scaling those to >1 replica cannot race migrations.
+  migrate:
+    build:
+      context: .
+    image: dashboard-v1
+    environment:
+      CONTAINER_ROLE: migrate
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  postgres:
+    image: postgres:16-alpine@sha256:16bc17c64a573ef34162af9298258d1aec548232985b33ed7b1eac33ba35c229
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-dashboard}
+      POSTGRES_USER: ${DB_USERNAME:-dashboard}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-dashboard}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine@sha256:6ab0b6e7381779332f97b8ca76193e45b0756f38d4c0dcda72dbb3c32061ab99
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  # Scheduled Postgres backups (Risk #2). pg_dump version matches the server.
+  # Dumps land in the pgbackups volume; configure offsite copy per docs/backups.md.
+  backup:
+    image: postgres:16-alpine@sha256:16bc17c64a573ef34162af9298258d1aec548232985b33ed7b1eac33ba35c229
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./docker/backup.sh:/usr/local/bin/backup.sh:ro
+      - pgbackups:/backups
+    entrypoint: ["sh", "/usr/local/bin/backup.sh"]
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  redisdata:
+  pgbackups:

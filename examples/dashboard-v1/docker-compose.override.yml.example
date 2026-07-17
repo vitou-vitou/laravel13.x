@@ -1,0 +1,34 @@
+# Local development overrides — TEMPLATE.
+#
+# Copy to docker-compose.override.yml to enable the live-reload dev loop:
+#   cp docker-compose.override.yml.example docker-compose.override.yml
+#
+# The real docker-compose.override.yml is gitignored ON PURPOSE: a tracked
+# override auto-loads on every `docker compose up`, including a Coolify deploy,
+# which would leak these dev bind-mounts into production. Keep it local-only.
+#
+# What this gives (PHP live edit->refresh, no image rebuild):
+#   - bind-mounts the source over the baked code
+#   - keeps the image's vendor/, bootstrap/cache, storage/framework via
+#     anonymous volumes (host has none / they must stay www-data-writable)
+#   - layers a dev php.ini so opcache revalidates changed files
+# The entrypoint clears (not caches) config/routes/views when APP_ENV=local.
+#
+# Notes / limits:
+#   - Frontend assets are NOT hot-reloaded. Run `npm run dev` on the host
+#     (Vite HMR) or `npm run build` then refresh.
+#   - worker/scheduler/reverb still run baked code. Editing Job/command/event
+#     classes needs `docker compose restart worker scheduler reverb` (or apply
+#     the same volumes below to those services).
+
+services:
+  web:
+    volumes:
+      - .:/var/www/html
+      # Anonymous volumes keep image-owned, www-data-writable dirs — the host
+      # bind would otherwise shadow them with non-writable / empty dirs and
+      # break package discovery + framework caches.
+      - /var/www/html/vendor
+      - /var/www/html/bootstrap/cache
+      - /var/www/html/storage/framework
+      - ./docker/php.dev.ini:/usr/local/etc/php/conf.d/zzz-dev.ini:ro
