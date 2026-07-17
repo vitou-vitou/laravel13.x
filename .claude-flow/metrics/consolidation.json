@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-07-11T15:12:50.890Z",
+  "distillationEnabled": true,
+  "patternsConsolidated": 0,
+  "memoryCleaned": 0,
+  "duplicatesRemoved": 0,
+  "episodes": 0,
+  "patternEmbeddings": 0,
+  "causalEdges": 0,
+  "promoted": 0,
+  "byProvenance": {},
+  "namespaces": [],
+  "dryRun": false,
+  "corrupt": false,
+  "skipped": "error: Could not locate the bindings file. Tried:\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\build\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\build\\Debug\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\build\\Release\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\out\\Debug\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\Debug\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\out\\Release\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\Release\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\build\\default\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\compiled\\24.16.0\\win32\\x64\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\addon-build\\release\\install-root\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\addon-build\\debug\\install-root\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\addon-build\\default\\install-root\\better_sqlite3.node\n → C:\\Users\\vitou\\AppData\\Local\\npm-cache\\_npx\\489f51a63dd46519\\node_modules\\better-sqlite3\\lib\\binding\\node-v137-win32-x64\\better_sqlite3.node"
+}

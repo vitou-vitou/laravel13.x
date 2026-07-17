@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-07-11T15:21:50.924Z",
+  "projectRoot": "D:\\laravel13.x",
+  "structure": {
+    "hasPackageJson": true,
+    "hasTsConfig": false,
+    "hasClaudeConfig": true,
+    "hasClaudeFlow": true
+  },
+  "scannedAt": 1783783310925
+}

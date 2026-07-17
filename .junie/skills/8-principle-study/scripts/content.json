@@ -1,0 +1,271 @@
+{
+  "topic": "Contributing to Vue 3",
+  "subtitle": "Tomorrow's Contribution Prep - A Structured Study Packet",
+  "preparedDate": "31 May 2026",
+  "howToUse": [
+    "This packet prepares you to contribute to the Vue 3 open-source repository on your first day back. It covers the monorepo structure, the reactivity model, the contribution workflow, and the team conventions you need to submit a real pull request.",
+    "Work through Step 1 tonight to build your mental model. Use Step 2 tomorrow morning and in the days that follow to lock in what you have learned. The flashcards and quizzes are designed for quick self-testing - five minutes before you open GitHub is enough."
+  ],
+  "step1Intro": "Before you can contribute, you need a clear map of what Vue 3 is made of, how its pieces connect, and what the contribution cycle looks like. This step gives you that map.",
+  "principle1": {
+    "intro": "Vue 3 is a monorepo. Each sub-package has one job. Knowing which package owns what tells you exactly where to look when an issue arrives.",
+    "tables": [
+      {
+        "title": "Vue 3 Package Map",
+        "headers": ["Package", "Owns", "Why it matters to contributors"],
+        "rows": [
+          ["reactivity", "ref(), reactive(), computed(), effect()", "Most bug reports touch this layer"],
+          ["runtime-core", "Component lifecycle, virtual DOM, patch algorithm", "Core rendering logic; vnode.ts and renderer.ts live here"],
+          ["runtime-dom", "Browser-specific DOM operations", "Handles real DOM patches; platform layer"],
+          ["compiler-core", "Template parsing and AST transforms", "Turns template strings into render functions"],
+          ["compiler-sfc", ".vue single-file component handling", "Highest issue volume; good for first PRs"],
+          ["vue", "Main entry point, full build", "Rarely changed directly; ties everything together"]
+        ]
+      },
+      {
+        "title": "Contribution Workflow",
+        "headers": ["Stage", "Action", "Command or location"],
+        "rows": [
+          ["1. Setup", "Install dependencies and verify toolchain", "pnpm i, pnpm test-unit"],
+          ["2. Find issue", "Search labels on GitHub", "good first issue, type: bug + p3-minor-bug"],
+          ["3. Branch", "Create fix branch from main", "git checkout -b fix/issue-12345"],
+          ["4. Understand", "Read failing test to learn expected behavior", "packages/*/tests/"],
+          ["5. Fix", "Edit minimal source code", "packages/*/src/*.ts"],
+          ["6. Verify", "Run tests and TypeScript check", "pnpm test-unit <pkg>, pnpm check"],
+          ["7. Commit", "Commit with conventional format", "fix(scope): description (fix #12345)"],
+          ["8. PR", "Open pull request on GitHub", "target main branch, include test"]
+        ]
+      }
+    ],
+    "takeaway": [
+      "compiler-sfc and runtime-core have the most activity - they are your best starting ground.",
+      "Every contribution follows the same eight-stage cycle regardless of the bug."
+    ]
+  },
+  "principle2": {
+    "intro": "Here are the seven ideas you must understand before you open your first issue.",
+    "explanations": [
+      {
+        "q": "What is the Vue 3 monorepo and why does it matter?",
+        "a": "Vue 3 is split into multiple packages inside one repository, each with a single responsibility. reactivity handles data tracking, runtime-core handles component logic and virtual DOM, compiler-sfc handles .vue files. When you see a bug report, the package name tells you which folder to open. This separation also means you can run tests for just one package without touching the others."
+      },
+      {
+        "q": "How does the reactivity system work?",
+        "a": "When you call ref() or reactive(), Vue wraps your data and attaches an effect - a function that knows it depends on that data. When the data changes, the effect is queued. Vue batches those queued effects and processes them together in the next render cycle, calling the patch algorithm to update only the parts of the DOM that changed. The one-liner: Mutation -> effect queues -> render batches -> patch executes."
+      },
+      {
+        "q": "What is a virtual node (vnode) and what does the patch algorithm do?",
+        "a": "A virtual node is a plain JavaScript object that describes a piece of the UI - its tag, props, and children - without touching the real DOM. The patch algorithm compares the old vnode tree to the new one, finds the differences, and applies only those changes to the real DOM. This is faster than re-rendering everything from scratch. runtime-core/src/vnode.ts defines the node structure; renderer.ts contains the patch logic."
+      },
+      {
+        "q": "How do you find a good first issue?",
+        "a": "On the Vue 3 GitHub repository, filter issues by the label good first issue for beginner-safe work, or combine type: bug with p3-minor-bug for low-risk bugs with limited blast radius. Prefer issues in compiler-sfc or runtime-core because those packages have the most contributor activity and the team reviews PRs there quickly. Pick an issue you can understand fully within 30 minutes - if you cannot, move to the next one."
+      },
+      {
+        "q": "What is the correct commit message format?",
+        "a": "Vue 3 uses Conventional Commits: type(scope): short description (fix #issueNumber). The type is fix for bug fixes, feat for features, chore for tooling, docs for documentation. The scope is the package name - reactivity, compiler-sfc, runtime-core, and so on. Example: fix(compiler-sfc): handle empty script block (fix #12345). This format is not optional - the CI pipeline and changelog generator depend on it."
+      },
+      {
+        "q": "What is the test-first fix flow?",
+        "a": "Start by running the failing test to see the error. Read the test to understand what behavior is expected. Find the source code that produces the wrong behavior. Write the smallest possible fix. Run the test again to confirm it passes. Then run the full package test suite (pnpm test-unit <package>) and the TypeScript check (pnpm check) to confirm you have not broken anything else. Do not write the fix before you understand the test."
+      },
+      {
+        "q": "What should you not do in a first PR?",
+        "a": "Do not refactor unrelated code, change files outside the affected package, add features that were not requested, or optimize code that is not part of the bug. Reviewers will ask you to revert unrelated changes, which slows the review cycle and signals inexperience. One bug, one fix, one test - that is the formula for a fast first merge."
+      }
+    ],
+    "takeaway": [
+      "The most important idea: find the failing test first, understand it, then fix the code. The test tells you what correct behavior looks like.",
+      "Common misconception: you need to understand all of Vue 3 before contributing. You do not. You need to understand one issue, one package, one fix."
+    ]
+  },
+  "principle3": {
+    "intro": "Here are the same core ideas in different forms. Multiple angles on the same concept help it stick.",
+    "oneLiner": "Vue 3 contribution = find failing test in one package, fix minimum code, confirm test passes, commit with conventional format, open PR to main.",
+    "diagram": [
+      "REACTIVITY CHAIN",
+      "",
+      "  ref() / reactive()",
+      "       |",
+      "       v",
+      "  effect() tracks dependency",
+      "       |",
+      "  Data mutates",
+      "       |",
+      "       v",
+      "  Effect queued (scheduler)",
+      "       |",
+      "       v",
+      "  Render batch flushes",
+      "       |",
+      "       v",
+      "  patch() diffs old/new vnode",
+      "       |",
+      "       v",
+      "  Real DOM updated (minimal)"
+    ],
+    "analogy": "Think of the Vue 3 monorepo like a restaurant kitchen. The compiler-sfc is the front-of-house - it receives orders (.vue files) and converts them into instructions. runtime-core is the head chef - it plans what needs cooking (virtual DOM diffing). runtime-dom is the line cook - it actually handles the physical work (real DOM). reactivity is the ingredient tracker - it knows exactly which dish uses which ingredient and alerts the kitchen the moment something runs out. You do not need to know the whole kitchen to fix one station.",
+    "comparisonTable": {
+      "headers": ["Approach", "First PR odds", "Review speed", "Risk"],
+      "rows": [
+        ["Fix bug with failing test", "High", "Fast", "Low"],
+        ["Add test for untested edge case", "High", "Fast", "Low"],
+        ["Improve TypeScript types", "Medium", "Medium", "Low"],
+        ["Fix compiler edge case", "Medium", "Medium", "Medium"],
+        ["Refactor or optimize code", "Low", "Slow", "High"],
+        ["Add new feature", "Low", "Slow", "High"]
+      ]
+    },
+    "takeaway": [
+      "Bug + failing test + minimal fix = the fastest path to a merged first PR."
+    ]
+  },
+  "principle4": {
+    "intro": "Five short lessons that package everything above into self-contained chunks. Each can be read in two minutes.",
+    "lessons": [
+      {
+        "title": "Lesson 1 - The Monorepo Map",
+        "body": "Vue 3 lives in a single repository containing six main packages. Each package has one job. When a bug report arrives, the package name in the issue title tells you exactly which folder to open. You never need to read all six packages to fix one bug - only the one the issue belongs to."
+      },
+      {
+        "title": "Lesson 2 - The Reactivity Chain",
+        "body": "Reactivity is the heart of Vue 3. When you wrap data with ref() or reactive(), Vue begins tracking who reads that data. When the data changes, Vue queues a re-render. It batches all pending changes together, then runs the patch algorithm once to update only the changed parts of the real DOM. Understanding this chain helps you reason about why a component re-renders when it should not - or does not re-render when it should."
+      },
+      {
+        "title": "Lesson 3 - Finding Your First Issue",
+        "body": "Go to the Vue 3 GitHub issues page and filter by good first issue. If nothing suits you, combine type: bug with p3-minor-bug for small, isolated bugs. Focus on compiler-sfc and runtime-core - those two packages attract the most contributors and get the fastest review turnaround. Pick an issue you can read and understand in 30 minutes. If you cannot, skip it and try the next."
+      },
+      {
+        "title": "Lesson 4 - The Test-First Fix Flow",
+        "body": "Every fix follows the same order: run the failing test, read it, understand expected behavior, find the broken code, write the smallest fix, re-run the test. This sequence matters. Fixing code before understanding the test leads to fixes that pass by accident and break on edge cases. The test is your specification - treat it as the source of truth."
+      },
+      {
+        "title": "Lesson 5 - The PR Cycle",
+        "body": "Branch from main with a descriptive name (fix/issue-12345). Make your fix. Run pnpm test-unit <package> and pnpm check. Commit using the Conventional Commits format. Open a PR targeting main, explain the fix in two to three sentences, and link the issue number. Reviewers may ask for changes - respond quickly, push a new commit, and wait for re-review. Most first PRs take one to two review rounds before merging."
+      }
+    ],
+    "takeaway": [
+      "Five lessons, one through-line: focus narrows everything. One package, one issue, one test, one fix."
+    ]
+  },
+  "step2Intro": "Understanding the material is the beginning, not the end. Without active retrieval practice, what you read tonight will fade by morning. These four practices convert understanding into reliable memory.",
+  "principle5": {
+    "intro": "Answer each question from memory before checking the answer key. That struggle is the learning - it is not a test of what you already know, it is the act of building the memory.",
+    "quizTitle": "Quiz A - Core Concepts",
+    "questions": [
+      "1. Name the six main packages in the Vue 3 monorepo and the job of each.",
+      "2. Which two packages are recommended for a first contribution, and why?",
+      "3. Write out the reactivity chain from a data mutation to a real DOM update in four steps.",
+      "4. What does the patch algorithm compare, and what is its output?",
+      "5. What GitHub labels should you filter by when looking for a first issue?",
+      "6. Write the correct commit message format for fixing issue #9876 in the compiler-sfc package.",
+      "7. What are the five steps of the test-first fix flow, in order?",
+      "8. Name three things you should never do in a first PR.",
+      "9. Which two commands verify your fix before committing?",
+      "10. What branch should your fix branch from, and what should you name it?"
+    ],
+    "answers": [
+      "1. reactivity (ref/reactive/effect), runtime-core (component lifecycle, vdom, patch), runtime-dom (browser DOM ops), compiler-core (template parsing, AST), compiler-sfc (.vue file handling), vue (main entry/full build).",
+      "2. compiler-sfc and runtime-core - they have the highest issue volume and fastest review turnaround.",
+      "3. Data mutates -> effect queued by scheduler -> render batch flushes -> patch() diffs vnodes -> real DOM updated.",
+      "4. The patch algorithm compares the old vnode tree to the new vnode tree. Its output is the minimal set of real DOM operations needed to make them match.",
+      "5. good first issue (safest) or type: bug combined with p3-minor-bug (small isolated bugs).",
+      "6. fix(compiler-sfc): short description of fix (fix #9876)",
+      "7. Run failing test -> read test to understand expected behavior -> find broken code -> write minimal fix -> re-run test to confirm pass.",
+      "8. Do not: refactor unrelated code, change files outside the affected package, add unrequested features.",
+      "9. pnpm test-unit <package> and pnpm check (TypeScript type check).",
+      "10. Branch from main. Name it fix/issue-<number>, e.g. fix/issue-12345."
+    ],
+    "flashcards": [
+      { "front": "What does the reactivity package own?", "back": "ref(), reactive(), computed(), effect() - the data tracking and change detection layer." },
+      { "front": "What does runtime-core own?", "back": "Component lifecycle, virtual DOM structure (vnode.ts), and the patch algorithm (renderer.ts)." },
+      { "front": "What does compiler-sfc own?", "back": "Handling of .vue single-file components - parsing the template, script, and style blocks." },
+      { "front": "What is a virtual node (vnode)?", "back": "A plain JS object describing a UI element without touching the real DOM." },
+      { "front": "What is the reactivity chain one-liner?", "back": "Mutation -> effect queues -> render batches -> patch executes." },
+      { "front": "What GitHub labels find safe first issues?", "back": "good first issue, or type: bug + p3-minor-bug." },
+      { "front": "What is the correct commit format?", "back": "type(scope): short description (fix #issueNumber) - e.g. fix(compiler-sfc): handle empty script (fix #123)." },
+      { "front": "What are the two verification commands before committing?", "back": "pnpm test-unit <package> runs package tests. pnpm check runs TypeScript type check." },
+      { "front": "What branch do you target for PRs?", "back": "main (not minor)." },
+      { "front": "What is the test-first fix flow?", "back": "Run failing test -> read test -> understand expected behavior -> find broken code -> minimal fix -> re-run test." },
+      { "front": "Name three things NOT to do in a first PR.", "back": "Refactor unrelated code, change files outside the affected package, add unrequested features." },
+      { "front": "Which two packages have the most contributor activity?", "back": "compiler-sfc and runtime-core." }
+    ]
+  },
+  "principle6": {
+    "intro": "Your brain consolidates memory during sleep and in the gaps between study sessions. Reviewing at expanding intervals - a little today, a little tomorrow, then again in three days - is far more effective than reading the same material repeatedly in one sitting.",
+    "schedule": [
+      { "when": "Tonight (before sleep)", "task": "Read Lessons 1-5. Complete Quiz A without looking at answers. Check answers." },
+      { "when": "Tomorrow morning", "task": "Flip through all 12 flashcards. Mark any you hesitated on." },
+      { "when": "Day 2", "task": "Redo only the flashcards you hesitated on. Take Quiz B (interleaved)." },
+      { "when": "Day 4", "task": "Cold self-test: write the reactivity chain and package map from memory. Check against packet." },
+      { "when": "Day 7", "task": "Full Quiz A again from memory. Review any wrong answers." },
+      { "when": "Day 14", "task": "Full flashcard deck, both quizzes. Aim for zero hesitation." },
+      { "when": "Day 30", "task": "Cold self-test on whole packet. If you can explain it to someone, you own it." }
+    ],
+    "note": [
+      "Why spacing works: each review forces your brain to reconstruct the memory rather than passively re-read it. That reconstruction strengthens the neural pathway. The gaps are not wasted time - they are where consolidation happens."
+    ]
+  },
+  "principle7": {
+    "intro": "This quiz jumps between topics, definitions, procedures, and applications deliberately. Unlike Quiz A, it does not follow the order the material was taught. That forces you to select the right idea rather than just recall the next item in a sequence - a harder and more durable form of practice.",
+    "quizTitle": "Quiz B - Interleaved Mix",
+    "questions": [
+      "1. You receive a bug report mentioning a .vue file fails to parse an empty script block. Which package do you open first?",
+      "2. What is the correct commit message for fixing issue #4422 in the runtime-core package?",
+      "3. Describe the difference between a vnode and a real DOM node.",
+      "4. You run pnpm test-unit reactivity and three tests fail. What is your next action?",
+      "5. Why should you not refactor unrelated code in a bug-fix PR?",
+      "6. A colleague asks: how does Vue know to re-render a component when a ref() value changes? Give the four-step answer.",
+      "7. Which label combination finds low-risk bugs that are not specifically flagged as beginner-friendly?",
+      "8. You have fixed the bug and the test passes. What two commands do you run before committing?",
+      "9. Where do you find usage examples for a Vue 3 internal API when the documentation is unclear?",
+      "10. It is your third day back. You want to review the material efficiently. According to the spaced schedule, what should you do today (Day 2)?"
+    ],
+    "answers": [
+      "1. compiler-sfc - it owns .vue single-file component parsing.",
+      "2. fix(runtime-core): short description of fix (fix #4422)",
+      "3. A vnode is a plain JS object describing what to render - no browser APIs involved. A real DOM node is a live browser object with event listeners and layout. The patch algorithm translates vnode trees into minimal real DOM operations.",
+      "4. Read each failing test carefully to understand what behavior is expected, then trace the source code to find what changed.",
+      "5. Reviewers will ask you to remove unrelated changes. It slows the review cycle and signals a lack of focus. Keep PRs minimal: one bug, one fix.",
+      "6. ref() wraps data and registers an effect (tracker). When the ref value is set, the effect is queued by the scheduler. The scheduler batches effects and flushes them, calling patch() to diff the old and new vnode trees. Only the changed DOM nodes are updated.",
+      "7. type: bug combined with p3-minor-bug.",
+      "8. pnpm test-unit <package> to run the package test suite. pnpm check to run the TypeScript type check.",
+      "9. Look in the package test files (packages/*/tests/) - they show exactly how the API is called and what it should return.",
+      "10. Redo only the flashcards you hesitated on during the morning session, then take Quiz B (this quiz)."
+    ]
+  },
+  "principle8": {
+    "intro": "Most people stop studying the moment they first get an answer right. That is the wrong stopping point. The first correct answer means you can recall something under ideal conditions - fresh, just reviewed, no pressure. Overlearning means continuing past that point until recall is fast, automatic, and robust under pressure.",
+    "stages": [
+      { "stage": "First correct", "feels": "Slow, effortful, uncertain", "action": "Keep going. One right answer is not mastery." },
+      { "stage": "Comfortable", "feels": "You can answer without much hesitation", "action": "Do two more full flashcard rounds. Take Quiz B again cold." },
+      { "stage": "Automatic", "feels": "Answers come immediately with no effort", "action": "Space out reviews (Day 7, Day 14, Day 30). Teach it to someone." }
+    ],
+    "planTitle": "Your overlearning plan",
+    "plan": [
+      "Run the flashcard deck until you get three consecutive flawless rounds with no hesitation.",
+      "Take Quiz A cold (no notes) at Day 7 and Day 14. Score yourself honestly.",
+      "At Day 30, write the reactivity chain and package map from memory before opening the packet.",
+      "Explain the Vue 3 contribution workflow out loud to a colleague or into a voice note - the act of teaching exposes every gap.",
+      "Each time you submit a PR, try to predict the reviewer feedback before it arrives. That forces you to apply the knowledge under realistic conditions."
+    ],
+    "takeaway": [
+      "Knowledge becomes permanent through practice after first success, not before it.",
+      "Step 1 built your mental model. Step 2 makes it automatic. Both are required."
+    ]
+  },
+  "glossary": [
+    { "term": "monorepo", "meaning": "A single repository containing multiple related packages, each with its own scope and tests." },
+    { "term": "ref()", "meaning": "Vue 3 function that wraps a primitive value in a reactive container, triggering re-renders on change." },
+    { "term": "reactive()", "meaning": "Vue 3 function that makes a plain object deeply reactive using a JavaScript Proxy." },
+    { "term": "effect()", "meaning": "A function that runs automatically when its reactive dependencies change." },
+    { "term": "vnode", "meaning": "Virtual node - a plain JS object describing a UI element without touching the real DOM." },
+    { "term": "patch algorithm", "meaning": "The function in renderer.ts that compares old and new vnode trees and applies minimal real DOM changes." },
+    { "term": "compiler-sfc", "meaning": "The Vue 3 package that parses and transforms .vue single-file components." },
+    { "term": "Conventional Commits", "meaning": "A commit message standard using type(scope): description format that drives changelogs and CI." },
+    { "term": "p3-minor-bug", "meaning": "A GitHub label in Vue 3 for low-priority, low-risk bugs - ideal targets for first contributions." },
+    { "term": "pnpm test-unit", "meaning": "The command to run unit tests for one or all packages in the Vue 3 monorepo." },
+    { "term": "pnpm check", "meaning": "The command to run the TypeScript type checker across the Vue 3 codebase." },
+    { "term": "spaced repetition", "meaning": "A study technique that reviews material at expanding time intervals to maximize long-term retention." }
+  ]
+}
