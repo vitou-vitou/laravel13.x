@@ -63,3 +63,4 @@ examples/dashboard-v1/env
 !examples/marketplace-v2/.env
 !examples/creator-operator-v1/.env
 !examples/telegram-login/.env
+!examples/uploadfile/.env

@@ -36,6 +36,7 @@
 | `examples/dashboard-v1` | **MVP complete** | 115/115 | Breeze + Filament + Reverb + Socialite | Commerce + email + Echo + Google SSO + theme modes |
 | `examples/dashboard-v2` | **GitHub OAuth MVP** | 35/35 | Breeze + GitHub Socialite | Session auth + optional GitHub login |
 | `examples/creator-operator-v1` | **MVP + Mode D slices 1–5** | 44/44 | Breeze session (operator + creator) | Publish log, metrics, settlement, import, billing mock, webhooks |
+| `examples/uploadfile` | **MVP complete** | 13/13 | None (teaching API) | File upload/list/download/delete via vendor `Storage` APIs; Spec-Kit `001-uploadfile` |
 
 ---
 
