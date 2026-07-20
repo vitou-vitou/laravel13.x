@@ -1,0 +1,43 @@
+---
+description: "Impeccable UI: task-based triage for frontend design work"
+globs: "*"
+alwaysApply: true
+---
+
+## Impeccable UI (task-based)
+
+**Skill:** `C:\Users\PGI\.claude\skills\impeccable\SKILL.md`
+**Loader:** `C:\Users\PGI\.claude\skills\impeccable\scripts\load-context.mjs`
+**References:** `C:\Users\PGI\.claude\skills\impeccable\reference\`
+
+### Activate when
+
+- Task keywords: design, polish, layout, form, component, Vue, CSS, dashboard, landing, UX, a11y, animation, typography
+- Files touched: `resources/js/views/**`, `resources/js/components/**`, `*.vue`, `*.css`
+- User invokes `/impeccable` or sub-commands (`craft`, `shape`, `audit`, `polish`, `critique`, etc.)
+
+### Skip when
+
+- Pure backend PHP, API-only, git, docs-only, spec-only with no UI
+
+### On activation
+
+1. Read impeccable `SKILL.md` (don't re-run loader if context already in session).
+2. If `PRODUCT.md` exists at repo root (or `.agents/context/`, `docs/`): run from repo root:
+   `node C:\Users\PGI\.claude\skills\impeccable\scripts\load-context.mjs`
+   Consume full JSON; never pipe through `head`/`grep`/`jq`.
+3. **Register:** `product` — Laravel/Vue insurance admin UI (not marketing brand).
+4. Load `reference/product.md` for design work; apply shared design laws from SKILL.md.
+5. Match existing PrimeVue + Tailwind patterns; extend, don't force full redesign unless asked.
+6. **Sub-command routing** — load matching reference before acting:
+   `craft`→craft.md, `shape`→shape.md, `audit`→audit.md, `polish`→polish.md, `critique`→critique.md, `teach`→teach.md, `document`→document.md, etc. (see SKILL.md command table).
+7. Missing/placeholder PRODUCT.md (<200 chars, `[TODO]`): run `teach` first, then resume original task.
+
+### PL Direct Book
+
+Quotation/policy forms: PrimeVue `TabView`, `slate-50` bordered sections, tab shell in `DirectBookQuotationFormShell.vue`. Extend this vocabulary; don't fight it.
+
+### Coexistence
+
+- Spec-first (`00-spec-first-superpowers.mdc`) still gates implementation.
+- Caveman mode compresses replies only; does not skip impeccable setup on UI tasks.

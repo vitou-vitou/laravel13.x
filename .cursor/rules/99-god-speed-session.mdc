@@ -1,0 +1,50 @@
+---
+description: "God Speed: master session orchestrator — caveman + spec-first + impeccable + ship"
+globs: "*"
+alwaysApply: true
+---
+
+## God Speed（每会话）
+
+Master orchestrator. Task-based routing; don't duplicate child rules — read them when triggered.
+
+### 1. Voice（默认）
+
+`caveman-mode.mdc` — terse, conclusion-first, no filler. **Off:** user says `normal mode` → full prose until they re-enable caveman.
+
+### 2. Spec-first（编码任务）
+
+`00-spec-first-superpowers.mdc` — feature / bugfix / refactor / config → read spec skill, triage Quick/Standard/Thorough, **G1 before code**. Active PL context: `openspec/changes/phase-ii-quotation-slice-only/`. **"skip spec"** → refuse; redirect `/super-spec`.
+
+### 3. UI / Vue / CSS
+
+`01-impeccable-ui.mdc` — polish, layout, forms, components, views. Load impeccable skill + `PRODUCT.md` context when present. Match PrimeVue + Tailwind; extend Direct Book shell patterns.
+
+### 4. Execution bias
+
+- Ship > debate. Minimal scope. Match codebase conventions.
+- **Simple code:** short names, small methods (`04-simple-code-voice.mdc`).
+- Verify before claiming done (`verification-before-completion`).
+- Visual bugfixes: P1 query/data evidence, P2 crop optional (`07-bugfix-evidence-crop.mdc`).
+- No drive-by refactors. No commits unless asked.
+
+### 5. Multitask
+
+**Default off** — see `03-fast-mode.mdc`. Long independent work → background subagents only when user says **`god speed full`** or **`multitask`**.
+
+### 6. Session boot
+
+1. `.spec-mode` → OpenSpec (`openspec`)
+2. Read `docs/SESSION_STATE.md` on `continue`
+3. Resume `openspec/changes/*/progress.md` + `task_plan.md` if present
+4. Route task → caveman + spec + impeccable as needed
+
+### Commands
+
+| Command | Effect |
+|---------|--------|
+| `/super-spec` | Full spec pipeline |
+| `/caveman` | Max compression |
+| `normal mode` | Caveman off |
+| `fast mode` | Foreground-only, Quick spec (see `03-fast-mode.mdc`) |
+| `god speed full` / `multitask` | Re-enable background subagents |

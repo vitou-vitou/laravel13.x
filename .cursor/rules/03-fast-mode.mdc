@@ -1,0 +1,40 @@
+---
+description: "Fast mode: foreground agent, Quick spec, no multitask — default speed"
+globs: "*"
+alwaysApply: true
+---
+
+## Fast mode（默认速度）
+
+**On by default** in this repo. User says **`god speed full`** or **`multitask`** to re-enable background subagents + thorough flow.
+
+### Execution
+
+| Do | Don't |
+|----|-------|
+| Foreground tools — direct read/grep/edit/shell | Background `Task` subagents for normal bugs/features |
+| **Quick** spec triage (G1 still applies for new features) | Standard/Thorough unless user asks |
+| Answer in one pass when possible | Split into parallel agents |
+| `npm run build` only if JS/Vue/CSS changed | Build after every tiny edit |
+| Browser verify only if user asks | Auto browser smoke |
+| Visual bugfix: P1 data/HTML proof required; P2 crop optional (`07-bugfix-evidence-crop`) | Skip P1 on print/UI glyph bugs |
+| Aikido scan only after substantive code diff | Scan on questions/docs-only |
+
+### Session boot
+
+- **`continue`** → skip reading `SESSION_STATE.md` / `progress.md` unless user said continue
+- No OpenSpec boot unless coding task needs it
+
+### Still apply
+
+- `02-pl-seven-product-scope.mdc` — 7 Direct Book products only
+- Minimal diff, no drive-by refactors, no commit unless asked
+- `windows-herd-gitbash.mdc` for PHP commands
+
+### Commands
+
+| User says | Effect |
+|-----------|--------|
+| `fast mode` | Confirm fast mode (already default) |
+| `god speed full` / `multitask` | Background subagents OK; read session handoff on continue |
+| `thorough` | Full spec + verification pipeline |

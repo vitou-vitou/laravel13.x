@@ -1,0 +1,75 @@
+---
+description: "PL Direct Book: scope work to 7 products only; legacy PL out of refactor scope"
+globs: "*"
+alwaysApply: true
+---
+
+## PL Seven-Product Scope（每会话）
+
+**持久指令**（用户说 stop 前一直有效）：本仓库 Property Liability 工作 **仅限 7 个 Direct Book 产品**。不重构旧产品、不重组旧产品代码。
+
+### In scope — 7 Direct Book products
+
+| SM code | Constant |
+|---------|----------|
+| `0189` | `MARINE_CARGO` |
+| `0191` | `BURGLARY` |
+| `0192` | `MONEY_INSURANCE` |
+| `0193` | `PLATE_GLASS` |
+| `0194` | `CONSTRUCTION_ALL_RISKS` |
+| `0195` | `BOND` |
+| `0196` | `PROFESSIONAL_INDEMNITY` |
+
+权威列表：`ProductCode::directBookCodes()` / `ProductCode::isDirectBook()`.
+
+### Out of scope — do NOT refactor or restructure
+
+| SM codes | Products |
+|----------|----------|
+| `0121`–`0125` | Public Liability, Fire, Property, Home Package, Business Package |
+
+- 不「顺手」改旧 PL 视图、旧 quote service（如 `PublicLiability.php`）、旧 tab/flow 结构。
+- 共享入口（`Form.vue`, `Detail.vue`, `QuoteServiceResolver`）**仅**为 7 产品路由/分支时做 **最小** 改动；禁止借机统一或清理旧产品实现。
+- 旧产品 bug：除非用户明确要求且无法绕过，否则不碰。
+
+### Where new code goes
+
+**前端（优先扩展，不搬旧代码）**
+
+- Shell / tabs：`resources/js/views/PropertyLiability/Quotation/Components/Burglary/DirectBookQuotationFormShell.vue`
+- Quotation：`.../Quotation/Components/Burglary/DirectBookQuotation*.vue`
+- Policy：`.../Policy/Components/Burglary/DirectBookPolicy*.vue`, `BurglaryPolicy*.vue`
+- Endorsement：`.../Endorsement/Components/Burglary/*`
+- Per-product plan/premium：`.../Components/Burglary/*Plan.vue`, `*Premium.vue`（及同目录下 Car/Marine/Bond/PI 等切片）
+- Mock / dev：`resources/js/services/property_liability/mock-burglary-service/`, `.../BurglaryMock/`
+
+**服务层**
+
+- `resources/js/services/property_liability/burglary/` — Direct Book helpers (1–2 word files; see `05-pl-db-naming.mdc`)
+- `resources/js/services/property_liability/burglary-*.adapter.js`, `product-line-cascade.js`
+- `resources/js/services/property_liability/base.service.js` — 仅 Direct Book API 路径
+
+**后端**
+
+- `app/Services/PL/Quote/DirectBook.php`
+- `app/Constants/ProductCode.php` — 仅 Direct Book 常量/判断
+- `app/Resolvers/QuoteServiceResolver.php` — 仅新增/调整 Direct Book 解析
+
+**规范**
+
+- 默认 OpenSpec 上下文：`openspec/changes/phase-ii-quotation-slice-only/`
+
+### When shared code must change
+
+1. **先**在 7 产品目录下加新 slice / adapter / 小组件。
+2. 共享层只加 **窄分支**（`isDirectBook`、product code switch），不抽象旧产品。
+3. 禁止跨产品大重构、禁止把旧产品迁入 Direct Book 目录「顺便整理」。
+
+### Execution checklist
+
+- [ ] 任务是否只服务 0189 / 0191–0196？
+- [ ] diff 是否避开 0121–0125 实现文件？
+- [ ] 新文件是否落在 Direct Book / Burglary / mock-burglary 路径下？
+- [ ] 是否无 drive-by refactor？
+
+与 `00-spec-first-superpowers.mdc`、`01-impeccable-ui.mdc` 共存；本规则管 **范围**，spec 管 **流程**，impeccable 管 **UI 质量**。
