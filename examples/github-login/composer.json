@@ -1,0 +1,12 @@
+{
+  "name": "examples/github-login",
+  "description": "Example Laravel 13 app with GitHub OAuth (Socialite)",
+  "require": {
+    "php": "^8.3",
+    "laravel/framework": "^13.0",
+    "laravel/socialite": "^5.28"
+  },
+  "autoload": {
+    "psr-4": { "App\\": "app/" }
+  }
+}
