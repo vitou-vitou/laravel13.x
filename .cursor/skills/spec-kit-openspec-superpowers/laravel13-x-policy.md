@@ -22,6 +22,7 @@
 | `examples/booking-v1` | `001-appointment-booking/` (T001–T020 done) | optional Filament change | 15 | optional polish |
 | `examples/marketplace-v2` | roadmap complete | post-MVP only | 39 | **UI phase done** — `docs/DESIGN.md` |
 | `examples/clone-the-fb-nav` | MVP complete | post-MVP only | 6 | has `docs/DESIGN.md` |
+| `examples/uploadfile` | `001-uploadfile` (T001–T005 done) | post-MVP only | 13 | none (teaching API) |
 
 ## Superpowers skills to prefer during implement
 
@@ -48,6 +49,8 @@
 ```
 
 Run from each `examples/*` directory.
+
+**`bin/new-example` from a non-login shell:** `npm` may be missing from PATH and the script dies after Spec-Kit init. Prepend `/c/Program Files/nodejs` to PATH and resume the remaining steps (npm install, `.env`, herd link, spec stubs, `verify-example`) — do not delete and re-scaffold. Slugs must be kebab-case lowercase (e.g. `uploadfile`, not `uploadFile`).
 
 ## UI phase (post-MVP presentation)
 
