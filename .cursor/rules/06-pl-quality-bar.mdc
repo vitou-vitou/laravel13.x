@@ -1,0 +1,49 @@
+---
+description: "PL Direct Book code quality bar vs Laravel + Vue ecosystem"
+globs: "resources/js/services/property_liability/burglary/**,app/Services/PL/**"
+alwaysApply: false
+---
+
+## Quality bar (7 products) — pass ~80–90%
+
+Compare **our** Direct Book code to:
+
+| Layer | Reference |
+|-------|-----------|
+| PHP | `vendor/laravel/framework` — `Str`, `Arr`, service classes |
+| JS helpers | short verb+noun like Laravel (`after`, `contains`) — **readable**, not cryptic |
+| Vue | Vue 3 `<script setup>` + PrimeVue patterns in `node_modules/primevue` |
+
+### Scorecard (target band)
+
+| Axis | Bar | Our DB slice | ~ |
+|------|-----|--------------|---|
+| Naming | Clear 1–3 word verb+noun | Short + readable (`fillPlan`, `showErr`, `loadPlanSelection`) | **89** |
+| Folder / files | One concern per file | `burglary/` + traits + `plan-ui` + `plan-load` | **92** |
+| Error UX | No silent catch | announce on plan/commission fail | **86** |
+| Vue API | script setup | Burglary shells use setup; shared `plan-ui`/`plan-load` | **90** |
+| Fat files | Prefer <400 LOC helpers | helpers ≤301; Plan SFCs ~887–1166 (−~50 loadSelection) | **88** |
+| PHP service | Small private methods | `DirectBook` ~206 + 4 concerns traits | **90** |
+| Security | No raw eval; announce API errs | OK in helpers; legacy `v-html` print out of scope | **82** |
+| Tests/verify | routing + build | verify + build gate | **86** |
+
+**Roll-up (DB slice):** ~**90%** — hit target band top.
+
+### Do (stay in band)
+
+- Names: `fillPlan`, `showErr`, `normalizeFiles` — **not** cryptic `normErr` / `ddValue`.
+- PHP: Laravel-style `normalizeX` / `applyX` in `Quote/Concerns/*` traits.
+- Vue: `<script setup>`; shared plan atoms from `burglary/plan-ui.js` + `plan-load.js`.
+- One concern per PR.
+
+### Don't (drops below 80)
+
+- Cryptic 2–3 letter codes as only name.
+- Silent `.catch(() => {})`.
+- Dual long+short exports.
+- Refactor legacy `0121`–`0125` “for quality”.
+
+### Next toward 90+ / keep
+
+1. Further thin Plan SFCs — grid builders / `hydrateFromPrev` (still fat).
+2. Keep `limits.js` barrel (`amounts` / `rows` / `merge`).

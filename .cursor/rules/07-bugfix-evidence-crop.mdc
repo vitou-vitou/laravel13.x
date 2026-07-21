@@ -1,0 +1,59 @@
+---
+description: Visual bugfix evidence — prefer fast query/data proof; crop screenshot is priority 2
+alwaysApply: true
+---
+
+# Bugfix evidence (priority)
+
+For **visual** bugs (PDF print, schedule, invoice, signature, font/glyph, layout), do not claim fixed without evidence.
+
+## Which is quicker?
+
+| Priority | Method | Speed | Use when |
+|----------|--------|-------|----------|
+| **1 — query / data** | Render Blade/HTML, tinker dump, focused test assert, API JSON | Fast | Text/class/path/signature URI can be proven in output |
+| **2 — crop screenshot** | agent-browser → Playwright | Slow | User needs picture, or data cannot show the glyph/layout |
+
+Default = **P1**. Capture **P2 crop** only if P1 is weak, user asks for a picture, or the bug is pure layout/pixels.
+
+## P1 — query / data format (preferred)
+
+Examples that count:
+
+- Focused PHPUnit assert on rendered HTML (**inline** `font-family: khmeros` + text — class alone is not enough under mPDF `simpleTables`)
+- `tinker` / one-off script dump of the fixed field HTML or signature `src=`
+- Saved snippet under `docs/evidence/<date>-<slug>-after.html` or `.txt`
+- Helper for Khmer cells: `plKhmerTd($text)` → `class` + inline `style` (use in Direct Book PDF blades)
+
+Log one line + path (or test name) in active OpenSpec `progress.md`.
+
+**Copy link near output:** right under the evidence output in the reply, always give the full repro URL on `APP_URL` (from `.env`) as a plain code line the user can copy — e.g.
+
+```
+http://pgi-core-frontend.test/pl/policies/1389/download?letterHead=1&lang=EN&signature=1&noStamp=0
+```
+
+Never a relative path; never localhost:5173.
+
+## PDF Khmer glyph lesson
+
+mPDF policy print uses `simpleTables => true`. CSS class fonts on `<td>` often **do not** apply. Always set **inline** `style="font-family: khmeros, …"` (via `plKhmerTd`) when Khmer must render on an EN (Candara) page.
+
+## P2 — crop screenshot
+
+- Tool order: **agent-browser** → Playwright
+- Crop the fixed region only (not full page)
+- Path: `docs/evidence/<yyyy-mm-dd>-<short-slug>-after.png`
+- If auth/PDF blocks automation: note blocker in `progress.md`; ask user for one manual crop if needed
+
+## Gate
+
+```
+Visual bugfix → tests green → P1 data evidence → (P2 crop if needed) → THEN claim done
+```
+
+No P1 and no recorded blocker = not done. Missing P2 alone is OK when P1 proves the fix.
+
+## Fast mode
+
+`03-fast-mode` may skip casual browser smoke; it does **not** skip P1 for visual bugfixes. P2 stays optional unless user asks.

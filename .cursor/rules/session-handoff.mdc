@@ -1,58 +1,42 @@
 ---
-description: Active 180+ / Spec-Kit session — kindly-login, kindly-e-commerce, booking-v1 MVPs. Read before continuing work.
+description: pgi-core-frontend session resume — PL Direct Book / OpenSpec. Read before continuing work.
 alwaysApply: true
 ---
 
-# Session handoff (2026-06-01)
+# Session handoff (pgi-core-frontend)
 
-**Read first:** `docs/SESSION_STATE.md` (repo root). **Example dev pitfalls:** `docs/EXAMPLE_DEV_LESSONS.md`.
+**Read first:** `docs/SESSION_STATE.md` (repo root).
 
-## Active projects (MVP complete — do not re-scaffold)
+## Active change (default)
 
-| Path | Tests | Resume file |
-|------|-------|-------------|
-| `examples/kindly-login-1122` | 30/30 | `examples/kindly-login-1122/docs/NEXT_SESSION.md` |
-| `examples/kindly-e-commerce-1122` | 49/49 | `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md` |
-| `examples/booking-v1` | 15/15 | `examples/booking-v1/docs/NEXT_SESSION.md` |
-| `examples/clone-the-fb-nav` | 6/6 | `examples/clone-the-fb-nav/docs/NEXT_SESSION.md` |
-| `examples/creator-operator-v1` | 52/52 | `examples/creator-operator-v1/docs/NEXT_SESSION.md` |
+| Path | Purpose |
+|------|---------|
+| `openspec/changes/phase-ii-quotation-slice-only/` | PL Direct Book quotation slice (7 products 0189, 0191–0196) |
+
+Resume files: `progress.md`, `findings.md`, `tasks.md`, `BLOCKERS.md`.
 
 ## If user says "continue" / "take controller"
 
-1. Read `docs/SESSION_STATE.md` → **Default next work**.
-2. Do **not** re-install Breeze, Sanctum, or re-run completed Spec-Kit tasks.
-3. **kindly-e-commerce:** Phase 3a Stripe done — next 3b lifecycle or OpenSpec; autonomous loop OK until blocker (Arena login, live Stripe keys).
-4. **kindly-login:** MVP complete — no rework unless auth routes change.
-5. **booking-v1:** Optional Grok Prompt C or OpenSpec/Filament — not greenfield.
-6. **clone-the-fb-nav:** MVP complete — pixel polish or OpenSpec only if user asks.
-7. **creator-operator-v1:** MVP + Mode D complete — Track B Stripe, CLI import, or OpenSpec only if user asks.
-
-## New example (greenfield) — **only after user picks Laravel**
-
-Do **not** run `new-example` by default. Confirm stack first (see `.cursor/rules/greenfield-stack-choice.mdc`).
-
-When user explicitly chooses Laravel:
-
-```bash
-export PATH="/d/laravel13.x/bin:$PATH"
-./bin/new-example <slug> ["Display Name"]
-```
-
-See `docs/NEW_EXAMPLE_SCAFFOLD.md` + `docs/EXAMPLE_DEV_LESSONS.md`. After scaffold: `./bin/verify-example <slug>`.
+1. Read `docs/SESSION_STATE.md` → default next work.
+2. Read active change `progress.md` for last checkpoint.
+3. **Do not** refactor legacy PL products (`0121`–`0125`) unless user explicitly asks.
+4. **Do not** expand scope beyond 7 Direct Book products (see `02-pl-seven-product-scope.mdc`).
+5. Commits/push **only when user asks** (not auto — unlike laravel13.x).
 
 ## Workflow
 
-- Spec-Kit + Superpowers (TDD); OpenSpec only post-MVP.
-- Cursor skills sync (any PC, same account): `docs/CURSOR_SKILLS_SYNC.md`
-- Booking reviews: Grok. Login reviews: Arena Direct + claude-sonnet-4-6.
+- **OpenSpec** + **Superpowers** (TDD, verification-before-completion).
+- Mode: `.spec-mode` → `openspec`.
+- Commands: `/super-spec`, `/opsx:*` (see `.cursor/commands/`).
+- Skills sync: `docs/CURSOR_SKILLS_SYNC.md`
 
-## PHP (Windows Herd + Git Bash)
+## PHP / frontend (Windows Herd + Git Bash)
 
-**`php` is not on PATH** until `export PATH="/d/laravel13.x/bin:$PATH"` (see `docs/WINDOWS_HERD_GITBASH.md`).
+See `.cursor/rules/windows-herd-gitbash.mdc`.
 
 ```bash
-export PATH="/d/laravel13.x/bin:$PATH"
-cd examples/<project> && php artisan test
+export PATH="/c/Users/PGI/.config/herd/bin:$PATH"
+cd /d/vitou/projects/pgi-core-frontend
+php artisan test
+npm run build
 ```
-
-**Example UI:** `npm run dev` → open **`APP_URL` from `.env`** (e.g. `http://clone-the-fb-nav.test`), not :5173. `new-example` runs `herd link` automatically.

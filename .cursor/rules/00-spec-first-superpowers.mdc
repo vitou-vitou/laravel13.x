@@ -1,20 +1,47 @@
 ---
-description: "Spec-First 守门规则：阻止未经规范确认就写代码"
+description: "Spec-First 守门：每会话按任务走 spec-kit-openspec-superpowers"
 globs: "*"
 alwaysApply: true
 ---
 
-## Spec-First 守门规则
+## Spec-First + Superpowers（每会话）
 
-任何新功能、Bugfix、重构任务，必须先完成 SDD 规范流程并获用户明确确认后，才允许写代码。
+**触发**：识别到编码任务（feature / bugfix / refactor / config）→ 先读 `.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`，再行动。
 
-**检测逻辑**：
-- 识别到编码任务 → 检查是否已有用户确认的 Spec
-- 无已确认 Spec → 引导输入 `/super-spec` 启动规范流程
-- 用户催促跳过 → 礼貌拒绝："根据 spec-first 规则，需先完成规范流程。请输入 /super-spec 启动。"
+**模式**：OpenSpec（本仓库有 `openspec/`）。根目录无 `.spec-mode` 时写入单行 `openspec`。
 
-**模式选择**：Spec-Kit 与 OpenSpec 二选一（默认 OpenSpec），读取项目根 `.spec-mode` 文件判断。
+### 任务分级（实现前必做）
 
-**完整流程由 `spec-kit-openspec-superpowers` Skill 驱动，本规则仅作为始终生效的守门员。**
+| 级别 | 场景 | 流程 |
+|------|------|------|
+| **Quick** | 单文件 bugfix / typo / config | 简化 propose → TDD → 实现 |
+| **Standard** | 单功能、范围清晰 | 全阶段，G1–G4 |
+| **Thorough** | 多模块 / 架构决策 | 全阶段 + review |
 
-**laravel13.x:** 还须遵守 `spec-kit-openspec-superpowers/laravel13-x-policy.md`（绿场 Spec-Kit、后期 OpenSpec、勿混用）。
+### 闸门
+
+- **G1**：无用户确认的 spec 不写代码。
+- 用户说 "skip spec" → 礼貌拒绝，引导 `/super-spec`。
+- 已有确认 spec → 按 spec 实现。
+
+### Phase 0 — 会话恢复
+
+- 检查 `openspec/changes/*/task_plan.md`、`progress.md`、`findings.md`。
+- 存在则读规划文件，从最后 checkpoint 续作。
+
+### 活跃变更（PL Direct Book）
+
+继续 Property Liability Direct Book / 报价切片工作时，默认上下文：
+
+`openspec/changes/phase-ii-quotation-slice-only/`
+
+### 命令
+
+- `/super-spec` — 启动完整规范流程
+- 本规则为守门员；细节以 Skill 为准
+
+### 项目策略
+
+还须遵守 `.cursor/skills/spec-kit-openspec-superpowers/pgi-core-policy.md`（OpenSpec 默认、PL 七产品范围、勿混用 SDD 层）。
+
+**Simple code + voice:** `.cursor/rules/04-simple-code-voice.mdc` · skill `references/simple-code-voice.md`（短名、小函数、白话）。

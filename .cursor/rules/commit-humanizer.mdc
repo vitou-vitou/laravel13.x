@@ -1,0 +1,27 @@
+---
+description: "Commit messages must read human-written, not AI-templated"
+globs: "*"
+alwaysApply: true
+---
+
+## Commit humanizer
+
+Before a commit is done, check it passes `isCommitedPassedHumanizer`:
+does the message read like a person wrote it — plain, specific — or
+does it read AI-templated (corporate "Add X and fix Y" headline,
+bullet-listy body, boilerplate trailers)? If it fails, reformat it.
+
+- **Keep it short**: title only is the default. No multi-paragraph
+  explanation body unless the user asks for more detail.
+- **Title style — Adjective Noun**: short title, `Adjective Noun` form
+  (e.g. "Proper Icon", "Sharper Sizing"), not a verb-first changelog line
+  ("Fix X", "Add Y").
+- **Caveman line (opt-in only)**: only add a `Caveman: ...` line if the
+  user asks for it — not by default.
+- Drop `Co-Authored-By: <AI tool>` trailers by default; only include one
+  if explicitly requested for that commit.
+- If the commit hasn't been pushed yet, amend it rather than leaving a
+  bad message in history. If it has been pushed, ask before rewriting
+  (needs a force-push).
+
+Full rule + rationale: `AGENTS.md` in pgi-web-app-workspace repo root.

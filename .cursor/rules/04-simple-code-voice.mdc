@@ -1,0 +1,30 @@
+---
+description: "Simple code + plain voice — short names, small methods (spec-kit Phase 4)"
+globs: "*"
+alwaysApply: true
+---
+
+## Simple code + plain voice
+
+Part of **spec-kit-openspec-superpowers** implement phase. Detail: `.cursor/skills/spec-kit-openspec-superpowers/references/simple-code-voice.md`
+
+### Voice
+
+- Short. Plain words. Conclusion first.
+- Anyone on team should understand without insurance/AI jargon.
+- Default = caveman (`caveman-mode.mdc`). `normal mode` to off.
+
+### Code
+
+- Small methods. One job each.
+- **Short names** — `syncCommission`, `patchForm`, `plCommRate` not `applyProductCommissionRateFromChannel`.
+- **Short files** when adding helpers — `burglary/policy/edit.js` not `pl-legacy-policy-info-edit-hydration.js`.
+- **PL Direct Book (7 products):** helpers under `burglary/` — short file + short export (`fillPlan`, `showErr`). See `05-pl-db-naming.mdc`.
+- No `/** ... */` block comments on obvious helpers.
+- Minimal diff. No drive-by renames outside task.
+
+### G4 quick check
+
+- [ ] New function names ≤ ~3 words (unless existing API)
+- [ ] Reply / commit text readable by non-author
+- [ ] No narration comments
