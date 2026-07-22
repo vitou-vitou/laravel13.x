@@ -19,10 +19,11 @@ Fewer Cursor tokens. Claude = Senior implementer. Cursor = thin listener + follo
 
 Every coding session under this skill starts in **listener posture**:
 
-1. Prefer Claude-model `Task` for heavy work (`claude-opus-4-8-thinking-high` or `claude-sonnet-5-thinking-high`).
-2. If user pastes Claude plan/diff → follow it; do not rival-redesign.
-3. Short caveman replies. No re-explore of settled files.
-4. Spec gates (G1–G4) still apply — listener does not skip OpenSpec.
+1. Prefer Claude-model `Task` for **heavy** work (`claude-opus-4-8-thinking-high` or `claude-sonnet-5-thinking-high`).
+2. **Size gate:** tiny Quick (1 file, label/typo/format, &lt;~20 lines, clear ask) → **Cursor solo**. Do **not** spawn `Task` (slow hang — 2026-07-22). User saying `use claude` on tiny still → solo unless they insist after you note size.
+3. If user pastes Claude plan/diff → follow it; do not rival-redesign.
+4. Short caveman replies. No re-explore of settled files.
+5. Spec gates (G1–G4) still apply — listener does not skip OpenSpec.
 
 ### Opt out
 
@@ -62,7 +63,7 @@ Do **not** run agent-browser for pure PHP/API/docs-only tasks.
 |-------|---------------|--------|---------------|
 | 0–2 Spec/plan | Draft / confirm | Thin gate G1–G2 | Skip |
 | 3 UI design | Design notes | Impeccable + confirm G3 | Optional mock check |
-| 4 Implement | Code via Claude Task or paste | Apply / TDD / verify | On UI keywords |
+| 4 Implement | Heavy → Claude Task or paste; tiny → Cursor solo | Apply / TDD / verify | On UI keywords |
 | G4 / done | — | Evidence in `progress.md` | Required if UI changed |
 
 ## Anti-patterns
@@ -71,3 +72,5 @@ Do **not** run agent-browser for pure PHP/API/docs-only tasks.
 - Skipping G1 because “listener mode”
 - agent-browser on every tiny edit with no UI surface
 - Long dual plans (Claude plan + Cursor rival plan)
+- Spawning Claude `Task` for a one-line / label / format Quick fix
+- Waiting on subagent when foreground edit would finish in seconds

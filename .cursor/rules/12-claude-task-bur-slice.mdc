@@ -1,21 +1,23 @@
 ---
-description: "Always Task Claude; BUR/Direct Book = new slice files when change is large"
+description: "Task Claude for heavy work; Cursor solo on tiny Quick; BUR = new slice when large"
 alwaysApply: true
 ---
 
-## Always Task Claude (token saver)
+## Task Claude (heavy only)
 
-**Default every coding session.** Cursor = thin router. Heavy work → `Task` with Claude model.
+**Default for heavy coding.** Cursor = thin router. Tiny Quick = Cursor solo (no Task).
 
 | Do | Don't |
 |----|-------|
-| `Task` → `claude-opus-4-8-thinking-high` or `claude-sonnet-5-thinking-high` | Cursor re-implements large features alone |
+| `Task` → Claude model for multi-file / feature / unclear design | Cursor re-implements **large** features alone |
 | Short prompt + plan path + file list | Dump whole repo into Cursor context |
 | Cursor verify, smoke, short status | Long Cursor analysis / rival redesign |
+| **Cursor solo** for 1-file label/typo/format (&lt;~20 lines) | Spawn `Task` for tiny Quick (slow hang — 2026-07-22) |
 
-Opt out only: `normal cursor` · `you do it` · `cursor lead`.
+Opt out of listener: `normal cursor` · `you do it` · `cursor lead`.  
+Force Task on tiny: only if user insists after size-gate note.
 
-Reinforces `08-claude-senior-listener.mdc`.
+Reinforces `08-claude-senior-listener.mdc` · coexists with `03-fast-mode.mdc`.
 
 ## BUR / Direct Book — new file when change is big
 
@@ -35,8 +37,8 @@ Scope: 7 products (`0189`, `0191`–`0196`). Prefer **new BUR/DB slice file** ov
 | Vue | `…/Endorsement/Components/Burglary/*`, `…/Policy/Components/Burglary/*`, `…/Quotation/Components/Burglary/*` |
 | JS | `resources/js/services/property_liability/burglary/` (short names — `05-pl-db-naming.mdc`) |
 | PHP service | `app/Services/PL/Endorsement/Burglary.php` (or small helper next to it) — not fat legacy methods |
-| PDF | `resources/views/pdf/**/pl/direct_book/*` (clone + adapt; shared blade keeps thin `isDirectBook` include only if ≲ few lines) |
-| Export | DB-specific export class/helper under `app/Exports/PL/` if `QuotationExport` would bloat |
+| PDF | `resources/views/pdf/**/pl/bur/*` (clone + adapt; shared blade keeps thin branch / view pick only) |
+| Export | DB-specific export helper under `app/Exports/PL/` if `QuotationExport` would bloat |
 
 ### Shared layer stay thin
 
@@ -47,4 +49,4 @@ Shared `Form.vue` / `Detail.vue` / `EndorsementService` / `QuotationExport`: **n
 - [ ] Change only for Direct Book / BUR?
 - [ ] Would shared file diff be big or fragile? → **new BUR file**
 - [ ] Shared touch = switch + delegate only?
-- [ ] Claude Task used for implement (not Cursor solo)?
+- [ ] Tiny Quick? → Cursor solo. Heavy? → Claude Task.
