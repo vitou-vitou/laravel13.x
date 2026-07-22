@@ -1,0 +1,54 @@
+---
+description: "Checklist when adding a Direct Book product to PL endorsement (0192+)"
+globs: "resources/js/views/PropertyLiability/Endorsement/**,resources/js/services/property_liability/burglary/**,app/Services/PL/Endorsement/**,app/Resolvers/EndorsementServiceResolver.php,app/Constants/ProductCode.php,resources/js/permissions.js"
+alwaysApply: false
+---
+
+## Endt Direct Book product onboarding
+
+Adding endorsement support for another Direct Book code (`0189` / `0192`–`0196`) = wire these **in order**. Reuse `Burglary.php` + `BurglaryEndorsementForm` unless fields/premium truly differ.
+
+### Must wire (minimum)
+
+| # | Layer | File | Change |
+|---|-------|------|--------|
+| 1 | FE scope | `resources/js/services/property_liability/burglary/scope.js` | Add code to `ENDORSEMENT_CODES` |
+| 2 | FE perms | `resources/js/permissions.js` | `'<code>':'<NAME>_ENDORSEMENT'` in `PER_ENDORSEMENT_BY_PRO_CODE` |
+| 3 | BE gate | `app/Constants/ProductCode.php` | Add to `endorsementRolloutCodes()` |
+| 4 | BE resolver | `app/Resolvers/EndorsementServiceResolver.php` | Match arm → `Burglary::class` (or product handler) |
+| 5 | BE perms | `ProductCode::permission(code, 'ENDORSEMENT', *)` | Must resolve for VIEW/UPDATE/SUBMIT/… |
+
+### Usually already OK / conditional
+
+| # | When | File |
+|---|------|------|
+| 6 | Detail UI list | Confirm code in `PL_BURGLARY_DIRECT_BOOK_UI_CODES` (`mock-burglary-service/constants.js`) |
+| 7 | Extra fields | Branch in `UpdateRequest` only if product needs different required keys |
+| 8 | Different premium | New slice under `Endorsement/Components/Burglary/` only if logic differs |
+
+### Edit → submit contract (0191 pattern)
+
+| Step | Endpoint | Payload |
+|------|----------|---------|
+| Persist Policy Info | `POST /pl/endorsements/{id}` (`_method=PATCH`) | Full `UpdateRequest` (insured, period, channel, clauses, limits, …) |
+| Persist premium / endt info | `PATCH …/save-info` | `EndorsementInfoRequest` |
+| Final submit | `PATCH …/submit` | `{ product_code }` only (Detail page) |
+
+Do **not** POST partial endt-only fields to the heavy `UpdateRequest` endpoint (422). Persist endt meta via `/save-info` (`saveEndorsementPremium` / `EndorsementTab.vue`) or fold into full Policy Info update. Carry `endorsement_option`, refund, and file fields from existing endt when patching info.
+
+### Edit tabs — write vs browse (BUR pattern · remember)
+
+| Tab | Write? | Note |
+|-----|--------|------|
+| Policy Info. | **Update** | Yes (unless cancel option) |
+| Policy Config. / Commission / Reinsurance | **No Save** | **J4 parked** — look + Next/Prev only. Match legacy PUL. Not a bug. |
+| Endorsement Info. | **Save** | `…/information` |
+
+Unpark Config/Cms/Reins Save only if user explicitly asks (task 18).  
+**Word:** say **edit tabs**, not “shell”.
+
+### After wiring
+
+- Zero edge-case confirm (stale paths / build) — see skill `quality-gates.md`
+- List filter: `listScope: 'endorsement'` + SM `VIEW` via `PER_ENDORSEMENT_BY_PRO_CODE`
+- Scope: 7 Direct Book only — never refactor `0121`–`0125` (see `02-pl-seven-product-scope.mdc`)

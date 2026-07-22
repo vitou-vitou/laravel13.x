@@ -4,13 +4,13 @@ description: >-
   Session preset: Caveman voice + Spec-Kit / OpenSpec / Superpowers triad stack.
   Use when user says "/Caveman spec kit Openspec Superpower", "Use caveman spec kit
   openspec superpower:", "caveman spec triad", "caveman + triad", or wants terse voice
-  plus SDD routing for laravel13.x. Does NOT auto-run /speckit.* or /opsx:* — stacks
+  plus SDD routing for pgi-core-frontend. Does NOT auto-run /speckit.* or /opsx:* — stacks
   manuals + voice only.
 ---
 
 # Caveman + Spec-Kit / OpenSpec / Superpowers — Session Stack
 
-One invocation loads **voice + triad router + laravel13.x policy**. User still picks SDD path and runs commands when ready.
+One invocation loads **voice + triad router + pgi-core policy**. User still picks SDD path and runs commands when ready.
 
 ---
 
@@ -33,28 +33,29 @@ caveman + triad
 
 1. **Activate Caveman voice** (persistent until user says `stop caveman` or `normal mode`)
    - Read plugin skill: `~/.cursor/plugins/cache/caveman/caveman/*/skills/caveman/SKILL.md`
+   - Or project rule: `.cursor/rules/caveman-mode.mdc`
    - Default intensity: **full** (fragments OK, drop filler, keep technical terms exact)
    - Code/commits/PRs: write normal; prose: caveman
 
 2. **Load triad router** (read, do not execute)
-   - `.cursor/skills/spec-kit-openspec-superpowers/SKILL.md` (or `~/.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`)
-   - `.cursor/skills/spec-kit-openspec-superpowers/laravel13-x-policy.md`
+   - `.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`
+   - `.cursor/skills/spec-kit-openspec-superpowers/pgi-core-policy.md`
 
 3. **Load execution manuals** (read when task needs them — not all at once unless asked)
-   - **spec-kit** — greenfield MVP, `/speckit.*`
-   - **openspec** — post-MVP, `/opsx:*`
+   - **openspec** — default for this repo (`openspec/`, `/opsx:*`, `/super-spec`)
+   - **spec-kit** — greenfield only if user forces Spec-Kit
    - **superpowers** — TDD, debugging, plans, verification (always during implement)
 
 4. **Session resume**
-   - If user says **continue** or resumes laravel13.x work → read `docs/SESSION_STATE.md` first
-   - Project rules: `.cursor/rules/session-handoff.mdc`, `.cursor/rules/windows-herd-gitbash.mdc`
+   - If user says **continue** or resumes PL Direct Book work → read `docs/SESSION_STATE.md` first
+   - Then `openspec/changes/phase-ii-quotation-slice-only/progress.md` + `task_plan.md` if present
+   - Project rules: `.cursor/rules/session-handoff.mdc`, `.cursor/rules/windows-herd-gitbash.mdc`, `.cursor/rules/02-pl-seven-product-scope.mdc`
 
-5. **Confirm stack** — one short caveman reply: voice ON, triad loaded, SDD not started, ask what task (greenfield / post-MVP / small fix / **UI polish**).
+5. **Confirm stack** — one short caveman reply: voice ON, triad loaded, SDD not started, ask what task (PL slice / bugfix / UI polish).
 
-6. **UI too basic?** (after MVP / tests green)
-   - Read **laravel-ui-phase** skill (`.agents/skills/laravel-ui-phase/SKILL.md`)
-   - User says **"AI pick my UI"** → `docs/GITHUB_UI_RESOURCE_INDEX.md` + **impeccable** + **design-taste-frontend**
-   - Caveman voice OK; still write `examples/*/docs/DESIGN.md`, still run tests
+6. **UI polish?** (Vue / PrimeVue / Tailwind)
+   - Read **impeccable** + `.cursor/rules/01-impeccable-ui.mdc`
+   - Extend Direct Book shell — no drive-by refactor of legacy PL products
 
 ---
 
@@ -62,8 +63,8 @@ caveman + triad
 
 ```
 Need structured SDD?
-├── Greenfield MVP → spec-kit + superpowers (+ caveman ON)
-├── Post-MVP change → openspec + superpowers (+ caveman ON)
+├── This repo (existing) → openspec + superpowers (+ caveman ON)
+├── Brand-new isolated app → spec-kit + superpowers (+ caveman ON)
 └── Small task → superpowers alone (+ caveman ON)
 
 NEVER spec-kit + openspec on same feature
@@ -71,9 +72,9 @@ NEVER spec-kit + openspec on same feature
 
 | Layer | Skill folder | Question |
 |-------|--------------|----------|
-| SDD (pick one) | `spec-kit/` or `openspec/` | What to build / what changed? |
+| SDD (pick one) | `openspec/` or `spec-kit/` | What to build / what changed? |
 | Execution | `superpowers/` | How to build (TDD, verify, debug)? |
-| Voice | caveman plugin | How to speak (this stack)? |
+| Voice | caveman plugin / caveman-mode.mdc | How to speak (this stack)? |
 
 ---
 

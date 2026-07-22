@@ -12,11 +12,11 @@ Scope: `resources/js/services/property_liability/burglary/` + Burglary Vue (7 pr
 
 | Kind | Pattern | Good | Bad |
 |------|---------|------|-----|
-| File | noun or adj+noun | `on.js`, `tab1.js`, `plan-mid.js` | `direct-book-quotation-tab1-validation.js` |
+| File | noun or adj+noun | `scope.js`, `tab1.js`, `plan-business.js` | `direct-book-quotation-tab1-validation.js` |
 | Fn / var | verb+noun / adj+noun | `fillPlan`, `checkTab1`, `saleChannel` | `hydrateDirectBookPlanFields` |
 | Const | SHORT_CAPS OK | `QUOTE_CODES` | `DIRECT_BOOK_QUOTE_ROLLOUT_CODES` |
 
-Prefer **one word** when clear (`on`, `mid`, `err`, `docs`).
+Prefer **one word** when clear (`scope`, `err`, `docs`).
 
 **Readable short > cryptic short.** Match Laravel `Str` / Vue feel:
 
@@ -32,20 +32,21 @@ Full quality scorecard: `06-pl-quality-bar.mdc`.
 
 ```
 burglary/
-  on.js          # rollout / shell gate
-  tab1.js        # Tab1 hydrate / map
-  tab1-check.js  # Tab1 validate / prefill
-  plan.js        # plan hydrate
-  plan-mid.js    # plan intermediary grid
-  mid.js         # business / rates / plan pick
-  clause.js      # clause multiselect
-  limits.js      # premium / rows / merge tabs
-  docs.js        # payloads / attachments
-  err.js         # API errors
+  scope.js         # listScope gates / product allowlists
+  tab1.js          # Tab1 hydrate / map
+  tab1-check.js    # Tab1 validate / prefill
+  plan.js          # plan hydrate
+  plan-business.js # plan biz/channel grid + carry
+  info-tab.js      # biz rates / catalog cache / warm
+  endt-type.js     # endorsement type labels
+  clause.js        # clause multiselect
+  limits.js        # premium / rows / merge tabs
+  docs.js          # payloads / attachments
+  err.js           # API errors
   policy/
-    tab1.js      # policy terms rows
-    edit.js      # policy edit hydrate
-  index.js       # barrel of short exports
+    tab1.js        # policy terms rows
+    edit.js        # policy edit hydrate
+  index.js         # barrel of short exports
 ```
 
 ### 3. Call style
@@ -53,7 +54,7 @@ burglary/
 ```js
 import { fillPlan, showErr, useShell } from '@/services/property_liability/burglary'
 // or leaf:
-import { useShell } from '@/services/property_liability/burglary/on'
+import { useShell } from '@/services/property_liability/burglary/scope'
 ```
 
 Leaf exports **are** short. No long `DirectBook*` helpers. No dual aliases.

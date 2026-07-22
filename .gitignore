@@ -11,6 +11,10 @@ examples/**/.env
 /.cursor/*
 !/.cursor/rules/
 !/.cursor/rules/**
+!/.cursor/skills/
+!/.cursor/skills/**
+!/.cursor/commands/
+!/.cursor/commands/**
 /.idea
 /.nova
 /.phpunit.cache

@@ -25,10 +25,13 @@ Resume files: `progress.md`, `findings.md`, `tasks.md`, `BLOCKERS.md`.
 
 ## Workflow
 
+- **Default every session (99%):** skill `spec-kit-openspec-superpowers` — treat as already attached.
 - **OpenSpec** + **Superpowers** (TDD, verification-before-completion).
+- **Claude Senior listener** + **caveman** + **agent-browser** (UI) — see skill session defaults.
 - Mode: `.spec-mode` → `openspec`.
 - Commands: `/super-spec`, `/opsx:*` (see `.cursor/commands/`).
 - Skills sync: `docs/CURSOR_SKILLS_SYNC.md`
+- Opt out: `no super-spec` / `plain agent`
 
 ## PHP / frontend (Windows Herd + Git Bash)
 

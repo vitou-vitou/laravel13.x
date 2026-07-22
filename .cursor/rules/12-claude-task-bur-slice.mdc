@@ -1,0 +1,50 @@
+---
+description: "Always Task Claude; BUR/Direct Book = new slice files when change is large"
+alwaysApply: true
+---
+
+## Always Task Claude (token saver)
+
+**Default every coding session.** Cursor = thin router. Heavy work → `Task` with Claude model.
+
+| Do | Don't |
+|----|-------|
+| `Task` → `claude-opus-4-8-thinking-high` or `claude-sonnet-5-thinking-high` | Cursor re-implements large features alone |
+| Short prompt + plan path + file list | Dump whole repo into Cursor context |
+| Cursor verify, smoke, short status | Long Cursor analysis / rival redesign |
+
+Opt out only: `normal cursor` · `you do it` · `cursor lead`.
+
+Reinforces `08-claude-senior-listener.mdc`.
+
+## BUR / Direct Book — new file when change is big
+
+Scope: 7 products (`0189`, `0191`–`0196`). Prefer **new BUR/DB slice file** over large edits to shared PUL/legacy.
+
+### Prefer new file when
+
+- Shared blade / Vue / PHP would grow **large** or risk **breaking** `0121`–`0125`
+- Format/layout differs (e.g. Policy No vs Policy & Endorsement No)
+- New print/export/report path for Direct Book only
+- Backend branch would otherwise sprawl inside a shared service method
+
+### Where new files go
+
+| Layer | Prefer |
+|-------|--------|
+| Vue | `…/Endorsement/Components/Burglary/*`, `…/Policy/Components/Burglary/*`, `…/Quotation/Components/Burglary/*` |
+| JS | `resources/js/services/property_liability/burglary/` (short names — `05-pl-db-naming.mdc`) |
+| PHP service | `app/Services/PL/Endorsement/Burglary.php` (or small helper next to it) — not fat legacy methods |
+| PDF | `resources/views/pdf/**/pl/direct_book/*` (clone + adapt; shared blade keeps thin `isDirectBook` include only if ≲ few lines) |
+| Export | DB-specific export class/helper under `app/Exports/PL/` if `QuotationExport` would bloat |
+
+### Shared layer stay thin
+
+Shared `Form.vue` / `Detail.vue` / `EndorsementService` / `QuotationExport`: **narrow branch only** (`isEndorsementRollout` / `isDirectBook` → call BUR slice). No drive-by PUL cleanup.
+
+### Checklist before edit
+
+- [ ] Change only for Direct Book / BUR?
+- [ ] Would shared file diff be big or fragile? → **new BUR file**
+- [ ] Shared touch = switch + delegate only?
+- [ ] Claude Task used for implement (not Cursor solo)?

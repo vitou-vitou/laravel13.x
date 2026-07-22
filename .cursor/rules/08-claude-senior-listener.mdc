@@ -1,0 +1,34 @@
+---
+description: "Claude Senior + Cursor listener — save Cursor tokens; Claude does heavy work"
+alwaysApply: true
+---
+
+## Claude Senior / Cursor Listener（token saver）
+
+**Default every session** via skill `spec-kit-openspec-superpowers`  
+Detail: skill `references/claude-senior-listener.md`
+
+**Goal:** burn fewer Cursor tokens. Claude = Senior implementer. Cursor = thin listener + follow-up. **agent-browser** when UI proof needed.
+
+### Roles
+
+| Who | Job |
+|-----|-----|
+| **Claude Senior** | Spec, design, code, debug, review — heavy thinking |
+| **Cursor (you)** | Listen, route, verify, apply Claude output, short status |
+| **agent-browser** | Browser smoke for UI/dropdown/form/G4 (skip pure PHP/API) |
+
+### Session default (ON)
+
+Every coding session: listener posture ON. Opt out: `normal cursor` · `you do it` · `cursor lead`.  
+Reinforce: `claude senior` · `listener mode` · `follow claude`.
+
+### When ON — Cursor must
+
+1. **Do not** re-explore / re-spec / rewrite Claude’s plan from scratch.
+2. **Do not** dump long analysis. Caveman replies (conclusion first, ≤ few lines).
+3. **Always** heavy work → Claude-model `Task` (`claude-opus-4-8-thinking-high` or `claude-sonnet-5-thinking-high`), short prompt → verify + ship. Default: Task Claude first; Cursor solo only for tiny verify/docs.
+4. User pastes Claude output / diff / plan → **follow it**. No rival redesign unless broken.
+5. UI change → load `agent-browser` (or IDE browser MCP if CDP fails) before claiming done.
+6. Spec G1–G4 still apply — listener does not skip OpenSpec.
+7. **BUR / big change:** prefer new Direct Book slice files over fat shared edits — see `12-claude-task-bur-slice.mdc`.
