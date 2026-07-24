@@ -1,17 +1,15 @@
 #!/bin/sh
 # TOP PRIORITY: block AI / templated commit messages.
-# Installed via: scripts/install-git-hooks.sh (copies into .git/hooks)
-
 MSG_FILE="$1"
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
-CHECKER="$ROOT/scripts/check-commit-humanizer.mjs"
+CHECKER="$ROOT/.githooks/check-commit-humanizer.mjs"
+[ -f "$CHECKER" ] || CHECKER="$ROOT/scripts/check-commit-humanizer.mjs"
 
 if [ ! -f "$CHECKER" ]; then
-  echo "commit-msg: missing $CHECKER" >&2
+  echo "commit-msg: missing check-commit-humanizer.mjs" >&2
   exit 1
 fi
 
-# Prefer node; fall back to fail-closed if missing (must block).
 if command -v node >/dev/null 2>&1; then
   node "$CHECKER" "$MSG_FILE"
   exit $?

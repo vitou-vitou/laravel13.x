@@ -15,6 +15,9 @@ examples/**/.env
 !/.cursor/skills/**
 !/.cursor/commands/
 !/.cursor/commands/**
+!/.cursor/hooks.json
+!/.cursor/hooks/
+!/.cursor/hooks/**
 /.idea
 /.nova
 /.phpunit.cache

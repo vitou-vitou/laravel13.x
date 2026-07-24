@@ -16,6 +16,10 @@ cp "$SRC/commit-msg" "$HOOKS/commit-msg"
 cp "$SRC/prepare-commit-msg" "$HOOKS/prepare-commit-msg"
 chmod +x "$HOOKS/commit-msg" "$HOOKS/prepare-commit-msg" "$SRC/commit-msg" "$SRC/prepare-commit-msg" 2>/dev/null || true
 
+if [ ! -f "$SRC/check-commit-humanizer.mjs" ] && [ -f "$ROOT/scripts/check-commit-humanizer.mjs" ]; then
+  cp "$ROOT/scripts/check-commit-humanizer.mjs" "$SRC/check-commit-humanizer.mjs"
+fi
+
 echo "Installed:"
 echo "  $HOOKS/commit-msg"
 echo "  $HOOKS/prepare-commit-msg"

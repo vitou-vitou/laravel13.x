@@ -14,7 +14,7 @@ alwaysApply: true
 Before **any** `git commit` / amend:
 
 1. Run mental check (agent) + repo checker:
-   `node scripts/check-commit-humanizer.mjs --stdin`
+   `node .githooks/check-commit-humanizer.mjs --stdin`
 2. If it would fail → **STOP**. Rewrite message. Never `--no-verify`.
 3. Git hook `.githooks/commit-msg` + Cursor hook `.cursor/hooks/block-ai-commit-msg.mjs` **block** bad messages.
 
