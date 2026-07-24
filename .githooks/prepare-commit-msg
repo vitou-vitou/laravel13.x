@@ -1,0 +1,14 @@
+#!/bin/sh
+# Strip AI co-author trailers Cursor / tools may inject before commit finalizes.
+MSG_FILE="$1"
+SOURCE="${2:-}"
+
+[ -f "$MSG_FILE" ] || exit 0
+
+# Always strip known AI Co-Authored-By lines (mandatory human commits).
+tmp="${MSG_FILE}.tmp.$$"
+grep -viE '^[[:space:]]*Co-Authored-By:.*(Cursor|Claude|Copilot|ChatGPT|OpenAI|Anthropic|Gemini|Aider|GPT-|Codeium|Tabnine)' "$MSG_FILE" > "$tmp" || true
+# Drop trailing blank lines left after strip
+awk 'NF{p=1} p' "$tmp" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' > "$MSG_FILE"
+rm -f "$tmp"
+exit 0

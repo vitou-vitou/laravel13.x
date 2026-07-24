@@ -1,27 +1,47 @@
 ---
-description: "Commit messages must read human-written, not AI-templated"
+description: "TOP PRIORITY MUST — block AI/templated git commit messages"
 globs: "*"
 alwaysApply: true
 ---
 
-## Commit humanizer
+## Commit humanizer — TOP PRIORITY (MUST)
 
-Before a commit is done, check it passes `isCommitedPassedHumanizer`:
-does the message read like a person wrote it — plain, specific — or
-does it read AI-templated (corporate "Add X and fix Y" headline,
-bullet-listy body, boilerplate trailers)? If it fails, reformat it.
+**Priority:** highest among commit / git rules. Overrides convenience.
+**Fail closed:** if message looks AI-generated or templated → **do not commit**.
 
-- **Keep it short**: title only is the default. No multi-paragraph
-  explanation body unless the user asks for more detail.
-- **Title style — Adjective Noun**: short title, `Adjective Noun` form
-  (e.g. "Proper Icon", "Sharper Sizing"), not a verb-first changelog line
-  ("Fix X", "Add Y").
-- **Caveman line (opt-in only)**: only add a `Caveman: ...` line if the
-  user asks for it — not by default.
-- Drop `Co-Authored-By: <AI tool>` trailers by default; only include one
-  if explicitly requested for that commit.
-- If the commit hasn't been pushed yet, amend it rather than leaving a
-  bad message in history. If it has been pushed, ask before rewriting
-  (needs a force-push).
+### Gate: `isCommitedPassedHumanizer`
 
-Full rule + rationale: `AGENTS.md` in pgi-web-app-workspace repo root.
+Before **any** `git commit` / amend:
+
+1. Run mental check (agent) + repo checker:
+   `node scripts/check-commit-humanizer.mjs --stdin`
+2. If it would fail → **STOP**. Rewrite message. Never `--no-verify`.
+3. Git hook `.githooks/commit-msg` + Cursor hook `.cursor/hooks/block-ai-commit-msg.mjs` **block** bad messages.
+
+### Hard BLOCK (must fail)
+
+| Pattern | Example |
+|---|---|
+| AI trailers | `Co-Authored-By: Cursor …`, Claude, Copilot, ChatGPT, … |
+| AI phrases | "Generated with", "Made with Cursor", 🤖, "as an AI" |
+| Templated title | "Add X and fix Y" |
+| Verb-first changelog | "Fix X", "Add Y", "Update Z", `feat:` … |
+| Bullet-list body | multi `-` bullets explaining the change |
+
+### Required shape (PASS)
+
+- **Title only** by default (no essay body unless user asked).
+- **Adjective Noun** short title — e.g. `Proper Icon`, `Sharper Sizing`, `Cleaner PI Schedule`.
+- **No** AI co-author trailers unless user explicitly asks for that commit.
+- Caveman line only if user opts in.
+
+### Agent duties
+
+1. Draft human title **first**; validate with checker **before** `git commit`.
+2. If Cursor re-injects `Co-Authored-By` after commit → amend/strip (unpushed) or ask user.
+3. Never suggest skipping the hook.
+4. Install hooks once per clone: `bash scripts/install-git-hooks.sh`
+
+### Amend
+
+Unpushed HEAD you created + humanizer fail → amend to fix. Pushed → ask (force-push).
