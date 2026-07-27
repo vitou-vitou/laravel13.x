@@ -11,8 +11,11 @@
 | `spec-kit/` | Spec-Kit SDD + git extensions | `/speckit.*`, greenfield MVP, specify CLI |
 | `openspec/` | OpenSpec OPSX workflow | `/opsx:*`, post-MVP changes |
 | `superpowers/` | TDD, debugging, plans, review | implement, bugfix, verify, brainstorm |
-| `spec-kit-openspec-superpowers/` | Triad router (+ optional Caveman voice) | spec-driven, triad setup |
-| `caveman-spec-triad/` | Caveman voice + triad stack preset (no auto SDD) | `/Caveman spec kit Openspec Superpower`, `Use caveman spec kit openspec superpower:` |
+| `spec-kit-openspec-superpowers/` | Triad + ALWAYS: caveman, karpathy, clean-code, reader, humanizer ([session-combo-stack](../.cursor/skills/spec-kit-openspec-superpowers/references/session-combo-stack.md)) | `/super-spec`, `/spec-kit-openspec-superpowers` |
+| `caveman-spec-triad/` | Same ALWAYS stack (no auto SDD) | `/Caveman spec kit Openspec Superpower` |
+| `humanizer/` | Strip AI writing tells | `/humanizer`, prose before ship |
+| `clean-code/` | Uncle Bob clean code (ALWAYS with triad) | coding standards |
+| `karpathy-guidelines/` | Anti-LLM overbuild / surgical diffs (ALWAYS with triad) | writing/reviewing code |
 | `system-study-packet/` | Repo-specific 8-principle + decomposition MD | study packet, system map, learn codebase |
 | `8-principle-study/` | General topic study packets (docx/PDF/HTML/MD) | help me learn, flashcards, quiz, revise |
 | `laravel-specialist/` | Laravel 10+ models, APIs, queues, Livewire, tests | Laravel, Eloquent, Sanctum, Pest |

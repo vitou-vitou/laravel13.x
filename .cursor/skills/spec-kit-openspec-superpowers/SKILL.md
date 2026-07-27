@@ -4,11 +4,15 @@ description: >
   Enforces spec-before-code workflow for AI-driven development. Automatically selects
   Spec-Kit or OpenSpec mode, triages complexity (quick/standard/thorough), recovers
   session context, and applies quality gates (G0-G4) with inline self-review at every stage.
-  Use this skill whenever the user says "/super-spec", "spec first", "规范先行",
-  or starts any feature, bugfix, or refactor — especially in projects with .spec-mode,
-  .specify/, or openspec/ directories. Even if the user doesn't explicitly ask for
-  spec-driven workflow, activate this skill for any non-trivial code change to prevent
-  skipping the design phase.
+  On invoke ALWAYS loads vitou combo: caveman + karpathy-guidelines + clean-code +
+  08-reader-loved-code + simple-code-voice + commit-humanizer + humanizer skill + triad
+  (see references/session-combo-stack.md). Optionals (impeccable, laravel-specialist, …)
+  load by keyword.
+  Use this skill whenever the user says "/super-spec", "/spec-kit-openspec-superpowers",
+  "spec first", "规范先行", or starts any feature, bugfix, or refactor — especially in
+  projects with .spec-mode, .specify/, or openspec/ directories. Even if the user doesn't
+  explicitly ask for spec-driven workflow, activate this skill for any non-trivial code
+  change to prevent skipping the design phase.
   Orchestrates: Spec-Kit (v0.7.1, Workflow Engine) / OpenSpec (OPSX v1.2.0) +
   planning-with-files (v2.30.0) + ui-ux-pro-max (v2.5.0, 67 styles, 161 palettes,
   14 stacks, 6 specialist skills) + Superpowers (v5.0.7, inline self-review,
@@ -19,6 +23,18 @@ description: >
 # Spec-First + Superpowers Orchestrator v5
 
 Stop the AI from jumping straight to code. Every feature, bugfix, and refactor goes through a specification phase first — because unexamined code is expensive code.
+
+## Default combo on invoke (vitou)
+
+When this skill is invoked (`/spec-kit-openspec-superpowers`, `/super-spec`, or `Use spec-kit-openspec-superpowers:`), **before** mode pick / Phase 0:
+
+1. Read [references/session-combo-stack.md](references/session-combo-stack.md).
+2. **ALWAYS load:** caveman · **karpathy-guidelines** · **clean-code** · `08-reader-loved-code` · `04-simple-code-voice` · `commit-humanizer` · **humanizer** · this triad + `laravel13-x-policy.md`.
+3. **OPTIONAL load:** only if keywords/task need them (impeccable, laravel-ui-phase, laravel-specialist, spec-kit/openspec manuals, senior-*, study packets, …) — see the combo doc.
+4. Confirm one line: `Stack: caveman + karpathy + clean-code + reader + humanizer + triad. Ready.`
+5. Then continue Step 1 (mode) → triage → pipeline.
+
+Opt-out only if user says e.g. `no caveman` / `skip humanizer this turn` / `skip clean-code` / `skip karpathy`.
 
 ## Commands
 
@@ -154,7 +170,19 @@ This repo has a **locked triad policy** — read before mode auto-selection:
 
 ### Invocation
 
-#### Full stack (Caveman + triad manuals — no auto SDD)
+#### Preferred — triad with always combo
+
+```text
+/spec-kit-openspec-superpowers
+```
+
+```text
+/super-spec
+```
+
+Loads **ALWAYS** stack (caveman + karpathy + clean-code + reader + humanizer + triad). See [references/session-combo-stack.md](references/session-combo-stack.md). Then runs mode/triage when user gives a task (or immediately if task is in the same message).
+
+#### Full stack phrase (same always combo, SDD not auto-started)
 
 ```text
 /Caveman spec kit Openspec Superpower
@@ -164,7 +192,14 @@ This repo has a **locked triad policy** — read before mode auto-selection:
 Use caveman spec kit openspec superpower:
 ```
 
-Loads **caveman-spec-triad** skill: persistent caveman voice + triad router + laravel13.x policy. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
+Loads **caveman-spec-triad** → same ALWAYS stack. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
+
+#### With optionals
+
+```text
+/spec-kit-openspec-superpowers + impeccable
+/super-spec Standard: … also laravel-specialist
+```
 
 #### Router only
 
@@ -191,6 +226,10 @@ Use caveman: talk like caveman for the rest of this session.
 ```
 
 ```text
+Use humanizer: rewrite this README
+```
+
+```text
 Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
 ```
 
@@ -200,4 +239,6 @@ Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
 - OpenSpec: https://github.com/Fission-AI/OpenSpec
 - Superpowers: https://github.com/obra/superpowers
 - Caveman: https://github.com/JuliusBrussee/caveman (Matt Pocock-style token compression; includes cavecrew subagents)
+- Humanizer: https://github.com/blader/humanizer
 - Sync manifest: `docs/CURSOR_SKILLS_SYNC.md` (in laravel13.x)
+- Combo stack: [references/session-combo-stack.md](references/session-combo-stack.md)

@@ -1,16 +1,18 @@
 ---
 name: caveman-spec-triad
 description: >-
-  Session preset: Caveman voice + Spec-Kit / OpenSpec / Superpowers triad stack.
-  Use when user says "/Caveman spec kit Openspec Superpower", "Use caveman spec kit
-  openspec superpower:", "caveman spec triad", "caveman + triad", or wants terse voice
-  plus SDD routing for laravel13.x. Does NOT auto-run /speckit.* or /opsx:* — stacks
-  manuals + voice only.
+  Session preset: ALWAYS caveman + karpathy-guidelines + clean-code + reader rules +
+  humanizer + Spec-Kit/OpenSpec/Superpowers triad. Use when user says
+  "/Caveman spec kit Openspec Superpower", "Use caveman spec kit openspec superpower:",
+  "caveman spec triad", "caveman + triad". Does NOT auto-run /speckit.* or /opsx:*.
+  Optionals (impeccable, laravel-specialist, …) by keyword.
 ---
 
 # Caveman + Spec-Kit / OpenSpec / Superpowers — Session Stack
 
-One invocation loads **voice + triad router + laravel13.x policy**. User still picks SDD path and runs commands when ready.
+One invocation loads **ALWAYS combo** (voice + karpathy + clean-code + reader brand + humanizer + triad + laravel13.x policy). User still picks SDD path when ready.
+
+Full table: `../spec-kit-openspec-superpowers/references/session-combo-stack.md`
 
 ---
 
@@ -25,72 +27,51 @@ caveman spec triad
 caveman + triad
 ```
 
-**Do not** auto-run `/speckit.*`, `/opsx:*`, or `specify`/`openspec` CLI. Stack context only.
+Also honor same ALWAYS stack on `/spec-kit-openspec-superpowers` or `/super-spec`.
+
+**Do not** auto-run `/speckit.*`, `/opsx:*`, or CLI. Stack only.
 
 ---
 
-## On invoke — agent checklist (in order)
+## On invoke — ALWAYS load (in order)
 
-1. **Activate Caveman voice** (persistent until user says `stop caveman` or `normal mode`)
-   - Read plugin skill: `~/.cursor/plugins/cache/caveman/caveman/*/skills/caveman/SKILL.md`
-   - Default intensity: **full** (fragments OK, drop filler, keep technical terms exact)
-   - Code/commits/PRs: write normal; prose: caveman
-
-2. **Load triad router** (read, do not execute)
-   - `.cursor/skills/spec-kit-openspec-superpowers/SKILL.md` (or `~/.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`)
-   - `.cursor/skills/spec-kit-openspec-superpowers/laravel13-x-policy.md`
-
-3. **Load execution manuals** (read when task needs them — not all at once unless asked)
-   - **spec-kit** — greenfield MVP, `/speckit.*`
-   - **openspec** — post-MVP, `/opsx:*`
-   - **superpowers** — TDD, debugging, plans, verification (always during implement)
-
-4. **Session resume**
-   - If user says **continue** or resumes laravel13.x work → read `docs/SESSION_STATE.md` first
-   - Project rules: `.cursor/rules/session-handoff.mdc`, `.cursor/rules/windows-herd-gitbash.mdc`
-
-5. **Confirm stack** — one short caveman reply: voice ON, triad loaded, SDD not started, ask what task (greenfield / post-MVP / small fix / **UI polish**).
-
-6. **UI too basic?** (after MVP / tests green)
-   - Read **laravel-ui-phase** skill (`.agents/skills/laravel-ui-phase/SKILL.md`)
-   - User says **"AI pick my UI"** → `docs/GITHUB_UI_RESOURCE_INDEX.md` + **impeccable** + **design-taste-frontend**
-   - Caveman voice OK; still write `examples/*/docs/DESIGN.md`, still run tests
+1. **Caveman voice** (ON until `stop caveman` / `normal mode`)
+2. **Karpathy guidelines** — `~/.cursor/skills/karpathy-guidelines/SKILL.md`
+3. **Clean Code** — `~/.cursor/skills/clean-code/SKILL.md` (or `~/.agents/skills/clean-code/`)
+4. **Reader rules** — `08-reader-loved-code`, `04-simple-code-voice`, `commit-humanizer`
+5. **Humanizer** — `~/.cursor/skills/humanizer/SKILL.md`
+6. **Triad** — `spec-kit-openspec-superpowers/SKILL.md` + `laravel13-x-policy.md`
+7. **Session** — `docs/SESSION_STATE.md` on continue
+8. **Confirm:** `Stack: caveman + karpathy + clean-code + reader + humanizer + triad. Ready. What task?`
 
 ---
 
-## Triad decision (reminder)
+## OPTIONAL load (only if needed)
+
+| Trigger | Load |
+|---------|------|
+| UI / polish / Vue | `impeccable` |
+| AI pick my UI | `laravel-ui-phase` |
+| Deep Laravel | `laravel-specialist` |
+| Implement / TDD | `superpowers` |
+| Greenfield SDD | `spec-kit` |
+| Post-MVP SDD | `openspec` |
+| Arch decision | `senior-architect` |
+
+---
+
+## Triad decision
 
 ```
-Need structured SDD?
-├── Greenfield MVP → spec-kit + superpowers (+ caveman ON)
-├── Post-MVP change → openspec + superpowers (+ caveman ON)
-└── Small task → superpowers alone (+ caveman ON)
-
+Greenfield MVP → spec-kit + superpowers (+ ALWAYS stack)
+Post-MVP → openspec + superpowers (+ ALWAYS stack)
+Small task → superpowers alone (+ ALWAYS stack)
 NEVER spec-kit + openspec on same feature
-```
-
-| Layer | Skill folder | Question |
-|-------|--------------|----------|
-| SDD (pick one) | `spec-kit/` or `openspec/` | What to build / what changed? |
-| Execution | `superpowers/` | How to build (TDD, verify, debug)? |
-| Voice | caveman plugin | How to speak (this stack)? |
-
----
-
-## Downstream invocations (after stack is active)
-
-User narrows to one tool:
-
-```text
-Use spec-kit: /speckit.tasks
-Use openspec: /opsx:new my-change
-Use superpowers: TDD for next task
-Use caveman: /caveman ultra
-stop caveman
 ```
 
 ---
 
 ## Sync
 
-Mirrored at `~/.cursor/skills/caveman-spec-triad/` — see `docs/CURSOR_SKILLS_SYNC.md`.
+`~/.cursor/skills/caveman-spec-triad/` · `docs/CURSOR_SKILLS_SYNC.md`  
+Combo: `spec-kit-openspec-superpowers/references/session-combo-stack.md`

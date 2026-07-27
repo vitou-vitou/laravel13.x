@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\ClaimController;
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,10 @@ Route::prefix('v1')->middleware(['throttle:api'])->group(function () {
     Route::get('todos/{todo}', [TodoController::class, 'show']);
 
     Route::middleware(['auth:api', 'throttle:api-writes'])->group(function () {
+        Route::post('claims', [ClaimController::class, 'store']);
+        Route::patch('claims/{claim}', [ClaimController::class, 'update']);
+        Route::post('claims/{claim}/submit', [ClaimController::class, 'submit']);
+
         Route::post('todos', [TodoController::class, 'store']);
         Route::patch('todos/{todo}', [TodoController::class, 'update']);
         Route::delete('todos/{todo}', [TodoController::class, 'destroy']);

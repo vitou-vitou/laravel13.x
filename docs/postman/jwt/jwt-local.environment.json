@@ -1,0 +1,31 @@
+{
+  "id": "0a7667ff-92e1-4887-a257-0a191853feae",
+  "name": "laravel13.x jwt (local)",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8001",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "email",
+      "value": "test@example.com",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "password",
+      "value": "password",
+      "type": "secret",
+      "enabled": true
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "secret",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

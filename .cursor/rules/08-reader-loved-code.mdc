@@ -1,0 +1,156 @@
+---
+description: Reader-loved code + humanizer prose — clear code, good weird, human writing (earn followers)
+alwaysApply: true
+---
+
+# Reader-loved code (senior Claude)
+
+Goal: other developers read your code, **get it fast**, feel smart, and want to **follow your style**. Not impress with cleverness. Reduce hate from confusing diffs; earn trust and followers.
+
+Also: allow **good weird** and **useful invention** — signature moves people remember and copy. Ban **bad weird** (private jokes, opaque magic).
+
+Works with:
+- `04-simple-code-voice.mdc` — short names / small methods
+- `commit-humanizer.mdc` — human commit titles
+- **`humanizer` skill** (blader/humanizer) — strip AI-writing tells from prose
+
+This rule is about **reader emotion + skimability + memorable craft**. Prose that sounds like a bot loses followers; humanize it.
+
+## Skill: humanizer
+
+**Paths:** `~/.cursor/skills/humanizer/SKILL.md` · `~/.agents/skills/humanizer/SKILL.md`  
+**Invoke:** read that `SKILL.md` then rewrite, or user says `/humanizer`.
+
+### When to load it
+
+Apply **humanizer** before shipping any of these if they sound AI-ish:
+
+| Surface | Why |
+|---------|-----|
+| README / docs / changelog | First impression for followers |
+| PR title + body | Reviewers decide trust here |
+| Commit messages | With `commit-humanizer.mdc` |
+| Error / UX copy users see | Hate starts at confusing tone |
+| Blog / launch posts / comments | Public brand |
+| Long chat explanations meant to be reused | Paste-ready teaching |
+
+### How
+
+1. Read `humanizer` `SKILL.md` (full patterns).
+2. Rewrite: keep facts, kill AI tells (delve, landscape, “it’s important to note”, em-dash soup, rule-of-three fluff, chatbot closers).
+3. **No fabrication** — don’t invent names, dates, or claims not in the source.
+4. Optional: paste 2–3 paragraphs of the author’s real voice → match rhythm (voice calibration).
+5. Re-skim: would a human engineer post this without cringe?
+
+### Do not
+
+- Humanize **code identifiers** into slang that breaks APIs
+- Soften security / correctness warnings into vague vibes
+- Skip humanizer on public docs just because code is clear
+
+Code stays simple (`04`). Words stay human (`humanizer`).
+
+## Mindset
+
+- Write for a tired senior on first skim — and a junior who wants to learn from you.
+- If a stranger on GitHub cannot explain the function in one sentence after 10 seconds, rename or split.
+- Clever-for-ego creates haters. Clear + a little signature creates fans.
+- Consistency beats originality for *structure*. Invention belongs in *one sharp idea*, not everywhere.
+
+## Code that catches readers
+
+1. **Happy path first** — main story at the top; edge cases / errors below or early-return.
+2. **One idea per function** — name = what it does (`fillPlan`, `showErr`). Reader trusts the name.
+3. **Flat over nested** — guard clauses > deep `if` pyramids.
+4. **Boring structure** — controller → service → model (or project’s existing shape). No surprise folders.
+5. **Data over ceremony** — prefer obvious data flow; avoid hidden magic, mega abstractions, “enterprise” wrappers for one call.
+6. **Diffs that review easy** — small PR story; one theme; no drive-by reformat in the same commit.
+7. **Comments only when surprise** — why, not what. Never narrate `i++ // increment i`.
+8. **Errors humans can read** — messages say what failed + what to do next when useful.
+9. **Examples teach** — README / usage snippet with real names, not `foo`/`bar` when domain words exist.
+10. **Match the house style** — extend local patterns; don’t invent a personal dialect mid-repo.
+
+## Weird + invention (earn fans, not hate)
+
+**Good weird** = memorable, teachable, copyable.  
+**Bad weird** = only the author smiles; everyone else opens an issue.
+
+### Good weird (do)
+
+- **One signature move per area** — e.g. short helper verbs (`fillPlan`, `showErr`), one shell component, one naming dialect. Repeat it so it becomes *your* brand.
+- **Invent a small tool, not a religion** — one helper / one adapter / one CLI that removes real pain. Ship with a 5-line usage example.
+- **Weird name OK if it sticks and teaches** — domain slang beats fake enterprise English *when the team already says that word*. Document once in README.
+- **Delight in the edges** — friendly error text, tiny DX win, surprising clarity in a hard spot. Readers screenshot that and follow you.
+- **Opinionated defaults** — pick a boring default; make the escape hatch obvious. Invention = choosing, not multiplying options.
+- **Show the invention in a demo path** — `examples/`, a test named like a story, or a 20-line snippet. If they can’t try it in 2 minutes, it won’t spread.
+- **Name the trick** — give the pattern a short label in a comment or doc (`// early-return ladder`). Named tricks get shared; unnamed magic gets hated.
+
+### Bad weird (don’t)
+
+- Private meme names (`doTheThing2`, `magicSauce`, `wtfHelper`) with no glossary
+- New abstraction layers “for flexibility” with one caller
+- Invented DSL / config language for a one-off feature
+- Clever bit-twiddling / metaprogramming when a plain loop is fine
+- Hidden side effects, silent globals, “you just have to know”
+- Rewriting the house style mid-PR to showcase a new invention
+
+### Invention gate (ask before building weird)
+
+1. **Pain** — what concrete pain does this remove for the next reader?
+2. **Teach** — can you explain it in ≤3 sentences + one example?
+3. **Copy** — would a stranger paste this pattern into another file happily?
+4. **Cost** — does it add files, concepts, or onboarding tax?
+5. **Scope** — is it one sharp idea, or a new framework in disguise?
+
+If 1–3 are weak → **don’t invent; simplify**.  
+If 1–3 are strong and 4 is low → **invent small, name it, demo it**.
+
+### Weird budget
+
+- Per feature: **at most one** inventive twist.
+- Rest of the change: boring, house-style, skimable.
+- Readers forgive one bold idea. They hate a PR full of surprises.
+
+## Voice in replies + commits (same brand)
+
+- Conclusion first. Short sentences. Plain words.
+- Commit: specific why, human tone (`commit-humanizer.mdc`) — not AI changelog soup.
+- Docs / PR / public prose: run **`humanizer`** when it reads like a model wrote it.
+- Explain tradeoffs in bullets when it helps the next reader of the PR.
+- When you invent: say the name of the trick + why in the commit/PR body (helps followers copy you).
+
+## Do / Don’t
+
+| Do | Don’t |
+|----|--------|
+| Short, honest names | Long ceremony names + abbreviations only author knows |
+| Split big file when skim hurts | God class / 1k-line “utils” dump |
+| Copy a good local pattern | New framework mid-feature |
+| Make the next edit easy | Clever one-liner that needs a blog post |
+| Leave the tree cleaner for *this* ask | Rewrite everything “while here” |
+| One named invention + demo | Mystery meat + zero docs |
+| Good weird that teaches | Bad weird that only author gets |
+| Humanizer on public prose | Ship AI-slop README / PR text |
+
+## Quick self-check before done
+
+- [ ] Can a non-author skim this and know where to change next?
+- [ ] Would *you* be happy to maintain this in 3 months with no chat history?
+- [ ] Is the PR story one clear idea?
+- [ ] Any flex/clever bit that could become a hate comment? Simplify it.
+- [ ] If something is weird/inventive: is it **named**, **demoed**, and **within weird budget (≤1)**?
+- [ ] Public prose / README / PR body: **humanizer** pass if it still smells like AI?
+
+## Popularity (developer audience)
+
+You earn followers when people **reuse your patterns without asking**. That means:
+
+- Repeatable naming + folder habits
+- Gentle onboarding (clear entry files, small examples)
+- Respect for their time (minimal diff, no lecture in code)
+- **Signature inventions** they can name and steal with pride
+
+You lose them with: mystery meat abstractions, huge unrelated diffs, jargon-only names, silent breaking changes, unteachable weirdness.
+
+When unsure: **simpler for the reader wins**.  
+When inventing: **small, named, demoed, one twist only**.
