@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Auto Endorsement — Full User Journey</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      securityLevel: 'loose',
+      sequence: { actorMargin: 24, diagramMarginX: 8, diagramMarginY: 8, messageMargin: 36 }
+    });
+    window.__mermaidReady = mermaid.run().then(() => {
+      document.documentElement.setAttribute('data-mermaid-done', '1');
+    }).catch(() => {
+      document.documentElement.setAttribute('data-mermaid-done', '1');
+    });
+  </script>
+  <style>
+    @page { size: A4; margin: 14mm 12mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Calibri, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.45;
+      color: #1e293b;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 8px 4px 24px;
+    }
+    h1 { font-size: 20pt; margin: 0 0 6px; color: #0f172a; }
+    h2 {
+      font-size: 13pt;
+      margin: 22px 0 8px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #2563eb;
+      color: #1e3a8a;
+      page-break-after: avoid;
+    }
+    h3 { font-size: 11pt; margin: 14px 0 6px; color: #1e40af; }
+    p, li { margin: 4px 0; }
+    .meta { color: #475569; font-size: 9.5pt; margin-bottom: 14px; }
+    .meta code { background: #f1f5f9; padding: 1px 5px; border-radius: 3px; }
+    pre.flow {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 8.5pt;
+      line-height: 1.35;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin: 8px 0 12px;
+      page-break-inside: auto;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 5px 6px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th { background: #1e40af; color: #fff; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    code, .mono {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.5pt;
+      background: #f1f5f9;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    pre.sql {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 8pt;
+      overflow-x: auto;
+    }
+    .mermaid {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0 16px;
+      page-break-inside: avoid;
+    }
+    .callout {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 8px 12px;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 9.5pt;
+    }
+    .warn {
+      background: #fff7ed;
+      border-left-color: #ea580c;
+    }
+    .footer {
+      margin-top: 28px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 8.5pt;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Auto Endorsement — Full User Journey</h1>
+  <div class="meta">
+    <strong>Product:</strong> Auto · <strong>Module:</strong> Endorsement<br/>
+    <strong>URLs:</strong> <code>/endorsements/auto</code> ·
+    edit <code>/endorsements/auto/:id/edit</code> ·
+    detail <code>/endorsements/auto/:id</code><br/>
+    <strong>Generate from:</strong> approved Auto policy → Generate Endorsement
+  </div>
+
+  <h2>1. Journey overview</h2>
+  <pre class="flow">[APV Policy]
+    │ Generate Endorsement (type + e-date + desc)
+    ▼
+[PND · approved_status usually PRG]
+    │ Edit: Info / Vehicles / Deductible / Config / Commission / Reinsurance
+    │ (± Cancellation / Endorsement Info by type)
+    │
+    ├─ Incomplete RI → Submit disabled · forced PRG
+    ├─ RI complete → Submit enabled
+    │
+    │ Submit (SBM)
+    ▼
+[PND · SBM]
+    │ Detail Approve button ONLY if:
+    │   · ENDORSEMENT.APPROVE permission
+    │   · RI complete
+    │   · business_type + policy_type complete
+    │   · status=PND AND approved_status=SBM
+    │
+    ├─ Approve (APV) → invoice/CDN/QR if premium ≠ 0 → print / next generate
+    ├─ Reject  (REJ) → revise → PND → edit again
+    └─ Delete (cancel SP) if not APV</pre>
+
+  <h2>2. What the user can do</h2>
+  <table>
+    <thead>
+      <tr><th>Step</th><th>User action</th><th>When allowed</th><th>API</th><th>Main table / columns</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>1 Generate</strong></td><td>From APV policy → Generate</td><td>Policy <code>status=APV</code></td><td><code>POST /api/policies/generate-auto-endorsement/{policy}</code></td><td>SP → new <code>ins_policy</code> + <code>ins_auto_data_master</code></td></tr>
+      <tr><td><strong>2 Edit Info</strong></td><td>Policy info / GENERAL</td><td><code>status=PND</code> + UPDATE</td><td>Auto form routes</td><td><code>ins_auto_data_master</code></td></tr>
+      <tr><td><strong>3 Vehicles</strong></td><td>Add / delete / amend</td><td><code>status=PND</code></td><td>vehicle endpoints</td><td><code>ins_auto_data_detail.endorsement_stage</code></td></tr>
+      <tr><td><strong>4 Deductible</strong></td><td>Deductible tab</td><td>edit mode</td><td>deductible APIs</td><td>deductible tables</td></tr>
+      <tr><td><strong>5 Config</strong></td><td>Business / Policy Type</td><td><strong>GENERAL only</strong> (UI)</td><td><code>PUT /api/endorsements/{id}</code></td><td><code>ins_policy.business_type</code>, <code>policy_type</code></td></tr>
+      <tr><td><strong>6 Commission</strong></td><td>Commission rows</td><td>edit</td><td>commission APIs</td><td><code>ins_policy_commission_data</code></td></tr>
+      <tr><td><strong>7 Reinsurance</strong></td><td>Shares until 100%</td><td>edit</td><td>RI APIs</td><td><code>ins_reinsurance_data</code> (Σ share = 1)</td></tr>
+      <tr><td><strong>8 Submit</strong></td><td>Submit button</td><td>RI complete</td><td><code>PUT /endorsement-service/update-submit-status/{id}</code></td><td><code>ins_policy.approved_status</code> = <code>SBM</code></td></tr>
+      <tr><td><strong>9 Approve</strong></td><td>Dialog → Approve</td><td>See gate</td><td><code>POST /api/endorsements/approve/{id}</code></td><td><code>ins_policy.status</code> = <code>APV</code></td></tr>
+      <tr><td><strong>10 Reject</strong></td><td>Dialog → Reject + remark</td><td><strong>Same gate as Approve</strong></td><td>same approve API <code>REJ</code></td><td><code>status</code>=<code>REJ</code>, <code>approved_reason</code>, audit</td></tr>
+      <tr><td><strong>11 Revise</strong></td><td>List revise</td><td><code>status=REJ</code></td><td><code>POST /api/endorsements/revise/{id}</code></td><td><code>status=PND</code>, reason null</td></tr>
+      <tr><td><strong>12 Delete</strong></td><td>Cancel endorsement</td><td>not APV</td><td><code>DELETE /api/endorsements/{id}</code></td><td>SP <code>ins_prod_auto_cancel_endorsement</code></td></tr>
+      <tr><td><strong>13 Print</strong></td><td>Endt / Invoice / CDN / Cert</td><td>print rules</td><td><code>/endorsement-service/.../download-*</code></td><td>read</td></tr>
+      <tr><td><strong>14 Next endt</strong></td><td>Generate from this endt</td><td><code>status=APV</code></td><td><code>POST /api/endorsements/generate-auto-endorsement/{id}</code></td><td>same generate SP</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Types</strong> (<code>ins_auto_data_master.endorsement_type</code>):
+    <code>GENERAL</code> · <code>ADD/DELETE</code> · <code>CANCELLATION</code> · <code>RE_INVOICE</code> · <code>CUSTOM</code> · <code>AMEND_ENDT_PREMIUM</code> · <code>AMEND_SUM_INSURED_PREMIUM</code></p>
+
+  <h2>3. Approve / Reject gate</h2>
+  <p>Button shows only when <strong>all</strong> are true:</p>
+  <table>
+    <thead><tr><th>#</th><th>Gate</th><th>Where</th><th>Table / column</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Permission <code>ENDORSEMENT.APPROVE</code></td><td>FE</td><td>—</td></tr>
+      <tr><td>2</td><td>Reinsurance complete</td><td>FE + BE</td><td><code>ins_reinsurance_data</code>: Σ <code>share</code> = 1 per <code>detail_id</code> for stage</td></tr>
+      <tr><td>3</td><td>Config complete</td><td>FE + BE</td><td><code>ins_policy.business_type</code> AND <code>policy_type</code> set</td></tr>
+      <tr><td>4</td><td>Pending</td><td>FE</td><td><code>ins_policy.status = PND</code></td></tr>
+      <tr><td>5</td><td>Submitted</td><td>FE</td><td><code>ins_policy.approved_status = SBM</code></td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn">
+    <strong>Reject writes:</strong> <code>ins_policy.status → REJ</code>, <code>approved_reason</code>, <code>approved_at</code>, <code>approved_by</code>.
+    Column <code>approved_status</code> stays <code>SBM</code>.
+    FE payload key <code>approved_status: "REJ"</code> maps to column <strong><code>status</code></strong>.
+  </div>
+
+  <h2>4. Status matrix</h2>
+  <table>
+    <thead><tr><th>status</th><th>approved_status</th><th>User can</th></tr></thead>
+    <tbody>
+      <tr><td><code>PND</code></td><td><code>PRG</code></td><td>Edit · Submit when RI ok · Delete</td></tr>
+      <tr><td><code>PND</code></td><td><code>SBM</code></td><td>Approve <strong>or</strong> Reject (if RI + config) · Delete</td></tr>
+      <tr><td><code>APV</code></td><td>(unchanged)</td><td>Print · Generate next · no edit/delete/approve</td></tr>
+      <tr><td><code>REJ</code></td><td>(still SBM)</td><td>Revise → PND · Delete</td></tr>
+    </tbody>
+  </table>
+
+  <h2>5. Sequence — full path + reject</h2>
+  <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User
+    participant Pol as Policy Detail APV
+    participant Gen as generate-auto-endorsement
+    participant SP as gen_new_policy_endorsement SP
+    participant Edit as Endorsement Form
+    participant PolT as ins_policy
+    participant AutoT as auto master/detail
+    participant RI as ins_reinsurance_data
+    participant Det as Endorsement Detail
+    participant Apv as POST endorse approve
+
+    User->>Pol: Generate Endorsement
+    Pol->>Gen: policy_id + type + dates
+    Gen->>SP: create endt row
+    SP->>PolT: INSERT status=PND
+    SP->>AutoT: clone master + details
+    Gen-->>User: open edit form
+
+    User->>Edit: Config business_type / policy_type
+    Edit->>PolT: UPDATE config cols
+    User->>Edit: Vehicles / Commission / RI
+    Edit->>RI: shares per detail_id
+    Note over RI: complete when sum share = 1
+
+    alt RI incomplete
+        Edit->>PolT: approved_status = PRG
+        Note over Edit: Submit disabled
+    else RI complete
+        User->>Edit: Submit
+        Edit->>PolT: approved_status = SBM
+    end
+
+    User->>Det: Open detail
+    User->>Det: Approval → Reject + remark
+    Det->>Apv: approved_status REJ
+    Apv->>RI: isReinsuranceCompleted?
+    Apv->>PolT: business_type and policy_type set?
+    alt gate fail
+        Apv-->>Det: Endorsement data has not completed
+    else gate ok
+        Apv->>PolT: status=REJ + reason + audit
+        Note over PolT: approved_status stays SBM
+        Apv-->>Det: Rejected successfully
+    end
+  </pre>
+
+  <h2>6. Sequence — revise / delete / approve</h2>
+  <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor User
+    participant UI as Index or Detail
+    participant API as revise / DELETE / approve
+    participant PolT as ins_policy
+    participant SP as cancel_endorsement SP
+
+    alt Revise after REJ
+        User->>UI: Revise
+        UI->>API: POST revise
+        API->>PolT: status=PND, reason=null
+        UI-->>User: edit form
+    else Delete not APV
+        User->>UI: Delete
+        UI->>API: DELETE endorsement
+        API->>SP: cancel endt
+        SP-->>UI: SUC cancelled
+    else Approve same gate
+        User->>UI: Approve
+        UI->>API: POST approve APV
+        API->>PolT: status=APV + audit
+        Note over API: premium not 0 → invoice CDN QR
+    end
+  </pre>
+
+  <h2>7. Tables &amp; columns cheat sheet</h2>
+  <h3>ins_policy</h3>
+  <table>
+    <thead><tr><th>Column</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>id</code></td><td>Endorsement pk (URL :id)</td></tr>
+      <tr><td><code>data_id</code></td><td>→ ins_auto_data_master.id</td></tr>
+      <tr><td><code>document_no</code></td><td>Endt no (= RI endorsement_stage)</td></tr>
+      <tr><td><code>status</code></td><td>PND → APV / REJ</td></tr>
+      <tr><td><code>approved_status</code></td><td>Submit: PRG / SBM (not flipped by reject)</td></tr>
+      <tr><td><code>approved_reason</code></td><td>Remark</td></tr>
+      <tr><td><code>approved_at</code> / <code>approved_by</code></td><td>Audit</td></tr>
+      <tr><td><code>business_type</code> / <code>policy_type</code></td><td>Config gate</td></tr>
+    </tbody>
+  </table>
+  <h3>ins_reinsurance_data</h3>
+  <table>
+    <thead><tr><th>Column</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>policy_id</code></td><td>= endt ins_policy.id</td></tr>
+      <tr><td><code>detail_id</code></td><td>Vehicle detail</td></tr>
+      <tr><td><code>endorsement_stage</code></td><td>= document_no</td></tr>
+      <tr><td><code>share</code></td><td>Must sum to 1.0 per detail_id</td></tr>
+    </tbody>
+  </table>
+
+  <h2>8. Verify SQL</h2>
+  <pre class="sql">-- Endorsement row
+SELECT id, document_no, data_id, status, approved_status,
+       business_type, policy_type, approved_reason, approved_at, approved_by
+FROM ins_policy
+WHERE id = :endt_id;
+
+-- Config gate
+SELECT (business_type IS NOT NULL AND policy_type IS NOT NULL) AS config_ok
+FROM ins_policy WHERE id = :endt_id;
+
+-- RI gate
+SELECT detail_id, SUM(share) AS total_share
+FROM ins_reinsurance_data
+WHERE policy_id = :endt_id
+  AND endorsement_stage = :document_no
+GROUP BY detail_id;</pre>
+
+  <h2>9. vs Auto Quotation reject</h2>
+  <table>
+    <thead><tr><th></th><th>Quotation</th><th>Endorsement</th></tr></thead>
+    <tbody>
+      <tr><td>Table</td><td><code>ins_quotation</code></td><td><code>ins_policy</code></td></tr>
+      <tr><td>Reject column</td><td><code>approved_status</code> or <code>accepted_status</code></td><td><strong><code>status</code></strong></td></tr>
+      <tr><td>Submit column</td><td>n/a (two steps)</td><td><code>approved_status</code> = PRG / SBM</td></tr>
+      <tr><td>Accept step</td><td>Yes</td><td><strong>No</strong></td></tr>
+      <tr><td>Extra gates</td><td>UW only</td><td>RI + business/policy type + SBM</td></tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Source: <code>docs/diagrams/auto-endorsement-journey.md</code> ·
+    Also: <code>docs/diagrams/auto-hs-reject-flow.md</code> ·
+    For ops / UAT / onboarding
+  </div>
+</body>
+</html>
