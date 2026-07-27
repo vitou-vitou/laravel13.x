@@ -21,12 +21,15 @@ Synced from `D:\vitou\projects\pgi-core-frontend` for ops / UAT / agent reuse.
 | `auto-endorsement-journey.pdf` | Reading PDF (Mermaid rendered) |
 | `_render-endt-journey-pdf.cjs` | Re-render PDF from HTML (`node …`) |
 
-## Sync rule (manual / agent)
+## Sync rule (AFK · no confirm)
 
-When pgi generates new `docs/diagrams/{slug}-journey.*`:
+**Default ON** — see `.cursor/rules/13-notion-and-cursor-hub.mdc`.
 
-1. Copy into `docs/pgi-core-frontend/diagrams/`
-2. Commit + push `laravel13.x` `main` — title style **Adjective Noun** (e.g. `Journey Doc Sync`)
-3. Skip if user says `pgi only` / `don't sync`
+When pgi generates new `docs/diagrams/{slug}-journey.*` (or user says sync / AFK / poll sync):
+
+1. Copy into `docs/pgi-core-frontend/diagrams/` — **do not ask**
+2. Commit + push `laravel13.x` `main` — title **Adjective Noun** (e.g. `Journey Doc Sync`)
+3. Reply SHA + link only
+4. Skip **only** if user says `pgi only` / `don't sync` / `no push`
 
 Source project: `phillipinsurancekh/pgi-core-frontend` (local: `D:\vitou\projects\pgi-core-frontend`).

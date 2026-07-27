@@ -30,7 +30,7 @@ Task: Map FULL user journey for {PRODUCT} {MODULE} approve/reject (and related l
 8) vs sibling module — short compare if same product has both.
 9) Save `docs/diagrams/{slug}-journey.md` (append shared reject doc if present).
 10) PDF at `docs/diagrams/{slug}-journey.pdf` via HTML + Mermaid CDN → Puppeteer (A4). Keep .md + .html + `_render-*.cjs`.
-11) Sync reading backup → `D:\laravel13.x\docs\pgi-core-frontend\diagrams\` (+ this prompt folder if new). Commit + push laravel13.x main unless I say "pgi only".
+11) Sync reading backup → `D:\laravel13.x\docs\pgi-core-frontend\diagrams\` (+ prompts/ if changed). **AFK / no confirm** — commit + push laravel13.x `main` automatically unless I say "pgi only" / "don't sync".
 12) Grep code only — no invented schema. Next 5. No pgi commit unless asked.
 
 ### Investigation order
@@ -52,7 +52,7 @@ Task: Map FULL user journey for {PRODUCT} {MODULE} approve/reject (and related l
 ```text
 Map full {PRODUCT} {MODULE} user journey for approve/reject in pgi-core-frontend.
 
-Need: ASCII journey, step→API→table/column, FE+BE gates with exact cols, payload vs DB traps, status matrix, Mermaid (happy + reject + revise/delete), verify SQL, save docs/diagrams/{slug}-journey.md + PDF (HTML+Mermaid→Puppeteer), sync to D:\laravel13.x\docs\pgi-core-frontend\diagrams\ and push laravel13.x unless "pgi only". Grep only. Caveman + Next 5. No pgi commit.
+Need: ASCII journey, step→API→table/column, FE+BE gates with exact cols, payload vs DB traps, status matrix, Mermaid (happy + reject + revise/delete), verify SQL, save docs/diagrams/{slug}-journey.md + PDF (HTML+Mermaid→Puppeteer), auto-sync+push to D:\laravel13.x\docs\pgi-core-frontend\diagrams\ (no confirm; skip only if "pgi only"). Grep only. Caveman + Next 5. No pgi commit.
 ```
 
 ---
