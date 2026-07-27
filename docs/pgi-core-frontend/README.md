@@ -33,3 +33,5 @@ When pgi generates new `docs/diagrams/{slug}-journey.*` (or user says sync / AFK
 4. Skip **only** if user says `pgi only` / `don't sync` / `no push`
 
 Source project: `phillipinsurancekh/pgi-core-frontend` (local: `D:\vitou\projects\pgi-core-frontend`).
+
+| `approval-lifecycle-inventory.md` | Full Product×Module approval inventory (DONE/PARTIAL/TODO) |
