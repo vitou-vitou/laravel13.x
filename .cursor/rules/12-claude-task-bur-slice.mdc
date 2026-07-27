@@ -1,0 +1,52 @@
+---
+description: "Task Claude for heavy work; Cursor solo on tiny Quick; BUR = new slice when large"
+alwaysApply: true
+---
+
+## Task Claude (heavy only)
+
+**Default for heavy coding.** Cursor = thin router. Tiny Quick = Cursor solo (no Task).
+
+| Do | Don't |
+|----|-------|
+| `Task` → Claude model for multi-file / feature / unclear design | Cursor re-implements **large** features alone |
+| Short prompt + plan path + file list | Dump whole repo into Cursor context |
+| Cursor verify, smoke, short status | Long Cursor analysis / rival redesign |
+| **Cursor solo** for 1-file label/typo/format (&lt;~20 lines) | Spawn `Task` for tiny Quick (slow hang — 2026-07-22) |
+
+Opt out of listener: `normal cursor` · `you do it` · `cursor lead`.  
+Force Task on tiny: only if user insists after size-gate note.
+
+Reinforces `08-claude-senior-listener.mdc` · coexists with `03-fast-mode.mdc`.
+
+## BUR / Direct Book — new file when change is big
+
+Scope: 7 products (`0189`, `0191`–`0196`). Prefer **new BUR/DB slice file** over large edits to shared PUL/legacy.
+
+### Prefer new file when
+
+- Shared blade / Vue / PHP would grow **large** or risk **breaking** `0121`–`0125`
+- Format/layout differs (e.g. Policy No vs Policy & Endorsement No)
+- New print/export/report path for Direct Book only
+- Backend branch would otherwise sprawl inside a shared service method
+
+### Where new files go
+
+| Layer | Prefer |
+|-------|--------|
+| Vue | `…/Endorsement/Components/Burglary/*`, `…/Policy/Components/Burglary/*`, `…/Quotation/Components/Burglary/*` |
+| JS | `resources/js/services/property_liability/burglary/` (short names — `05-pl-db-naming.mdc`) |
+| PHP service | `app/Services/PL/Endorsement/Burglary.php` (or small helper next to it) — not fat legacy methods |
+| PDF | `resources/views/pdf/**/pl/bur/*` (clone + adapt; shared blade keeps thin branch / view pick only) |
+| Export | DB-specific export helper under `app/Exports/PL/` if `QuotationExport` would bloat |
+
+### Shared layer stay thin
+
+Shared `Form.vue` / `Detail.vue` / `EndorsementService` / `QuotationExport`: **narrow branch only** (`isEndorsementRollout` / `isDirectBook` → call BUR slice). No drive-by PUL cleanup.
+
+### Checklist before edit
+
+- [ ] Change only for Direct Book / BUR?
+- [ ] Would shared file diff be big or fragile? → **new BUR file**
+- [ ] Shared touch = switch + delegate only?
+- [ ] Tiny Quick? → Cursor solo. Heavy? → Claude Task.

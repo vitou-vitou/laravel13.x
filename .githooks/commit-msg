@@ -1,0 +1,19 @@
+#!/bin/sh
+# TOP PRIORITY: block AI / templated commit messages.
+MSG_FILE="$1"
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+CHECKER="$ROOT/.githooks/check-commit-humanizer.mjs"
+[ -f "$CHECKER" ] || CHECKER="$ROOT/scripts/check-commit-humanizer.mjs"
+
+if [ ! -f "$CHECKER" ]; then
+  echo "commit-msg: missing check-commit-humanizer.mjs" >&2
+  exit 1
+fi
+
+if command -v node >/dev/null 2>&1; then
+  node "$CHECKER" "$MSG_FILE"
+  exit $?
+fi
+
+echo "commit-msg: node required to validate commit message (AI block is mandatory)" >&2
+exit 1

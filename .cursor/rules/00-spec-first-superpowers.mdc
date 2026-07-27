@@ -1,14 +1,22 @@
 ---
-description: "Spec-First 守门：每会话按任务走 spec-kit-openspec-superpowers"
+description: "Spec-First 守门：每会话默认走 spec-kit-openspec-superpowers（99% 默认栈）"
 globs: "*"
 alwaysApply: true
 ---
 
-## Spec-First + Superpowers（每会话）
+## Spec-First + Superpowers（每会话 · 默认栈）
 
-**触发**：识别到编码任务（feature / bugfix / refactor / config）→ 先读 `.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`，再行动。
+**Default stack (99% of work):** skill  
+`.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`  
+(+ `pgi-core-policy.md` · `references/claude-senior-listener.md`)
 
-**模式**：OpenSpec（本仓库有 `openspec/`）。根目录无 `.spec-mode` 时写入单行 `openspec`。
+**Boot (every session, before coding):**
+
+1. Treat `/spec-kit-openspec-superpowers` as **already on** — do not wait for user to attach skill.
+2. Read skill `SKILL.md` + `pgi-core-policy.md` when starting any feature / bugfix / refactor / config.
+3. Mode = OpenSpec (`.spec-mode` = `openspec`). Missing file → write `openspec`.
+4. Claude Senior listener ON + agent-browser when UI needed.
+5. Caveman voice ON (`caveman-mode.mdc`).
 
 ### 任务分级（实现前必做）
 
@@ -31,17 +39,16 @@ alwaysApply: true
 
 ### 活跃变更（PL Direct Book）
 
-继续 Property Liability Direct Book / 报价切片工作时，默认上下文：
-
-`openspec/changes/phase-ii-quotation-slice-only/`
+`openspec/changes/phase-ii-quotation-slice-only/`（quotation）  
+Also check `docs/SESSION_STATE.md` for current active change.
 
 ### 命令
 
-- `/super-spec` — 启动完整规范流程
-- 本规则为守门员；细节以 Skill 为准
+- `/super-spec` — 完整规范流程（same stack）
+- `/spec-kit-openspec-superpowers` — explicit reinforce (already default)
+- Opt out of whole stack only if user says `no super-spec` / `plain agent`
 
 ### 项目策略
 
-还须遵守 `.cursor/skills/spec-kit-openspec-superpowers/pgi-core-policy.md`（OpenSpec 默认、PL 七产品范围、勿混用 SDD 层）。
-
-**Simple code + voice:** `.cursor/rules/04-simple-code-voice.mdc` · skill `references/simple-code-voice.md`（短名、小函数、白话）。
+`.cursor/skills/spec-kit-openspec-superpowers/pgi-core-policy.md`  
+**Simple code:** `.cursor/rules/04-simple-code-voice.mdc`

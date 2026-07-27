@@ -1,0 +1,52 @@
+---
+description: Smoke/demo data must look human (EN+KM), random, never bot-looking
+alwaysApply: true
+---
+
+# Smoke data humanizer（EN / KM）
+
+When writing **smoke tests**, **seed payloads**, **Playwright fills**, **PAI probes**, or **evidence remarks** that land in shared/dev DB (boss may open screens):
+
+## Do
+
+1. Use **natural insurance wording** — reads like underwriter / ops typed it.
+2. Always fill **EN + KM** when the form/API has both (`*_kh`, KH Accept-Language, dual labels).
+3. **Vary** strings per run (date fragment, site, small random noun) — avoid copy-paste identical remarks every smoke.
+4. Keep short: 1 sentence EN, 1 short KM clause. No essays.
+5. Prefer realistic options: CUSTOM endorsement types, inventory/location/sum-insured reasons, polite reject remarks.
+
+## Don’t (boss complain list)
+
+| Bad | Why |
+|-----|-----|
+| `smoke`, `test`, `asdf`, `xxx`, `12345` | Looks like QA junk |
+| `UI smoke reject 2026-07-22` | Agent fingerprint |
+| `lorem ipsum`, `foo/bar/baz` | Non-business |
+| Same string EN copied into KM | Looks lazy / broken i18n |
+| ALL CAPS spam / emoji | Unprofessional on schedule/PDF |
+
+## Good examples (rotate)
+
+**Endorsement type EN:** `Increase Sum Insured — Warehouse Stock`  
+**Type KM:** `បង្កើនទឹកប្រាក់ធានា — ទំនិញក្នុងឃ្លាំង`
+
+**Description EN:** `Mid-term change: add stock coverage at Battambang warehouse per insured request.`  
+**Description KM:** `កែប្រែពាក់កណ្តាលរយៈពេល៖ បន្ថែមការធានាទំនិញនៅឃ្លាំងបាត់ដំបងតាមសំណើអ្នកធានា។`
+
+**Reject remark EN:** `Supporting schedule incomplete — please reattach the inventory list.`  
+**Reject remark KM:** `តារាងភ្ជាប់មិនគ្រប់គ្រាន់ — សូមភ្ជាប់បញ្ជីទំនិញឡើងវិញ។`
+
+**Approve remark EN:** `Within authority — documents reviewed.`  
+(empty OK if API allows)
+
+## Where it applies
+
+- `scripts/smoke-*.mjs` / `scripts/smoke-*.php`
+- Manual PAI/Laravel smoke bodies
+- Evidence query text that quotes payload values (can note “humanized”)
+- Any FE default placeholder written into persistent records
+
+## Coexistence
+
+- Caveman replies stay short; **payload strings** still human.
+- Does not replace PL seven-product scope or verification rules.

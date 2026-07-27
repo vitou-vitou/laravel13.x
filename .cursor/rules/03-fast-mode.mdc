@@ -13,12 +13,15 @@ alwaysApply: true
 | Do | Don't |
 |----|-------|
 | Foreground tools — direct read/grep/edit/shell | Background `Task` subagents for normal bugs/features |
+| **Quick** → Cursor **solo** (label/typo/1-file format) | Claude `Task` for tiny Quick (hangs; 2026-07-22) |
 | **Quick** spec triage (G1 still applies for new features) | Standard/Thorough unless user asks |
 | Answer in one pass when possible | Split into parallel agents |
 | `npm run build` only if JS/Vue/CSS changed | Build after every tiny edit |
 | Browser verify only if user asks | Auto browser smoke |
-| Visual bugfix: P1 data/HTML proof required; P2 crop optional (`07-bugfix-evidence-crop`) | Skip P1 on print/UI glyph bugs |
+| Visual bug fix: P1 data/HTML proof required; P2 crop optional (`07-bugfix-evidence-crop`) | Skip P1 on print/UI glyph bugs |
 | Aikido scan only after substantive code diff | Scan on questions/docs-only |
+
+**Conflict resolve:** fast mode + Claude Senior → **size gate wins**. Tiny = solo. Heavy = Task Claude (`08` / `12`).
 
 ### Session boot
 

@@ -1,0 +1,64 @@
+---
+description: Notion write style + sync .cursor and pgi journey docs to laravel13.x main (no confirm)
+alwaysApply: true
+---
+
+# Notion + Cursor hub sync（每会话）
+
+## When user asks for Notion / docs to Notion
+
+1. **What matters only** — skip fluff; ops can act from the page.
+2. Lead with a short **TL;DR** (Too Long; Didn’t Read = top summary for skimmers).
+3. **Humanizer format** — plain insurance/ops voice; easy to read; no smoke/test junk tone.
+4. Prefer Notion-ready structure: callouts, numbered steps, checklist, reference table.
+5. If user pastes a Notion URL → write into that page when MCP can access it; if 404, create page in connected workspace and give the link.
+6. Offer blocks that paste cleanly when MCP can’t reach the target page.
+
+## When user adds/changes Cursor rules, skills, or commands
+
+Treat **laravel13.x** as the shared Cursor pack hub.
+
+1. Apply the change in **this repo** (`.cursor/…`) as usual.
+2. **Also sync** the same file(s) into `D:\laravel13.x\.cursor\` (merge; keep laravel-only files like `laravel13-x-policy.md`, `auto-commit-push.mdc`, etc.).
+3. **Commit + push `main`** on `laravel13.x` (user already asked for this habit — do it when they add/change rules or say sync; still no force-push).
+4. Commit title: short **Adjective Noun** (e.g. `Cursor Pack Sync`).
+5. Confirm with commit SHA + GitHub link when done (status only — do **not** wait for user OK).
+
+### Triggers
+
+- “add rule”, “new rule”, “update rule”, “add skill”, “sync .cursor”
+- Any substantive edit under `.cursor/rules/`, `.cursor/skills/`, `.cursor/commands/`
+
+### Skip sync/push only when
+
+- User says **don’t sync** / **pgi only** / **no push**
+- Change is debug logs or local-only junk under `.cursor/`
+
+## pgi journey / diagram docs → laravel13.x (AFK · no confirm)
+
+**Default ON.** User AFK / “poll sync” / “sync now” / after generating journey PDF-md — **do not ask**. Sync + commit + push.
+
+| Source (pgi) | Hub (laravel13.x) |
+|---|---|
+| `docs/diagrams/*` | `D:\laravel13.x\docs\pgi-core-frontend\diagrams\` |
+| reusable journey prompts | `D:\laravel13.x\docs\pgi-core-frontend\prompts\` |
+| hub README if needed | `D:\laravel13.x\docs\pgi-core-frontend\README.md` |
+
+### Agent steps (automatic)
+
+1. `mkdir -p` hub dirs if missing.
+2. Copy new/changed files from pgi `docs/diagrams/` → hub `diagrams/` (overwrite).
+3. Copy/update prompts under hub `prompts/` when the reusable prompt changes.
+4. On **laravel13.x**: `git add` those paths → commit **Adjective Noun** (e.g. `Journey Doc Sync`) → `git push origin main` (no force-push).
+5. Reply short: SHA + GitHub folder link. **Never** wait for “confirm sync”.
+
+### Triggers
+
+- “sync now” / “poll sync” / “sync laravel” / “backup docs”
+- Finished generating `docs/diagrams/{slug}-journey.*` or `*-reject-flow.md` / PDF
+- User says they are **AFK** (assume auto-sync for this class of docs)
+
+### Skip only when
+
+- User says **don’t sync** / **pgi only** / **no push**
+- Empty / identical (still report “already in sync”)

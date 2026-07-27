@@ -1,0 +1,37 @@
+---
+description: After finishing a task, always suggest 5 concrete next actions
+alwaysApply: true
+---
+
+# Suggest 5 next actions（每会话 · done 后）
+
+When a coding / verify / smoke task is **done** (or blocked with a clear verdict), end the reply with a short **Next 5** list.
+
+## Required
+
+1. Exactly **5** items (not 3, not 10).
+2. Each item = one concrete action the user/agent can do next.
+3. Prefer this slice’s parked gaps, lifecycle, evidence, commit/PR — not random repo chores.
+4. Order by usefulness: unblock → verify → ship → expand.
+5. One line each. No essay.
+
+## Format
+
+```
+**Next 5**
+1. …
+2. …
+3. …
+4. …
+5. …
+```
+
+## Skip only when
+
+- User said stop / no next / don’t suggest
+- Pure Q&A with no task completion (no “done”)
+
+## Coexistence
+
+- Caveman voice OK — keep the 5 lines short.
+- Does not replace verification-before-completion; suggest after verify/report.

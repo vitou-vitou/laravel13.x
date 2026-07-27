@@ -1,0 +1,26 @@
+{
+  "skill_name": "8-principle-study",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "I have a biology exam in two weeks and I keep forgetting how the cell cycle works (mitosis, the phases, all of it). Can you make me a study guide for it? A Word doc would be easiest to print. I'm a first-year undergrad.",
+      "expected_output": "A .docx study packet on the cell cycle / mitosis built on all 8 learning principles: a system map, clear explanations, multi-media framing, short lessons, a quiz with answer key, flashcards, a spaced-repetition schedule, an interleaved quiz, and an overlearning plan. Pitched at undergraduate level. Should ask or confirm format/level before building.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 1,
+      "prompt": "Here's a YouTube video I want to learn from: https://www.youtube.com/watch?v=aircAruvnKk - turn it into flashcards and a quiz I can study from.",
+      "expected_output": "The skill should be honest that it cannot auto-transcribe the video, and offer the options (paste transcript / summarise key points / build from general knowledge of the topic). It should not falsely claim to have watched or extracted the video. Once a path is chosen it produces a study packet with the 8 principles, asking which output format the user wants.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "prompt": "make me something to help me memorize the basics of how the stock market works - I want it interactive so i can click through flashcards",
+      "expected_output": "An interactive single-file HTML study packet on stock market basics, with click-to-flip flashcards and click-to-reveal quiz answers, organised around the 8 principles. The skill should confirm the HTML format (the user implied it) and the learner level before building.",
+      "files": [],
+      "assertions": []
+    }
+  ]
+}
