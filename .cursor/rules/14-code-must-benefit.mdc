@@ -1,0 +1,48 @@
+---
+description: Do not write/code unless must + highest benefit; prefer reuse vendor/node_modules
+alwaysApply: true
+---
+
+# Code only when must + most benefit
+
+**Default:** do **not** write or edit code. Prefer answer, plan, query, reuse evidence, or point to existing path.
+
+## Gate (before any edit)
+
+Code / patch / new file **only if all** are true:
+
+1. **Must** — user goal fails without a code change (bug/block/required behavior).
+2. **Most benefit** — this change is the highest-value fix; not a side polish or “while here”.
+3. **Reuse first** — no fit in `vendor/` / `node_modules/` / existing project helper (see `AGENTS.md`).
+
+If any fails → **stop coding**. Explain or ask. Spec/docs/query/smoke OK without code.
+
+## Do not
+
+| Skip | Why |
+|------|-----|
+| Guess / predict fallbacks (`a ?? b ?? c`) | Not proven contract |
+| Extra error branches / 422 dumps | Toast = `Something went wrong` when needed |
+| Narration comments | Noise |
+| Drive-by refactors / renames | Out of must |
+| New util “for later” | Not must |
+| Parallel redesign while fix works | Low benefit |
+
+## Prefer (no new code)
+
+- Query / reuse records / existing smoke under `scripts/`
+- Shared portal + narrow gate (`isBurglaryProductCode`) over new files
+- Vendor (`EndorsementService`, artisan) + node packages already in lockfile
+- Short status: what must / what skips
+
+## When coding is allowed
+
+- Smallest diff that satisfies the must.
+- Scope: PL Direct Book only unless user opens legacy.
+- Still: G1 when feature/spec applies; verification before “done”.
+
+## Coexistence
+
+- Spec-first (`00`) — still no code before confirmed spec when G1 applies.
+- Fast / simple / caveman — compress talk; this rule gates **whether** to code.
+- Hub sync: changing this file → also `laravel13.x` `.cursor/rules/` (see `13-notion-and-cursor-hub.mdc`).
