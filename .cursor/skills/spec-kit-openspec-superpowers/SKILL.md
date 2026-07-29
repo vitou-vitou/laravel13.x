@@ -4,15 +4,11 @@ description: >
   Enforces spec-before-code workflow for AI-driven development. Automatically selects
   Spec-Kit or OpenSpec mode, triages complexity (quick/standard/thorough), recovers
   session context, and applies quality gates (G0-G4) with inline self-review at every stage.
-  On invoke ALWAYS loads vitou combo: caveman + karpathy-guidelines + clean-code +
-  08-reader-loved-code + simple-code-voice + commit-humanizer + humanizer skill + triad
-  (see references/session-combo-stack.md). Optionals (impeccable, laravel-specialist, …)
-  load by keyword.
-  Use this skill whenever the user says "/super-spec", "/spec-kit-openspec-superpowers",
-  "spec first", "规范先行", or starts any feature, bugfix, or refactor — especially in
-  projects with .spec-mode, .specify/, or openspec/ directories. Even if the user doesn't
-  explicitly ask for spec-driven workflow, activate this skill for any non-trivial code
-  change to prevent skipping the design phase.
+  Use this skill whenever the user says "/super-spec", "spec first", "规范先行",
+  or starts any feature, bugfix, or refactor — especially in projects with .spec-mode,
+  .specify/, or openspec/ directories. Even if the user doesn't explicitly ask for
+  spec-driven workflow, activate this skill for any non-trivial code change to prevent
+  skipping the design phase.
   Orchestrates: Spec-Kit (v0.7.1, Workflow Engine) / OpenSpec (OPSX v1.2.0) +
   planning-with-files (v2.30.0) + ui-ux-pro-max (v2.5.0, 67 styles, 161 palettes,
   14 stacks, 6 specialist skills) + Superpowers (v5.0.7, inline self-review,
@@ -25,18 +21,6 @@ description: >
 # Spec-First + Superpowers Orchestrator v5
 
 Stop the AI from jumping straight to code. Every feature, bugfix, and refactor goes through a specification phase first — because unexamined code is expensive code.
-
-## Default combo on invoke (vitou)
-
-When this skill is invoked (`/spec-kit-openspec-superpowers`, `/super-spec`, or `Use spec-kit-openspec-superpowers:`), **before** mode pick / Phase 0:
-
-1. Read [references/session-combo-stack.md](references/session-combo-stack.md).
-2. **ALWAYS load:** caveman · **karpathy-guidelines** · **clean-code** · `08-reader-loved-code` · `04-simple-code-voice` · `commit-humanizer` · **humanizer** · this triad + `laravel13-x-policy.md`.
-3. **OPTIONAL load:** only if keywords/task need them (impeccable, laravel-ui-phase, laravel-specialist, spec-kit/openspec manuals, senior-*, study packets, …) — see the combo doc.
-4. Confirm one line: `Stack: caveman + karpathy + clean-code + reader + humanizer + triad. Ready.`
-5. Then continue Step 1 (mode) → triage → pipeline.
-
-Opt-out only if user says e.g. `no caveman` / `skip humanizer this turn` / `skip clean-code` / `skip karpathy`.
 
 ## Commands
 
@@ -60,7 +44,8 @@ On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 2. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
 3. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
 4. Spec gates G1–G4 still apply — listener mode does **not** skip OpenSpec.
-5. Opt out of stack: user says `no super-spec` / `plain agent`.
+5. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
+6. Opt out of stack: user says `no super-spec` / `plain agent`.
 
 ## How It Works
 
@@ -116,6 +101,7 @@ Execute via one of two strategies (AI recommends, user picks):
 
 TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-debugging`.
 **Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`
+**SRP + thin (pgi):** one job per function/file; avoid fat shared — [references/srp-thin.md](references/srp-thin.md) · skill `refactor` (`struct-single-responsibility`)
 **Claude Senior (pgi session default):** prefer Claude-model Task / pasted Claude plan; Cursor thin apply+verify — [references/claude-senior-listener.md](references/claude-senior-listener.md).
 **agent-browser (UI):** when Phase 4/G4 touches Vue/forms/pages, smoke via agent-browser (or IDE browser MCP if CDP fails) before claiming done.
 **Gate G4**: All tests pass + review passed + verification evidence written to `progress.md` + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
@@ -139,6 +125,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 |------|-------------|
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
+| [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
 | [references/synergy-patterns.md](references/synergy-patterns.md) | Understanding cross-tool integration (6 chains) |
 | [references/integration-guide.md](references/integration-guide.md) | Setup, troubleshooting, dependency list |
 | [references/spec-kit-workflow.md](references/spec-kit-workflow.md) | Running the Spec-Kit flow |
@@ -179,35 +166,19 @@ Read these as needed — they contain detailed procedures that would bloat this 
 5. Optional: install **Superpowers** and **Caveman** plugins in Cursor.
 6. Clone `pgi-core-frontend`; if skills missing: `cp -r .cursor/skills/* ~/.cursor/skills/`
 
-## Repo policies
+## pgi-core-frontend overrides
 
-**This repo (laravel13.x)** — read before mode auto-selection:
-
-- [laravel13-x-policy.md](laravel13-x-policy.md) — greenfield → Spec-Kit + Superpowers; post-MVP → OpenSpec + Superpowers; never both SDD layers on one feature
-- Skill `triad-router` — manual tool-choice router (Spec-Kit vs OpenSpec vs Superpowers)
-- On `continue`: read `docs/SESSION_STATE.md` first
-
-**pgi-core-frontend** (when working that repo / synced skills hub):
+This repo has a **locked policy** — read before mode auto-selection:
 
 - [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-product scope; no auto-commit; Claude Senior + agent-browser session defaults
+- Skill `triad-router` — manual tool-choice router (Spec-Kit vs OpenSpec vs Superpowers)
+- On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
 
 ### Invocation
 
-#### Preferred — triad with always combo
-
-```text
-/spec-kit-openspec-superpowers
-```
-
-```text
-/super-spec
-```
-
-Loads **ALWAYS** stack (caveman + karpathy + clean-code + reader + humanizer + triad). See [references/session-combo-stack.md](references/session-combo-stack.md). Then runs mode/triage when user gives a task (or immediately if task is in the same message).
-
-#### Full stack phrase (same always combo, SDD not auto-started)
+#### Full stack (Caveman + triad manuals — no auto SDD)
 
 ```text
 /Caveman spec kit Openspec Superpower
@@ -217,18 +188,7 @@ Loads **ALWAYS** stack (caveman + karpathy + clean-code + reader + humanizer + t
 Use caveman spec kit openspec superpower:
 ```
 
-<<<<<<< HEAD
-Loads **caveman-spec-triad** → same ALWAYS stack. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
-
-#### With optionals
-
-```text
-/spec-kit-openspec-superpowers + impeccable
-/super-spec Standard: … also laravel-specialist
-```
-=======
 Loads **caveman-spec-triad** skill. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
->>>>>>> 407e4c65870a68aebf9c1272b5f464cca78d0e3d
 
 #### Router only
 
@@ -250,28 +210,10 @@ Use superpowers: TDD for the next task.
 Use caveman: talk like caveman for the rest of this session.
 ```
 
-<<<<<<< HEAD
-```text
-Use humanizer: rewrite this README
-```
-
-```text
-Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
-```
-
-=======
->>>>>>> 407e4c65870a68aebf9c1272b5f464cca78d0e3d
 ### Reference links
 
 - Spec-Kit: https://github.com/github/spec-kit
 - OpenSpec: https://github.com/Fission-AI/OpenSpec
 - Superpowers: https://github.com/obra/superpowers
-<<<<<<< HEAD
-- Caveman: https://github.com/JuliusBrussee/caveman (Matt Pocock-style token compression; includes cavecrew subagents)
-- Humanizer: https://github.com/blader/humanizer
-- Sync manifest: `docs/CURSOR_SKILLS_SYNC.md` (in laravel13.x)
-- Combo stack: [references/session-combo-stack.md](references/session-combo-stack.md)
-=======
 - Caveman: https://github.com/JuliusBrussee/caveman
 - Sync manifest: `docs/CURSOR_SKILLS_SYNC.md`
->>>>>>> 407e4c65870a68aebf9c1272b5f464cca78d0e3d

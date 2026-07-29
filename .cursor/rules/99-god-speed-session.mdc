@@ -27,6 +27,7 @@ Opt out: `no super-spec` / `plain agent`.
 
 - Ship > debate. Minimal scope. Match codebase conventions.
 - **Simple code:** short names, small methods (`04-simple-code-voice.mdc`).
+- **SRP / avoid fat:** `srp-thin.md` via `/spec-kit-openspec-superpowers` Phase 4; deep = skill `refactor`.
 - Verify before claiming done (`verification-before-completion`).
 - After done: **Next 5** actions (`10-suggest-five-next.mdc`).
 - Smoke/demo payloads: human EN+KM (`11-smoke-data-humanizer.mdc`) — no `smoke`/`test` junk in shared DB.

@@ -51,4 +51,4 @@ Also check `docs/SESSION_STATE.md` for current active change.
 ### 项目策略
 
 `.cursor/skills/spec-kit-openspec-superpowers/pgi-core-policy.md`  
-**Simple code:** `.cursor/rules/04-simple-code-voice.mdc`
+**Simple code:** `.cursor/rules/04-simple-code-voice.mdc` · SRP thin: `spec-kit-openspec-superpowers/references/srp-thin.md`

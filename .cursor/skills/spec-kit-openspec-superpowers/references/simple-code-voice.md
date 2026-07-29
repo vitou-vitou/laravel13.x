@@ -50,3 +50,7 @@ Bad:   pickEditDropdownOptions, buildEditFormPatch, normalizeCommissionRateForFo
 - **G4 verify** — review includes name length + “can a new dev read this in 30s?”
 
 See also: `.cursor/rules/caveman-mode.mdc`, `.cursor/rules/04-simple-code-voice.mdc`, `pgi-core-policy.md`.
+
+## SRP / avoid fat
+
+See [srp-thin.md](srp-thin.md). Deep: skill `refactor` → `struct-single-responsibility`.
