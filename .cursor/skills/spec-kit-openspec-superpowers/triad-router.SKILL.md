@@ -17,8 +17,9 @@ Three tools solve different layers of the AI coding problem:
 | **Superpowers** | `superpowers/` | "How to execute?" | Crew work manual |
 | **Caveman** | plugin: `~/.cursor/plugins/cache/caveman/` | "How to talk?" | Terse voice / token compression |
 | **Simple code + voice** | `spec-kit-openspec-superpowers/references/simple-code-voice.md` | "How to name & shape code?" | Short names, small methods, plain text |
+| **SRP + thin** | `spec-kit-openspec-superpowers/references/srp-thin.md` (+ skill `refactor`) | "How to avoid fat?" | One job per unit; extract before grow |
 
-**Critical rule:** Spec-Kit and OpenSpec are **competitors** (both SDD). Pick **one**. Superpowers and Caveman are **complementary** — Superpowers for *how to build*; Caveman for *how to speak*; **simple-code-voice** for *how to name* (Phase 4 / G4).
+**Critical rule:** Spec-Kit and OpenSpec are **competitors** (both SDD). Pick **one**. Superpowers and Caveman are **complementary** — Superpowers for *how to build*; Caveman for *how to speak*; **simple-code-voice** for *how to name*; **srp-thin** for *how to stay thin* (Phase 4 / G4).
 
 Source article: https://mp.weixin.qq.com/s/NeBSi-Q8zUWlWb0mL5BPOA
 
@@ -105,22 +106,13 @@ OPTIONALLY add caveman for token-efficient voice (does not replace SDD or Superp
 5. Optional: install **Superpowers plugin** in Cursor.
 6. Clone `pgi-core-frontend`; if skills missing: `cp -r .cursor/skills/* ~/.cursor/skills/`
 
-### laravel13.x locked workflow
-
-See [laravel13-x-policy.md](laravel13-x-policy.md). Summary:
-
-- **Greenfield MVP:** Spec-Kit + Superpowers (+ caveman optional).
-- **Post-MVP:** OpenSpec + Superpowers.
-- **Never** Spec-Kit + OpenSpec on the same feature.
-- **continue** → read `docs/SESSION_STATE.md` first.
-
 ### pgi-core-frontend locked workflow
 
 See [pgi-core-policy.md](pgi-core-policy.md). Summary:
 
 - **Default:** openspec + superpowers (+ caveman optional).
 - **PL scope:** 7 Direct Book products only (`02-pl-seven-product-scope.mdc`).
-- **Never** Spec-Kit + OpenSpec on the same feature.
+- **Never** spec-kit + openspec on the same feature.
 - **continue** → read `docs/SESSION_STATE.md` first.
 
 ---
