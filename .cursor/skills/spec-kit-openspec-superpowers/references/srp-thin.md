@@ -1,39 +1,82 @@
-# SRP + thin modules (avoid fat)
+# One job. Stay thin. (SRP)
 
-Load on **Phase 4 implement** + **G4** with [simple-code-voice.md](simple-code-voice.md).  
-Deep Fowler rules: skill `refactor` → `struct-single-responsibility` · `struct-extract-method` · `struct-extract-class` (`~/.agents/skills/refactor/`).
+> **Catchphrase:** *One reason to change — or split.*  
+> **Standard:** SOLID · Single Responsibility ([Wikipedia](https://en.wikipedia.org/wiki/Single-responsibility_principle)) · Fowler extract-method/class  
+> **Stack load:** Phase 4 + G4 with [simple-code-voice.md](simple-code-voice.md) · deep: skill `refactor` → `struct-single-responsibility`
 
-## Rule
+If a function/file does **toast + mutate + route + errors + legacy** → it is **fat**. Split or gate.
+
+---
+
+## 3-second test
+
+Ask: *“If requirement X changes, does only this unit need an edit?”*  
+**No** → too many jobs. Extract.
 
 | Unit | One job |
 |------|---------|
 | Function | One reason to change |
-| File / Vue SFC slice | One concern (leave / print / hydrate — not all) |
-| Shared shell | Narrow gate + delegate — no fat shared methods |
+| File / Vue slice | One concern (leave **or** print **or** hydrate) |
+| Shared shell | Thin gate → delegate (no god method) |
 
-## Do
+---
 
-- Split before grow: new BUR/DB helper file > balloon shared `Detail.vue` / legacy service
-- Extract method when handler does toast + mutate + route + error soup
-- Prefer `vendor` / `node_modules` / existing helper over new util
-- Gate Direct Book with `isBurglaryProductCode` / `isBur` — leave legacy path alone
+## Sample (pgi · Endorse leave)
 
-## Don't
+**Fat (many jobs in one handler):**
 
-| Fat smell | Prefer |
-|-----------|--------|
-| God `handleSubmit*` with 5 concerns | Small steps or extract |
-| Guess chains `a ?? b ?? c` | One real field from API contract |
-| “While here” polish in same PR | Out of must (`14-code-must-benefit`) |
-| Fat legacy edit for DB-only | New slice under `Burglary/` (`12-claude-task-bur-slice`) |
+```js
+.then((res) => {
+  notify(res.data.message, 'success')
+  dialog.close()
+  data.can_generate = false
+  const id = res.data?.data?.master_id ?? res.data?.data?.id ?? res.data?.data?.data_id
+  if (id) router.push({ name: '…', params: { id } })
+  else router.push({ name: 'Index' })
+  // + 422 field dump + legacy branch soup…
+})
+```
 
-## G4 checklist (SRP)
+**Thin (one job each · Direct Book):**
 
-- [ ] New/changed function = one job; name ≤ ~3 words
-- [ ] Shared file diff = thin branch only (or new slice file)
-- [ ] No speculative fallbacks / extra error trees
-- [ ] Reuse before invent (`AGENTS.md` · vendor/node_modules)
+```js
+.then((res) => {
+  dialog.close()
+  announce(res.data.message, 'success')
+  data.can_generate_endorsement = false
+  router.push({
+    name: 'PLEndorsementDetail',
+    params: {
+      id: res.data.data.master_id,           // one contract field
+      productCode: productCodeToSlug(code),
+    },
+  })
+})
+.catch(() => announce('Something went wrong', 'error'))
+```
+
+Legacy path = **separate branch** (`isBur`), not more guesses in the same block.
+
+---
+
+## Do / Don't (attention)
+
+| Do | Don't |
+|----|--------|
+| Split before grow (new BUR file > fat shared) | God `handleSubmit*` with 5 concerns |
+| One API field from known contract | `a ?? b ?? c` predict chains |
+| Reuse `vendor` / `node_modules` | New util “for later” |
+| Gate DB with `isBur` | Drive-by legacy rewrite |
+
+---
+
+## G4 checklist
+
+- [ ] One job per new/changed function (name ≤ ~3 words)
+- [ ] Shared diff = thin branch **or** new slice file
+- [ ] No speculative fallbacks / fat error trees
+- [ ] Reuse before invent (`AGENTS.md`)
 
 ## Triggers
 
-User says `SRP` / `avoid fat` / `thin` / `single responsibility` → read this + simple-code-voice before coding.
+`SRP` · `avoid fat` · `thin` · `single responsibility` → read this + simple-code-voice **before** coding.
