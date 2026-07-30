@@ -45,7 +45,8 @@ On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 3. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
 4. Spec gates G1–G4 still apply — listener mode does **not** skip OpenSpec.
 5. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
-6. Opt out of stack: user says `no super-spec` / `plain agent`.
+6. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others. Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
+7. Opt out of stack: user says `no super-spec` / `plain agent`.
 
 ## How It Works
 
@@ -83,12 +84,14 @@ The AI suggests a level; the user confirms or overrides.
 If `task_plan.md` exists from a previous session, read all planning files, query MemPalace for relevant history (if configured), run the 5-Question Reboot Test (Where am I? / Where am I going? / What's the goal? / What did I learn? / What did I do?), then resume from the last checkpoint.
 
 **Phase 1 — Specification**
-Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. The user must explicitly confirm the spec before moving on.
-**Gate G1**: User confirmed + spec aligns with constitution + inline spec review passed + scope check done.
+Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. Sketch **Logic** + **Data** in plain words (LDA-PO). The user must explicitly confirm the spec before moving on.
+**Gate G1**: User confirmed + spec aligns with constitution + inline spec review passed + scope check done + Logic/Data named.
 
 **Phase 2 — Persistent Planning**
 Generate `task_plan.md` (numbered checklist with file structure mapping + test points), `findings.md`, and `progress.md` using `planning-with-files` + `writing-plans`.
-**Gate G2**: Every task has file paths + acceptance criteria + test strategy + inline plan review passed.
+**Every plan / CreatePlan MUST include LDA-PO** — [references/solve-plan-pattern.md](references/solve-plan-pattern.md):
+1. Logic  2. Data structure  3. Architecture  4. Portal (reuse)  5. Others
+**Gate G2**: Every task has file paths + acceptance criteria + test strategy + **LDA-PO sections present** + inline plan review passed.
 
 **Phase 3 — UI/UX Design** (conditional)
 Triggered only when UI keywords are detected. Invoke `ui-ux-pro-max --design-system --persist` to generate and persist the design system (v2.5.0: 67 styles, 161 palettes, 57 fonts, 14 tech stacks, 6 specialist skills).
@@ -124,9 +127,10 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | File | When to read |
 |------|-------------|
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
+| [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
 | [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
-| [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass; edit-lock portal format/logic/data/architecture |
+| [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
 | [references/synergy-patterns.md](references/synergy-patterns.md) | Understanding cross-tool integration (6 chains) |
 | [references/integration-guide.md](references/integration-guide.md) | Setup, troubleshooting, dependency list |
 | [references/spec-kit-workflow.md](references/spec-kit-workflow.md) | Running the Spec-Kit flow |
@@ -176,7 +180,8 @@ This repo has a **locked policy** — read before mode auto-selection:
 - On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
-- **PL `/edit` URL lock (reviewed):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) — one `edit-lock.js` portal; Form + API PND gate; endt wired; quote/policy later
+- **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
+- **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
 
 ### Invocation
 

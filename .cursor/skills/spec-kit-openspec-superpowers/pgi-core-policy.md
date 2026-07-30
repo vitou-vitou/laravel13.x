@@ -96,6 +96,21 @@ Site URL: check `.env` `APP_URL` (e.g. `http://pgi-core-frontend.test` via Herd)
 - **Do not** auto-commit or auto-push unless user explicitly asks (see `99-god-speed-session.mdc`).
 - Match recent Conventional Commits style when user requests a commit.
 
+## Solve / Plan pattern — LDA-PO (locked)
+
+**Every** `/super-spec` plan, CreatePlan, and Phase 2 `task_plan` must include:
+
+1. **Logic** — rules, must vs nice  
+2. **Data structure** — where truth lives  
+3. **Architecture** — who calls whom  
+4. **Portal** — one reusable helper (or none + why)  
+5. **Others** — scope, rollout, verify  
+
+Full template: [references/solve-plan-pattern.md](references/solve-plan-pattern.md)  
+Reviewed domain example: [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
+
+Quick tasks: 5-bullet compress OK. Opt out only if user says `skip pattern`.
+
 ## PL Direct Book edit-lock portal (locked · reviewed)
 
 When work touches **Edit button**, **`/edit` route**, or **update/save** for Quote / Policy / Endorsement:

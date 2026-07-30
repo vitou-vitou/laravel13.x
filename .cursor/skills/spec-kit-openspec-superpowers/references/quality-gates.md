@@ -31,6 +31,7 @@ Between Phase 1 (Specification) and Phase 2 (Planning).
 | User confirmed | Explicit "yes", "OK", "confirmed", or equivalent | §1 Core mission |
 | Spec complete | Spec-Kit: `spec.md` has user stories + acceptance criteria · OpenSpec: proposal + spec done | §4/§6 Doc separation |
 | What vs How separated | Spec contains no implementation details | §4/§6 Doc separation |
+| Logic + Data sketched | Rules and where data lives named in plain language (LDA-PO start) | solve-plan-pattern |
 | Constitution aligned | Spec content doesn't violate any constitution clause | §2 Core principles |
 | Testable acceptance criteria | Each criterion maps to at least one test case | §2.2/§3 Testing |
 | Scope check passed | If multiple independent subsystems detected, flagged for decomposition | brainstorming |
@@ -55,6 +56,7 @@ Between Phase 2 (Planning) and Phase 3/4 (Design/Implementation).
 | File structure mapped | All files to be created/modified are mapped with responsibilities before tasks |
 | TDD test points | Each task includes a test strategy or draft test cases |
 | Acceptance traceability | Each task traces back to a confirmed acceptance criterion from G1 |
+| **LDA-PO pattern** | Plan includes Logic · Data structure · Architecture · Portal · Others (full or Quick compress) — see `solve-plan-pattern.md` |
 | Risk assessment | High-risk operations have rollback strategies noted |
 | Inline plan review passed | Self-review checklist completed (see below) |
 | User reviewed plan | User explicitly reviewed the plan document |
@@ -141,6 +143,7 @@ After writing the spec, run through this checklist before requesting user review
 - [ ] Scope is bounded — no "and also..." creep
 - [ ] Edge cases and error scenarios are documented
 - [ ] Constitution constraints are referenced where relevant
+- [ ] Logic (rules) and Data (where truth lives) are named in plain language — see `solve-plan-pattern.md`
 - [ ] If multiple subsystems detected → flagged for decomposition
 - [ ] Spec prose is plain — readable by anyone on the team
 
@@ -157,6 +160,8 @@ After writing the plan, run through this checklist before requesting user review
 - [ ] High-risk operations have rollback strategies
 - [ ] Task dependencies are explicit and ordered correctly
 - [ ] Estimated scope matches complexity triage level
+- [ ] **LDA-PO present:** Logic · Data structure · Architecture · Portal · Others (or Quick compress)
+- [ ] Portal names one reusable path **or** says none + why
 - [ ] New helpers use short names + small files (see `simple-code-voice.md`)
 
 Issues found → fix inline → re-run checklist. If 3+ blocking issues persist → escalate to user.
