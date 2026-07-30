@@ -126,6 +126,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
 | [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
+| [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass; edit-lock portal format/logic/data/architecture |
 | [references/synergy-patterns.md](references/synergy-patterns.md) | Understanding cross-tool integration (6 chains) |
 | [references/integration-guide.md](references/integration-guide.md) | Setup, troubleshooting, dependency list |
 | [references/spec-kit-workflow.md](references/spec-kit-workflow.md) | Running the Spec-Kit flow |
@@ -175,6 +176,7 @@ This repo has a **locked policy** — read before mode auto-selection:
 - On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
+- **PL `/edit` URL lock (reviewed):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) — one `edit-lock.js` portal; Form + API PND gate; endt wired; quote/policy later
 
 ### Invocation
 

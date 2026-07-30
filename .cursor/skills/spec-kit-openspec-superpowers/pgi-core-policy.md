@@ -96,6 +96,15 @@ Site URL: check `.env` `APP_URL` (e.g. `http://pgi-core-frontend.test` via Herd)
 - **Do not** auto-commit or auto-push unless user explicitly asks (see `99-god-speed-session.mdc`).
 - Match recent Conventional Commits style when user requests a commit.
 
+## PL Direct Book edit-lock portal (locked · reviewed)
+
+When work touches **Edit button**, **`/edit` route**, or **update/save** for Quote / Policy / Endorsement:
+
+1. Read [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) first.
+2. Reuse `burglary/edit-lock.js` — do not invent a second gate.
+3. Prefer small rollout: Form `guardEdit` + API PND assert; wire quote/policy only when must.
+4. Hide button alone is never enough.
+
 ## UI phase (Direct Book forms)
 
 When polishing quotation/policy Vue:
