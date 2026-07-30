@@ -78,4 +78,22 @@ Leaf exports **are** short. No long `DirectBook*` helpers. No dual aliases.
 | `planPick` / `clearPick` | `fetchDirectBookPlanSelection` / `clearDirectBookPlanSelectionCache` |
 | `midHandlers` / `fillMid` | `createDirectBookBusinessIntermediaryHandlers` / `hydrateDirectBookBusinessIntermediary` |
 
-Script to re-apply / extend: `scripts/rename-burglary-symbols.mjs`.
+### 6. PHP helpers (`app/Helpers/helpers.php`) — humanizer
+
+Same spirit as commit humanizer: short human names, not AI stacks.
+
+| Short | Was |
+|-------|-----|
+| `plFlatEndt` | `plFlattenDirectBookEndorsementDetail` |
+| `plFillClauses` | `plEnrichDirectBookClauseFields` |
+| `plApplyPeriod` | `plApplyDirectBookInsurancePeriod` |
+| `plNormDetail` | `plNormalizeDirectBookDetailObject` |
+| `plFillComm` / `plFillCommRow` | `plEnrichDirectBookCommission` / `…Row` |
+| `plPrepDetail` | endt detail chain portal |
+
+**Block** new `function pl*DirectBook*` (4+ camel chunks with `DirectBook` in the middle).  
+**Pass** 1–2 words after `pl` (`plFillClauses`, `plFlatEndt`).
+
+Checker: `node scripts/check-pl-php-helper-humanizer.mjs`
+
+Script to re-apply / extend FE renames: `scripts/rename-burglary-symbols.mjs`.
