@@ -17,6 +17,8 @@ alwaysApply: true
 3. Mode = OpenSpec (`.spec-mode` = `openspec`). Missing file → write `openspec`.
 4. Claude Senior listener ON + agent-browser when UI needed.
 5. Caveman voice ON (`caveman-mode.mdc`).
+6. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others  
+   (`spec-kit-openspec-superpowers/references/solve-plan-pattern.md`). Quick = 5-bullet compress OK.
 
 ### 任务分级（实现前必做）
 
@@ -29,6 +31,7 @@ alwaysApply: true
 ### 闸门
 
 - **G1**：无用户确认的 spec 不写代码。
+- **G2**：plan / CreatePlan 必须含 LDA-PO（Logic · Data · Architecture · Portal · Others）。
 - 用户说 "skip spec" → 礼貌拒绝，引导 `/super-spec`。
 - 已有确认 spec → 按 spec 实现。
 
