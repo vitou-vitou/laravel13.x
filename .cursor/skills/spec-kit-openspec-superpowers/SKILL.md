@@ -40,12 +40,13 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 
 On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 
+0. **AFK ON** — auto mode + auto complexity; **G1 auto-approved**; implement without waiting for "go". Detail: [references/afk-default.md](references/afk-default.md) · repo `.cursor/rules/09-afk-lda-default.mdc`. Opt out: `no afk` / `ask me` / `gate G1`.
 1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4.
 2. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
 3. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
-4. Spec gates G1–G4 still apply — listener mode does **not** skip OpenSpec.
+4. Spec gates G1–G4 still apply — listener / AFK do **not** skip OpenSpec artifacts; they skip *waiting* on G1.
 5. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
-6. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others. Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
+6. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
 7. Opt out of stack: user says `no super-spec` / `plain agent`.
 
 ## How It Works
@@ -70,7 +71,7 @@ For detailed mode workflows, read:
 
 ### Step 2: Triage Complexity
 
-The AI suggests a level; the user confirms or overrides.
+**AFK default:** auto-pick level; state one-line defaults; do **not** wait for confirm. Opt out: `ask me` / `no afk`.
 
 | Level | When | What happens |
 |-------|------|-------------|
@@ -84,8 +85,8 @@ The AI suggests a level; the user confirms or overrides.
 If `task_plan.md` exists from a previous session, read all planning files, query MemPalace for relevant history (if configured), run the 5-Question Reboot Test (Where am I? / Where am I going? / What's the goal? / What did I learn? / What did I do?), then resume from the last checkpoint.
 
 **Phase 1 — Specification**
-Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. Sketch **Logic** + **Data** in plain words (LDA-PO). The user must explicitly confirm the spec before moving on.
-**Gate G1**: User confirmed + spec aligns with constitution + inline spec review passed + scope check done + Logic/Data named.
+Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. Sketch **Logic** + **Data** + **Architecture** in plain words (LDA-PO).
+**Gate G1**: Spec aligns with constitution + inline review + scope check + Logic/Data/Architecture named. **AFK:** treat G1 as auto-approved (no wait). Non-AFK: user must explicitly confirm.
 
 **Phase 2 — Persistent Planning**
 Generate `task_plan.md` (numbered checklist with file structure mapping + test points), `findings.md`, and `progress.md` using `planning-with-files` + `writing-plans`.
@@ -128,6 +129,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 |------|-------------|
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
 | [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
+| [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
 | [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
 | [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
@@ -180,6 +182,7 @@ This repo has a **locked policy** — read before mode auto-selection:
 - On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
+- **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
 

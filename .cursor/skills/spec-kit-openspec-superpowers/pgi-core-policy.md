@@ -14,6 +14,7 @@
 | Optional | **Caveman** | Voice / token compression — `/caveman`, `normal mode` to off |
 | PL UI work | **impeccable** + Direct Book shell patterns | `01-impeccable-ui.mdc`, `DirectBookQuotationFormShell.vue` |
 | **Every session** | **Default stack** | `spec-kit-openspec-superpowers` — treat as ON (99%); no need to `@` skill each chat |
+| **Every session** | **AFK + LDA** | Auto mode/complexity; G1 auto-approved; plan via Logic · Data · Architecture first — `references/afk-default.md` · `.cursor/rules/09-afk-lda-default.mdc` |
 | **Every session** | **Claude Senior listener** | Claude heavy work; Cursor thin apply+verify — save Cursor tokens (`08-claude-senior-listener.mdc`, skill `references/claude-senior-listener.md`) |
 | UI / G4 browser proof | **agent-browser** (when needed) | Load `agent-browser` skill; smoke `APP_URL`; skip pure PHP/API/docs |
 
@@ -96,9 +97,9 @@ Site URL: check `.env` `APP_URL` (e.g. `http://pgi-core-frontend.test` via Herd)
 - **Do not** auto-commit or auto-push unless user explicitly asks (see `99-god-speed-session.mdc`).
 - Match recent Conventional Commits style when user requests a commit.
 
-## Solve / Plan pattern — LDA-PO (locked)
+## Solve / Plan pattern — LDA-PO (locked · AFK default)
 
-**Every** `/super-spec` plan, CreatePlan, and Phase 2 `task_plan` must include:
+**Every** `/super-spec` plan, CreatePlan, and Phase 2 `task_plan` must include (AFK does not skip this):
 
 1. **Logic** — rules, must vs nice  
 2. **Data structure** — where truth lives  
@@ -107,9 +108,10 @@ Site URL: check `.env` `APP_URL` (e.g. `http://pgi-core-frontend.test` via Herd)
 5. **Others** — scope, rollout, verify  
 
 Full template: [references/solve-plan-pattern.md](references/solve-plan-pattern.md)  
+AFK wire: [references/afk-default.md](references/afk-default.md)  
 Reviewed domain example: [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
 
-Quick tasks: 5-bullet compress OK. Opt out only if user says `skip pattern`.
+Quick tasks: 5-bullet compress OK. Opt out only if user says `skip pattern` / `no afk`.
 
 ## PL Direct Book edit-lock portal (locked · reviewed)
 
