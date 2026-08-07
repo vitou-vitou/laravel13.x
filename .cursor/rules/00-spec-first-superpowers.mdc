@@ -19,6 +19,7 @@ alwaysApply: true
 5. Caveman voice ON (`caveman-mode.mdc`).
 6. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others  
    (`spec-kit-openspec-superpowers/references/solve-plan-pattern.md`). Quick = 5-bullet compress OK.
+7. **Frontend → Impeccable always ON** — Vue/CSS/forms/views/`resources/js/**` → load + polish/craft (`01-impeccable-ui.mdc` · `references/impeccable-frontend.md`).
 
 ### 任务分级（实现前必做）
 

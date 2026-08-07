@@ -45,13 +45,19 @@ Confirm in one short line after load: `Stack: caveman + karpathy + clean-code + 
 
 ---
 
+## Frontend → Impeccable (always ON inside triad)
+
+When `/spec-kit-openspec-superpowers` / `/super-spec` touches frontend, **auto-load Impeccable** (setup + polish/craft). Same posture as agent-browser for UI proof. Detail: [impeccable-frontend.md](impeccable-frontend.md).
+
+Do **not** treat Impeccable as optional for Vue/CSS/forms/views. Opt out only: `no impeccable` / `skip polish`.
+
 ## OPTIONAL load (keyword / task triggered)
 
 Load only when the task needs them. Do not dump all into context.
 
 | Trigger | Skill / rule | When |
 |---------|----------------|------|
-| UI, polish, Vue, CSS, landing | `impeccable` | Design / polish phase |
+| (moved) FE Vue/CSS/forms | `impeccable` | **Always ON** for FE — see section above |
 | `AI pick my UI`, examples storefront | `laravel-ui-phase` | Post-MVP UI |
 | Anti-slop landing / catalog | `design-taste-frontend` | Marketing UI |
 | Laravel Eloquent / queues / Livewire depth | `laravel-specialist` | Backend Laravel depth |
@@ -62,7 +68,7 @@ Load only when the task needs them. Do not dump all into context.
 | Study packet / learn codebase | `system-study-packet` / `8-principle-study` | Explicit ask |
 | PL Direct Book only | `02-pl-seven-product-scope` etc. | Already alwaysApply in PL repos |
 
-User can force optional: `also load impeccable` / `@impeccable`.
+Impeccable is **not** optional for FE under the triad (auto-on). Other optionals: `also load laravel-specialist` / `@design-taste-frontend`.
 
 ---
 
@@ -72,7 +78,7 @@ User can force optional: `also load impeccable` / `@impeccable`.
 ```text
 /spec-kit-openspec-superpowers
 ```
-→ agent loads ALWAYS table, then triages.
+→ agent loads ALWAYS table, then triages. FE tasks auto-load Impeccable.
 
 **Same + explicit caveman triad phrase:**
 ```text
@@ -81,7 +87,6 @@ User can force optional: `also load impeccable` / `@impeccable`.
 
 **Add optionals:**
 ```text
-/spec-kit-openspec-superpowers + impeccable
 /super-spec Standard: … also laravel-specialist
 ```
 

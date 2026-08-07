@@ -16,6 +16,8 @@ description: >
   knowledge graph).
   Every session (pgi): Claude Senior listener mode (save Cursor tokens) +
   agent-browser when UI/browser proof needed — see references/claude-senior-listener.md.
+  Frontend tasks (Vue/CSS/forms/views/print chrome): Impeccable always ON —
+  see references/impeccable-frontend.md.
 ---
 
 # Spec-First + Superpowers Orchestrator v5
@@ -44,10 +46,11 @@ On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4.
 2. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
 3. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
-4. Spec gates G1–G4 still apply — listener / AFK do **not** skip OpenSpec artifacts; they skip *waiting* on G1.
-5. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
-6. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
-7. Opt out of stack: user says `no super-spec` / `plain agent`.
+4. **Impeccable ON for frontend** — same auto-load posture as agent-browser for UI proof. When task touches Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, or design keywords → load Impeccable setup + apply `polish` or `craft` as fit. Detail: [references/impeccable-frontend.md](references/impeccable-frontend.md) · rule `01-impeccable-ui.mdc`. Skip pure PHP/API/docs/PDF sample black borders.
+5. Spec gates G1–G4 still apply — listener / AFK do **not** skip OpenSpec artifacts; they skip *waiting* on G1.
+6. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
+7. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
+8. Opt out of stack: user says `no super-spec` / `plain agent`.
 
 ## How It Works
 
@@ -94,9 +97,12 @@ Generate `task_plan.md` (numbered checklist with file structure mapping + test p
 1. Logic  2. Data structure  3. Architecture  4. Portal (reuse)  5. Others
 **Gate G2**: Every task has file paths + acceptance criteria + test strategy + **LDA-PO sections present** + inline plan review passed.
 
-**Phase 3 — UI/UX Design** (conditional)
-Triggered only when UI keywords are detected. Invoke `ui-ux-pro-max --design-system --persist` to generate and persist the design system (v2.5.0: 67 styles, 161 palettes, 57 fonts, 14 tech stacks, 6 specialist skills).
-**Gate G3**: Pre-delivery checklist passed + user confirmed design.
+**Phase 3 — UI/UX Design** (frontend → Impeccable always ON)
+Triggered when frontend is in scope (Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, design keywords). **Do not wait for `/impeccable`.**
+1. Load Impeccable skill + setup (PRODUCT.md / load-context) — [references/impeccable-frontend.md](references/impeccable-frontend.md).
+2. Apply **`polish`** for existing screens; **`craft`** / **`shape`** for new UI surfaces.
+3. Optional: `ui-ux-pro-max --design-system --persist` when a full design-system pass is needed (v2.5.0).
+**Gate G3**: Impeccable setup applied + pre-delivery checklist passed (+ user confirmed design when non-AFK / new surface).
 
 **Phase 4 — Implementation**
 Execute via one of two strategies (AI recommends, user picks):
@@ -107,8 +113,9 @@ TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-de
 **Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`
 **SRP + thin (pgi):** one job per function/file; avoid fat shared — [references/srp-thin.md](references/srp-thin.md) · skill `refactor` (`struct-single-responsibility`)
 **Claude Senior (pgi session default):** prefer Claude-model Task / pasted Claude plan; Cursor thin apply+verify — [references/claude-senior-listener.md](references/claude-senior-listener.md).
+**Impeccable (frontend):** keep Impeccable laws + polish/craft active while editing Vue/CSS/forms/views — same always-on as Phase 3; do not drop after G3. Skip for pure PHP/API. Print PDF sample borders ≠ admin UI polish — see [references/impeccable-frontend.md](references/impeccable-frontend.md).
 **agent-browser (UI):** when Phase 4/G4 touches Vue/forms/pages, smoke via agent-browser (or IDE browser MCP if CDP fails) before claiming done.
-**Gate G4**: All tests pass + review passed + verification evidence written to `progress.md` + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
+**Gate G4**: All tests pass + review passed + verification evidence written to `progress.md` + **quick verify e2e** for view/print display slices ([references/quick-verify-e2e.md](references/quick-verify-e2e.md)) + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
 
 **Phase 5 — Archive**
 `finishing-a-development-branch` → update all checkboxes → archive spec artifacts → final `progress.md` entry → MemPalace diary entry (if configured).
@@ -128,6 +135,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | File | When to read |
 |------|-------------|
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
+| [references/quick-verify-e2e.md](references/quick-verify-e2e.md) | **G4 quick e2e** — view/print / amount display (e.g. Unlimited) |
 | [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
 | [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
@@ -140,6 +148,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | [references/mempalace-integration.md](references/mempalace-integration.md) | MemPalace memory system setup + 5 integration points |
 | [references/upgrade-protocol.md](references/upgrade-protocol.md) | `/super-spec upgrade` — standardized version sync procedure |
 | [references/claude-senior-listener.md](references/claude-senior-listener.md) | Every-session Claude Senior + Cursor listener + agent-browser hooks |
+| [references/impeccable-frontend.md](references/impeccable-frontend.md) | **FE always-on** — Impeccable setup + polish vs craft; load-context path |
 | [assets/constitutions/openspec-constitution.md](assets/constitutions/openspec-constitution.md) | OpenSpec constitution template |
 | [assets/constitutions/spec-kit-constitution.md](assets/constitutions/spec-kit-constitution.md) | Spec-Kit constitution template |
 
@@ -177,11 +186,12 @@ Read these as needed — they contain detailed procedures that would bloat this 
 
 This repo has a **locked policy** — read before mode auto-selection:
 
-- [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-product scope; no auto-commit; Claude Senior + agent-browser session defaults
+- [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-product scope; no auto-commit; Claude Senior + agent-browser + Impeccable-on-FE session defaults
 - Skill `triad-router` — manual tool-choice router (Spec-Kit vs OpenSpec vs Superpowers)
 - On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
+- **Frontend → Impeccable always ON:** [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)

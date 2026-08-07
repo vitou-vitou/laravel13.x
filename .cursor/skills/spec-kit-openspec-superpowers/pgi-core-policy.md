@@ -16,7 +16,9 @@
 | **Every session** | **Default stack** | `spec-kit-openspec-superpowers` — treat as ON (99%); no need to `@` skill each chat |
 | **Every session** | **AFK + LDA** | Auto mode/complexity; G1 auto-approved; plan via Logic · Data · Architecture first — `references/afk-default.md` · `.cursor/rules/09-afk-lda-default.mdc` |
 | **Every session** | **Claude Senior listener** | Claude heavy work; Cursor thin apply+verify — save Cursor tokens (`08-claude-senior-listener.mdc`, skill `references/claude-senior-listener.md`) |
-| UI / G4 browser proof | **agent-browser** (when needed) | Load `agent-browser` skill; smoke `APP_URL`; skip pure PHP/API/docs |
+| **Frontend (every triad)** | **Impeccable always ON** | Vue/CSS/forms/Detail/view/`resources/js/**`/`resources/css/**` → load setup + polish/craft — `references/impeccable-frontend.md` · `01-impeccable-ui.mdc`. Skip pure PHP/API; PDF sample black borders ≠ admin polish |
+| UI / G4 browser proof | **Playwright** first for PL Direct Book G4; **agent-browser** when needed | Load `agent-browser` skill only if Playwright blocked; skip pure PHP/API/docs |
+| View/print display G4 | **Quick verify e2e** | `npm run test:e2e:car-loi-unlimited` (or change script) — [references/quick-verify-e2e.md](references/quick-verify-e2e.md) |
 
 ## Product scope (Property Liability)
 
@@ -44,6 +46,7 @@ See `.cursor/rules/02-pl-seven-product-scope.mdc` for paths and execution checkl
 4. `requesting-code-review` — after major steps  
 5. `subagent-driven-development` — parallel independent tasks (prefer **Claude** model when Senior listener ON)  
 6. `agent-browser` — when UI/page/dropdown/form must be proven in a real browser  
+7. `impeccable` — **always** when frontend is in scope (setup + polish/craft) — [references/impeccable-frontend.md](references/impeccable-frontend.md)
 
 **Optional:** **caveman** — terse voice; **cavecrew** subagents for compressed investigator/builder/reviewer.
 
@@ -55,6 +58,17 @@ Default **ON** every session under `/super-spec` / this skill:
 - Opt out: `normal cursor` / `you do it` / `cursor lead`.
 - UI change → browser smoke via agent-browser (or IDE browser MCP if Chrome CDP fails).
 - Full procedure: [references/claude-senior-listener.md](references/claude-senior-listener.md).
+
+## Impeccable on frontend (session · always ON)
+
+Default **ON** for any triad / `/super-spec` task that touches frontend — same auto-load as agent-browser for UI proof:
+
+- Triggers: Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, design keywords.
+- Load Impeccable setup (PRODUCT.md / load-context) → apply **`polish`** (existing) or **`craft`**/`shape` (new surface).
+- Phase 3 + Phase 4 keep Impeccable active; do not wait for `/impeccable`.
+- Skip: pure PHP/API/docs; PDF sample black borders / print grid fidelity ≠ admin UI polish.
+- Full procedure: [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`.
+- Opt out: `no impeccable` / `skip polish` (or stack opt-out `plain agent`).
 
 ## Simple code + plain voice (locked)
 
@@ -124,11 +138,11 @@ When work touches **Edit button**, **`/edit` route**, or **update/save** for Quo
 
 ## UI phase (Direct Book forms)
 
-When polishing quotation/policy Vue:
+**Always** when quotation/policy Vue (or any FE) is in scope — not optional:
 
-1. Read **impeccable** skill + `PRODUCT.md` if present  
+1. Read **impeccable** skill + load-context / `PRODUCT.md` if present — [references/impeccable-frontend.md](references/impeccable-frontend.md)  
 2. Extend `DirectBookQuotationFormShell.vue` vocabulary (PrimeVue + Tailwind, `slate-50` sections)  
-3. `npm run build` before claiming UI done  
+3. Apply polish or craft as fit; `npm run build` before claiming UI done  
 
 ## Study docs (optional)
 
