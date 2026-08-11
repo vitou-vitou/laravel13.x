@@ -1,18 +1,16 @@
 ---
-description: "PL Direct Book: scope work to 6 products only; legacy PL out of refactor scope"
+description: "PL Direct Book: scope work to 7 products only; legacy PL out of refactor scope"
 globs: "*"
 alwaysApply: true
 ---
 
-## PL Six-Product Scope（每会话）
+## PL Seven-Product Scope（每会话）
 
-**持久指令**（用户说 stop 前一直有效）：本仓库 Property Liability 工作 **仅限 6 个 Direct Book 产品**。不重构旧产品、不重组旧产品代码。
+**持久指令**（用户说 stop 前一直有效）：本仓库 Property Liability 工作 **仅限 7 个 Direct Book 产品**。不重构旧产品、不重组旧产品代码。
 
-**2026-07-29:** Bond `0195` 已从 Direct Book 范围移除（用户明确要求，非隐藏）。不再出现在
-quote/policy picker、`directBookCodes()`、任何 Direct Book rollout 列表。`ProductCode::BOND`
-常量保留供 legacy/SM 引用。
+**2026-08-11:** Bond `0195` **restored** to Direct Book scope (journey + rules + code lists). Prior 2026-07-29 removal superseded.
 
-### In scope — 6 Direct Book products
+### In scope — 7 Direct Book products
 
 | SM code | Constant |
 |---------|----------|
@@ -21,9 +19,12 @@ quote/policy picker、`directBookCodes()`、任何 Direct Book rollout 列表。
 | `0192` | `MONEY_INSURANCE` |
 | `0193` | `PLATE_GLASS` |
 | `0194` | `CONSTRUCTION_ALL_RISKS` |
+| `0195` | `BOND` |
 | `0196` | `PROFESSIONAL_INDEMNITY` |
 
-权威列表：`ProductCode::directBookCodes()` / `ProductCode::isDirectBook()`。
+权威列表：`ProductCode::directBookCodes()` / `ProductCode::isDirectBook()` · FE `burglary/scope.js` (`QUOTE_CODES` / `POLICY_CODES` / `ENDORSEMENT_CODES`).
+
+**Journey:** `db-journey` / `7pj` — L1 Quote · L2 Policy · L3 Endorsement (all in scope) — `references/db-journey.md`.
 
 ### Out of scope — do NOT refactor or restructure
 
@@ -32,7 +33,7 @@ quote/policy picker、`directBookCodes()`、任何 Direct Book rollout 列表。
 | `0121`–`0125` | Public Liability, Fire, Property, Home Package, Business Package |
 
 - 不「顺手」改旧 PL 视图、旧 quote service（如 `PublicLiability.php`）、旧 tab/flow 结构。
-- 共享入口（`Form.vue`, `Detail.vue`, `QuoteServiceResolver`）**仅**为 6 产品路由/分支时做 **最小** 改动；禁止借机统一或清理旧产品实现。
+- 共享入口（`Form.vue`, `Detail.vue`, `QuoteServiceResolver`）**仅**为 7 产品路由/分支时做 **最小** 改动；禁止借机统一或清理旧产品实现。
 - 旧产品 bug：除非用户明确要求且无法绕过，否则不碰。
 
 ### Where new code goes
@@ -43,7 +44,7 @@ quote/policy picker、`directBookCodes()`、任何 Direct Book rollout 列表。
 - Quotation：`.../Quotation/Components/Burglary/DirectBookQuotation*.vue`
 - Policy：`.../Policy/Components/Burglary/DirectBookPolicy*.vue`, `BurglaryPolicy*.vue`
 - Endorsement：`.../Endorsement/Components/Burglary/*`
-- Per-product plan/premium：`.../Components/Burglary/*Plan.vue`, `*Premium.vue`（及同目录下 Car/Marine/PI 等切片）
+- Per-product plan/premium：`.../Components/Burglary/*Plan.vue`, `*Premium.vue`（及同目录下 Car/Marine/PI/Bond 等切片）
 - Mock / dev：`resources/js/services/property_liability/mock-burglary-service/`, `.../BurglaryMock/`
 
 **服务层**
@@ -64,13 +65,13 @@ quote/policy picker、`directBookCodes()`、任何 Direct Book rollout 列表。
 
 ### When shared code must change
 
-1. **先**在 6 产品目录下加新 slice / adapter / 小组件。
+1. **先**在 7 产品目录下加新 slice / adapter / 小组件。
 2. 共享层只加 **窄分支**（`isDirectBook`、product code switch），不抽象旧产品。
 3. 禁止跨产品大重构、禁止把旧产品迁入 Direct Book 目录「顺便整理」。
 
 ### Execution checklist
 
-- [ ] 任务是否只服务 0189 / 0191–0194 / 0196（不含 0195 Bond）？
+- [ ] 任务是否只服务 0189 / 0191–0196（含 Bond `0195`）？
 - [ ] diff 是否避开 0121–0125 实现文件？
 - [ ] 新文件是否落在 Direct Book / Burglary / mock-burglary 路径下？
 - [ ] 是否无 drive-by refactor？
