@@ -7,78 +7,99 @@
 | **`db-journey`** | Canonical (shortest clear) |
 | `/db-journey` | Cursor command |
 | `pl-journey` | Alias |
-| `7pj` | Ultra-short |
-| `7-product-journey` / `7-product-user-journey` | Same — **7** products × L1–L3 |
+| `7pj` | Ultra-short (nickname; **6** in-scope products) |
+| `7-product-journey` / `7-product-user-journey` | Legacy nickname → same list |
 
 ## Scope
 
-**In scope (7):** `0189` Marine · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0195` Bond · `0196` PI  
+**In scope (6):** `0189` Marine · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0196` PI  
 
-**Out:** legacy `0121`–`0125` only
+**Out:** Bond `0195` (removed from Direct Book) · legacy `0121`–`0125`
 
-## Default journey matrix (all phases in scope)
+## Default journey matrix
 
-For **each** of the 7 products, cover **L1–L3**:
+For **each** product, cover:
 
-| Lifecycle | Surfaces |
-|-----------|----------|
-| **L1 Quote** | Form/edit · Detail **view** · Print **PDF** |
-| **L2 Policy** | Issue/edit · Detail **view** · Print **PDF** |
-| **L3 Endorsement** | Create/edit · Detail **view** · Print **PDF** |
-
-**Cells:** 7 × 3 phases × 3 surfaces = **63** (default).
+| Phase | Surfaces |
+|-------|----------|
+| **Quote** | Form/edit · Detail **view** · Print **PDF** |
+| **Policy** | Issue/edit · Detail **view** · Print **PDF** |
+| **Endt** | Only if user said `+endt` / `endt-only` |
 
 Path map every cell: shared shell? BUR slice? PDF partial?
 
-### Checklist shape (agent must keep ticking)
+## View ↔ PDF style parity (locked experience)
 
-Group by lifecycle, then product — same as chat matrix:
+**`view-only` and `pdf-only` use the same content-style checklist** for schedule fields. Compare label wording, uppercase, order, and value presentation — not admin chrome.
 
-- L1 Quotation — 7 products × Form / View / PDF  
-- L2 Policy — 7 products × Issue-edit / View / PDF  
-- L3 Endorsement — 7 products × Create-edit / View / PDF  
+### In parity (from top of schedule through end)
+
+Typical Direct Book Detail / print block — treat as one band:
+
+- THE INSURED NAME  
+- CORRESPONDENCE ADDRESS  
+- BUSINESS / OCCUPATION  
+- … (period, wording, extensions, voyage / interest / location, premium, deductible, clauses, warranty, …)  
+- INTEREST INSURED (table + Total / extras under Total)  
+- … continue through remaining schedule rows …  
+- **ISSUED BY** (end of band)
+
+Agent must check **view and PDF** against each other for these fields (and siblings in the same schedule) unless the user narrowed to one surface.
+
+### Out of parity (do not force PDF ≈ view)
+
+| Skip | Why |
+|------|-----|
+| Colon gutter `:` in admin flex rows | View chrome; PDF uses `Label:` in label cell / 2-col print |
+| Buttons, tabs, AuthorizeBlock, download links | Admin only |
+| Loading / toast / PrimeVue chrome | Admin only |
+| Form edit controls | Not schedule view/PDF |
+| Sample black print borders vs admin grey table | Print contract ≠ admin polish (`impeccable` skip) |
+
+### Alignment discipline (when touching amounts)
+
+Follow locked **S2**: Sum Insured body + Total (+ rows under Total) **left**; label against amount column. Same on view + PDF where that Total exists.
 
 ## How agent runs it
 
 1. Load `spec-kit-openspec-superpowers` (priority).
-2. Build checklist matrix (product × phase × view/PDF); tick as you go.
-3. Prefer **reuse existing records** (`13-smoke-few-records`) — at most 1 new per product if none fit.
+2. Build checklist matrix; tick as you go.
+3. Prefer **reuse existing records** (`13-smoke-few-records`).
 4. Layout / footer / colon issues → brainstorm + visual demo before code.
-5. Fat shared files → extract BUR slice (`srp-thin`, `12-claude-task-bur-slice`).
-6. Evidence: `docs/evidence/db-journey/<code>-<phase>/` (screens / PDF page / notes).
-7. End with gap list + Next actions; **no commit** unless asked.
+5. Fat shared → BUR slice (`srp-thin`, `12-claude-task-bur-slice`).
+6. Evidence: `docs/evidence/db-journey/<code>-<phase>/`.
+7. No commit unless asked.
 
 ## Narrowing flags
 
 | Flag | Meaning |
 |------|---------|
 | `marine` / `0189` / product name | One product |
-| `quote-only` | L1 only |
-| `policy-only` | L2 only |
-| `endt-only` | L3 only |
-| `no-endt` | Skip L3 (override default) |
+| `quote-only` / `policy-only` | One phase |
+| `+endt` / `endt-only` | Include / only endorsement |
 | `audit` | Path map + gaps only, no code |
-| `view-only` / `pdf-only` | One surface class |
-| `7pj view-only` | All products × quote+policy **Detail view** only (skip PDF) |
+| **`view-only`** | All (or narrowed) products × Detail **view** — apply style parity checklist; skip PDF |
+| **`pdf-only`** | All (or narrowed) products × **PDF** — **same style checklist as view-only** (labels/fields through ISSUED BY); skip admin chrome |
+| `view-only` + `pdf-only` | Full view↔PDF parity pass |
 
 ## Example prompts
 
 ```text
-db-journey
+7pj view-only
 ```
 
 ```text
-db-journey audit
+7pj pdf-only
 ```
 
 ```text
-7pj marine quote-only
+7pj view-only pdf-only
 ```
 
 ```text
-/db-journey endt-only
+7pj pdf-only burglary
 ```
 
 ```text
-db-journey focus: Interest Insured parity view↔PDF all products
+db-journey focus: schedule labels INTEREST INSURED → ISSUED BY view↔PDF
 ```
