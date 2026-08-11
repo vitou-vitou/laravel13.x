@@ -25,6 +25,11 @@ Same checklist for schedule **content** fields from **THE INSURED NAME** / **INT
 **Not parity:** admin `:` gutter, buttons, tabs, authorize, downloads, form controls, print black borders vs admin grey.
 
 ```text
+/spec-kit-openspec-superpowers
+7pj view-only pdf-only crop png
+```
+
+```text
 7pj view-only
 7pj pdf-only
 7pj view-only pdf-only

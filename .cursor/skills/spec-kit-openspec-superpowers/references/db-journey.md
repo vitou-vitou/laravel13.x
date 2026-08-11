@@ -68,7 +68,8 @@ Follow locked **S2**: Sum Insured body + Total (+ rows under Total) **left**; la
 4. Layout / footer / colon issues → brainstorm + visual demo before code.
 5. Fat shared → BUR slice (`srp-thin`, `12-claude-task-bur-slice`).
 6. Evidence: `docs/evidence/db-journey/<code>-<phase>/`.
-7. No commit unless asked.
+7. **`crop png`** (optional flag): save **tight crops** of schedule bands (view screenshot + PDF page/region) as PNG under that folder — not full-desktop noise. Pair view crop + PDF crop per product when both surfaces run.
+8. No commit unless asked.
 
 ## Narrowing flags
 
@@ -78,11 +79,17 @@ Follow locked **S2**: Sum Insured body + Total (+ rows under Total) **left**; la
 | `quote-only` / `policy-only` | One phase |
 | `+endt` / `endt-only` | Include / only endorsement |
 | `audit` | Path map + gaps only, no code |
-| **`view-only`** | All (or narrowed) products × Detail **view** — apply style parity checklist; skip PDF |
-| **`pdf-only`** | All (or narrowed) products × **PDF** — **same style checklist as view-only** (labels/fields through ISSUED BY); skip admin chrome |
-| `view-only` + `pdf-only` | Full view↔PDF parity pass |
+| **`view-only`** | Detail **view** — style parity checklist; skip PDF |
+| **`pdf-only`** | **PDF** — same checklist as view-only; skip admin chrome |
+| **`view-only` + `pdf-only`** | Full view↔PDF parity pass |
+| **`crop png`** / `crops` | Capture PNG crops for evidence (schedule band INTEREST…ISSUED BY); store under `docs/evidence/db-journey/` |
 
 ## Example prompts
+
+```text
+/spec-kit-openspec-superpowers
+7pj view-only pdf-only crop png
+```
 
 ```text
 7pj view-only
@@ -97,7 +104,7 @@ Follow locked **S2**: Sum Insured body + Total (+ rows under Total) **left**; la
 ```
 
 ```text
-7pj pdf-only burglary
+7pj pdf-only burglary crop png
 ```
 
 ```text
