@@ -1,37 +1,39 @@
 ---
-description: "Spec-First 守门：每会话默认走 spec-kit-openspec-superpowers（99% 默认栈）"
+description: "Spec-First 守门：每会话默认走 spec-kit-openspec-superpowers（PRIORITY · 99% 默认栈）"
 globs: "*"
 alwaysApply: true
 ---
 
-## Spec-First + Superpowers（每会话 · 默认栈）
+## Spec-First + Superpowers（每会话 · 默认栈 · PRIORITY）
 
-**Default stack (99% of work):** skill  
+**Default stack (99% of work) — call this skill first:**  
 `.cursor/skills/spec-kit-openspec-superpowers/SKILL.md`  
-(+ `pgi-core-policy.md` · `references/claude-senior-listener.md`)
+(+ `pgi-core-policy.md` · `references/claude-senior-listener.md` · `references/brainstorm-think-visual.md`)
 
 **Boot (every session, before coding):**
 
-1. Treat `/spec-kit-openspec-superpowers` as **already on** — do not wait for user to attach skill.
-2. Read skill `SKILL.md` + `pgi-core-policy.md` when starting any feature / bugfix / refactor / config.
+1. Treat `/spec-kit-openspec-superpowers` as **already on** and **priority skill** — follow first for coding work; do not wait for user to attach.
+2. Read skill `SKILL.md` + `pgi-core-policy.md` when starting any feature / bug fix / refactor / config.
 3. Mode = OpenSpec (`.spec-mode` = `openspec`). Missing file → write `openspec`.
-4. Claude Senior listener ON + agent-browser when UI needed.
-5. Caveman voice ON (`caveman-mode.mdc`).
-6. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others  
+4. **Brainstorm / think-out / visual demo** when layout/print/multi-option UX (or user says brainstorm/demo) — path map (quote view · policy view · PDF) + mocks under `docs/evidence/` **before code** (`references/brainstorm-think-visual.md`). AFK does not skip option pick.
+5. Claude Senior listener ON + agent-browser when UI needed.
+6. Caveman voice ON (`caveman-mode.mdc`).
+7. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others  
    (`spec-kit-openspec-superpowers/references/solve-plan-pattern.md`). Quick = 5-bullet compress OK.
-7. **Frontend → Impeccable always ON** — Vue/CSS/forms/views/`resources/js/**` → load + polish/craft (`01-impeccable-ui.mdc` · `references/impeccable-frontend.md`).
+8. **Frontend → Impeccable always ON** — Vue/CSS/forms/views/`resources/js/**` → load + polish/craft (`01-impeccable-ui.mdc` · `references/impeccable-frontend.md`).
 
 ### 任务分级（实现前必做）
 
 | 级别 | 场景 | 流程 |
 |------|------|------|
-| **Quick** | 单文件 bugfix / typo / config | 简化 propose → TDD → 实现 |
+| **Quick** | 单文件 bug fix / typo / config | 简化 propose → TDD → 实现 |
 | **Standard** | 单功能、范围清晰 | 全阶段，G1–G4 |
 | **Thorough** | 多模块 / 架构决策 | 全阶段 + review |
+| **Visual / print layout** | footer、colon、schedule、view↔PDF | brainstorm + path map + visual demo → pick → code |
 
 ### 闸门
 
-- **G1**：无用户确认的 spec 不写代码。
+- **G1**：无用户确认的 spec 不写代码。布局多选：先 demo，用户 pick 才算 G1。
 - **G2**：plan / CreatePlan 必须含 LDA-PO（Logic · Data · Architecture · Portal · Others）。
 - 用户说 "skip spec" → 礼貌拒绝，引导 `/super-spec`。
 - 已有确认 spec → 按 spec 实现。
@@ -49,10 +51,12 @@ Also check `docs/SESSION_STATE.md` for current active change.
 ### 命令
 
 - `/super-spec` — 完整规范流程（same stack）
-- `/spec-kit-openspec-superpowers` — explicit reinforce (already default)
+- `/spec-kit-openspec-superpowers` — explicit reinforce (already default · priority)
+- `brainstorm` / `think out` / `demo first` — path map + visual mocks, no code until pick
 - Opt out of whole stack only if user says `no super-spec` / `plain agent`
 
 ### 项目策略
 
 `.cursor/skills/spec-kit-openspec-superpowers/pgi-core-policy.md`  
-**Simple code:** `.cursor/rules/04-simple-code-voice.mdc` · SRP thin: `spec-kit-openspec-superpowers/references/srp-thin.md`
+**Simple code:** `.cursor/rules/04-simple-code-voice.mdc` · SRP thin: `spec-kit-openspec-superpowers/references/srp-thin.md`  
+**Visual gate:** `spec-kit-openspec-superpowers/references/brainstorm-think-visual.md`

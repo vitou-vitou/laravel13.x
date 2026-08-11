@@ -1,23 +1,19 @@
 ---
 name: spec-kit-openspec-superpowers
 description: >
-  Enforces spec-before-code workflow for AI-driven development. Automatically selects
-  Spec-Kit or OpenSpec mode, triages complexity (quick/standard/thorough), recovers
-  session context, and applies quality gates (G0-G4) with inline self-review at every stage.
-  Use this skill whenever the user says "/super-spec", "spec first", "规范先行",
-  or starts any feature, bugfix, or refactor — especially in projects with .spec-mode,
-  .specify/, or openspec/ directories. Even if the user doesn't explicitly ask for
-  spec-driven workflow, activate this skill for any non-trivial code change to prevent
-  skipping the design phase.
-  Orchestrates: Spec-Kit (v0.7.1, Workflow Engine) / OpenSpec (OPSX v1.2.0) +
-  planning-with-files (v2.30.0) + ui-ux-pro-max (v2.5.0, 67 styles, 161 palettes,
-  14 stacks, 6 specialist skills) + Superpowers (v5.0.7, inline self-review,
-  subagent model selection) + MemPalace (v3.3.0, 29 MCP tools, cross-session memory,
-  knowledge graph).
-  Every session (pgi): Claude Senior listener mode (save Cursor tokens) +
-  agent-browser when UI/browser proof needed — see references/claude-senior-listener.md.
-  Frontend tasks (Vue/CSS/forms/views/print chrome): Impeccable always ON —
-  see references/impeccable-frontend.md.
+  PRIORITY / DEFAULT stack for pgi-core-frontend (and triad projects): call this skill
+  first for almost all coding work — before other design/implement skills.
+  Enforces spec-before-code + brainstorm / think-out-loud / visual-demo-before-code for
+  layout, print/PDF schedule, view↔policy↔PDF parity, and multi-option UX
+  (see references/brainstorm-think-visual.md). Triggers: "/super-spec",
+  "/spec-kit-openspec-superpowers", "spec first", "规范先行", "brainstorm",
+  "think out loud", "demo first", "re-demo", or any feature / bug fix / refactor —
+  especially with .spec-mode, .specify/, or openspec/. Even without an explicit ask,
+  activate for non-trivial changes so design is not skipped.
+  Orchestrates: Spec-Kit / OpenSpec + planning-with-files + ui-ux-pro-max +
+  Superpowers + MemPalace. Session defaults (pgi): Claude Senior listener,
+  agent-browser when UI proof needed, Impeccable ON for frontend,
+  brainstorm-think-visual for print/layout options.
 ---
 
 # Spec-First + Superpowers Orchestrator v5
@@ -33,8 +29,15 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 | `/super-spec force-openspec` | Force OpenSpec mode |
 | `/super-spec reset` | Reset mode selection |
 | `/super-spec upgrade` | Check all integrated projects for updates and execute upgrade |
+| `brainstorm` / `think out` / `demo first` | Path map + options + visual mocks — no code until pick ([brainstorm-think-visual](references/brainstorm-think-visual.md)) |
 | `claude senior` / `listener mode` | Reinforce Claude Senior + Cursor thin listener (default every session on pgi) |
 | `normal cursor` | Opt out — Cursor leads again |
+
+## Skill call priority
+
+**Call / follow this skill first** for pgi coding work (before ad-hoc implement, before rival design skills), unless user said `no super-spec` / `plain agent`.
+
+Within this skill, for layout / print / view↔PDF ambiguity: **brainstorm → think-out-loud path map → visual demo → user pick → then code** — [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md).
 
 ## Session defaults (every activation)
 
@@ -42,15 +45,16 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 
 On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 
-0. **AFK ON** — auto mode + auto complexity; **G1 auto-approved**; implement without waiting for "go". Detail: [references/afk-default.md](references/afk-default.md) · repo `.cursor/rules/09-afk-lda-default.mdc`. Opt out: `no afk` / `ask me` / `gate G1`.
-1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4.
-2. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
-3. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
-4. **Impeccable ON for frontend** — same auto-load posture as agent-browser for UI proof. When task touches Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, or design keywords → load Impeccable setup + apply `polish` or `craft` as fit. Detail: [references/impeccable-frontend.md](references/impeccable-frontend.md) · rule `01-impeccable-ui.mdc`. Skip pure PHP/API/docs/PDF sample black borders.
-5. Spec gates G1–G4 still apply — listener / AFK do **not** skip OpenSpec artifacts; they skip *waiting* on G1.
-6. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
-7. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
-8. Opt out of stack: user says `no super-spec` / `plain agent`.
+0. **AFK ON** — auto mode + auto complexity; **G1 auto-approved**; implement without waiting for "go". Detail: [references/afk-default.md](references/afk-default.md) · repo `.cursor/rules/09-afk-lda-default.mdc`. Opt out: `no afk` / `ask me` / `gate G1`. **Exception:** visual-demo mode active → wait for option pick before Phase 4.
+1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4. **Priority skill** — prefer over other stacks unless opted out.
+2. **Brainstorm / think-out / visual demo** — for print schedule, footers, colon/label, multi-option UX, or when user says brainstorm/demo: path map (quote view · policy view · PDF) + 2–3 options + mocks under `docs/evidence/` **before code**. Detail: [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md).
+3. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
+4. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
+5. **Impeccable ON for frontend** — same auto-load posture as agent-browser for UI proof. When task touches Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, or design keywords → load Impeccable setup + apply `polish` or `craft` as fit. Detail: [references/impeccable-frontend.md](references/impeccable-frontend.md) · rule `01-impeccable-ui.mdc`. Skip pure PHP/API/docs/PDF sample black borders.
+6. Spec gates G1–G4 still apply — listener / AFK do **not** skip OpenSpec artifacts; they skip *waiting* on G1 (except visual pick above).
+7. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
+8. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress OK).
+9. Opt out of stack: user says `no super-spec` / `plain agent`.
 
 ## How It Works
 
@@ -89,7 +93,8 @@ If `task_plan.md` exists from a previous session, read all planning files, query
 
 **Phase 1 — Specification**
 Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. Sketch **Logic** + **Data** + **Architecture** in plain words (LDA-PO).
-**Gate G1**: Spec aligns with constitution + inline review + scope check + Logic/Data/Architecture named. **AFK:** treat G1 as auto-approved (no wait). Non-AFK: user must explicitly confirm.
+When layout / print / multi-surface UX is unclear: run **brainstorm + think-out path map + visual demo** first ([references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)); user pick locks G1 for that slice.
+**Gate G1**: Spec aligns with constitution + inline review + scope check + Logic/Data/Architecture named. **AFK:** treat G1 as auto-approved (no wait) unless visual-demo mode needs a pick. Non-AFK: user must explicitly confirm.
 
 **Phase 2 — Persistent Planning**
 Generate `task_plan.md` (numbered checklist with file structure mapping + test points), `findings.md`, and `progress.md` using `planning-with-files` + `writing-plans`.
@@ -149,6 +154,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | [references/upgrade-protocol.md](references/upgrade-protocol.md) | `/super-spec upgrade` — standardized version sync procedure |
 | [references/claude-senior-listener.md](references/claude-senior-listener.md) | Every-session Claude Senior + Cursor listener + agent-browser hooks |
 | [references/impeccable-frontend.md](references/impeccable-frontend.md) | **FE always-on** — Impeccable setup + polish vs craft; load-context path |
+| [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md) | **Priority before code** — brainstorm, think-out path map (view/policy/PDF), visual demos |
 | [assets/constitutions/openspec-constitution.md](assets/constitutions/openspec-constitution.md) | OpenSpec constitution template |
 | [assets/constitutions/spec-kit-constitution.md](assets/constitutions/spec-kit-constitution.md) | Spec-Kit constitution template |
 
@@ -192,6 +198,7 @@ This repo has a **locked policy** — read before mode auto-selection:
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
 - **Frontend → Impeccable always ON:** [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`
+- **Brainstorm / visual demo before layout code:** [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)

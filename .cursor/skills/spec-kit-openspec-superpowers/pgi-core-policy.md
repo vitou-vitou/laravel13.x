@@ -13,7 +13,8 @@
 | Never | Spec-Kit **and** OpenSpec on same feature | Pick one SDD layer |
 | Optional | **Caveman** | Voice / token compression — `/caveman`, `normal mode` to off |
 | PL UI work | **impeccable** + Direct Book shell patterns | `01-impeccable-ui.mdc`, `DirectBookQuotationFormShell.vue` |
-| **Every session** | **Default stack** | `spec-kit-openspec-superpowers` — treat as ON (99%); no need to `@` skill each chat |
+| **Every session** | **Default stack (PRIORITY skill)** | `spec-kit-openspec-superpowers` — call/follow **first** for coding work (99%); no need to `@` each chat |
+| **Layout / print / multi-option UX** | **Brainstorm · think-out · visual demo** | Path map (quote view · policy view · PDF) + 2–3 options + `docs/evidence/*-demo/` mocks **before code** — `references/brainstorm-think-visual.md`. AFK does not skip option pick. |
 | **Every session** | **AFK + LDA** | Auto mode/complexity; G1 auto-approved; plan via Logic · Data · Architecture first — `references/afk-default.md` · `.cursor/rules/09-afk-lda-default.mdc` |
 | **Every session** | **Claude Senior listener** | Claude heavy work; Cursor thin apply+verify — save Cursor tokens (`08-claude-senior-listener.mdc`, skill `references/claude-senior-listener.md`) |
 | **Frontend (every triad)** | **Impeccable always ON** | Vue/CSS/forms/Detail/view/`resources/js/**`/`resources/css/**` → load setup + polish/craft — `references/impeccable-frontend.md` · `01-impeccable-ui.mdc`. Skip pure PHP/API; PDF sample black borders ≠ admin polish |
@@ -40,13 +41,26 @@ See `.cursor/rules/02-pl-seven-product-scope.mdc` for paths and execution checkl
 
 ## Superpowers skills to prefer during implement
 
-1. `test-driven-development` — before production code  
-2. `verification-before-completion` — before claiming done  
-3. `systematic-debugging` — on test failures  
-4. `requesting-code-review` — after major steps  
-5. `subagent-driven-development` — parallel independent tasks (prefer **Claude** model when Senior listener ON)  
-6. `agent-browser` — when UI/page/dropdown/form must be proven in a real browser  
-7. `impeccable` — **always** when frontend is in scope (setup + polish/craft) — [references/impeccable-frontend.md](references/impeccable-frontend.md)
+0. **This orchestrator** (`spec-kit-openspec-superpowers`) — **priority call**; includes brainstorm/think-out/visual-demo gate  
+1. `brainstorming` (optional deepen) — only if triad ref is not enough; still no code until pick  
+2. `test-driven-development` — before production code  
+3. `verification-before-completion` — before claiming done  
+4. `systematic-debugging` — on test failures  
+5. `requesting-code-review` — after major steps  
+6. `subagent-driven-development` — parallel independent tasks (prefer **Claude** model when Senior listener ON)  
+7. `agent-browser` — when UI/page/dropdown/form must be proven in a real browser  
+8. `impeccable` — **always** when frontend is in scope (setup + polish/craft) — [references/impeccable-frontend.md](references/impeccable-frontend.md)
+
+## Brainstorm · think-out · visual demo (locked preference)
+
+When user asks to brainstorm / think out loud / re-demo, **or** layout spans view · policy view · PDF:
+
+1. Path map first (what shares `Detail.vue` vs print blade).
+2. 2–3 named options + recommendation.
+3. Visual mocks under `docs/evidence/` — **no production code** until pick.
+4. After pick → minimal implement + smoke quote and note policy parity.
+
+Full procedure: [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md).
 
 **Optional:** **caveman** — terse voice; **cavecrew** subagents for compressed investigator/builder/reviewer.
 

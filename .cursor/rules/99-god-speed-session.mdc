@@ -12,11 +12,12 @@ Master orchestrator. Task-based routing; don't duplicate child rules — read th
 
 `caveman-mode.mdc` — terse, conclusion-first, no filler. **Off:** user says `normal mode` → full prose until they re-enable caveman.
 
-### 2. Spec-first（编码任务 · 默认栈）
+### 2. Spec-first（编码任务 · 默认栈 · PRIORITY）
 
-**Always:** `spec-kit-openspec-superpowers` — treat as ON every session (99%). See `00-spec-first-superpowers.mdc`.  
-Feature / bugfix / refactor / config → read skill + policy, triage Quick/Standard/Thorough, **G1 before code**.  
-Active PL: check `docs/SESSION_STATE.md`. **"skip spec"** → refuse; redirect `/super-spec`.  
+**Always:** `spec-kit-openspec-superpowers` — **priority skill**; treat as ON every session (99%). See `00-spec-first-superpowers.mdc`. 
+Feature / bugfix / refactor / config → read skill + policy, triage Quick/Standard/Thorough, **G1 before code**. 
+Layout / print / multi-option → **brainstorm + think-out path map + visual demo** first (`references/brainstorm-think-visual.md`); no code until pick.
+Active PL: check `docs/SESSION_STATE.md`. **"skip spec"** → refuse; redirect `/super-spec`. 
 Opt out: `no super-spec` / `plain agent`.
 
 ### 3. UI / Vue / CSS
