@@ -59,6 +59,7 @@ Group by lifecycle, then product — same as chat matrix:
 | `no-endt` | Skip L3 (override default) |
 | `audit` | Path map + gaps only, no code |
 | `view-only` / `pdf-only` | One surface class |
+| `7pj view-only` | All products × quote+policy **Detail view** only (skip PDF) |
 
 ## Example prompts
 
