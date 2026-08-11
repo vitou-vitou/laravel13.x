@@ -8,25 +8,35 @@
 | `/db-journey` | Cursor command |
 | `pl-journey` | Alias |
 | `7pj` | Ultra-short |
-| `7-product-journey` / `7-product-user-journey` | Legacy nickname → **6** in-scope products |
+| `7-product-journey` / `7-product-user-journey` | Same — **7** products × L1–L3 |
 
 ## Scope
 
-**In scope (6):** `0189` Marine · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0196` PI  
+**In scope (7):** `0189` Marine · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0195` Bond · `0196` PI  
 
-**Out:** Bond `0195` (removed from Direct Book) · legacy `0121`–`0125`
+**Out:** legacy `0121`–`0125` only
 
-## Default journey matrix
+## Default journey matrix (all phases in scope)
 
-For **each** product, cover:
+For **each** of the 7 products, cover **L1–L3**:
 
-| Phase | Surfaces |
-|-------|----------|
-| **Quote** | Form/edit · Detail **view** · Print **PDF** |
-| **Policy** | Issue/edit · Detail **view** · Print **PDF** |
-| **Endt** | Only if user said `+endt` |
+| Lifecycle | Surfaces |
+|-----------|----------|
+| **L1 Quote** | Form/edit · Detail **view** · Print **PDF** |
+| **L2 Policy** | Issue/edit · Detail **view** · Print **PDF** |
+| **L3 Endorsement** | Create/edit · Detail **view** · Print **PDF** |
+
+**Cells:** 7 × 3 phases × 3 surfaces = **63** (default).
 
 Path map every cell: shared shell? BUR slice? PDF partial?
+
+### Checklist shape (agent must keep ticking)
+
+Group by lifecycle, then product — same as chat matrix:
+
+- L1 Quotation — 7 products × Form / View / PDF  
+- L2 Policy — 7 products × Issue-edit / View / PDF  
+- L3 Endorsement — 7 products × Create-edit / View / PDF  
 
 ## How agent runs it
 
@@ -43,9 +53,10 @@ Path map every cell: shared shell? BUR slice? PDF partial?
 | Flag | Meaning |
 |------|---------|
 | `marine` / `0189` / product name | One product |
-| `quote-only` | Quote surfaces only |
-| `policy-only` | Policy surfaces only |
-| `+endt` | Add endorsement phase |
+| `quote-only` | L1 only |
+| `policy-only` | L2 only |
+| `endt-only` | L3 only |
+| `no-endt` | Skip L3 (override default) |
 | `audit` | Path map + gaps only, no code |
 | `view-only` / `pdf-only` | One surface class |
 
@@ -64,7 +75,7 @@ db-journey audit
 ```
 
 ```text
-/db-journey +endt
+/db-journey endt-only
 ```
 
 ```text

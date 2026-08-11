@@ -30,7 +30,7 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 | `/super-spec reset` | Reset mode selection |
 | `/super-spec upgrade` | Check all integrated projects for updates and execute upgrade |
 | `brainstorm` / `think out` / `demo first` | Path map + options + visual mocks — no code until pick ([brainstorm-think-visual](references/brainstorm-think-visual.md)) |
-| `db-journey` / `7pj` / `pl-journey` | Long Direct Book user journey — all in-scope products × quote/policy ([db-journey](references/db-journey.md)) |
+| `db-journey` / `7pj` / `pl-journey` | Long Direct Book user journey — 7 products × quote/policy/endt ([db-journey](references/db-journey.md)) |
 | `claude senior` / `listener mode` | Reinforce Claude Senior + Cursor thin listener (default every session on pgi) |
 | `normal cursor` | Opt out — Cursor leads again |
 
@@ -200,7 +200,7 @@ This repo has a **locked policy** — read before mode auto-selection:
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
 - **Frontend → Impeccable always ON:** [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`
 - **Brainstorm / visual demo before layout code:** [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)
-- **Long journey:** `db-journey` / `7pj` — [references/db-journey.md](references/db-journey.md)
+- **Long journey:** `db-journey` / `7pj` — 7 products × L1–L3 — [references/db-journey.md](references/db-journey.md)
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
