@@ -28,7 +28,7 @@
 | 6 | Time Tracking & Timesheets | `06-time-tracking.html` | DONE |
 | 7 | Invoicing & Billing | `07-invoicing.html` | DONE |
 | 8 | Form Builder (Typeform-style) | `08-form-builder.html` | DONE |
-| 9 | Survey & Polling Platform | `09-survey.html` | TODO |
+| 9 | Survey & Polling Platform | `09-survey.html` | DONE |
 | 10 | Knowledge Base / Wiki | `10-knowledge-base.html` | TODO |
 | 11 | Calendar & Scheduling | `11-calendar-scheduling.html` | TODO |
 | 12 | Email Marketing (Mailchimp-style) | `12-email-marketing.html` | TODO |

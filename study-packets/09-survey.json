@@ -1,0 +1,181 @@
+{
+  "title": "Building a Survey & Polling Platform in Laravel",
+  "subtitle": "Questions as data, response collection, aggregation pipelines, anonymity guarantees, branching logic, and real-time results — the Laravel architecture behind a survey and polling platform.",
+  "badges": ["Level: Professional", "Laravel 11/12 · PHP 8.2+", "8-Principle Method", "~80 min first pass"],
+  "sections": [
+    {
+      "id":"p1","pill":"Principle 1 — Map of the System","step":false,
+      "h2":"How a survey & polling platform fits together",
+      "blocks":[
+        {"p":"A survey platform is a <strong>data-driven instrument that collects answers, enforces participation rules, and aggregates results</strong>. The pressure: creators define questions (not developers), so every question type, branch rule, and anonymity setting is <em>data</em>; the same engine must render the instrument, validate responses, prevent duplicate votes, and compute live or exportable aggregates."},
+        {"diagram":"Creator (researcher / admin)\n └─ Survey (title, status, anonymity mode, close_at)\n     ├─ Questions (type, options, required, branch rules, position)\n     ├─ Responses (answers keyed by question id + respondent token)\n     └─ Aggregates (counts, percentages, weighted scores)\n          └─ dashboards, exports, real-time broadcasts\n Respondent ──► answers questions ──► validated + deduped ──► stored"},
+        {"p":"The defining action — a response — flows through validation, identity/anonymity checks, and aggregation:"},
+        {"diagram":"Respondent submits answers\n   │\n   ▼ load survey schema (questions + branch rules + status)\n   ▼ resolve visible questions from branch logic\n   ▼ build validation rules dynamically from schema\n   ▼ check duplicate vote / quota / survey closed\n   ▼ validate ; on fail → errors keyed by question\n   │ on pass\n   ▼ store Response (answers + respondent_token hash)\n   ▼ update aggregate counters (sync or queued)\n   ▼ broadcast SurveyResultsUpdated (Reverb/Pusher) if live results enabled"},
+        {"ul":[
+          "<strong>Question schema</strong> — questions as data (type, options, required, branch rules, scoring weights).",
+          "<strong>Response collection</strong> — validate against schema, enforce one-vote rules, handle partial vs complete submissions.",
+          "<strong>Aggregation</strong> — precomputed counters vs on-demand queries; how anonymity affects storage.",
+          "<strong>Branching & live results</strong> — skip logic re-evaluated server-side; cached aggregates pushed over websockets."
+        ]},
+        {"callout":"A survey platform is a <em>runtime interpreter of a question schema plus an aggregation pipeline</em>: one schema drives rendering, validation, and reporting. The hard parts are trustworthy server-side branching, duplicate-vote prevention, and fast aggregates without leaking identity.","title":"The mental model in one sentence"}
+      ]
+    },
+    {
+      "id":"p2","pill":"Principle 2 — Clear Explanations","step":false,
+      "h2":"The concepts, defined precisely",
+      "blocks":[
+        {"h3":"Survey vs poll"},
+        {"p":"Both collect answers from a schema, but they differ in scope and rules. A <strong>poll</strong> is typically short (one or few questions), often public, with immediate tallies and strict one-vote enforcement. A <strong>survey</strong> is longer, may be multi-page, supports branching, quotas, and partial completion. In Laravel, model both as the same <code>Survey</code> with a <code>kind</code> flag or shared tables — the engine is identical; UX and validation rules differ (e.g. polls reject partial saves)."},
+        {"h3":"Questions are data, not code"},
+        {"p":"Each <strong>question</strong> is a record: <code>type</code> (single_choice, multiple_choice, likert, text, ranking, matrix), <code>prompt</code>, <code>options</code> (for choices), <code>required</code>, <code>branch_rules</code>, and optional <code>weight</code> for scoring. Store questions as ordered rows or JSON. The application interprets the schema; it never hard-codes a specific instrument."},
+        {"h3":"Anonymity and respondent identity"},
+        {"p":"Three common modes. <strong>Anonymous</strong>: store no user id or PII; use a hashed <code>respondent_token</code> (cookie/session fingerprint) only to prevent duplicate votes — never reversible to identity. <strong>Identified</strong>: link responses to <code>user_id</code> for longitudinal studies. <strong>Confidential</strong>: store user id separately from answers in different tables with strict access controls so analysts can't join them casually. Document the mode in the survey record; enforce it in storage and export APIs."},
+        {"h3":"Duplicate vote prevention"},
+        {"p":"Polls require <strong>at-most-once</strong> participation. Layer checks: authenticated users → unique index on <code>(survey_id, user_id)</code>; anonymous → hash a stable token (signed cookie + survey salt) and unique index on <code>(survey_id, respondent_token_hash)</code>. Rate-limit by IP as a backstop, not the sole guard (shared NAT). Return a friendly 'already voted' without revealing whether others voted."},
+        {"h3":"Aggregation: sync counters vs query-on-read"},
+        {"p":"For live polls, <strong>precomputed counters</strong> win: on each response, increment choice counts in an <code>aggregate_options</code> table or Redis hash — O(1) reads for dashboards. For complex surveys (cross-tabs, filters, open-text search), query normalized answers on demand or maintain a reporting projection. Never expose per-response rows in public live results; only publish totals."},
+        {"h3":"Branching logic (skip logic)"},
+        {"p":"Questions can show/skip based on earlier answers ('if satisfaction &lt; 3, show follow-up'). Store rules as data referencing question ids. The client uses them for UX, but the server must <strong>re-evaluate</strong> during validation — only require/accept questions that should be visible given submitted answers. Skipped questions must not appear in required validation."},
+        {"h3":"Real-time results"},
+        {"p":"When <code>show_live_results</code> is enabled, push aggregate updates after each response via Laravel broadcasting (<code>SurveyResultsUpdated</code> on a public channel keyed by survey slug). Cache the latest totals in Redis; the broadcast payload carries counts only, never individual answers. Disable or delay live results until the poll closes if early votes would bias participation (bandwagon effect)."},
+        {"h3":"Survey lifecycle and quotas"},
+        {"p":"Surveys move through <code>draft → open → closed</code>. Respect <code>close_at</code>, max response count, and per-segment <strong>quotas</strong> (e.g. stop accepting when 100 responses from '18–24' are reached). Check status and quota inside a transaction before insert to avoid race overshoot."},
+        {"callout":"Treating a poll's 'one vote per person' as client-side only, or storing anonymous tokens in plain text, are the classic survey-platform failures. Enforce participation rules and anonymity on the server with hashed tokens and database constraints.","title":"Most common misconception","kind":"danger"}
+      ]
+    },
+    {
+      "id":"p3","pill":"Principle 3 — Different Media","step":false,
+      "h2":"The same ideas, four ways",
+      "blocks":[
+        {"h4":"One-line summary"},
+        {"p":"A survey platform stores questions as a schema, collects validated responses with server-enforced anonymity and duplicate-vote rules, maintains aggregate counters for fast reporting, re-evaluates branching on the server, and optionally broadcasts live totals without leaking individual answers."},
+        {"h4":"Analogy — the ballot box and tally board"},
+        {"p":"The <strong>ballot</strong> is the question schema; the <strong>slot</strong> accepts one envelope per voter (duplicate prevention). Anonymous surveys use a numbered stub torn off and hashed — you can tell if someone already voted, but not who they are. The <strong>tally board</strong> on the wall shows running totals (precomputed aggregates), updated after each ballot is counted. Branching is like conditional pages on a paper form ('if you answered No, skip to question 5') — and the official counter re-checks those rules, not the voter."},
+        {"h4":"Comparison — aggregation strategies"},
+        {"table":{"head":["Strategy","Read speed","Complexity","When"],
+          "rows":[
+            ["Precomputed counters (DB/Redis)","Very fast","Medium","Live polls, dashboards"],
+            ["Query normalized answers","Slower at scale","Lower initially","Ad-hoc survey analysis"],
+            ["JSON answers + projection","Fast reads after project","Higher","Long surveys, BI exports"],
+            ["On-demand only (no cache)","Simple","Low","Low-traffic internal surveys"]
+          ]}},
+        {"h4":"Diagram — schema drives collection and aggregation"},
+        {"diagram":"           ┌─────────────────┐\n           │ Question Schema │ (questions as data)\n           └────────┬────────┘\n        ┌────────────┼────────────┐\n        ▼            ▼            ▼\n     Render     Validate     Aggregate\n   (UI/flow)   (server +     (counters /\n               branch logic)   broadcasts)"}
+      ]
+    },
+    {
+      "id":"p4","pill":"Principle 4 — Short Lessons","step":false,
+      "h2":"Bite-sized micro-lessons",
+      "blocks":[
+        {"p":"Each lesson is one idea. Code illustrative."},
+        {"h3":"Lesson 1 — Model questions as data"},
+        {"code":"// questions: id, survey_id, type, prompt, options(json), required, branch_rules(json), weight, position\nclass Question extends Model {\n    protected $casts = [\n        'options' => 'array',\n        'branch_rules' => 'array',\n        'required' => 'boolean',\n        'weight' => 'float',\n    ];\n}","lang":"php"},
+        {"h3":"Lesson 2 — Hash anonymous respondent tokens"},
+        {"code":"function respondentTokenHash(Survey $survey, string $rawToken): string {\n    return hash_hmac('sha256', $rawToken, $survey->anonymity_salt);\n}\n// store respondent_token_hash only — never the raw token or user_id when anonymous","lang":"php"},
+        {"h3":"Lesson 3 — Build validation from visible questions"},
+        {"code":"public function rulesFor(Survey $survey, array $visible): array {\n    $rules = [];\n    foreach ($survey->questions as $q) {\n        if (!in_array($q->id, $visible)) continue;\n        $r = $q->required ? ['required'] : ['nullable'];\n        $rules[\"answers.{$q->id}\"] = match ($q->type) {\n            'single_choice' => array_merge($r, ['string', Rule::in($q->optionIds())]),\n            'multiple_choice' => array_merge($r, ['array'], ['answers.'.$q->id.'.*' => Rule::in($q->optionIds())]),\n            'likert' => array_merge($r, ['integer', 'between:1,5']),\n            default => $r,\n        };\n    }\n    return $rules;\n}","lang":"php"},
+        {"h3":"Lesson 4 — Submit with duplicate-vote guard"},
+        {"code":"public function submit(Request $r, Survey $survey) {\n    abort_if($survey->isClosed(), 403);\n    $tokenHash = $this->respondentTokenHash($survey, $r->cookie('rs_token'));\n    abort_if($survey->responses()->where('respondent_token_hash', $tokenHash)->exists(), 409);\n\n    $visible = $this->resolveVisibleQuestions($survey, $r->input('answers', []));\n    $data = $r->validate($this->rulesFor($survey, $visible));\n\n    DB::transaction(function () use ($survey, $data, $tokenHash) {\n        $survey->responses()->create(['answers' => $data['answers'], 'respondent_token_hash' => $tokenHash]);\n        UpdateSurveyAggregates::dispatch($survey, $data['answers']); // queued\n    });\n}","lang":"php"},
+        {"h3":"Lesson 5 — Re-evaluate branching server-side"},
+        {"code":"function resolveVisibleQuestions(Survey $survey, array $answers): array {\n    return $survey->questions->filter(function ($q) use ($answers) {\n        foreach ($q->branch_rules ?? [] as $rule) {\n            $val = $answers[$rule['question_id']] ?? null;\n            if (!$this->branchMatches($rule, $val)) return false;\n        }\n        return true;\n    })->pluck('id')->all();\n}","lang":"php"},
+        {"h3":"Lesson 6 — Increment aggregate counters"},
+        {"code":"// aggregate_options: survey_id, question_id, option_id, count\nforeach ($answers as $questionId => $choice) {\n    foreach ((array) $choice as $optionId) {\n        AggregateOption::updateOrCreate(\n            compact('surveyId', 'questionId', 'optionId'),\n            []\n        )->increment('count');\n    }\n}\nSurveyResultsUpdated::dispatch($survey->slug, $this->totals($survey));","lang":"php"},
+        {"h3":"Lesson 7 — Broadcast totals, not rows"},
+        {"code":"class SurveyResultsUpdated implements ShouldBroadcast {\n    public function broadcastWith(): array {\n        return ['totals' => $this->totals]; // counts/percentages only\n    }\n    public function broadcastOn(): Channel {\n        return new Channel('surveys.'.$this->slug);\n    }\n}","lang":"php"}
+      ]
+    },
+    {
+      "id":"p5","pill":"Principle 5 — Test Yourself","step":true,
+      "h2":"Retrieval-practice quiz",
+      "blocks":[
+        {"p":"Answer before revealing."},
+        {"quiz":{"sec":"p5","items":[
+          {"q":"Q1. How do a poll and a survey differ in this architecture?","a":"Same engine (question schema + responses + aggregates); polls are short, often public, with strict one-vote rules and immediate tallies. Surveys are longer, may allow partial completion, branching, and quotas. Model both with shared tables; differ by kind/status rules."},
+          {"q":"Q2. What three anonymity modes exist and how do they affect storage?","a":"Anonymous: no user_id/PII, only hashed respondent_token for dedup. Identified: link response to user_id. Confidential: separate identity from answers with strict access controls. The survey record declares the mode; storage and exports must enforce it."},
+          {"q":"Q3. How do you prevent duplicate votes in an anonymous poll?","a":"Issue a stable token (signed cookie), hash it with a survey-specific salt, store only the hash, and enforce a unique index on (survey_id, respondent_token_hash). Rate-limit by IP as backstop. Never rely on client-side checks alone."},
+          {"q":"Q4. Why precompute aggregate counters for live results?","a":"O(1) reads for dashboards and websocket payloads; querying all responses per page view doesn't scale. Increment counters on each response (DB or Redis), broadcast totals only — never individual rows."},
+          {"q":"Q5. How must branching (skip) logic be handled on the server?","a":"Re-evaluate visibility from submitted answers before validation; only require/accept questions that should show. Client branching is UX only — hidden questions must not be required or stored as answered."},
+          {"q":"Q6. What checks run before accepting a response?","a":"Survey not closed (status/close_at), quota not exceeded, duplicate vote not detected, visible questions resolved, dynamic validation passes — ideally inside a transaction to avoid race overshoot on quotas."}
+        ]}},
+        {"h3":"Code drill — duplicate vote rejected (Pest)"},
+        {"code":"it('rejects a second vote from the same anonymous token', function () {\n    $survey = Survey::factory()->anonymous()->open()->create();\n    $token = 'abc123';\n    $hash = hash_hmac('sha256', $token, $survey->anonymity_salt);\n    $survey->responses()->create(['respondent_token_hash' => $hash, 'answers' => ['q1' => 'a']]);\n\n    $this->withCookie('rs_token', $token)\n        ->postJson(\"/surveys/{$survey->slug}/respond\", ['answers' => ['q1' => 'b']])\n        ->assertStatus(409);\n});","lang":"php"}
+      ]
+    },
+    {
+      "id":"p6","pill":"Principle 6 — Wait to Review","step":true,
+      "h2":"Spaced-repetition schedule",
+      "blocks":[
+        {"p":"Re-do the quiz from memory; redraw 'schema → validate → aggregate' each session."},
+        {"table":{"class":"sched","head":["When","Session (~10–15 min)","Goal"],
+          "rows":[
+            ["Day 0","Read packet; quiz with answers open.","Build the model."],
+            ["Day 1","Quiz closed-book; restate response submission flow.","First retrieval."],
+            ["Day 3","Flashcards; explain anonymity modes aloud.","Strengthen."],
+            ["Day 7","Interleaved quiz; write rulesFor() from blank.","Mix contexts."],
+            ["Day 16","Re-derive duplicate-vote hashing reasoning.","Widen interval."],
+            ["Day 35","Teach branching re-evaluation to someone.","Consolidate."],
+            ["Day 70","Closed-book interleaved pass; misses restart Day 1.","Long-term."]
+          ]}},
+        {"callout":"Retrieving just before you'd forget produces the strongest gain.","title":"Why the gaps grow"}
+      ]
+    },
+    {
+      "id":"p7","pill":"Principle 7 — Mix It Up","step":true,
+      "h2":"Interleaved quiz",
+      "blocks":[
+        {"p":"Topics shuffled to train choosing the right idea."},
+        {"quiz":{"sec":"p7","items":[
+          {"q":"M1. Live poll totals lag 30 seconds behind submissions. Likely cause?","a":"Aggregates updated in a slow queued job or queried on-read instead of incrementing counters. Increment precomputed counters synchronously (or fast queue) and cache latest totals for broadcast."},
+          {"q":"M2. An 'anonymous' survey exports user emails alongside answers. Fix?","a":"Anonymity mode violated — anonymous surveys must not store or join PII. Separate confidential identity if needed; enforce mode in schema, storage, and export APIs."},
+          {"q":"M3. Users report voting twice from the same phone on a public poll. Bug?","a":"Duplicate prevention missing or client-only. Add hashed respondent_token with unique DB constraint; authenticated polls also unique on (survey_id, user_id)."},
+          {"q":"M4. A follow-up question is required even when the branch should skip it. Bug?","a":"Branch logic not re-evaluated server-side. Compute visible questions from answers before building validation rules."},
+          {"q":"M5. Early voters skew results because everyone sees live percentages. Mitigation?","a":"Disable live results until close, or show totals without percentages, or delay broadcast — bandwagon bias is a product rule, not just a tech issue."},
+          {"q":"M6. Quota for 'Region: West' exceeded by 3 responses under concurrent load. Fix?","a":"Check quota inside a transaction with row lock or atomic counter decrement; reject when quota reached. Race without transaction allows overshoot."}
+        ]}}
+      ]
+    },
+    {
+      "id":"p8","pill":"Principle 8 — Don't Stop","step":true,
+      "h2":"Overlearning plan",
+      "blocks":[
+        {"ul":[
+          "<strong>Build duplicate prevention two ways</strong> — IP-only vs hashed token + unique index — and watch IP-only fail on shared networks.",
+          "<strong>Break anonymity on purpose</strong> — store raw cookies or join user_id to answers in an 'anonymous' survey, then audit exports.",
+          "<strong>Write bypass tests first</strong>: second vote, hidden-question injection, closed survey submit, quota race.",
+          "<strong>Add multi-page surveys</strong> with partial saves, resume tokens, and progress percentage.",
+          "<strong>Stretch goals:</strong> cross-tab reporting, weighted scoring (NPS), survey logic builder UI, CSV/SPSS export, quota segments, scheduled open/close, and bias-aware live-result modes."
+        ]}
+      ]
+    }
+  ],
+  "flashcards": [
+    ["What a survey platform fundamentally is","A runtime interpreter of a question schema plus an aggregation pipeline for collection, validation, and reporting."],
+    ["Survey vs poll in one line","Same engine; polls are short/public/one-vote/live-tally; surveys are longer with branching, quotas, partial saves."],
+    ["Three anonymity modes","Anonymous (hashed token only), Identified (user_id linked), Confidential (identity separated with strict access)."],
+    ["Anonymous duplicate-vote pattern","Stable cookie token → HMAC hash with survey salt → unique (survey_id, respondent_token_hash)."],
+    ["Why not IP-only dedup","Shared NAT/college networks cause false blocks or missed duplicates; token hash is primary."],
+    ["Precomputed vs query-on-read aggregates","Counters: O(1) live reads. Query: flexible but slow at scale. Use counters for polls, projections for complex surveys."],
+    ["Server-side branching rule","Re-evaluate visible questions from submitted answers; only validate/require those."],
+    ["Live results broadcast rule","Push totals/percentages only via SurveyResultsUpdated; never individual response rows."],
+    ["Survey lifecycle states","draft → open → closed; enforce close_at, max responses, and segment quotas before insert."],
+    ["Quota race fix","Check/decrement quota inside a DB transaction with locking to prevent overshoot."],
+    ["Bandwagon bias mitigation","Hide live percentages until close, or delay/disable live results during voting."],
+    ["Question types to model as data","single_choice, multiple_choice, likert, text, ranking, matrix — each with options and validation rules."],
+    ["Confidential vs anonymous","Confidential may store identity separately for admin use; anonymous must never allow casual re-identification."]
+  ],
+  "glossary": [
+    ["Survey schema","The set of questions (as data) defining an instrument."],
+    ["Question","A typed prompt definition: type, options, required, branch rules, weight."],
+    ["Poll","A short, often public survey with strict one-vote rules and live tallies."],
+    ["Response","A respondent's set of answers to a survey, stored keyed by question id."],
+    ["Respondent token","A stable client identifier hashed for anonymous duplicate-vote prevention."],
+    ["Anonymity mode","Whether responses link to identity: anonymous, identified, or confidential."],
+    ["Branching logic","Rules showing or skipping questions based on earlier answers."],
+    ["Aggregate counters","Precomputed per-option counts updated on each response for fast reads."],
+    ["Quota","A cap on responses for a survey or segment (e.g. demographic bucket)."],
+    ["Live results","Real-time broadcast of aggregate totals, not individual answers."],
+    ["Skip logic","Server-re-evaluated rules determining which questions are visible."],
+    ["Reporting projection","Denormalized answer store derived from responses for analytics/export."],
+    ["Bandwagon effect","Participation bias when voters see early results before casting their vote."]
+  ]
+}
