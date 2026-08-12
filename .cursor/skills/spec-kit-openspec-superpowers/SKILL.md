@@ -121,7 +121,7 @@ TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-de
 **Claude Senior (pgi session default):** prefer Claude-model Task / pasted Claude plan; Cursor thin apply+verify — [references/claude-senior-listener.md](references/claude-senior-listener.md).
 **Impeccable (frontend):** keep Impeccable laws + polish/craft active while editing Vue/CSS/forms/views — same always-on as Phase 3; do not drop after G3. Skip for pure PHP/API. Print PDF sample borders ≠ admin UI polish — see [references/impeccable-frontend.md](references/impeccable-frontend.md).
 **agent-browser (UI):** when Phase 4/G4 touches Vue/forms/pages, smoke via agent-browser (or IDE browser MCP if CDP fails) before claiming done.
-**Gate G4**: All tests pass + review passed + verification evidence written to `progress.md` + **quick verify e2e** for view/print display slices ([references/quick-verify-e2e.md](references/quick-verify-e2e.md)) + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
+**Gate G4**: All tests pass + two-stage review (spec via `requesting-code-review` → quality via **`code-review-and-quality`** — [references/code-review-combo.md](references/code-review-combo.md)) + verification evidence written to `progress.md` + **quick verify e2e** for view/print display slices ([references/quick-verify-e2e.md](references/quick-verify-e2e.md)) + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
 
 **Phase 5 — Archive**
 `finishing-a-development-branch` → update all checkboxes → archive spec artifacts → final `progress.md` entry → MemPalace diary entry (if configured).
@@ -141,6 +141,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | File | When to read |
 |------|-------------|
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
+| [references/code-review-combo.md](references/code-review-combo.md) | **G4 quality** — wire `code-review-and-quality` + requesting-code-review |
 | [references/quick-verify-e2e.md](references/quick-verify-e2e.md) | **G4 quick e2e** — view/print / amount display (e.g. Unlimited) |
 | [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
 | [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |

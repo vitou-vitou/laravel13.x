@@ -64,11 +64,16 @@ Load only when the task needs them. Do not dump all into context.
 | Greenfield MVP SDD | `spec-kit` | After mode = Spec-Kit |
 | Post-MVP change order | `openspec` | After mode = OpenSpec |
 | TDD / debug / verify | `superpowers` | Phase 4+ (default during implement) |
+| G4 / before merge / `review` / agent-written slice | **`code-review-and-quality`** | Five-axis quality stage — [code-review-combo.md](code-review-combo.md) |
+| Spec conformance spawn | `requesting-code-review` | G4 step 1 (does code match spec?) |
 | Architecture decision | `senior-architect` | Explicit ask |
 | Study packet / learn codebase | `system-study-packet` / `8-principle-study` | Explicit ask |
 | PL Direct Book only | `02-pl-seven-product-scope` etc. | Already alwaysApply in PL repos |
+| Playwright test audit only | `review` | Test anti-patterns — **not** general code review |
 
 Impeccable is **not** optional for FE under the triad (auto-on). Other optionals: `also load laravel-specialist` / `@design-taste-frontend`.
+
+**G4 review combo:** step 1 `requesting-code-review` (spec) → step 2 **`code-review-and-quality`** (five axes). Prefer quality skill over thin Sentry `code-review` (do not dual-load). Opt out: `skip review` / `no code-review`.
 
 ---
 

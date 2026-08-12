@@ -47,7 +47,8 @@ See `.cursor/rules/02-pl-seven-product-scope.mdc` for paths and execution checkl
 2. `test-driven-development` — before production code  
 3. `verification-before-completion` — before claiming done  
 4. `systematic-debugging` — on test failures  
-5. `requesting-code-review` — after major steps  
+5. `requesting-code-review` — G4 step 1 spec conformance (after major steps)  
+5b. **`code-review-and-quality`** — G4 step 2 five-axis quality (prefer over thin `code-review`) — [references/code-review-combo.md](references/code-review-combo.md)  
 6. `subagent-driven-development` — parallel independent tasks (prefer **Claude** model when Senior listener ON)  
 7. `agent-browser` — when UI/page/dropdown/form must be proven in a real browser  
 8. `impeccable` — **always** when frontend is in scope (setup + polish/craft) — [references/impeccable-frontend.md](references/impeccable-frontend.md)
