@@ -11,7 +11,7 @@ alwaysApply: true
 
 | Path | Purpose |
 |------|---------|
-| `openspec/changes/phase-ii-quotation-slice-only/` | PL Direct Book quotation slice (7 products 0189, 0191–0196) |
+| `openspec/changes/phase-ii-quotation-slice-only/` | PL Direct Book quotation slice (7 lines: Marine 0189+0206, 0191–0196) |
 
 Resume files: `progress.md`, `findings.md`, `tasks.md`, `BLOCKERS.md`.
 

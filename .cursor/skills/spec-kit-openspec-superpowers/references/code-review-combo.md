@@ -41,7 +41,7 @@
 
 ## pgi overlays (always with this skill)
 
-- Scope: 7 Direct Book products only (`02-pl-seven-product-scope`)  
+- Scope: 7 Direct Book **lines** only (`02-pl-seven-product-scope`) — Marine twin `0206` with `0189`; keep `7pj`  
 - Simple code: `04-simple-code-voice` + `srp-thin.md`  
 - Commit titles: humanizer Adjective Noun (not this skill’s imperative changelog)  
 - View/print slices: still need G4 evidence + quick verify e2e  

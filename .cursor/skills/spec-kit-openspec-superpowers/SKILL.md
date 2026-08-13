@@ -8,7 +8,8 @@ description: >
   (see references/brainstorm-think-visual.md). Triggers: "/super-spec",
   "/spec-kit-openspec-superpowers", "spec first", "规范先行", "brainstorm",
   "think out loud", "demo first", "re-demo", "db-journey", "7pj", or any feature / bug fix / refactor —
-  especially with .spec-mode, .specify/, or openspec/. Even without an explicit ask,
+  especially with .spec-mode, .specify/, or openspec/. On pgi Direct Book: 7 lines
+  (Marine SM twin 0189+0206); keep 7pj — not 8pj. Even without an explicit ask,
   activate for non-trivial changes so design is not skipped.
   Orchestrates: Spec-Kit / OpenSpec + planning-with-files + ui-ux-pro-max +
   Superpowers + MemPalace. Session defaults (pgi): Claude Senior listener,
@@ -30,7 +31,7 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 | `/super-spec reset` | Reset mode selection |
 | `/super-spec upgrade` | Check all integrated projects for updates and execute upgrade |
 | `brainstorm` / `think out` / `demo first` | Path map + options + visual mocks — no code until pick ([brainstorm-think-visual](references/brainstorm-think-visual.md)) |
-| `db-journey` / `7pj` / `pl-journey` | Long Direct Book user journey — 7 products × quote/policy/endt ([db-journey](references/db-journey.md)) |
+| `db-journey` / `7pj` / `pl-journey` | Long Direct Book user journey — 7 **lines** × quote/policy/endt (Marine = `0189`+`0206`; not `8pj`) ([db-journey](references/db-journey.md)) |
 | `claude senior` / `listener mode` | Reinforce Claude Senior + Cursor thin listener (default every session on pgi) |
 | `normal cursor` | Opt out — Cursor leads again |
 
@@ -194,14 +195,14 @@ Read these as needed — they contain detailed procedures that would bloat this 
 
 This repo has a **locked policy** — read before mode auto-selection:
 
-- [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-product scope; no auto-commit; Claude Senior + agent-browser + Impeccable-on-FE session defaults
+- [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-line scope (Marine `0189`+twin `0206`; keep `7pj`); no auto-commit; Claude Senior + agent-browser + Impeccable-on-FE session defaults
 - Skill `triad-router` — manual tool-choice router (Spec-Kit vs OpenSpec vs Superpowers)
 - On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
 - **Frontend → Impeccable always ON:** [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`
 - **Brainstorm / visual demo before layout code:** [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)
-- **Long journey:** `db-journey` / `7pj` — 7 products × L1–L3 — [references/db-journey.md](references/db-journey.md)
+- **Long journey:** `db-journey` / `7pj` — 7 lines × L1–L3 (Marine `0189`+twin `0206`; keep `7pj`, not `8pj`) — [references/db-journey.md](references/db-journey.md)
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)

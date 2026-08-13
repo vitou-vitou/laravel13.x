@@ -6,7 +6,7 @@ alwaysApply: false
 
 ## Endt Direct Book product onboarding
 
-Adding endorsement support for another Direct Book code (`0189` / `0192`–`0196`) = wire these **in order**. Reuse `Burglary.php` + `BurglaryEndorsementForm` unless fields/premium truly differ.
+Adding endorsement support for another Direct Book code (`0189` / twin `0206` / `0192`–`0196`) = wire these **in order**. Reuse `Burglary.php` + `BurglaryEndorsementForm` unless fields/premium truly differ. Marine twin `0206` shares Marine journey with `0189` (still 7pj, not 8pj).
 
 ### Must wire (minimum)
 

@@ -7,12 +7,15 @@
 | **`db-journey`** | Canonical (shortest clear) |
 | `/db-journey` | Cursor command |
 | `pl-journey` | Alias |
-| `7pj` | Ultra-short (nickname; **7** in-scope products) |
+| `7pj` | Ultra-short (nickname; **7** product **lines**) |
 | `7-product-journey` / `7-product-user-journey` | Legacy nickname → same list |
+| `8pj` | **Do not use** — soft redirect to `7pj`. `0206` is Marine twin of `0189`, not an 8th line |
 
 ## Scope
 
-**In scope (7):** `0189` Marine · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0195` Bond · `0196` PI  
+**In scope (7 lines):** Marine `0189`+twin `0206` · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0195` Bond · `0196` PI  
+
+**Verdict (2026-08-13):** Keep **`7pj`**. `0206` (`MARINE_CARGO_2`) = second SM code under same Marine journey as `0189` (`marineCodes()` / `isMarine()` / same `MARINE_CARGO` permission + print). **Not** an 8th product line → **no `8pj` rename**.
 
 **Out:** legacy `0121`–`0125` only  
 
@@ -77,7 +80,7 @@ Follow locked **S2**: Sum Insured body + Total (+ rows under Total) **left**; la
 
 | Flag | Meaning |
 |------|---------|
-| `marine` / `0189` / product name | One product |
+| `marine` / `0189` / `0206` / product name | One product line (Marine covers both SM codes) |
 | `quote-only` / `policy-only` | One phase |
 | `+endt` / `endt-only` | Include / only endorsement |
 | `audit` | Path map + gaps only, no code |

@@ -111,7 +111,7 @@ OPTIONALLY add caveman for token-efficient voice (does not replace SDD or Superp
 See [pgi-core-policy.md](pgi-core-policy.md). Summary:
 
 - **Default:** openspec + superpowers (+ caveman optional).
-- **PL scope:** 7 Direct Book products only (`02-pl-seven-product-scope.mdc`).
+- **PL scope:** 7 Direct Book **lines** only (`02-pl-seven-product-scope.mdc`) — Marine = `0189`+twin `0206`; keep **`7pj`**, not `8pj`.
 - **Never** spec-kit + openspec on the same feature.
 - **continue** → read `docs/SESSION_STATE.md` first.
 

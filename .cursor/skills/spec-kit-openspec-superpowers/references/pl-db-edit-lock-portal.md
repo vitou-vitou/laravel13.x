@@ -106,7 +106,7 @@ Ask “is it must and last?” before expanding portal to quote/policy.
 
 ## Related repo rules
 
-- `02-pl-seven-product-scope.mdc` — Direct Book **7** products (incl. Bond `0195`); `scope.js` / `isEndorsementOn` for endt
+- `02-pl-seven-product-scope.mdc` — Direct Book **7** lines (Marine `0189`+twin `0206`, Bond `0195`); `scope.js` / `isEndorsementOn` for endt; keep **`7pj`** (not `8pj`)
 - `14-code-must-benefit.mdc` — don’t expand without must
 - `05-pl-db-naming.mdc` — short files under `burglary/`
 - Zero edge-case confirm after renames (`quality-gates.md`)

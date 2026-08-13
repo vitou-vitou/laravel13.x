@@ -53,7 +53,7 @@ Also check `docs/SESSION_STATE.md` for current active change.
 - `/super-spec` — 完整规范流程（same stack）
 - `/spec-kit-openspec-superpowers` — explicit reinforce (already default · priority)
 - `brainstorm` / `think out` / `demo first` — path map + visual mocks, no code until pick
-- `db-journey` / `7pj` / `/db-journey` — long Direct Book journey (7 products × L1–L3 quote/policy/endt)
+- `db-journey` / `7pj` / `/db-journey` — long Direct Book journey (7 lines × L1–L3; Marine = `0189`+`0206`; not `8pj`)
 - Opt out of whole stack only if user says `no super-spec` / `plain agent`
 
 ### 项目策略

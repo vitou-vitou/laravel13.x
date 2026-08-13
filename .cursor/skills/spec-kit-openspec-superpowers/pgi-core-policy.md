@@ -14,7 +14,7 @@
 | Optional | **Caveman** | Voice / token compression — `/caveman`, `normal mode` to off |
 | PL UI work | **impeccable** + Direct Book shell patterns | `01-impeccable-ui.mdc`, `DirectBookQuotationFormShell.vue` |
 | **Every session** | **Default stack (PRIORITY skill)** | `spec-kit-openspec-superpowers` — call/follow **first** for coding work (99%); no need to `@` each chat |
-| **Long journey** | **`db-journey` / `7pj`** | 7 products (incl. Bond `0195`) × quote→policy→endt L1–L3; see `references/db-journey.md` |
+| **Long journey** | **`db-journey` / `7pj`** | 7 **lines** (Marine `0189`+twin `0206`, Bond `0195`, …) × quote→policy→endt L1–L3; see `references/db-journey.md`. **Keep `7pj`** — do not rename to `8pj`. |
 | **Layout / print / multi-option UX** | **Brainstorm · think-out · visual demo** | Path map (quote view · policy view · PDF) + 2–3 options + `docs/evidence/*-demo/` mocks **before code** — `references/brainstorm-think-visual.md`. AFK does not skip option pick. |
 | **Every session** | **AFK + LDA** | Auto mode/complexity; G1 auto-approved; plan via Logic · Data · Architecture first — `references/afk-default.md` · `.cursor/rules/09-afk-lda-default.mdc` |
 | **Every session** | **Claude Senior listener** | Claude heavy work; Cursor thin apply+verify — save Cursor tokens (`08-claude-senior-listener.mdc`, skill `references/claude-senior-listener.md`) |
@@ -24,17 +24,19 @@
 
 ## Product scope (Property Liability)
 
-**In scope — 7 Direct Book products only** (`ProductCode::directBookCodes()`):
+**In scope — 7 Direct Book product lines only** (`ProductCode::directBookCodes()`):
 
-| SM code | Constant |
-|---------|----------|
-| `0189` | `MARINE_CARGO` |
-| `0191` | `BURGLARY` |
-| `0192` | `MONEY_INSURANCE` |
-| `0193` | `PLATE_GLASS` |
-| `0194` | `CONSTRUCTION_ALL_RISKS` |
-| `0195` | `BOND` |
-| `0196` | `PROFESSIONAL_INDEMNITY` |
+| SM code(s) | Constant | Line |
+|------------|----------|------|
+| `0189` + twin `0206` | `MARINE_CARGO` / `MARINE_CARGO_2` | Marine (one journey; `isMarine()`) |
+| `0191` | `BURGLARY` | Burglary |
+| `0192` | `MONEY_INSURANCE` | Money |
+| `0193` | `PLATE_GLASS` | Plate Glass |
+| `0194` | `CONSTRUCTION_ALL_RISKS` | CAR |
+| `0195` | `BOND` | Bond |
+| `0196` | `PROFESSIONAL_INDEMNITY` | PI |
+
+**Verdict:** `0206` is Marine twin — stay on **`7pj`**, not `8pj`.
 
 **Out of scope** — do not refactor `0121`–`0125` (Public Liability, Fire, Property, Home Package, Business Package).
 
