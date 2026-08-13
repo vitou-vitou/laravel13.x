@@ -117,7 +117,8 @@ Execute via one of two strategies (AI recommends, user picks):
 - **Executing-Plans**: Batch execution + checkpoint reviews
 
 TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-debugging`.
-**Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`
+**Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`  
+**After working → clean pass:** one portal, drop dual FE/BE, strip narration — same file § *After working — clean pass* (triggers: `working, clean code` / `single portal`)
 **SRP + thin (pgi):** one job per function/file; avoid fat shared — [references/srp-thin.md](references/srp-thin.md) · skill `refactor` (`struct-single-responsibility`)
 **Claude Senior (pgi session default):** prefer Claude-model Task / pasted Claude plan; Cursor thin apply+verify — [references/claude-senior-listener.md](references/claude-senior-listener.md).
 **Impeccable (frontend):** keep Impeccable laws + polish/craft active while editing Vue/CSS/forms/views — same always-on as Phase 3; do not drop after G3. Skip for pure PHP/API. Print PDF sample borders ≠ admin UI polish — see [references/impeccable-frontend.md](references/impeccable-frontend.md).
@@ -146,7 +147,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | [references/quick-verify-e2e.md](references/quick-verify-e2e.md) | **G4 quick e2e** — view/print / amount display (e.g. Unlimited) |
 | [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
 | [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |
-| [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
+| [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice · **clean pass / single portal** after working |
 | [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
 | [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
 | [references/desk-eli5-merge-delete-restore.md](references/desk-eli5-merge-delete-restore.md) | **ELI5 desk** — merge feature→uat deletes files; restore; 7pj twin; nested Comm/RI |

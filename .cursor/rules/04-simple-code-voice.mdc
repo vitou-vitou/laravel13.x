@@ -23,6 +23,7 @@ Part of **spec-kit-openspec-superpowers** implement phase. Detail: `.cursor/skil
 - No `/** ... */` block comments on obvious helpers.
 - Minimal diff. No drive-by renames outside task.
 - Fat shared? Prefer new BUR slice (`12-claude-task-bur-slice.mdc`) or extract — see `srp-thin.md`.
+- **After working → clean pass** (`working, clean code`): **one portal** only — drop dual FE+BE for same gap; strip narration. Detail: skill `references/simple-code-voice.md` § *After working — clean pass*.
 
 ### G4 quick check
 
@@ -30,3 +31,4 @@ Part of **spec-kit-openspec-superpowers** implement phase. Detail: `.cursor/skil
 - [ ] One job per new/changed function
 - [ ] Reply / commit text readable by non-author
 - [ ] No narration comments
+- [ ] Single portal (no dual FE+BE for same hydrate/save gap)
