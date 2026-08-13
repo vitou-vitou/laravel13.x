@@ -27,7 +27,7 @@ Resume files: `progress.md`, `findings.md`, `tasks.md`, `BLOCKERS.md`.
 
 - **Default every session (99%):** skill `spec-kit-openspec-superpowers` — treat as already attached.
 - **OpenSpec** + **Superpowers** (TDD, verification-before-completion).
-- **Claude Senior listener** + **caveman** + **agent-browser** (UI) — see skill session defaults.
+- **Claude Senior listener** + **caveman**; **agent-browser / Playwright ARCHIVED** (`16-playwright-archived.mdc`) — no browser smoke.
 - Mode: `.spec-mode` → `openspec`.
 - Commands: `/super-spec`, `/opsx:*` (see `.cursor/commands/`).
 - Skills sync: `docs/CURSOR_SKILLS_SYNC.md`

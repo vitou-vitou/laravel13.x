@@ -16,7 +16,7 @@ alwaysApply: true
 2. Read skill `SKILL.md` + `pgi-core-policy.md` when starting any feature / bug fix / refactor / config.
 3. Mode = OpenSpec (`.spec-mode` = `openspec`). Missing file → write `openspec`.
 4. **Brainstorm / think-out / visual demo** when layout/print/multi-option UX (or user says brainstorm/demo) — path map (quote view · policy view · PDF) + mocks under `docs/evidence/` **before code** (`references/brainstorm-think-visual.md`). AFK does not skip option pick.
-5. Claude Senior listener ON + agent-browser when UI needed.
+5. Claude Senior listener ON. Browser/agent-browser **archived** (`16-playwright-archived.mdc`) — no Playwright unless user re-enables.
 6. Caveman voice ON (`caveman-mode.mdc`).
 7. **LDA-PO every plan** — Logic · Data structure · Architecture · Portal · Others  
    (`spec-kit-openspec-superpowers/references/solve-plan-pattern.md`). Quick = 5-bullet compress OK.

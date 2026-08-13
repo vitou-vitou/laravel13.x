@@ -13,7 +13,7 @@ alwaysApply: true
 
 ### Always ON inside triad / `/super-spec`
 
-When `/spec-kit-openspec-superpowers` or `/super-spec` touches frontend → **auto-load Impeccable** (setup + `polish` or `craft` as fit). Same posture as agent-browser for UI proof. Do **not** wait for `/impeccable` or `@impeccable`.
+When `/spec-kit-openspec-superpowers` or `/super-spec` touches frontend → **auto-load Impeccable** (setup + `polish` or `craft` as fit). Do **not** wait for `/impeccable` or `@impeccable`. **Do not** auto-run agent-browser / Playwright for UI proof (`16-playwright-archived.mdc`).
 
 AFK / G1 / Claude Senior unchanged.
 

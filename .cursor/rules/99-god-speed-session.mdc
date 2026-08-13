@@ -45,7 +45,7 @@ Opt out: `no super-spec` / `plain agent`.
 2. `.spec-mode` → OpenSpec (`openspec`)
 3. Read `docs/SESSION_STATE.md` on `continue`
 4. Resume `openspec/changes/*/progress.md` + `task_plan.md` if present
-5. Claude Senior listener + caveman + agent-browser (UI) per skill
+5. Claude Senior listener + caveman; **no** agent-browser / Playwright (archived — `16-playwright-archived.mdc`)
 6. Route task → spec + impeccable as needed
 7. **Model route:** Claude subscription → OpenCodex → Cursor Task ladder — see `15-model-route-priority.mdc`
 
