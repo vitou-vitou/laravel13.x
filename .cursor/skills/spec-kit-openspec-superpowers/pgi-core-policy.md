@@ -165,3 +165,8 @@ When work touches **Edit button**, **`/edit` route**, or **update/save** for Quo
 ## Study docs (optional)
 
 After major features: **system-study-packet** → project docs under `openspec/` or `docs/`.
+
+
+## Desk ELI5 (merge delete)
+
+See [references/desk-eli5-merge-delete-restore.md](references/desk-eli5-merge-delete-restore.md).

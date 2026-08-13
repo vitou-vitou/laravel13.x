@@ -149,6 +149,7 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
 | [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
 | [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
+| [references/desk-eli5-merge-delete-restore.md](references/desk-eli5-merge-delete-restore.md) | **ELI5 desk** — merge feature→uat deletes files; restore; 7pj twin; nested Comm/RI |
 | [references/synergy-patterns.md](references/synergy-patterns.md) | Understanding cross-tool integration (6 chains) |
 | [references/integration-guide.md](references/integration-guide.md) | Setup, troubleshooting, dependency list |
 | [references/spec-kit-workflow.md](references/spec-kit-workflow.md) | Running the Spec-Kit flow |
@@ -206,6 +207,7 @@ This repo has a **locked policy** — read before mode auto-selection:
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
+- **Desk ELI5 — merge delete / restore / 7pj twin / nested Comm+RI:** [references/desk-eli5-merge-delete-restore.md](references/desk-eli5-merge-delete-restore.md) — teach juniors; never “fix UAT deletes” by merging whole feature
 
 ### Invocation
 
