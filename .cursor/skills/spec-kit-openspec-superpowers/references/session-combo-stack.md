@@ -45,27 +45,38 @@ Confirm in one short line after load: `Stack: caveman + karpathy + clean-code + 
 
 ---
 
+## Frontend → Impeccable (always ON inside triad)
+
+When `/spec-kit-openspec-superpowers` / `/super-spec` touches frontend, **auto-load Impeccable** (setup + polish/craft). Same posture as agent-browser for UI proof. Detail: [impeccable-frontend.md](impeccable-frontend.md).
+
+Do **not** treat Impeccable as optional for Vue/CSS/forms/views. Opt out only: `no impeccable` / `skip polish`.
+
 ## OPTIONAL load (keyword / task triggered)
 
 Load only when the task needs them. Do not dump all into context.
 
 | Trigger | Skill / rule | When |
 |---------|----------------|------|
-| UI, polish, Vue, CSS, landing | `impeccable` | Design / polish phase |
+| (moved) FE Vue/CSS/forms | `impeccable` | **Always ON** for FE — see section above |
 | `AI pick my UI`, examples storefront | `laravel-ui-phase` | Post-MVP UI |
 | Anti-slop landing / catalog | `design-taste-frontend` | Marketing UI |
 | Laravel Eloquent / queues / Livewire depth | `laravel-specialist` | Backend Laravel depth |
 | Greenfield MVP SDD | `spec-kit` | After mode = Spec-Kit |
 | Post-MVP change order | `openspec` | After mode = OpenSpec |
 | TDD / debug / verify | `superpowers` | Phase 4+ (default during implement) |
+| G4 / before merge / `review` / agent-written slice | **`code-review-and-quality`** | Five-axis quality stage — [code-review-combo.md](code-review-combo.md) |
+| Spec conformance spawn | `requesting-code-review` | G4 step 1 (does code match spec?) |
 | Architecture decision | `senior-architect` | Explicit ask |
 | Study packet / learn codebase | `system-study-packet` / `8-principle-study` | Explicit ask |
 | `load index` / `load <domain> index` | [load-index.md](load-index.md) | Orient only — no implement |
 | `project flow` / `basic` / `deep` / `go next` | [project-proof-ladder.md](project-proof-ladder.md) | Pipeline map + e2e proof ladder |
 | `save tokens` / `token budget` / `cheap mode` | [token-budget.md](token-budget.md) | Five levers + what never to compress |
 | PL Direct Book only | `02-pl-seven-product-scope` etc. | Already alwaysApply in PL repos |
+| Playwright test audit only | `review` | Test anti-patterns — **not** general code review |
 
-User can force optional: `also load impeccable` / `@impeccable`.
+Impeccable is **not** optional for FE under the triad (auto-on). Other optionals: `also load laravel-specialist` / `@design-taste-frontend`.
+
+**G4 review combo:** step 1 `requesting-code-review` (spec) → step 2 **`code-review-and-quality`** (five axes). Prefer quality skill over thin Sentry `code-review` (do not dual-load). Opt out: `skip review` / `no code-review`.
 
 ---
 
@@ -75,7 +86,7 @@ User can force optional: `also load impeccable` / `@impeccable`.
 ```text
 /spec-kit-openspec-superpowers
 ```
-→ agent loads ALWAYS table, then triages.
+→ agent loads ALWAYS table, then triages. FE tasks auto-load Impeccable.
 
 **Index + proof ladder:**
 ```text
@@ -93,7 +104,6 @@ User can force optional: `also load impeccable` / `@impeccable`.
 
 **Add optionals:**
 ```text
-/spec-kit-openspec-superpowers + impeccable
 /super-spec Standard: … also laravel-specialist
 ```
 

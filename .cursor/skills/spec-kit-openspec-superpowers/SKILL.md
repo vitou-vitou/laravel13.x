@@ -1,6 +1,7 @@
 ---
 name: spec-kit-openspec-superpowers
 description: >
+<<<<<<< HEAD
   Enforces spec-before-code workflow for AI-driven development. Automatically selects
   Spec-Kit or OpenSpec mode, triages complexity (quick/standard/thorough), recovers
   session context, and applies quality gates (G0-G4) with inline self-review at every stage.
@@ -20,6 +21,22 @@ description: >
   (orient + proof ladder — see references/load-index.md and project-proof-ladder.md).
   Token saving ("save tokens", "token budget", "cheap mode", "be brief"): five levers in
   references/token-budget.md — voice and loading only, never skip gates G1-G4.
+=======
+  PRIORITY / DEFAULT stack for pgi-core-frontend (and triad projects): call this skill
+  first for almost all coding work — before other design/implement skills.
+  Enforces spec-before-code + brainstorm / think-out-loud / visual-demo-before-code for
+  layout, print/PDF schedule, view↔policy↔PDF parity, and multi-option UX
+  (see references/brainstorm-think-visual.md). Triggers: "/super-spec",
+  "/spec-kit-openspec-superpowers", "spec first", "规范先行", "brainstorm",
+  "think out loud", "demo first", "re-demo", "db-journey", "7pj", or any feature / bug fix / refactor —
+  especially with .spec-mode, .specify/, or openspec/. On pgi Direct Book: 7 lines
+  (Marine SM twin 0189+0206); keep 7pj — not 8pj. Even without an explicit ask,
+  activate for non-trivial changes so design is not skipped.
+  Orchestrates: Spec-Kit / OpenSpec + planning-with-files + ui-ux-pro-max +
+  Superpowers + MemPalace. Session defaults (pgi): Claude Senior listener,
+  agent-browser when UI proof needed, Impeccable ON for frontend,
+  brainstorm-think-visual for print/layout options.
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 ---
 
 # Spec-First + Superpowers Orchestrator v5
@@ -35,16 +52,29 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 | `/super-spec force-openspec` | Force OpenSpec mode |
 | `/super-spec reset` | Reset mode selection |
 | `/super-spec upgrade` | Check all integrated projects for updates and execute upgrade |
+<<<<<<< HEAD
 | `load index` / `load <domain> index` | Orient only — map entry/layers/domain; **no implement**. [load-index.md](references/load-index.md) |
 | `project flow` | Document happy-path pipeline (rung 1). [project-proof-ladder.md](references/project-proof-ladder.md) |
 | `basic` / `basic e2e` | Minimal e2e proof (rung 2) — scrape→queue→resolve→≥256KB |
 | `deep` / `deep e2e` | Scorecard e2e proof (rung 3) — multi-path, locked ep, deeper download |
 | `go next` | After a proof rung: take highest-value open gap from last `progress.md` |
+=======
+| `brainstorm` / `think out` / `demo first` | Path map + options + visual mocks — no code until pick ([brainstorm-think-visual](references/brainstorm-think-visual.md)) |
+| `db-journey` / `7pj` / `pl-journey` | Long Direct Book user journey — 7 **lines** × quote/policy/endt (Marine = `0189`+`0206`; not `8pj`) ([db-journey](references/db-journey.md)) |
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 | `claude senior` / `listener mode` | Reinforce Claude Senior + Cursor thin listener (default every session on pgi) |
 | `save tokens` / `token budget` / `cheap mode` | Apply the token saving pattern. [token-budget.md](references/token-budget.md) |
 | `normal cursor` | Opt out — Cursor leads again |
 
+<<<<<<< HEAD
 **Proof ladder order:** `load index` → `project flow` → `basic` → `deep` → `go next`. Skip rungs only if user forces.
+=======
+## Skill call priority
+
+**Call / follow this skill first** for pgi coding work (before ad-hoc implement, before rival design skills), unless user said `no super-spec` / `plain agent`.
+
+Within this skill, for layout / print / view↔PDF ambiguity: **brainstorm → think-out-loud path map → visual demo → user pick → then code** — [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md).
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 
 ## Session defaults (every activation)
 
@@ -52,6 +82,7 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 
 On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 
+<<<<<<< HEAD
 0. **AFK ON** — auto mode + auto complexity; **G1 auto-approved**; implement without waiting for "go". Detail: [references/afk-default.md](references/afk-default.md) · repo `.cursor/rules/09-afk-lda-default.mdc`. Opt out: `no afk` / `ask me` / `gate G1`.
 1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4.
 2. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
@@ -61,6 +92,18 @@ On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 6. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
 7. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
 8. Opt out of stack: user says `no super-spec` / `plain agent`.
+=======
+0. **AFK ON** — auto mode + auto complexity; **G1 auto-approved**; implement without waiting for "go". Detail: [references/afk-default.md](references/afk-default.md) · repo `.cursor/rules/09-afk-lda-default.mdc`. Opt out: `no afk` / `ask me` / `gate G1`. **Exception:** visual-demo mode active → wait for option pick before Phase 4.
+1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4. **Priority skill** — prefer over other stacks unless opted out.
+2. **Brainstorm / think-out / visual demo** — for print schedule, footers, colon/label, multi-option UX, or when user says brainstorm/demo: path map (quote view · policy view · PDF) + 2–3 options + mocks under `docs/evidence/` **before code**. Detail: [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md).
+3. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
+4. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
+5. **Impeccable ON for frontend** — same auto-load posture as agent-browser for UI proof. When task touches Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, or design keywords → load Impeccable setup + apply `polish` or `craft` as fit. Detail: [references/impeccable-frontend.md](references/impeccable-frontend.md) · rule `01-impeccable-ui.mdc`. Skip pure PHP/API/docs/PDF sample black borders.
+6. Spec gates G1–G4 still apply — listener / AFK do **not** skip OpenSpec artifacts; they skip *waiting* on G1 (except visual pick above).
+7. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
+8. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress OK).
+9. Opt out of stack: user says `no super-spec` / `plain agent`.
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 
 ## How It Works
 
@@ -99,7 +142,12 @@ If `task_plan.md` exists from a previous session, read all planning files, query
 
 **Phase 1 — Specification**
 Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. Sketch **Logic** + **Data** + **Architecture** in plain words (LDA-PO).
+<<<<<<< HEAD
 **Gate G1**: Spec aligns with constitution + inline review + scope check + Logic/Data/Architecture named. **AFK:** treat G1 as auto-approved (no wait). Non-AFK: user must explicitly confirm.
+=======
+When layout / print / multi-surface UX is unclear: run **brainstorm + think-out path map + visual demo** first ([references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)); user pick locks G1 for that slice.
+**Gate G1**: Spec aligns with constitution + inline review + scope check + Logic/Data/Architecture named. **AFK:** treat G1 as auto-approved (no wait) unless visual-demo mode needs a pick. Non-AFK: user must explicitly confirm.
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 
 **Phase 2 — Persistent Planning**
 Generate `task_plan.md` (numbered checklist with file structure mapping + test points), `findings.md`, and `progress.md` using `planning-with-files` + `writing-plans`.
@@ -107,9 +155,12 @@ Generate `task_plan.md` (numbered checklist with file structure mapping + test p
 1. Logic  2. Data structure  3. Architecture  4. Portal (reuse)  5. Others
 **Gate G2**: Every task has file paths + acceptance criteria + test strategy + **LDA-PO sections present** + inline plan review passed.
 
-**Phase 3 — UI/UX Design** (conditional)
-Triggered only when UI keywords are detected. Invoke `ui-ux-pro-max --design-system --persist` to generate and persist the design system (v2.5.0: 67 styles, 161 palettes, 57 fonts, 14 tech stacks, 6 specialist skills).
-**Gate G3**: Pre-delivery checklist passed + user confirmed design.
+**Phase 3 — UI/UX Design** (frontend → Impeccable always ON)
+Triggered when frontend is in scope (Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, design keywords). **Do not wait for `/impeccable`.**
+1. Load Impeccable skill + setup (PRODUCT.md / load-context) — [references/impeccable-frontend.md](references/impeccable-frontend.md).
+2. Apply **`polish`** for existing screens; **`craft`** / **`shape`** for new UI surfaces.
+3. Optional: `ui-ux-pro-max --design-system --persist` when a full design-system pass is needed (v2.5.0).
+**Gate G3**: Impeccable setup applied + pre-delivery checklist passed (+ user confirmed design when non-AFK / new surface).
 
 **Phase 4 — Implementation**
 Execute via one of two strategies (AI recommends, user picks):
@@ -117,11 +168,17 @@ Execute via one of two strategies (AI recommends, user picks):
 - **Executing-Plans**: Batch execution + checkpoint reviews
 
 TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-debugging`.
+<<<<<<< HEAD
 **Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`
+=======
+**Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`  
+**After working → clean pass:** one portal, drop dual FE/BE, strip narration — same file § *After working — clean pass* (triggers: `working, clean code` / `single portal`)
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 **SRP + thin (pgi):** one job per function/file; avoid fat shared — [references/srp-thin.md](references/srp-thin.md) · skill `refactor` (`struct-single-responsibility`)
 **Claude Senior (pgi session default):** prefer Claude-model Task / pasted Claude plan; Cursor thin apply+verify — [references/claude-senior-listener.md](references/claude-senior-listener.md).
+**Impeccable (frontend):** keep Impeccable laws + polish/craft active while editing Vue/CSS/forms/views — same always-on as Phase 3; do not drop after G3. Skip for pure PHP/API. Print PDF sample borders ≠ admin UI polish — see [references/impeccable-frontend.md](references/impeccable-frontend.md).
 **agent-browser (UI):** when Phase 4/G4 touches Vue/forms/pages, smoke via agent-browser (or IDE browser MCP if CDP fails) before claiming done.
-**Gate G4**: All tests pass + review passed + verification evidence written to `progress.md` + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
+**Gate G4**: All tests pass + two-stage review (spec via `requesting-code-review` → quality via **`code-review-and-quality`** — [references/code-review-combo.md](references/code-review-combo.md)) + verification evidence written to `progress.md` + **quick verify e2e** for view/print display slices ([references/quick-verify-e2e.md](references/quick-verify-e2e.md)) + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
 
 **Phase 5 — Archive**
 `finishing-a-development-branch` → update all checkboxes → archive spec artifacts → final `progress.md` entry → MemPalace diary entry (if configured).
@@ -141,12 +198,23 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | File | When to read |
 |------|-------------|
 | [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
+<<<<<<< HEAD
 | [references/token-budget.md](references/token-budget.md) | **Saving tokens** — five levers, decision table, what never to compress |
 | [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
 | [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |
 | [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
 | [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
 | [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
+=======
+| [references/code-review-combo.md](references/code-review-combo.md) | **G4 quality** — wire `code-review-and-quality` + requesting-code-review |
+| [references/quick-verify-e2e.md](references/quick-verify-e2e.md) | **G4 quick e2e** — view/print / amount display (e.g. Unlimited) |
+| [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
+| [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |
+| [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice · **clean pass / single portal** after working |
+| [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
+| [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
+| [references/desk-eli5-merge-delete-restore.md](references/desk-eli5-merge-delete-restore.md) | **ELI5 desk** — merge feature→uat deletes files; restore; 7pj twin; nested Comm/RI |
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 | [references/synergy-patterns.md](references/synergy-patterns.md) | Understanding cross-tool integration (6 chains) |
 | [references/integration-guide.md](references/integration-guide.md) | Setup, troubleshooting, dependency list |
 | [references/spec-kit-workflow.md](references/spec-kit-workflow.md) | Running the Spec-Kit flow |
@@ -154,8 +222,13 @@ Read these as needed — they contain detailed procedures that would bloat this 
 | [references/mempalace-integration.md](references/mempalace-integration.md) | MemPalace memory system setup + 5 integration points |
 | [references/upgrade-protocol.md](references/upgrade-protocol.md) | `/super-spec upgrade` — standardized version sync procedure |
 | [references/claude-senior-listener.md](references/claude-senior-listener.md) | Every-session Claude Senior + Cursor listener + agent-browser hooks |
+<<<<<<< HEAD
 | [references/load-index.md](references/load-index.md) | `load index` / domain index — orient only, no implement |
 | [references/project-proof-ladder.md](references/project-proof-ladder.md) | `project flow` · `basic` · `deep` · `go next` proof ladder |
+=======
+| [references/impeccable-frontend.md](references/impeccable-frontend.md) | **FE always-on** — Impeccable setup + polish vs craft; load-context path |
+| [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md) | **Priority before code** — brainstorm, think-out path map (view/policy/PDF), visual demos |
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 | [assets/constitutions/openspec-constitution.md](assets/constitutions/openspec-constitution.md) | OpenSpec constitution template |
 | [assets/constitutions/spec-kit-constitution.md](assets/constitutions/spec-kit-constitution.md) | Spec-Kit constitution template |
 
@@ -193,14 +266,28 @@ Read these as needed — they contain detailed procedures that would bloat this 
 
 This repo has a **locked policy** — read before mode auto-selection:
 
+<<<<<<< HEAD
 - [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-product scope; no auto-commit; Claude Senior + agent-browser session defaults
+=======
+- [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-line scope (Marine `0189`+twin `0206`; keep `7pj`); no auto-commit; Claude Senior + agent-browser + Impeccable-on-FE session defaults
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 - Skill `triad-router` — manual tool-choice router (Spec-Kit vs OpenSpec vs Superpowers)
 - On `continue`: read `docs/SESSION_STATE.md` first
 - Active change: `openspec/changes/phase-ii-quotation-slice-only/`
 - Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
+<<<<<<< HEAD
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
+=======
+- **Frontend → Impeccable always ON:** [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`
+- **Brainstorm / visual demo before layout code:** [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)
+- **Long journey:** `db-journey` / `7pj` — 7 lines × L1–L3 (Marine `0189`+twin `0206`; keep `7pj`, not `8pj`) — [references/db-journey.md](references/db-journey.md)
+- **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
+- **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
+- **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
+- **Desk ELI5 — merge delete / restore / 7pj twin / nested Comm+RI:** [references/desk-eli5-merge-delete-restore.md](references/desk-eli5-merge-delete-restore.md) — teach juniors; never “fix UAT deletes” by merging whole feature
+>>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 
 ### Invocation
 

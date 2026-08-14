@@ -1,24 +1,33 @@
 ---
-description: "Impeccable UI: task-based triage for frontend design work"
+description: "Impeccable UI: always ON for frontend inside triad / super-spec"
 globs: "*"
 alwaysApply: true
 ---
 
-## Impeccable UI (task-based)
+## Impeccable UI (always ON for frontend)
 
 **Skill:** `C:\Users\PGI\.claude\skills\impeccable\SKILL.md`
 **Loader:** `C:\Users\PGI\.claude\skills\impeccable\scripts\load-context.mjs`
 **References:** `C:\Users\PGI\.claude\skills\impeccable\reference\`
+**Triad wire:** `spec-kit-openspec-superpowers/references/impeccable-frontend.md`
 
-### Activate when
+### Always ON inside triad / `/super-spec`
+
+When `/spec-kit-openspec-superpowers` or `/super-spec` touches frontend → **auto-load Impeccable** (setup + `polish` or `craft` as fit). Do **not** wait for `/impeccable` or `@impeccable`. **Do not** auto-run agent-browser / Playwright for UI proof (`16-playwright-archived.mdc`).
+
+AFK / G1 / Claude Senior unchanged.
+
+### Activate when (any)
 
 - Task keywords: design, polish, layout, form, component, Vue, CSS, dashboard, landing, UX, a11y, animation, typography
-- Files touched: `resources/js/views/**`, `resources/js/components/**`, `*.vue`, `*.css`
+- Files touched: `resources/js/**`, `resources/css/**`, `resources/js/views/**`, `resources/js/components/**`, `*.vue`, `*.css`
+- Detail/view pages, form chrome, visual blade wrappers users see in admin
 - User invokes `/impeccable` or sub-commands (`craft`, `shape`, `audit`, `polish`, `critique`, etc.)
 
 ### Skip when
 
 - Pure backend PHP, API-only, git, docs-only, spec-only with no UI
+- PDF **sample** black borders / print table grid fidelity (print contract ≠ admin UI polish)
 
 ### On activation
 
@@ -31,6 +40,7 @@ alwaysApply: true
 5. Match existing PrimeVue + Tailwind patterns; extend, don't force full redesign unless asked.
 6. **Sub-command routing** — load matching reference before acting:
    `craft`→craft.md, `shape`→shape.md, `audit`→audit.md, `polish`→polish.md, `critique`→critique.md, `teach`→teach.md, `document`→document.md, etc. (see SKILL.md command table).
+   Default: **`polish`** for existing screens; **`craft`**/`shape` for new surfaces.
 7. Missing/placeholder PRODUCT.md (<200 chars, `[TODO]`): run `teach` first, then resume original task.
 
 ### PL Direct Book
@@ -39,5 +49,6 @@ Quotation/policy forms: PrimeVue `TabView`, `slate-50` bordered sections, tab sh
 
 ### Coexistence
 
-- Spec-first (`00-spec-first-superpowers.mdc`) still gates implementation.
+- Spec-first (`00-spec-first-superpowers.mdc`) still gates implementation; Phase 3/4 keep Impeccable active on FE.
 - Caveman mode compresses replies only; does not skip impeccable setup on UI tasks.
+- Opt out: `no impeccable` / `skip polish` / stack `plain agent`.

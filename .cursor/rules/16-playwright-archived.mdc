@@ -1,0 +1,34 @@
+---
+description: "ARCHIVED: Playwright + agent-browser — no action (PC CPU / fan storm)"
+globs: "*"
+alwaysApply: true
+---
+
+## Playwright / agent-browser — ARCHIVED (no action)
+
+**Status:** **ARCHIVED** as of 2026-08-13. User PC stuck / fan / CPU from headless Chrome storm.
+
+### Hard rule (default)
+
+| Do | Don't |
+|----|-------|
+| Manual UI / PHP / API / Network tab verify | Run `agent-browser`, Playwright CLI, `npx playwright`, headed/headless Chrome for agents |
+| Skip browser smoke; note "browser archived" | Auto-load agent-browser for UI / G4 / impeccable proof |
+| Prefer cursor-ide-browser MCP **only if user explicitly asks** | Spawn Chromium / ms-playwright browsers in background |
+
+### Overrides (only when user says)
+
+- `enable playwright` / `use agent-browser` / `browser smoke on` → allow for **that turn only**
+- After use: `agent-browser close` (or equivalent) before ending turn
+
+### Conflicts
+
+Overrides session defaults in `00` / `08` / `99` that say "agent-browser when UI needed". **This archive wins** until user re-enables.
+
+### Cleanup if fan noise returns
+
+```bash
+agent-browser close 2>/dev/null || true
+# Windows: kill leftover agent-browser Chrome
+powershell -NoProfile -Command 'Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match "agent-browser|ms-playwright" } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }'
+```

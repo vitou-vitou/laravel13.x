@@ -8,19 +8,25 @@ alwaysApply: true
 
 **持久指令**（用户说 stop 前一直有效）：本仓库 Property Liability 工作 **仅限 7 个 Direct Book 产品**。不重构旧产品、不重组旧产品代码。
 
-### In scope — 7 Direct Book products
+**2026-08-11:** Bond `0195` **restored** to Direct Book scope (journey + rules + code lists). Prior 2026-07-29 removal superseded.
 
-| SM code | Constant |
-|---------|----------|
-| `0189` | `MARINE_CARGO` |
-| `0191` | `BURGLARY` |
-| `0192` | `MONEY_INSURANCE` |
-| `0193` | `PLATE_GLASS` |
-| `0194` | `CONSTRUCTION_ALL_RISKS` |
-| `0195` | `BOND` |
-| `0196` | `PROFESSIONAL_INDEMNITY` |
+**2026-08-13:** Marine twin SM `0206` (`MARINE_CARGO_2`) in Direct Book — **same Marine product line** as `0189` (`ProductCode::marineCodes()` / FE `burglary/marine.js`). Still **7 product lines** → keep **`7pj`** (do **not** rename to `8pj`).
 
-权威列表：`ProductCode::directBookCodes()` / `ProductCode::isDirectBook()`.
+### In scope — 7 Direct Book product lines
+
+| SM code(s) | Constant | Line |
+|------------|----------|------|
+| `0189` + twin `0206` | `MARINE_CARGO` / `MARINE_CARGO_2` | Marine (one journey) |
+| `0191` | `BURGLARY` | Burglary |
+| `0192` | `MONEY_INSURANCE` | Money |
+| `0193` | `PLATE_GLASS` | Plate Glass |
+| `0194` | `CONSTRUCTION_ALL_RISKS` | CAR |
+| `0195` | `BOND` | Bond |
+| `0196` | `PROFESSIONAL_INDEMNITY` | PI |
+
+权威列表：`ProductCode::directBookCodes()` / `ProductCode::isDirectBook()` / `ProductCode::isMarine()` · FE `burglary/scope.js` (`QUOTE_CODES` / `POLICY_CODES` / `ENDORSEMENT_CODES`) · `burglary/marine.js` (`MARINE_CODES`).
+
+**Journey:** `db-journey` / `7pj` — L1 Quote · L2 Policy · L3 Endorsement (all in scope) — `references/db-journey.md`. **Not** `8pj` — `0206` is Marine twin, not an 8th line.
 
 ### Out of scope — do NOT refactor or restructure
 
@@ -40,7 +46,7 @@ alwaysApply: true
 - Quotation：`.../Quotation/Components/Burglary/DirectBookQuotation*.vue`
 - Policy：`.../Policy/Components/Burglary/DirectBookPolicy*.vue`, `BurglaryPolicy*.vue`
 - Endorsement：`.../Endorsement/Components/Burglary/*`
-- Per-product plan/premium：`.../Components/Burglary/*Plan.vue`, `*Premium.vue`（及同目录下 Car/Marine/Bond/PI 等切片）
+- Per-product plan/premium：`.../Components/Burglary/*Plan.vue`, `*Premium.vue`（及同目录下 Car/Marine/PI/Bond 等切片）
 - Mock / dev：`resources/js/services/property_liability/mock-burglary-service/`, `.../BurglaryMock/`
 
 **服务层**
@@ -67,7 +73,7 @@ alwaysApply: true
 
 ### Execution checklist
 
-- [ ] 任务是否只服务 0189 / 0191–0196？
+- [ ] 任务是否只服务 0189 / 0206 / 0191–0196（含 Bond `0195`；Marine twin `0206` OK）？
 - [ ] diff 是否避开 0121–0125 实现文件？
 - [ ] 新文件是否落在 Direct Book / Burglary / mock-burglary 路径下？
 - [ ] 是否无 drive-by refactor？
