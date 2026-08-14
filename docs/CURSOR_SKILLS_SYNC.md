@@ -64,6 +64,7 @@ Windows (Git Bash): same paths under `$HOME/.agents/skills/`.
 
 | Skill | `reference/` contents |
 |-------|----------------------|
+| `spec-kit-openspec-superpowers/` | `references/` — session-combo-stack, **token-budget**, framework-best-used, chat-intent-router, quality-gates, workflows, … |
 | `spec-kit/` | git-commit, git-feature, git-initialize, git-remote, git-validate, laravel13-x-policy |
 | `openspec/` | apply-change, archive-change, explore, propose |
 | `superpowers/` | 14 sub-skills (TDD, brainstorming, debugging, plans, etc.) |

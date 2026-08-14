@@ -4,6 +4,8 @@ description: >-
   Triad router — when to use Spec-Kit vs OpenSpec vs Superpowers (+ optional Caveman voice).
   Use when choosing SDD tools, verifying cross-machine setup, or deciding greenfield vs post-MVP workflow.
   For execution, invoke the single skills: spec-kit, openspec, superpowers, or caveman.
+  Token saving ("save tokens", "token budget", "cheap mode", "be brief"): see
+  references/token-budget.md — voice and loading only, never skip gates G1-G4.
 ---
 
 # Spec-Kit, OpenSpec & Superpowers — Triad Router
@@ -52,7 +54,36 @@ Need structured SDD?
 NEVER combine spec-kit + openspec (overlapping SDD — pick one)
 ALWAYS add superpowers for implementation quality
 OPTIONALLY add caveman for token-efficient voice (does not replace SDD or Superpowers)
+ECC / gstack: see [references/framework-best-used.md](references/framework-best-used.md) — Superpowers stays spine; ECC cherry-pick only (Nebutra)
+Save tokens: see [references/token-budget.md](references/token-budget.md) — cut input first, then routing, then voice; gates stay
 ```
+
+---
+
+## Framework best-used (Superpowers · ECC · gstack)
+
+Full policy: [references/framework-best-used.md](references/framework-best-used.md) · source [Nebutra autopsy](https://nebutra.com/blog/claude-code-skill-frameworks-autopsy).
+
+| Workflow | Best used |
+|----------|-----------|
+| Team / shared PR | **Superpowers** skeleton + ECC `tdd-workflow` / `eval-harness` only |
+| Solo fast ship | gstack OK; ECC minimal; Superpowers if jump-to-code is the failure mode |
+| Legacy refactor | Superpowers `systematic-debugging` + `verification-before-completion` (+ ECC `tdd-workflow`) |
+| Learning | Superpowers gates; ECC as reference book — no full install |
+
+**Never** replace Superpowers with wholesale ECC in this triad. Skills that are only polite suggestions are decoration.
+
+## Chat intent router
+
+Full policy: [references/chat-intent-router.md](references/chat-intent-router.md).
+
+| Mode | Stack |
+|------|-------|
+| Plan new project | Spec-Kit + Superpowers |
+| Maintain project | OpenSpec + Superpowers |
+| Fix bug | Superpowers debug/verify |
+| Explorer | Read-only + **Top-3 by stars**: Firecrawl (~158k), Context7 (~60k), last30days (~55k) |
+| Developer | Superpowers implement (+ ECC cherry-pick if gap) |
 
 ---
 
@@ -164,5 +195,27 @@ Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
 - Spec-Kit: https://github.com/github/spec-kit
 - OpenSpec: https://github.com/Fission-AI/OpenSpec
 - Superpowers: https://github.com/obra/superpowers
+- ECC: https://github.com/affaan-m/ECC (cherry-pick only)
+- Framework autopsy: https://nebutra.com/blog/claude-code-skill-frameworks-autopsy
 - Caveman: https://github.com/JuliusBrussee/caveman (Matt Pocock-style token compression; includes cavecrew subagents)
 - Sync manifest: `docs/CURSOR_SKILLS_SYNC.md` (in laravel13.x)
+- Framework best-used: [references/framework-best-used.md](references/framework-best-used.md)
+- Chat intent router: [references/chat-intent-router.md](references/chat-intent-router.md)
+- Token budget: [references/token-budget.md](references/token-budget.md)
+
+---
+
+## Token budget (saving pattern)
+
+Full index: [references/token-budget.md](references/token-budget.md).
+
+| Lever | Cuts |
+|-------|------|
+| Progressive disclosure — `SKILL.md` only, refs on demand | Input |
+| Claude Senior listener — Claude thinks, Cursor applies | Routing |
+| Size gate — tiny Quick (1 file, <~20 lines) stays solo | Routing |
+| `load index` — orient read-only, then stop | Input |
+| Caveman voice — terse prose, exact technical terms | Output |
+
+**Never compress:** gates G1–G4, file paths, status enums, verification evidence.
+Opt out: `verbose` · `normal mode` · `normal cursor`.

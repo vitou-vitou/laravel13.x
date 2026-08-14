@@ -71,3 +71,4 @@ examples/dashboard-v1/env
 !examples/creator-operator-v1/.env
 !examples/telegram-login/.env
 !examples/uploadfile/.env
+!examples/week-ship-atlas/.env

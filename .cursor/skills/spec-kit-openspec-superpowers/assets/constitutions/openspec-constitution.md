@@ -67,6 +67,7 @@ Iron rules:
 - `progress.md` (logs + test results + verification evidence)
 - Re-read `task_plan.md` before every action
 - Update `progress.md` after every action
+- **LDA-PO required** in plan / CreatePlan: Logic · Data structure · Architecture · Portal · Others (`references/solve-plan-pattern.md`)
 
 ## 8. Project Configuration <!-- OpenSpec specific -->
 
