@@ -1,0 +1,65 @@
+---
+description: "Stop after 2 failed tries on the same sub-goal; known Windows shell + Cursor trailer traps"
+globs: "*"
+alwaysApply: true
+---
+
+# Retry budget (don't make user wait)
+
+**Hard cap: 2 failed attempts on the same sub-goal.** Then stop and report: what failed, why, one next step. Ask the user if the fix is theirs (a setting, a credential, a choice).
+
+Learned 2026-08-20: 7 attempts to strip one commit trailer. Deliverable was ready after attempt 1.
+
+## Gate (each retry)
+
+| Ask | If no |
+|---|---|
+| Do I have **new evidence** since last try? | Stop — retry is a guess |
+| Is the cause **named**, not guessed? | Stop — diagnose instead |
+| Is this the **user's deliverable**, or my side quest? | Side quest → park it, ship the ask, report |
+
+Blocked on a user-owned setting → **one** attempt, then tell them the toggle. Do not grind.
+
+## Side quest rule
+
+Blocker outside the ask (env quirk, injected config, tool default) → do **not** chain fixes. Ship what was asked. Report the blocker with the toggle or recipe.
+
+## Windows shell — args get mangled
+
+This shell layer eats `^` and backslashes before git sees them.
+
+| Never | Use |
+|---|---|
+| `HEAD^` | `HEAD~1` |
+| `HEAD^{tree}` | `git show -s --format=%T HEAD` |
+| `bash "C:\path\x.sh"` | write script in repo → `bash ./x.sh` |
+| inline `$(...)` through PowerShell → `rtk run` → cmd | script file |
+
+Symptom: `could not read 'ree'`, `/bin/bash: C:Usersvitou...`, a var holding rtk's `No changes.`. Long inline escaping = write a script file instead.
+
+## Cursor injects `Co-authored-by: Cursor`
+
+Cursor's git wrapper appends it **after** your message. `git commit --amend`, `-F -`, `--cleanup=verbatim` all fail — it re-injects every time. `git commit-tree` is also mangled inline.
+
+`git commit` from a bash script **hangs** (hooks get no tty) — don't try to dodge the wrapper that way. Commit with the Shell tool, strip after.
+
+Fix once: tell the user to disable the setting. Unpushed commit that must ship now — run from a **script file** in the repo:
+
+```bash
+TREE=$(git show -s --format=%T HEAD)
+PARENT=$(git rev-parse HEAD~1)
+export GIT_AUTHOR_NAME=$(git show -s --format=%an HEAD)
+export GIT_AUTHOR_EMAIL=$(git show -s --format=%ae HEAD)
+export GIT_AUTHOR_DATE=$(git show -s --format=%aI HEAD)
+export GIT_COMMITTER_NAME=$(git show -s --format=%cn HEAD)
+export GIT_COMMITTER_EMAIL=$(git show -s --format=%ce HEAD)
+export GIT_COMMITTER_DATE=$(git show -s --format=%cI HEAD)
+NEW=$(printf 'Your Title' | git commit-tree "$TREE" -p "$PARENT")
+git update-ref refs/heads/main "$NEW"
+```
+
+Export the identity vars — that bash has no git config and `commit-tree` dies on `empty ident name`. Delete the script after. Never force-push to strip a **pushed** trailer; ask first.
+
+## Coexistence
+
+Wins over "keep trying" in `03-fast-mode.mdc`. Does not weaken `verification-before-completion` — verify the ask, park the side quest.
