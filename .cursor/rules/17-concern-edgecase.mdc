@@ -1,0 +1,34 @@
+---
+description: "Check 7pj load/save edges before done — empty PAI, skip vs local table, endt vs policy id"
+globs: "resources/js/views/PropertyLiability/**,resources/js/services/property_liability/**,app/Services/PL/**,app/Helpers/PL/**"
+alwaysApply: true
+---
+
+# Concern edgecase (7pj)
+
+Before claiming a **list / tab / save** done, walk this list. Find the miss. Do **not** add guess fallbacks (`14-code-must-benefit`).
+
+## Check (must)
+
+| Edge | Fail looks like |
+|---|---|
+| PAI v2 omits nested (commission / RI) | Tab empty; DB has rows |
+| `isBurglaryProductCode` skip of GET that 0121 still uses | 7pj empty; 0121 OK |
+| Edit hydrate vs tab load | Props `[]` overwrite a good GET |
+| Endt `data_id` vs policy v2 URL | GET 404/500 on endt tab |
+| Late `productCode` / `dataId` on mount | First paint skips load |
+| GET fail | Spinner then wipe filled rows |
+| Scale | Share 0.52 in DB vs 52 on form; PAI wants **percent** |
+| Silent default | `000` / `?? ''` on required API fields |
+
+## Do
+
+- Match **0121 path** when 7pj should show the same table (Eloquent / local), not a new skip.
+- One portal for the same hydrate gap (edit **or** tab GET, not fighting each other).
+- 0121–0125: no drive-by.
+
+## Don't
+
+- Extra 422 dumps / `a ?? b ?? c` “just in case”.
+- Narration comments.
+- Change generate SQL product filters when config already has 0189 / 0191–0196 / 0206.
