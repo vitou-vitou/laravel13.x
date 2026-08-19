@@ -1,0 +1,72 @@
+---
+description: "No narration comments and no commented-out code on new/changed lines"
+globs: "*"
+alwaysApply: true
+---
+
+# No comments on new / changed code
+
+**Default:** do not add `//`, `/* */`, or `/** */` in files you touch. Code must stand without narration.
+
+Also strip **commented-out code** (disabled lines that used to run).
+
+## Gate (before claiming done)
+
+Your **diff** must have no new comments unless they already existed and you did not touch that line.
+
+| Delete | Example |
+|---|---|
+| Narration | `// 400, not 422 — FE shows generic toast` |
+| Docblock on obvious method | `/** No silent 000 fallback … */` |
+| Disabled code | `// $oldVar = $this->legacyMethod();` |
+| Why-I-chose-this | `// this message needs to reach the user as-is` |
+
+**Keep only (do not add new ones):**
+- License headers already in the file
+- Existing comments you did not introduce
+
+If a status code or message needs explaining, put it in `ResponseMessage` / a short method name — not a comment.
+
+## Examples
+
+### Bad (never land)
+
+```php
+/** No silent 000 fallback — wrong branch = wrong report data. */
+private function requireBranchCode(array $data): string
+{
+    if ($branchCode === '') {
+        // 400, not 422 — FE shows a generic toast on 422
+        throw new InsException(ResponseMessage::HOME_BRANCH_MISSING, 400);
+    }
+}
+```
+
+```js
+// 400 = explicit setup problem — show it as-is
+if (status === 400 && data?.message) {
+```
+
+### Good
+
+```php
+private function requireBranchCode(array $data): string
+{
+    if ($branchCode === '') {
+        throw new InsException(ResponseMessage::HOME_BRANCH_MISSING, 400);
+    }
+}
+```
+
+```js
+if (status === 400 && data?.message) {
+```
+
+## Hook
+
+`.githooks/check-commented-code.mjs` warns on staged PHP/JS/Vue (does not block). Review before push.
+
+## Coexistence
+
+- Same bar as `04-simple-code-voice.mdc` (no narration comments).
+- Does not replace humanizer (`commit-humanizer.mdc`).
