@@ -60,7 +60,7 @@ Stop the AI from jumping straight to code. Every feature, bugfix, and refactor g
 | `go next` | After a proof rung: take highest-value open gap from last `progress.md` |
 =======
 | `brainstorm` / `think out` / `demo first` | Path map + options + visual mocks — no code until pick ([brainstorm-think-visual](references/brainstorm-think-visual.md)) |
-| `db-journey` / `7pj` / `pl-journey` | Long Direct Book user journey — 7 **lines** × quote/policy/endt (Marine = `0189`+`0206`; not `8pj`) ([db-journey](references/db-journey.md)) |
+| `/7pj` · `7pj` · `/db-journey` | Short Direct Book wave — all 7 or one product; quote list+pdf+view+create+edit then policy wire. Skill `7pj-wave`. Playbook [db-journey](references/db-journey.md) |
 >>>>>>> 1d67a5deb1b2a0cdbe702979ed27636a4d96ed59
 | `claude senior` / `listener mode` | Reinforce Claude Senior + Cursor thin listener (default every session on pgi) |
 | `save tokens` / `token budget` / `cheap mode` | Apply the token saving pattern. [token-budget.md](references/token-budget.md) |
@@ -282,7 +282,7 @@ This repo has a **locked policy** — read before mode auto-selection:
 =======
 - **Frontend → Impeccable always ON:** [references/impeccable-frontend.md](references/impeccable-frontend.md) · `.cursor/rules/01-impeccable-ui.mdc`
 - **Brainstorm / visual demo before layout code:** [references/brainstorm-think-visual.md](references/brainstorm-think-visual.md)
-- **Long journey:** `db-journey` / `7pj` — 7 lines × L1–L3 (Marine `0189`+twin `0206`; keep `7pj`, not `8pj`) — [references/db-journey.md](references/db-journey.md)
+- **Long journey:** `/7pj` — 7 lines × quote then policy (Marine `0189`+twin `0206`; keep `7pj`, not `8pj`) — skill `7pj-wave` · [references/db-journey.md](references/db-journey.md)
 - **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
 - **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
 - **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)

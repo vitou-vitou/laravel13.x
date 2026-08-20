@@ -53,6 +53,7 @@ Opt out: `no super-spec` / `plain agent`.
 
 | Command | Effect |
 |---------|--------|
+| `/7pj` | Direct Book wave — all 7 or one product; quote then policy (`7pj-wave`) |
 | `/super-spec` | Full spec pipeline |
 | `/spec-kit-openspec-superpowers` | Explicit reinforce (already default every session) |
 | `/caveman` | Max compression |

@@ -2,41 +2,20 @@
 name: /db-journey
 id: db-journey
 category: Workflow
-description: Long Direct Book user journey — products × quote/policy; view-only/pdf-only share schedule style
+description: Alias of /7pj — Direct Book journey, quote then policy, all 7 lines or one product
 ---
 
-# Direct Book user journey (long task)
+# Direct Book user journey
 
-**Canonical:** `db-journey` · also `7pj` · `/db-journey` · `pl-journey`
+**Use `/7pj` (shorter).** Same job. This command is an alias.
 
-Load triad + playbook: `spec-kit-openspec-superpowers/references/db-journey.md`
+Load `7pj-wave` + `spec-kit-openspec-superpowers` + `impeccable`.
+Playbook: `spec-kit-openspec-superpowers/references/db-journey.md`
 
-## Products (6)
-
-`0189` Marine · `0191` Burglary · `0192` Money · `0193` Plate · `0194` CAR · `0196` PI  
-(Bond `0195` out)
-
-## view-only ≈ pdf-only (style)
-
-Same checklist for schedule **content** fields from **THE INSURED NAME** / **INTEREST INSURED** band through **ISSUED BY**.
-
-**Parity:** label text, uppercase, order, values, Interest Total (S2 left).
-
-**Not parity:** admin `:` gutter, buttons, tabs, authorize, downloads, form controls, print black borders vs admin grey.
+**Input:**
 
 ```text
-/spec-kit-openspec-superpowers
-7pj view-only pdf-only crop png
+$ARGUMENTS
 ```
 
-```text
-7pj view-only
-7pj pdf-only
-7pj view-only pdf-only
-```
-
-## Default phases
-
-Quote + policy (view + PDF unless flagged). Endt only with `+endt`.
-
-Start immediately; keep product × phase × surface matrix.
+Default = all 7 lines. Expand to quote (list+pdf+view+create+edit) then policy wire. Extra waves only if user gives `w2`/`w3` or another `do:`.

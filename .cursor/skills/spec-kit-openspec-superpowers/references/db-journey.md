@@ -4,12 +4,14 @@
 
 | Say | Same meaning |
 |-----|----------------|
-| **`db-journey`** | Canonical (shortest clear) |
-| `/db-journey` | Cursor command |
-| `pl-journey` | Alias |
-| `7pj` | Ultra-short (nickname; **7** product **lines**) |
+| **`/7pj`** | Canonical slash — expand via skill `7pj-wave` (no wave boilerplate) |
+| `7pj` | Same without slash |
+| `/db-journey` | Alias of `/7pj` |
+| `db-journey` / `pl-journey` | Same |
 | `7-product-journey` / `7-product-user-journey` | Legacy nickname → same list |
 | `8pj` | **Do not use** — soft redirect to `7pj`. `0206` is Marine twin of `0189`, not an 8th line |
+
+Type the **work** only. Agent expands quote (list+pdf+view+create+edit) then policy wire. Default = **all 7 lines**. Extra waves only if `w2`/`w3` or another `do:`. See `.cursor/skills/7pj-wave/SKILL.md`.
 
 ## Scope
 
@@ -92,14 +94,13 @@ Follow locked **S2**: Sum Insured body + Total (+ rows under Total) **left**; la
 ## Example prompts
 
 ```text
-/spec-kit-openspec-superpowers
-7pj view-only pdf-only crop png
+/7pj do: merge Total Sum Insured like CAR view
 ```
 
 ```text
-7pj view-only
+/7pj car pdf view do: merge Total SI  ref: /pl/quotations/1841/pdf
 ```
 
 ```text
-7pj pdf-only
+/7pj view-only pdf-only crop png
 ```
