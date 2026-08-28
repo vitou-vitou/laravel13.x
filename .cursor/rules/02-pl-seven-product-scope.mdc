@@ -47,7 +47,7 @@ alwaysApply: true
 - Policy：`.../Policy/Components/Burglary/DirectBookPolicy*.vue`, `BurglaryPolicy*.vue`
 - Endorsement：`.../Endorsement/Components/Burglary/*`
 - Per-product plan/premium：`.../Components/Burglary/*Plan.vue`, `*Premium.vue`（及同目录下 Car/Marine/PI/Bond 等切片）
-- Mock / dev：`resources/js/services/property_liability/mock-burglary-service/`, `.../BurglaryMock/`
+- Mock / dev：`resources/js/services/property_liability/burglary/`, `.../BurglaryMock/`
 
 **服务层**
 
@@ -75,7 +75,7 @@ alwaysApply: true
 
 - [ ] 任务是否只服务 0189 / 0206 / 0191–0196（含 Bond `0195`；Marine twin `0206` OK）？
 - [ ] diff 是否避开 0121–0125 实现文件？
-- [ ] 新文件是否落在 Direct Book / Burglary / mock-burglary 路径下？
+- [ ] 新文件是否落在 Direct Book / Burglary 路径下？
 - [ ] 是否无 drive-by refactor？
 
 与 `00-spec-first-superpowers.mdc`、`01-impeccable-ui.mdc` 共存；本规则管 **范围**，spec 管 **流程**，impeccable 管 **UI 质量**。

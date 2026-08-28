@@ -22,7 +22,7 @@ Adding endorsement support for another Direct Book code (`0189` / twin `0206` / 
 
 | # | When | File |
 |---|------|------|
-| 6 | Detail UI list | Confirm code in `PL_BURGLARY_DIRECT_BOOK_UI_CODES` (`mock-burglary-service/constants.js`) |
+| 6 | Detail UI list | Confirm code in `PL_BURGLARY_DIRECT_BOOK_UI_CODES` (`burglary/codes.js`) |
 | 7 | Extra fields | Branch in `UpdateRequest` only if product needs different required keys |
 | 8 | Different premium | New slice under `Endorsement/Components/Burglary/` only if logic differs |
 
