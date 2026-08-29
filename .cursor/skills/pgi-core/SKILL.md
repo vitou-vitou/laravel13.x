@@ -8,6 +8,7 @@ description: Answer any question about the pgi-core-frontend project — stack, 
 Laravel + Vue insurance admin for Phillip General Insurance (Cambodia). Read this first; it maps the repo so you can jump straight to the right file instead of grepping.
 
 Asked "give me a high-level overview"? Read [references/overview.md](references/overview.md) — the answer is already written.
+Asked about the 7pj **user** journey (quote → policy → endorsement as staff see it)? Read [references/journey-7pj.md](references/journey-7pj.md).
 
 ## What this app is
 
