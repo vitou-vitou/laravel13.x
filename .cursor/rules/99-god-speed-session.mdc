@@ -28,18 +28,36 @@ Opt out: `no super-spec` / `plain agent`.
 
 - Ship > debate. Minimal scope. Match codebase conventions.
 - **Simple code:** short names, small methods (`04-simple-code-voice.mdc`).
-- **SRP / avoid fat:** `srp-thin.md` via `/spec-kit-openspec-superpowers` Phase 4; deep = skill `refactor`.
+- **SRP / avoid fat:** `srp-thin.md` via `/spec-kit-openspec-superpowers` Phase 4; deep = skill `refactor` (see §5).
 - Verify before claiming done (`verification-before-completion`).
 - After done: **Next 5** actions (`10-suggest-five-next.mdc`).
 - Smoke/demo payloads: human EN+KM (`11-smoke-data-humanizer.mdc`) — no `smoke`/`test` junk in shared DB.
 - Visual bugfixes: P1 query/data evidence, P2 crop optional (`07-bugfix-evidence-crop.mdc`).
 - No drive-by refactors. No commits unless asked.
 
-### 5. Multitask
+### 5. Quality + speed skills（按需 · 不预载）
+
+Triad covers default flow. Load these **only on trigger** — read `SKILL.md`, then work.
+
+| Trigger | Skill |
+|---|-----|
+| Review own/agent diff before merge · `review this` | `code-review-and-quality` (repo-local, 5 axes) |
+| Review feels too agreeable · pre-merge risk · `hostile review` | `adversarial-reviewer` |
+| PR / diff comments — one line each | `caveman-review` |
+| Fat class, deep restructure beyond `srp-thin.md` | `refactor` (Fowler catalog) |
+| Write PHP tests · TDD a feature/bugfix | `laravel-tdd` (Pest) |
+| Pre-PR / pre-deploy full check | `laravel-verification` |
+| Whole module broken — "make X work", empty tab class | `focused-fix` |
+
+**Skip:** `code-review` / `code-reviewer` / `pr-review-expert` (overlap 5-axis) · `review` / `fix` (Playwright — archived) · `performance-profiler` (no Laravel) · `tdd-guide` (superseded by `laravel-tdd`).
+
+One skill per task. Stacking reviewers burns tokens without new signal.
+
+### 6. Multitask
 
 **Default off** — see `03-fast-mode.mdc`. Long independent work → background subagents only when user says **`god speed full`** or **`multitask`**.
 
-### 6. Session boot
+### 7. Session boot
 
 1. **Default stack ON:** `spec-kit-openspec-superpowers` (no need to attach — 99% workflow)
 2. `.spec-mode` → OpenSpec (`openspec`)
@@ -63,3 +81,6 @@ Opt out: `no super-spec` / `plain agent`.
 | `claude senior` / `listener mode` | Reinforce Claude Senior + thin Cursor (`08-claude-senior-listener.mdc`; default every session via skill) |
 | `normal cursor` | Opt out of Claude Senior listener |
 | `no super-spec` / `plain agent` | Opt out of default triad stack for this chat |
+| `hostile review` / `tear this apart` | `adversarial-reviewer` (§5) |
+| `make X work` / `fix the Y module` | `focused-fix` (§5) |
+| `pre-deploy check` / `full verify` | `laravel-verification` (§5) |
