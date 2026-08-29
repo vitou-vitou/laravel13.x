@@ -23,6 +23,7 @@
 | `impeccable/` | Frontend UI design, polish, audit | design, polish, `$impeccable` |
 | `laravel-ui-phase/` | Post-MVP UI for `examples/*` (`AI pick my UI`) | AI pick my UI, Breeze gray, polish storefront |
 | `design-taste-frontend/` | Anti-slop (claude-skills pack in `.agents/skills/`) | landing redesign, anti-slop catalog |
+| `terminal-bench/` | Terminal-Bench waffle / leaderboard / Harbor runs | tbench.ai, waffle view, Harbor Hub, oracle agent |
 
 **MCP (global `~/.cursor/mcp.json` + plugins):** see [`docs/MCP_SERVERS.md`](MCP_SERVERS.md) — playwright, browsermcp, @21st-dev/magic, context7, **Notion plugin** (OAuth). Template: [`docs/cursor-mcp.example.json`](cursor-mcp.example.json) (Notion is plugin-only, not in JSON).
 
