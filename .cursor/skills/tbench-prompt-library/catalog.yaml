@@ -1,0 +1,74 @@
+version: 1
+updated: 2026-08-29
+notes: >-
+  Resolution rates are reference from TB 4.0 leaderboard — re-check tbench.ai.
+  Task trials are local distillations; expand via import-trial.md.
+
+leaderboard_4_0:
+  quality:
+    - model: anthropic/claude-opus-5
+      agent: claude-code
+      resolution_pct: 51.8
+    - model: anthropic/claude-fable-5
+      agent: claude-code
+      resolution_pct: 44.5
+    - model: zhipu/glm-5.3
+      agent: claude-code
+      resolution_pct: 41.8
+  speed:
+    - model: openai/gpt-5.6-luna
+      agent: codex
+      resolution_pct: 17.3
+      cost_k: 0.3
+    - model: openai/gpt-5.6-terra
+      agent: codex
+      resolution_pct: 21.5
+      cost_k: 1.7
+
+harness_default: harness/default.md
+
+tasks:
+  wdm-design:
+    category: science
+    tags: [photonics, meep, fdtd, wdm, numpy, inverse-design, silicon]
+    keywords: [demultiplexer, permittivity, design.npy, meta.json, adjoint]
+    pack: tasks/wdm-design/strategy.md
+    meta: tasks/wdm-design/meta.yaml
+    trials: tasks/wdm-design/trials.yaml
+    hub_task: terminal-bench/wdm-design
+
+  photonic-waveguide-routing:
+    category: science
+    tags: [photonics, routing, waveguide]
+    pack: tasks/_stub/strategy.md
+    meta: tasks/photonic-waveguide-routing/meta.yaml
+    trials: tasks/photonic-waveguide-routing/trials.yaml
+    hub_task: terminal-bench/photonic-waveguide-routing
+    status: stub
+
+  coq-block-bound:
+    category: science
+    tags: [coq, proof, formal]
+    pack: tasks/_stub/strategy.md
+    meta: tasks/coq-block-bound/meta.yaml
+    trials: tasks/coq-block-bound/trials.yaml
+    hub_task: terminal-bench/coq-block-bound
+    status: stub
+
+  nextjs-performance:
+    category: frontend
+    tags: [nextjs, performance, react]
+    pack: tasks/_stub/strategy.md
+    meta: tasks/nextjs-performance/meta.yaml
+    trials: tasks/nextjs-performance/trials.yaml
+    hub_task: terminal-bench/nextjs-performance
+    status: stub
+
+  cumulative-layout-shift:
+    category: frontend
+    tags: [cls, layout, web-vitals, frontend]
+    pack: tasks/_stub/strategy.md
+    meta: tasks/cumulative-layout-shift/meta.yaml
+    trials: tasks/cumulative-layout-shift/trials.yaml
+    hub_task: terminal-bench/cumulative-layout-shift
+    status: stub

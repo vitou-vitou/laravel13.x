@@ -129,3 +129,10 @@ Task layout, `task.toml`, and verifier rules: [reference.md](reference.md).
 - Harbor internals / custom agents → [https://harborframework.com/docs](https://harborframework.com/docs)
 - Task proposal rubric → repo `docs/prompts/task-proposal.md`
 - Science split → [Terminal-Bench-Science](https://www.tbench.ai/news/tb-science-announcement) (separate dataset)
+
+## Related skills
+
+| Skill | Use |
+|-------|-----|
+| `harbor-trajectory` | Read Hub Trajectory #1/#2/#3; grok-build section map |
+| `tbench-prompt-library` | Store distilled packs per task; harness + quality/speed judge; combo router |

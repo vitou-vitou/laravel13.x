@@ -1,0 +1,17 @@
+---
+description: >-
+  Non-trivial fixes/implementations — match tbench-prompt-library catalog,
+  apply harness + task pack before improvised prompts. tbench, waffle, self-improvement.
+alwaysApply: true
+---
+
+# TB prompt library (thin gate)
+
+Before a long improvised “fix this” thread:
+
+1. Load skill `tbench-prompt-library` → read `catalog.yaml`.
+2. If task tags match → `harness/default.md` + `tasks/{slug}/strategy.md`.
+3. User says quality/speed → `judge.md`.
+4. One-line confirm: `TB pack: … · tier: …`
+
+Import new trials: `import-trial.md`. Study raw steps: skill `harbor-trajectory`.

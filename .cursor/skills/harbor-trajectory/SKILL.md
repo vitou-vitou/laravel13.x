@@ -13,7 +13,7 @@ Harbor logs agent runs as **ATIF** (Agent Trajectory Interchange Format). The Hu
 
 Spec: [harborframework.com/docs/agents/trajectory-format](https://www.harborframework.com/docs/agents/trajectory-format) · RFC: [github.com/harbor-framework/harbor/blob/main/rfcs/0001-trajectory-format.md](https://github.com/harbor-framework/harbor/blob/main/rfcs/0001-trajectory-format.md)
 
-Related: skill `terminal-bench` for waffle / runs.
+Related: skill `terminal-bench` for waffle / runs · skill `tbench-prompt-library` to store distilled packs and route quality/speed.
 
 ## Step types (what #1, #2, … mean)
 
@@ -101,6 +101,13 @@ Do **not** copy “You are Grok released by xAI” into Cursor rules. Copy **beh
 ## Optional seeding (Harbor tasks)
 
 Tasks may ship `trajectory.json` beside `instruction.md` to give agents prior context (multi-step). Oracle/nop agents skip it. See Harbor `load-trajectory` docs.
+
+## After you distill a trial
+
+Do not stop at reading Trajectory — write a pack:
+
+1. Follow skill `tbench-prompt-library` → [import-trial.md](../tbench-prompt-library/import-trial.md)
+2. Register in [catalog.yaml](../tbench-prompt-library/catalog.yaml)
 
 ## Canary
 
