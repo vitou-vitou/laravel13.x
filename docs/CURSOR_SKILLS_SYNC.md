@@ -24,6 +24,7 @@
 | `laravel-ui-phase/` | Post-MVP UI for `examples/*` (`AI pick my UI`) | AI pick my UI, Breeze gray, polish storefront |
 | `design-taste-frontend/` | Anti-slop (claude-skills pack in `.agents/skills/`) | landing redesign, anti-slop catalog |
 | `terminal-bench/` | Terminal-Bench waffle / leaderboard / Harbor runs | tbench.ai, waffle view, Harbor Hub, oracle agent |
+| `harbor-trajectory/` | ATIF Trajectory steps, grok-build prompt map, Cursor porting | trajectory, #1 system, #2 user, trajectory.json, Hub trial |
 
 **MCP (global `~/.cursor/mcp.json` + plugins):** see [`docs/MCP_SERVERS.md`](MCP_SERVERS.md) — playwright, browsermcp, @21st-dev/magic, context7, **Notion plugin** (OAuth). Template: [`docs/cursor-mcp.example.json`](cursor-mcp.example.json) (Notion is plugin-only, not in JSON).
 

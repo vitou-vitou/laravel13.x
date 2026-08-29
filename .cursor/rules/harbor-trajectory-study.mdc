@@ -1,0 +1,13 @@
+---
+description: When studying Harbor Hub Trajectory or ATIF steps, load skill harbor-trajectory and extract one behavior per rule — do not paste grok system identity.
+alwaysApply: false
+---
+
+# Harbor trajectory study
+
+Trigger: user opens Hub Trajectory tab, mentions `#1 system` / `#2 user`, ATIF, or `trajectory.json`.
+
+1. Load `.cursor/skills/harbor-trajectory/SKILL.md`.
+2. Treat **#1 system** as harness policy; **#2 user** as task + env; **agent steps** as tool/observation loops.
+3. Port **behaviors** into Cursor rules or skills — never copy model identity or full transcripts.
+4. Check overlap with `ponytail.mdc`, `14-code-must-benefit.mdc`, and `verification-before-completion` before adding new always-on rules.
