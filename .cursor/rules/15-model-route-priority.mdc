@@ -15,14 +15,20 @@ alwaysApply: true
 | **P2** | **User proxy (OpenCodex)** | When user says use OpenCodex / proxy, or Claude subscription unavailable / rate-limited. |
 | **P3** | **Cursor `Task` fallbacks** | Only if P1+P2 unavailable or user forces Cursor-owned subagent. |
 
-### P3 Cursor Task model ladder (strict)
+### P3 Cursor Task model tiers
 
-Use first available / allowed slug from this list — **do not skip ahead** without fail reason:
+Pick by task per `19-delegation-workflows.mdc` — set `model` explicitly on every call.
 
-1. `gpt-5.6-sol-medium` (OpenAI best)
-2. `gpt-5.6-terra-medium` (OpenAI next)
-3. `cursor-grok-4.5-high-fast` (Grok)
-4. Other allowed Cursor models only if 1–3 blocked
+| Task | Slug |
+|------|------|
+| Fast bulk | `composer-2.5-fast` |
+| Default impl | `gpt-5.6-terra-medium` |
+| Tricky | `gpt-5.6-sol-medium` |
+| Alt | `cursor-grok-4.5-high-fast` |
+
+### P3 availability fallback
+
+If chosen slug is blocked, try the next heavier tier, then Grok, then other allowed Cursor models.
 
 ### Auto-boot
 
