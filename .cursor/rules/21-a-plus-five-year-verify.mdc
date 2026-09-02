@@ -1,0 +1,60 @@
+---
+description: "A+ five-year verify — any feature (user confirmed working + fast, worry stable)"
+alwaysApply: true
+---
+
+## Trigger
+
+User says: **working / fast** but **worry 5-year stable** · **verify me** · **expert data / logic / architecture** · **push to A+**.
+
+Run this **before claiming done** — any domain (customer, commission, RI, tabs, print, API, cache), not only joint LOV.
+
+## A+ scorecard (six axes — grade each)
+
+| Area | A+ pass | B or fail |
+|------|---------|-----------|
+| **Architecture** | New slice file when shared would fat-diff or break legacy; shell = thin branch + delegate | Drive-by refactor; dual portals (FE+BE same gap); wrong layer (local DB vs INS/API) |
+| **Data contracts** | One canonical shape; one error-key namespace; loaders return fresh data (not stale snapshot) | Mixed mappers; drift vs `checkTab*` / API; silent `??` fallbacks |
+| **Logic** | Pure rules testable without Vue; one async portal; safe shared state (don’t overwrite parent when child context differs) | Same logic copy-pasted in components; race without seq/abort; guess fallbacks |
+| **Cache / perf** | Shared memo/cache; lazy load; virtual scroll / debounce on large lists | `limit(-1)`; refetch per row; bypass cache “for speed” |
+| **Consistency** | Quote + policy + endt same factory/helper | Divergent paths per shell that will diverge again |
+| **Testability** | Pure module + small `scripts/verify-*.mjs` or Pest on rules | Logic only in SFC; no runnable check |
+
+**Target:** all six **A+**. **Ship:** all **A** or **A+** with documented residual risks.
+
+## LDA-PO walk (5-year lens)
+
+| Lens | Ask |
+|------|-----|
+| **Logic** | Happy path · edge path · what runs on edit hydrate vs tab open · race on fast change |
+| **Data** | Persisted fields vs UI-only · option shape · validation keys · scale (% vs decimal) |
+| **Architecture** | Who owns state (parent vs row vs tab) · which API · legacy wall still intact? |
+| **Portal** | Single module/function name for load/hydrate/save — one job each |
+| **Others** | Permissions · i18n EN/KH · prod CSS grid · commit scope · smoke matrix |
+
+## Residual risks (required honesty)
+
+List 2–4 **known tradeoffs** with severity — don’t hide behind “it works today”.
+
+| Severity | Example |
+|----------|---------|
+| Low | `v-for :key="index"` pre-existing |
+| Medium | Shared pool holds one “active” type until reload |
+| High | Would break legacy or wrong API contract — **fix before ship** |
+
+## Verify matrix
+
+1. **Automated** — `npm run build` if FE touched; `php artisan test` if PHP touched; domain `scripts/verify-*.mjs` if pure rules exist.
+2. **Manual** — user path on `APP_URL`; Network tab for duplicate/wrong endpoint; edit hydrate vs create.
+3. **Regression** — one legacy product path unchanged if scope was 7pj-only.
+
+## PL worked example (joint customer — reference only)
+
+User smoke OK. Grades after hardening: **all A+**.
+
+- **Portal:** `makeCustomerPoolLoad` · `openJointCustomers` · `joint-pool.js` (pure).
+- **Safety:** `shouldSharePoolLoad` — joint type ≠ main → cache path, no parent overwrite.
+- **Script:** `node scripts/verify-joint-pool.mjs`.
+- **Detail:** `.cursor/rules/20-pl-customer-pool-joint.mdc`.
+
+Reuse **this scorecard + LDA-PO** for the next feature; swap the worked example section only.

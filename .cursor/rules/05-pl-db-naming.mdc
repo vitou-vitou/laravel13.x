@@ -37,7 +37,9 @@ burglary/
   tab1-check.js    # Tab1 validate / prefill
   plan.js          # plan hydrate
   plan-business.js # plan biz/channel grid + carry
-  info-tab.js      # biz rates / catalog cache / warm
+  info-tab.js      # biz rates / catalog cache / warm / loadCustomersCached
+  joint-pool.js    # pure pool warm / share-load rules (testable)
+  joint.js         # makeCustomerPoolLoad, openJointCustomers (joint LOV)
   endt-type.js     # endorsement type labels
   clause.js        # clause multiselect
   limits.js        # premium / rows / merge tabs

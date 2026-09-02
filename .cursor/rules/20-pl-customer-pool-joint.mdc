@@ -1,0 +1,47 @@
+---
+description: "7pj INS customer pool + joint row LOV implementation"
+globs: "resources/js/**/Burglary/**,resources/js/services/property_liability/burglary/**"
+alwaysApply: false
+---
+
+## Customer pool + joint LOV (7pj implementation)
+
+**Verify lens:** `21-a-plus-five-year-verify.mdc` (general A+ / 5-year — any feature).
+
+### Do / don’t
+
+| Do | Don’t |
+|----|-------|
+| INS `loadCustomersCached` | `joint-service` for 7pj |
+| `DirectBookJoint*` BUR slice | Fat shared `JointItem` / `JointDetail` |
+| `makeCustomerPoolLoad` + `customerPool` computed | Per-row full list fetch |
+| `CUSTOMER_SCROLL` on large LOV | Plain dropdown 1000+ options |
+| `customerOpt` from `tab1-check.js` | Ad-hoc option mapping |
+
+### Files
+
+```
+burglary/joint-pool.js   # isPoolWarm, shouldSharePoolLoad, peekJointCustomers
+burglary/joint.js        # makeCustomerPoolLoad, openJointCustomers
+Components/Burglary/DirectBookJointDetail.vue
+Components/Burglary/DirectBookJointItem.vue
+```
+
+### Wiring
+
+Parent: `makeCustomerPoolLoad(state)` → `customerPool` with `load` returning `options[]`.
+
+Row: `fillCustomers()` → `openJointCustomers(type, pool)` on `@show` and edit hydrate.
+
+Multi-type: `shouldSharePoolLoad` before `pool.load`.
+
+Errors: `joint_account_details.{i}.{field}` (7pj). Legacy: `joint_details.*`.
+
+### Verify
+
+```bash
+node scripts/verify-joint-pool.mjs
+npm run build
+```
+
+Manual: one INS GET per type; no `joint-service` on 7pj joint. Legacy PubLiab still `joint-service`.
