@@ -72,3 +72,6 @@ examples/dashboard-v1/env
 !examples/telegram-login/.env
 !examples/uploadfile/.env
 !examples/week-ship-atlas/.env
+
+# hyperfine benchmark outputs (throwaway)
+/scripts/bench-results/

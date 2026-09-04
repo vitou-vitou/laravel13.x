@@ -1,0 +1,169 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method App\\Http\\Controllers\\Api\\ClaimController\:\:nextReference\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: app/Http/Controllers/Api/ClaimController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Api\\ClaimController\:\:submissionRules\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: app/Http/Controllers/Api/ClaimController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and App\\Enums\\ClaimStatus\:\:Draft will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: app/Http/Controllers/Api/ClaimController.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: app/Http/Controllers/Api/ClaimController.php
+
+		-
+			message: '#^Call to an undefined method Laravel\\Passport\\Contracts\\ScopeAuthorizable\:\:revoke\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/AuthController.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TodoCollection\:\:currentPage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/TodoCollection.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TodoCollection\:\:lastPage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/TodoCollection.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TodoCollection\:\:perPage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/TodoCollection.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\TodoCollection\:\:total\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/TodoCollection.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$completed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$due_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$priority\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\TodoResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/TodoResource.php
+
+		-
+			message: '#^Cannot access property \$value on string\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Models/Claim.php
+
+		-
+			message: '#^Cannot call method canTransitionTo\(\) on string\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Models/Claim.php
+
+		-
+			message: '#^Property App\\Models\\Claim\:\:\$status \(string\) does not accept App\\Enums\\ClaimStatus\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/Claim.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 2
+			path: app/Models/Policy.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and App\\Enums\\PolicyStatus\:\:Active will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Models/Policy.php
+
+		-
+			message: '#^Instanceof between string and App\\Enums\\Role will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and App\\Enums\\Role will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and App\\Enums\\Role\:\:Policyholder will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Trait Laravel\\Passport\\HasApiTokens requires using class to implement Laravel\\Passport\\Contracts\\OAuthenticatable, but App\\Models\\User does not\.$#'
+			identifier: class.missingImplements
+			count: 1
+			path: app/Models/User.php
