@@ -1,6 +1,6 @@
 ---
 name: dno-quotation-new
-description: Build or fix Directors & Officers (0198) quotation — create, edit hydrate, print. Nested PAI directors_and_officers. Blank Plan/Premium after save, swagger nest, PDF. Layout, checkDnoPlan, scroll. Use when D&O edit fields empty or print blank.
+description: Build or fix Directors & Officers (0198) quotation — create, edit hydrate, print. Nested PAI directors_and_officers. Blank Plan/Premium after save, swagger nest, PDF. Layout, checkDnoPlan, scroll. Remote IDE browser smoke. Use when D&O edit fields empty, print blank, or user says remote the D&O journey.
 ---
 
 # D&O Quotation New (0198)
@@ -33,7 +33,7 @@ Do **not** edit `0121`–`0125`. Do not fork a second D&O Plan/Premium Vue.
 | Sub / extra limits | `DnoSubLimits.vue`, `DnoAdditionalLimits.vue` |
 | Scroll | `resources/js/services/property_liability/burglary/scroll.js` |
 
-Shared scroll skill: `pl-scroll-to-error`.
+Shared scroll skill: `pl-scroll-to-error`. Remote drive: `ide-browser-remote`.
 
 ## Tab 1 — Product & Customer Info
 
@@ -106,6 +106,8 @@ Edit GET often has nested-only, plus top-level `sub_limits: []` that must **not*
 
 Print / detail: `plPrepareDirectBookProductPrintFields` hoists **DNO keys** (not BBB `territorial_limit` / `proposal_form_date`). PDF body `directors_officers_body` — Geographical Scope, Governing Law, ERP, Acquisition, sub/additional limit rows. VM `liabilityBody()` nests `directors_and_officers`.
 
+Policy edit: `PolicyForm` + `PolicyService::edit` merge nest from main GET / parent quote. Endorsement edit: `EndorsementForm::toArray` same hoist. FE `fillEdit` uses `dnoFromQuote` + `dnoCarry` + `dnoFill`. Endt print note still uses `plPrepDetail` → `plFlatEndt` (already hoists DNO).
+
 ## CKEditor (Plan video)
 
 1. Double editor → index `:key`. Fix `rowKey`.
@@ -127,6 +129,10 @@ No duplicate blank checks in SFCs.
 
 ## Verify
 
+Quote video (save → edit blank → swagger nest → print blank) is enough for this bug. **Do not** record a full Quote → Policy → Endorsement Bandicam unless policy/endt edit is still empty after this hydrate.
+
+Manual or **remote** (`ide-browser-remote`): one D&O quote edit + print. Policy/endt: open edit of an existing converted row if you have one — no new journey required.
+
 1. New → Info blank Next → scroll topmost (Customer / Insured).
 2. Save Info → Plan. Location EN filled, KH empty → Next → toast + `Location of Risk (KH) is required` + scroll. KH toolbar **on top**.
 3. Dates 25/25/50 one row.
@@ -134,6 +140,21 @@ No duplicate blank checks in SFCs.
 5. `npm run build`.
 6. Save all → edit same quote → Plan geo/interest/ERP + Premium descriptions + sub/additional limits still filled.
 7. Print PDF shows those DNO labels (not blank BBB Territorial Limit).
+
+## Remote (reuse 1958-class row)
+
+Follow `ide-browser-remote`. Overlay:
+
+| Item | Value |
+|---|---|
+| Edit | `/quotation/pl/directors-officers/{id}/edit` |
+| API | `GET /pl/quotations/{id}/edit` → nest `directors_and_officers` |
+| Print | `/pl/quotations/{id}/pdf?letterHead=0&lang=EN&signature=0&noStamp=1` |
+| Nest tables | `sub_limits[]`, `additional_limits[]` — nonempty nest beats top `[]` |
+
+Save on **Premium**. Reload edit. Pass hydrate if nest tables still show. Pass print if `pdftotext` has `DIRECTORS AND OFFICERS INSURANCE QUOTATION` (IDE viewer black ≠ fail).
+
+Plan geo / Interest / ERP empty **and** nest scalars `null` = PAI did not persist those keys — not FE wipe. Do not open BBB swagger for Retroactive.
 
 ## Do not
 

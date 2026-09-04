@@ -32,7 +32,7 @@ Asked about the 7pj **user** journey (quote → policy → endorsement as staff 
 | PDF | `barryvdh/laravel-snappy` + `mpdf/mpdf` |
 | Excel | `maatwebsite/excel`, `exceljs` |
 | Build | Vite (`npm run dev` / `npm run build`) |
-| E2E | Playwright — **archived**, do not run (`.cursor/rules/16-playwright-archived.mdc`) |
+| E2E | Playwright archived. Remote UI smoke: skill `ide-browser-remote` (Cursor IDE browser, not Playwright) |
 
 ## Request path (memorize this)
 
@@ -197,6 +197,7 @@ npm run build
 ## Verification before claiming done
 
 1. `php artisan test` for PHP changes
+1b. `composer analyse` — Larastan level 4 on `app/`. `phpstan-baseline.neon` freezes 4398 legacy errors, so **only your new code is checked**. Green = no new issues. Never regenerate the baseline to silence your own error; fix it. Claim + Travel excluded (known unfixed bugs, out of PL scope).
 2. `npm run build` only when JS/Vue/CSS changed (skip otherwise — it is slow)
 3. `node scripts/verify-burglary-routing.mjs` for Direct Book routing
 4. Manual/API check — browser automation is archived
