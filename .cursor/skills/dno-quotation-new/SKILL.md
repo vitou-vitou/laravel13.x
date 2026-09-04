@@ -1,83 +1,142 @@
 ---
 name: dno-quotation-new
-description: Build or fix Directors & Officers (0198) Quotation New Plan Info — required fields, EN/KH CKEditor pairs, 25/25/50 dates, scroll-to-first-error. Use when D&O quote create, Location of Risk KH required, toolbar under editor, or Bandicam of Plan Next fail.
+description: Build or fix Directors & Officers (0198) quotation — create, edit hydrate, print. Nested PAI directors_and_officers. Blank Plan/Premium after save, swagger nest, PDF. Layout, checkDnoPlan, scroll. Use when D&O edit fields empty or print blank.
 ---
 
 # D&O Quotation New (0198)
 
-Code `PRODUCT_CODE.DIRECTORS_OFFICERS` = `0198`. `cfg.hasDno`. Nested PAI block `directors_and_officers`.
+`PRODUCT_CODE.DIRECTORS_OFFICERS` = `0198`. `cfg.hasDno`. Nested PAI `directors_and_officers`.
 
-Quote create URL: `/quotation/pl/new` → shell `DirectBookQuotationFormShell.vue`.
+URL: `/quotation/pl/new` → `DirectBookQuotationFormShell.vue`.
 
-Tabs: **Product & Customer Info** → **Plan Info.** → **Premium**.
+| Tab | Key | Component |
+|---|---|---|
+| Product & Customer Info | `prod` | `DirectBookQuotationInfo.vue` |
+| Plan Info. | `plan` | `DirectBookQuotationPlan.vue` → `Plan.vue` |
+| Premium | `premium` | `DirectBookQuotationPremium.vue` → `Premium.vue` `kind === 'dno'` |
 
-This skill is the **Plan** slice (source video: Next with Location KH blank). Info tab = shared Direct Book, not D&O-only. Premium = `Premium.vue` `dno` branch.
+Create: Plan + Premium tabs stay **disabled** until Info save (`isEditMode` = route id). Do not unlock them client-side.
+
+Do **not** edit `0121`–`0125`. Do not fork a second D&O Plan/Premium Vue.
 
 ## Files
 
 | Job | Path |
 |---|---|
-| Plan UI | `resources/js/views/PropertyLiability/Components/Burglary/Plan.vue` |
-| Quote Plan entry | `…/Quotation/Components/Burglary/DirectBookQuotationPlan.vue` |
-| Quote Info | `…/Quotation/Components/Burglary/DirectBookQuotationInfo.vue` |
-| DNO rules | `resources/js/services/property_liability/burglary/dno.js` |
+| Shell | `…/Quotation/Components/Burglary/DirectBookQuotationFormShell.vue` |
+| Info | `…/Quotation/Components/Burglary/DirectBookQuotationInfo.vue` |
+| Info rules | `resources/js/services/property_liability/burglary/tab1-check.js` |
+| Plan | `resources/js/views/PropertyLiability/Components/Burglary/Plan.vue` |
+| Plan rules | `resources/js/services/property_liability/burglary/dno.js` (`checkDnoPlan`) |
+| Premium | `…/Components/Burglary/Premium.vue` |
+| Premium rules | `dno.js` (`checkDno`, `dnoPrem`, `dnoStash`, `dnoFill`) |
+| Sub / extra limits | `DnoSubLimits.vue`, `DnoAdditionalLimits.vue` |
 | Scroll | `resources/js/services/property_liability/burglary/scroll.js` |
-| Dates | `dnoDateFields` in `dno.js` |
 
-Do **not** edit `0121`–`0125` Plan/Info.
+Shared scroll skill: `pl-scroll-to-error`.
 
-## Plan layout (must match)
+## Tab 1 — Product & Customer Info
 
-Dates **one row**, `grid-cols-4` (prod-safe; no `md:grid-cols-2`):
+Portal: `checkTab1` / `hasTab1Err`. Shared Direct Book, not D&O-only.
+
+Required: `product_code`, `customer_type`, `customer_no`, `joint_status`, `insured_name_en`, `insured_name_kh`. Joint `J` → at least one joint row (`customer_no`, `joint_level`, `permission`).
+
+Fail: toast → `nextTick` → `scrollToError`. Wrappers `:data-field="field.name"`.
+
+## Tab 2 — Plan Info.
+
+### Layout
+
+Dates **one row**, `grid-cols-4` (no `md:grid-cols-2`):
 
 | Field | Span |
 |---|---|
-| Retroactive Date | 25% (`col-span-1`) |
-| Prior & Pending Date | 25% (`col-span-1`) |
-| Personal Form Date Signed | 50% (`col-span-2`) |
+| Retroactive Date | 25% |
+| Prior & Pending Date | 25% |
+| Personal Form Date Signed | 50% |
 
-Then Business Channel / Business Name on the **next** row. Never beside Personal Form.
+Business Channel / Business Name = **next** row. Never beside Personal Form.
 
-EN/KH editors: **pair** 50/50 (`pairGrid`). Video fields: Interest, Extended Reporting Period, Acquisition Threshold, Location of Risk, Deductible, Subjectivity, Remark.
+EN/KH CKEditor pairs 50/50: Interest, Extended Reporting Period, Acquisition Threshold, Location of Risk, Deductible, Subjectivity, Remark (video). Also Validity, Geographical Scope, Governing Law, Coverage textareas in `dno.js` defs.
 
-Row loop `:key="rowKey(row)"` — never index. See skill `pl-scroll-to-error`.
+`:key="rowKey(row)"` — never index.
 
-## Client Next (quotation)
+### Next (quotation)
 
-`checkDnoPlan(form, cfg, {})` in `validateForm` when `cfg.hasDno && isQuotation`.
+`checkDnoPlan(form, cfg, {})` when `cfg.hasDno && isQuotation`.
 
-Required (blank → inline `{Label} is required` + toast `Please complete all required fields.`):
-
-Rich (empty HTML = blank via `dnoPlain`): `validity_en`, `validity_kh`, `location_of_risk`, `location_of_risk_kh`.
+Rich blank (`dnoPlain`): `validity_en`, `validity_kh`, `location_of_risk`, `location_of_risk_kh`.
 
 Scalar: `effective_date_from`, `effective_date_to`, `sale_channel`, `business_code`, `handler_code`.
 
-Location labels use `cfg.locationLabel` → `Location of Risk (EN|KH)`. Deductible `*` is `cfg.deductibleRequired` (server / other check; keep UI required).
+Inline `{Label} is required`. Location uses `cfg.locationLabel`. Deductible `*` = `cfg.deductibleRequired` (keep UI; not in `checkDnoPlan`).
 
-Fail: `errors.value = …` → `announce(REQUIRED_FIELDS_TOAST)` → `handleNext` `nextTick` → `scrollToError`.
+Fail: `handleNext` → `nextTick` → `scrollToError`.
 
-## CKEditor (video bugs)
+Carry: `dnoForm` / `dnoCarry` / `dnoPlain`. `dnoCarry` + `dnoFromQuote` read **nested** `directors_and_officers` (JSON string OK). `mergeTabs` flattens `dnoFromQuote` on edit.
 
-1. **Double editor** — index `:key` remount. Fix: `rowKey`.
-2. **Toolbar under box** (Location KH after Next) — do not focus `.ck-host` / `[tabindex]` inside CK. `scrollToError` native inputs only.
+## Tab 3 — Premium
 
-Each cell: **one** toolbar **above** editable. `:data-field="field.name"` on the wrapper.
+`kind === 'dno'`. Client: `checkDno` → `total_premium` amount only.
+
+Grid `grid-cols-4`: Total of Premium 50%, Limit of Liability EN/KH, Limit of Liability Description EN/KH. Then Sub Limit + Additional Limit tables.
+
+`data-field` on those scalar wrappers. Submit fail: `handleSubmit` → toast → `nextTick` → `scrollToError`.
+
+Stash/save: `dnoStash` + `filterLimitRows`. Nested key `directors_and_officers`. `dnoFieldMap()` for 422.
+
+Empty limit rows: keep one blank row in UI; strip empty on payload.
+
+## Edit hydrate (save → edit blank)
+
+PAI POST nests D&O extras under `directors_and_officers` and **unsets** the same keys at top level (`AppliesDbNested::applyDirectorsOfficersNested`).
+
+Swagger nest (not BBB `banker_blanket_bond`): `geographical_scope_*`, `governing_law_*`, `interest_*`, `extended_reporting_period_*`, `acquisition_threshold_*`, `personal_form_date_signed`, `sub_limits[]` (`items`, `coverage_en/kh`, `limit_liability_en/kh`), `additional_limits[]`.
+
+Do **not** look for Retroactive / geo inside BBB schema.
+
+Edit GET often has nested-only, plus top-level `sub_limits: []` that must **not** win over nested rows.
+
+| Portal | Job |
+|---|---|
+| `plHoistDnoDetailScalars` / `plMergeDirectorsOfficersFromSource` | PHP flatten + /detail merge (same idea as PI) |
+| `plDirectBookMissingDnoScheduleFields` | Force `/detail` when nest incomplete |
+| `dnoFill` / `pickDnoRows` | Premium; nonempty nested rows beat empty `[]` |
+| `dnoFromQuote` in `mergeTabs` | Flatten nest onto Plan/Premium init |
+
+Print / detail: `plPrepareDirectBookProductPrintFields` hoists **DNO keys** (not BBB `territorial_limit` / `proposal_form_date`). PDF body `directors_officers_body` — Geographical Scope, Governing Law, ERP, Acquisition, sub/additional limit rows. VM `liabilityBody()` nests `directors_and_officers`.
+
+## CKEditor (Plan video)
+
+1. Double editor → index `:key`. Fix `rowKey`.
+2. Toolbar under box after Next → do not focus `.ck-host` / `[tabindex]`. `scrollToError` native inputs only.
+
+One toolbar **above** each editable.
 
 ## Portal
 
-- Validate: `checkDnoPlan` only. Do not duplicate blank checks in the SFC.
-- Scroll: `scrollToError` only.
-- Carry/hydrate: `dnoForm` / `dnoCarry` / `dnoPlain`.
+| Job | One function |
+|---|---|
+| Info validate | `checkTab1` |
+| Plan validate | `checkDnoPlan` |
+| Premium validate | `checkDno` |
+| Scroll | `scrollToError` |
+| Edit flatten | `dnoFromQuote` / `plHoistDnoDetailScalars` |
 
-## Verify (from the video)
+No duplicate blank checks in SFCs.
 
-1. D&O New → Plan → fill Location EN, leave KH empty → Next.
-2. Toast + red `Location of Risk (KH) is required`.
-3. Viewport centers that field. KH toolbar stays **on top**.
-4. Dates 25/25/50 one row. `npm run build`.
+## Verify
+
+1. New → Info blank Next → scroll topmost (Customer / Insured).
+2. Save Info → Plan. Location EN filled, KH empty → Next → toast + `Location of Risk (KH) is required` + scroll. KH toolbar **on top**.
+3. Dates 25/25/50 one row.
+4. Premium blank Total of Premium → Submit → scroll to that field.
+5. `npm run build`.
+6. Save all → edit same quote → Plan geo/interest/ERP + Premium descriptions + sub/additional limits still filled.
+7. Print PDF shows those DNO labels (not blank BBB Territorial Limit).
 
 ## Do not
 
 - Playwright unless `enable playwright`.
-- Fork a second D&O Plan Vue.
-- Guess extra required fields not in `checkDnoPlan` or `cfg.*Required`.
+- Guess extra required fields.
+- Enable Plan/Premium tabs before Info creates an id.
