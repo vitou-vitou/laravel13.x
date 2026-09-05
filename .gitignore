@@ -18,6 +18,8 @@ examples/**/.env
 !/.cursor/hooks.json
 !/.cursor/hooks/
 !/.cursor/hooks/**
+!/.cursor/vitou/
+!/.cursor/vitou/**
 /.idea
 /.nova
 /.phpunit.cache
