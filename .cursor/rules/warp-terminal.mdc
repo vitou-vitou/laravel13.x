@@ -1,0 +1,13 @@
+---
+description: When user mentions Warp terminal or wants its agent behaviors captured, load skill warp-terminal and port one behavior per rule — no identity text, no transcript dumps.
+alwaysApply: false
+---
+
+# Warp terminal capture
+
+Trigger: user mentions Warp, Warp Drive, porting terminal/agent behaviors, or asks for a terminal behavior audit.
+
+1. Load `.cursor/skills/warp-terminal/SKILL.md`.
+2. Port **behaviors** — gates, thresholds, workflow algorithms. Never Warp UI config or model identity.
+3. One behavior per rule; check overlap with `18-retry-budget.mdc` and `14-code-must-benefit.mdc` before adding always-on rules.
+4. Fresh audit → re-extract via the skill's capture algorithm (sqlite copy + script file), don't trust stale numbers.
