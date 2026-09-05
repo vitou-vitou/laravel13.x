@@ -1,0 +1,14 @@
+---
+description: When a self-hosted proxy / LLM gateway / reverse proxy is slow, flapping, or must run stable unattended, load skill selfhost-proxy-stability — six failure classes, diagnosis ladder, hardening checklist.
+alwaysApply: false
+---
+
+# Self-hosted proxy stability
+
+Trigger: proxy/gateway issue (LLM API gateway, Caddy/Traefik/nginx reverse proxy, 9router-class service), or "make proxy very stable" ask.
+
+1. Load `.cursor/skills/selfhost-proxy-stability/SKILL.md`.
+2. Classify into one of six failure classes **before** touching anything.
+3. Walk the diagnosis ladder cheap → expensive; stop at first hit.
+4. Hardening = checklist from LiteLLM / One API / Caddy practice; verify with probe + SLO, not vibes.
+5. SLO or chaos work → compose `slo-architect` / `chaos-engineering` per skill table.
