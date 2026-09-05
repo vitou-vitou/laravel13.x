@@ -1,7 +1,6 @@
 ---
-description: "ARCHIVED: Playwright + agent-browser — no action (PC CPU / fan storm)"
-globs: "*"
-alwaysApply: true
+description: Playwright and agent-browser are archived (CPU/fan storm). Load when browser smoke, screenshots, Playwright, agent-browser, or headless Chrome comes up.
+alwaysApply: false
 ---
 
 ## Playwright / agent-browser — ARCHIVED (no action)

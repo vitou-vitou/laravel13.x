@@ -1,6 +1,6 @@
 ---
-description: Greenfield builds — do not default to Laravel or new-example until user explicitly picks Laravel.
-alwaysApply: true
+description: Do not default to Laravel for new products. Load when user asks to build X, scaffold a new app, start a greenfield project, or do UX/UI work where the stack is unclear.
+alwaysApply: false
 ---
 
 # Greenfield stack choice (user preference)

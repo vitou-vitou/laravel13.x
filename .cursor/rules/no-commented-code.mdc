@@ -1,7 +1,7 @@
 ---
-description: "No narration comments and no commented-out code on new/changed lines"
-globs: "*"
-alwaysApply: true
+description: No narration comments and no commented-out code on new or changed lines. Load when editing or reviewing source files.
+globs: **/*.php,**/*.js,**/*.ts,**/*.vue,**/*.mjs,**/*.css
+alwaysApply: false
 ---
 
 # No comments on new / changed code

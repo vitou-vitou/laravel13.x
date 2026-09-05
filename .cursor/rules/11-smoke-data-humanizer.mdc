@@ -1,6 +1,6 @@
 ---
-description: Smoke/demo data must look human (EN+KM), random, never bot-looking
-alwaysApply: true
+description: Smoke and seed payload strings must read human (EN + KM). Load when writing smoke tests, seeders, PAI probes, demo data, or evidence remarks that land in a shared database.
+alwaysApply: false
 ---
 
 # Smoke data humanizer（EN / KM）

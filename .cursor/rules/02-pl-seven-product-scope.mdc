@@ -1,7 +1,7 @@
 ---
-description: "PL Direct Book: scope work to 7 products only; legacy PL out of refactor scope"
-globs: "*"
-alwaysApply: true
+description: PL Direct Book scope guard — 7 products only (0189/0206, 0191-0196); legacy PL 0121-0125 off limits. Load for any Property Liability / 7pj / Direct Book / burglary / marine work.
+globs: resources/js/views/PropertyLiability/**,resources/js/services/property_liability/**,app/Services/PL/**,app/Constants/ProductCode.php
+alwaysApply: false
 ---
 
 ## PL Seven-Product Scope（每会话）

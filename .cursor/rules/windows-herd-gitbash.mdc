@@ -1,6 +1,6 @@
 ---
-description: Windows Git Bash + Laravel Herd — PHP PATH, artisan, npm for pgi-core-frontend.
-alwaysApply: true
+description: Windows Git Bash + Laravel Herd setup for pgi-core-frontend. Load before running php, artisan, composer, npm, or when php is not found in PATH.
+alwaysApply: false
 ---
 
 # Windows Herd + Git Bash (pgi-core-frontend)

@@ -1,6 +1,6 @@
 ---
-description: Reader-loved code + humanizer prose — clear code, good weird, human writing (earn followers)
-alwaysApply: true
+description: Reader-loved code + humanizer prose. Load when writing README, docs, PR body, changelog, public copy, user-facing error text, or when prose reads AI-generated.
+alwaysApply: false
 ---
 
 # Reader-loved code (senior Claude)

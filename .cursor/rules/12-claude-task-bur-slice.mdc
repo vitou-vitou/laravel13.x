@@ -1,6 +1,6 @@
 ---
-description: "Task Claude for heavy work; Cursor solo on tiny Quick; BUR = new slice when large"
-alwaysApply: true
+description: Delegate heavy work to Claude Task; new BUR/Direct Book slice file instead of fat shared edits. Load for multi-file PL features or when a shared PL file would grow large.
+alwaysApply: false
 ---
 
 ## Task Claude (heavy only)

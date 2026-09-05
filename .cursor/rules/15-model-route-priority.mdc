@@ -1,6 +1,6 @@
 ---
-description: "Model route priority — Claude subscription first; save Cursor IDE tokens"
-alwaysApply: true
+description: Model route ladder — Claude subscription, then OpenCodex proxy, then Cursor Task. Load when choosing a model for delegated work or when user says use opencodex / proxy / cursor lead.
+alwaysApply: false
 ---
 
 ## Model route priority（每会话 · 省 Cursor token）

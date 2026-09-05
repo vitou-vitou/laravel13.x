@@ -1,7 +1,7 @@
 ---
 description: "Check 7pj load/save edges before done — empty PAI, skip vs local table, endt vs policy id"
-globs: "resources/js/views/PropertyLiability/**,resources/js/services/property_liability/**,app/Services/PL/**,app/Helpers/PL/**"
-alwaysApply: true
+globs: resources/js/views/PropertyLiability/**,resources/js/services/property_liability/**,app/Services/PL/**,app/Helpers/PL/**
+alwaysApply: false
 ---
 
 # Concern edgecase (7pj)

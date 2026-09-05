@@ -1,8 +1,6 @@
 ---
-description: >-
-  Non-trivial fixes/implementations — match tbench-prompt-library catalog,
-  apply harness + task pack before improvised prompts. tbench, waffle, self-improvement.
-alwaysApply: true
+description: Non-trivial fix or implementation — match the tbench-prompt-library catalog and apply its harness plus task pack before an improvised prompt. Load on tbench, waffle, self-improvement.
+alwaysApply: false
 ---
 
 # TB prompt library (thin gate)

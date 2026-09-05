@@ -1,7 +1,7 @@
 ---
-description: "Impeccable UI: always ON for frontend inside triad / super-spec"
-globs: "*"
-alwaysApply: true
+description: Impeccable UI polish. Load for design, layout, form, component, Vue, CSS, dashboard, UX, a11y, typography work, or any edit under resources/js or resources/css.
+globs: resources/js/**,resources/css/**,**/*.vue,**/*.css
+alwaysApply: false
 ---
 
 ## Impeccable UI (always ON for frontend)

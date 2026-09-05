@@ -1,6 +1,6 @@
 ---
-description: Notion write style + sync .cursor and pgi journey docs to laravel13.x main (no confirm)
-alwaysApply: true
+description: Notion write style + hub sync. Load when user mentions Notion, add/update a Cursor rule or skill, says sync .cursor, sync now, poll sync, or backup docs.
+alwaysApply: false
 ---
 
 # Notion + Cursor hub sync（每会话）

@@ -1,6 +1,6 @@
 ---
-description: Visual bugfix evidence — prefer fast query/data proof; crop screenshot is priority 2
-alwaysApply: true
+description: Visual bugfix evidence gate — query/data proof first, screenshot crop second. Load for PDF print, schedule, invoice, signature, font/glyph, or layout bugs.
+alwaysApply: false
 ---
 
 # Bugfix evidence (priority)

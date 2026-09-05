@@ -1,6 +1,6 @@
 ---
-description: "Cursor delegation tiers (composer/grok/gpt), ultracode opt-in, parallel Task rules"
-alwaysApply: true
+description: Cursor Task model tiers and parallel fan-out rules. Load before spawning any subagent or parallel workflow, or when user says ultracode / multitask / delegate.
+alwaysApply: false
 ---
 
 ## Commits

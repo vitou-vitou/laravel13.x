@@ -1,6 +1,6 @@
 ---
-description: "Claude Senior + Cursor listener — save Cursor tokens; Claude does heavy work"
-alwaysApply: true
+description: Claude Senior implements, Cursor listens and verifies. Load when delegating heavy work, when user says claude senior / listener mode / follow claude, or pastes a Claude plan or diff.
+alwaysApply: false
 ---
 
 ## Claude Senior / Cursor Listener（token saver）

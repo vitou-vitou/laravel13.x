@@ -1,6 +1,6 @@
 ---
-description: pgi-core-frontend session resume — PL Direct Book / OpenSpec. Read before continuing work.
-alwaysApply: true
+description: pgi-core-frontend session resume. Load when user says continue / take controller / resume, or asks about the active OpenSpec change or SESSION_STATE.
+alwaysApply: false
 ---
 
 # Session handoff (pgi-core-frontend)
