@@ -56,6 +56,17 @@ Portable: same list gates what an agent may paste into output or commits.
 `show_and_collapse` — thinking shown, then collapsed.
 Portable: one-line reasoning summary up front; detail folded away.
 
+### 7. AI auto-detection chip (NLD routing)
+
+`ai_auto_detection_enabled = true` + `nld_in_terminal_enabled = true` +
+`agent_toolbar_chip_selection_setting = "default"`.
+Typed text classified command-vs-natural-language; NL input renders a
+clickable chip at the input's edge hinting "send to agent" — click routes
+the text into an agent conversation as `initial_query`. Evidence: `git add .`
+and `cursor .` appear in `agent_conversations` as conversation openers.
+Portable: classify short ambiguous input; offer one-click routing to the
+capable path instead of executing prose as a shell command.
+
 ## Workflow algorithms
 
 Warp Drive `agent_mode` workflows are numbered prompts. Run as-is on any agent:
