@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List — Puter.js</title>
+  <style>
+    :root { --bg: #f5f5f5; --card: #fff; --accent: #4f46e5; --danger: #ef4444; --text: #1f2937; --muted: #6b7280; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; justify-content: center; padding: 2rem 1rem; }
+    .app { width: 100%; max-width: 480px; }
+    h1 { font-size: 1.75rem; margin-bottom: 1.5rem; text-align: center; }
+    .input-row { display: flex; gap: .5rem; margin-bottom: 1.5rem; }
+    input[type="text"] { flex: 1; padding: .6rem .8rem; border: 1px solid #d1d5db; border-radius: .5rem; font-size: 1rem; outline: none; }
+    input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(79,70,229,.15); }
+    button.add { background: var(--accent); color: #fff; border: none; padding: .6rem 1.2rem; border-radius: .5rem; font-size: 1rem; cursor: pointer; }
+    button.add:hover { opacity: .9; }
+    ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    li { background: var(--card); padding: .75rem 1rem; border-radius: .5rem; display: flex; align-items: center; gap: .75rem; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+    li.done span { text-decoration: line-through; color: var(--muted); }
+    li span { flex: 1; word-break: break-word; }
+    li button { background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: .25rem; border-radius: .25rem; }
+    li button.toggle { color: var(--accent); }
+    li button.delete { color: var(--danger); }
+    li button:hover { background: rgba(0,0,0,.04); }
+    .empty { text-align: center; color: var(--muted); margin-top: 2rem; }
+    .status { text-align: center; font-size: .8rem; color: var(--muted); margin-top: 1.5rem; min-height: 1.2em; }
+    footer { text-align: center; margin-top: 2rem; font-size: .75rem; color: var(--muted); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>To-Do List</h1>
+    <div class="input-row">
+      <input type="text" id="newTask" placeholder="What needs to be done?" autofocus />
+      <button class="add" id="addBtn">Add</button>
+    </div>
+    <ul id="todoList"></ul>
+    <div class="status" id="status"></div>
+    <footer>Powered by <a href="https://developer.puter.com" target="_blank" rel="noopener">Puter</a></footer>
+  </div>
+
+  <script src="https://js.puter.com/v2/"></script>
+  <script>
+    const KV_KEY = 'todo_items';
+    const input = document.getElementById('newTask');
+    const addBtn = document.getElementById('addBtn');
+    const listEl = document.getElementById('todoList');
+    const statusEl = document.getElementById('status');
+
+    let todos = [];
+
+    function setStatus(msg) { statusEl.textContent = msg; }
+
+    async function load() {
+      try {
+        setStatus('Loading…');
+        const raw = await puter.kv.get(KV_KEY);
+        todos = raw ? JSON.parse(raw) : [];
+        render();
+        setStatus('');
+      } catch (e) {
+        console.error('load failed', e);
+        setStatus('Failed to load tasks.');
+      }
+    }
+
+    async function save() {
+      try {
+        await puter.kv.set(KV_KEY, JSON.stringify(todos));
+      } catch (e) {
+        console.error('save failed', e);
+        setStatus('Failed to save changes.');
+      }
+    }
+
+    function render() {
+      listEl.innerHTML = '';
+      if (!todos.length) {
+        listEl.innerHTML = '<li class="empty">No tasks yet. Add one above!</li>';
+        return;
+      }
+      todos.forEach((t, i) => {
+        const li = document.createElement('li');
+        if (t.done) li.classList.add('done');
+        li.innerHTML = `
+          <button class="toggle" data-i="${i}" title="${t.done ? 'Mark incomplete' : 'Mark complete'}">${t.done ? '↩' : '✓'}</button>
+          <span>${escapeHtml(t.text)}</span>
+          <button class="delete" data-i="${i}" title="Delete">✕</button>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function addTask() {
+      const text = input.value.trim();
+      if (!text) return;
+      todos.unshift({ text, done: false });
+      input.value = '';
+      render();
+      await save();
+    }
+
+    listEl.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const i = parseInt(btn.dataset.i, 10);
+      if (isNaN(i)) return;
+      if (btn.classList.contains('toggle')) {
+        todos[i].done = !todos[i].done;
+      } else if (btn.classList.contains('delete')) {
+        todos.splice(i, 1);
+      }
+      render();
+      await save();
+    });
+
+    addBtn.addEventListener('click', addTask);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') addTask(); });
+
+    load();
+  </script>
+</body>
+</html>
+
+</contents>
