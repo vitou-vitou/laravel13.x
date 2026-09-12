@@ -1,0 +1,32 @@
+name = "expense-tracker"
+version = "0.1.0"
+status = "active"
+path = "examples/expense-tracker"
+tags = []
+
+[paul]
+version = "1.4.0"
+source = "https://chrisai.cv/skool"
+
+[milestone]
+name = "v0.1 Initial Release"
+version = "0.1.0"
+status = "complete"
+phases = 1
+
+[phase]
+number = 1
+name = "mvp-happy-path"
+status = "complete"
+plans_completed = 1
+
+[loop]
+position = "IDLE"
+
+[satellite]
+groom = true
+
+[stats]
+total_plans = 1
+total_phases = 1
+last_activity = "2026-09-12T21:20:00+07:00"

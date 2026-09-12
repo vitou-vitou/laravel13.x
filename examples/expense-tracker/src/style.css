@@ -1,0 +1,178 @@
+:root {
+  --bg: #f6f4ef;
+  --ink: #1c1917;
+  --muted: #78716c;
+  --panel: #fffdf8;
+  --line: #e7e2d9;
+  --accent: #0f766e;
+  --accent-ink: #ecfdf5;
+  --radius: 12px;
+  --font: "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, #d8f3ef 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, #fde8d0 0%, transparent 50%),
+    var(--bg);
+}
+
+#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.top h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 0;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.panel h2 {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+}
+
+.full-span {
+  grid-column: 1 / -1;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.form .full {
+  grid-column: 1 / -1;
+}
+
+.form input,
+.form select {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.muted {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  font: inherit;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(1.05);
+}
+
+.month-total {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+}
+
+.chart-wrap {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.list li {
+  display: grid;
+  grid-template-columns: 6.5rem 7rem 7rem 1fr;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 640px) {
+  .list li {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.list .amt {
+  font-weight: 700;
+}
+
+.list .cat {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.list .date,
+.list .note {
+  color: var(--muted);
+}
+
+.list .empty {
+  border-style: dashed;
+  color: var(--muted);
+  display: block;
+}
