@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 5: Go / No-Go — How You Ship or Block</title>
+  <link rel="stylesheet" href="../assets/lesson-style.css">
+</head>
+<body>
+  <h1>Go / No-Go</h1>
+  <p class="subtitle">Lead decisions without writing code — a tree you can run in the meeting</p>
+
+  <div class="metadata">
+    <strong>Lesson 5</strong> • 6 min • Prerequisites: <a href="0003-verification-checklist.html">L3</a>, <a href="0004-seven-pj-journey.html">L4</a>
+  </div>
+
+  <h2>Decision Tree</h2>
+  <pre><code>Is sale: live in direct-book-lines.json?
+  NO  → Do not demo create-quote. Label WIP.
+  YES → Did UAT smoke pass L1+L2+L3 PDF?
+         NO  → NO-GO. Block merge to UAT/prod.
+         YES → Did php artisan test + analyse pass on the branch?
+                NO  → NO-GO until green.
+                YES → GO for that product cell set.</code></pre>
+
+  <h2>Hard NO-GO (Never Negotiate)</h2>
+  <table>
+    <thead>
+      <tr><th>Signal</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>PDF blank / missing sections</td>
+        <td>Customer cannot sign / bind</td>
+      </tr>
+      <tr>
+        <td>Save throws surprise error</td>
+        <td>Staff cannot complete journey</td>
+      </tr>
+      <tr>
+        <td>403 after login on known menu item</td>
+        <td>Permission map broken — not "UI polish"</td>
+      </tr>
+      <tr>
+        <td>Works in <code>npm run dev</code> only</td>
+        <td>Production CSS / build trap</td>
+      </tr>
+      <tr>
+        <td>Touching legacy 0121–0125 "while we're here"</td>
+        <td>Out of Direct Book scope; high blast radius</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Soft HOLD (Ship Later, Not Never)</h2>
+  <ul>
+    <li>Copy / label wording imperfect but PDF complete</li>
+    <li>WIP product not yet live (expected)</li>
+    <li>PAI slow but succeeds under 60s timeout</li>
+  </ul>
+
+  <h2>Scripts That Back Your Call</h2>
+  <table>
+    <thead>
+      <tr><th>Command</th><th>What it proves</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>php artisan test</code></td><td>PHP logic not broken</td></tr>
+      <tr><td><code>composer analyse</code></td><td>No new type debt</td></tr>
+      <tr><td><code>npm run build</code></td><td>Vue/CSS ships</td></tr>
+      <tr><td><code>node scripts/verify-burglary-routing.mjs</code></td><td>DB routes exist</td></tr>
+      <tr><td>UAT L1→L2→L3 + PDF</td><td>Real journey works</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <div class="callout-title">CEO One-Liner</div>
+    <p><em>"We ship a product only when the underwriter path and PDFs pass in UAT and our automated checks are green. WIP stays labeled until that bar is met."</em></p>
+  </div>
+
+  <h2>Practice: Call These</h2>
+  <div style="background:#f8f9fa;padding:1rem;border-radius:6px;">
+    <p><strong>Case A:</strong> Dev: "EEI quote saves, PDF empty schedule."</p>
+    <details><summary>Your call</summary><p><strong>NO-GO</strong> — PDF is hard gate.</p></details>
+    <p style="margin-top:1rem"><strong>Case B:</strong> Dev: "0201 create quote 403."</p>
+    <details><summary>Your call</summary><p><strong>HOLD / expected</strong> if still WIP. Confirm <code>sale: wip</code>. Not a live outage.</p></details>
+    <p style="margin-top:1rem"><strong>Case C:</strong> Dev: "Tests green, UAT quote→policy→endt PDF OK, branch green."</p>
+    <details><summary>Your call</summary><p><strong>GO</strong> for merge toward UAT.</p></details>
+  </div>
+
+  <div class="next-steps">
+    <h3>Next</h3>
+    <p>Print <a href="../reference/ceo-talking-points.html">CEO talking points</a> (update numbers: 11 live / 2 WIP).</p>
+    <p>Or ask instructor for Lesson 6: <em>Where to look when it breaks</em> (BFF triage map).</p>
+  </div>
+
+  <div class="footer">
+    <p>Primary sources: <code>pgi-core SKILL.md</code> verification section, <code>journey-7pj.md</code></p>
+  </div>
+</body>
+</html>

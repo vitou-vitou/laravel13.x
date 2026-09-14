@@ -17,7 +17,7 @@
 
   <h2>1. What We Shipped</h2>
   <div class="callout success">
-    <p><strong>9 insurance products live</strong>, supporting full lifecycle (quote → policy → endorsement):</p>
+    <p><strong>11 live journeys</strong> (12 SM codes; Marine twins count as one), full lifecycle quote → policy → endorsement:</p>
     <ul style="columns: 2;">
       <li>Burglary (0191)</li>
       <li>Money (0192)</li>
@@ -29,6 +29,7 @@
       <li>Bankers Blanket Bond (0197)</li>
       <li>Directors & Officers (0198)</li>
       <li>Erection All Risks (0199)</li>
+      <li>Electronic Equipment (0190)</li>
     </ul>
   </div>
 
@@ -59,20 +60,19 @@
       </tr>
       <tr>
         <td>UAT end-to-end smoke</td>
-        <td>✓ All 9 products passed</td>
+        <td>✓ Live journeys UAT-smoke gated per 7pj cells</td>
       </tr>
     </tbody>
   </table>
 
   <h2>3. What's in Progress (WIP)</h2>
   <div class="callout warning">
-    <p><strong>3 products code-complete, not customer-facing yet:</strong></p>
+    <p><strong>2 products not customer-facing for new quotes yet:</strong></p>
     <ul>
-      <li>Electronic Equipment (0190)</li>
       <li>Trade Credit (0201)</li>
       <li>Fidelity Guarantee (0202)</li>
     </ul>
-    <p><strong>Blocker:</strong> UAT smoke incomplete. Estimated ready: [insert team's ETA].</p>
+    <p>Existing records: list / view / PDF / edit OK. <strong>No new quote</strong> until <code>sale: live</code>.</p>
   </div>
 
   <h2>4. Technical Risk Profile</h2>
@@ -86,14 +86,14 @@
   <ul>
     <li>5-step verification checklist enforced</li>
     <li>No known blockers for live products</li>
-    <li>UAT smoke passed for all 9 products</li>
+    <li>UAT smoke gated for live journeys per 7pj cells</li>
     <li>PDF print (critical for customer signatures) works</li>
   </ul>
 
   <h2>5. If CEO Asks...</h2>
 
   <h3>"Can customers use this today?"</h3>
-  <p><strong>Yes</strong>, for the 9 live products. Staff can create quotes, convert to policies, issue endorsements, and print PDFs. All tested end-to-end in UAT.</p>
+  <p><strong>Yes</strong>, for the 11 live journeys. Staff can create quotes, convert to policies, issue endorsements, and print PDFs when that cell is UAT-verified.</p>
 
   <h3>"What happens if PAI goes down?"</h3>
   <p>App becomes read-only — staff can view existing data but can't create new quotes or save changes. We monitor PAI uptime and have escalation paths to their team.</p>
@@ -128,7 +128,7 @@
 
   <div class="callout">
     <div class="callout-title">One-Sentence Summary</div>
-    <p><em>"We have 9 insurance products live, all verified end-to-end in UAT with a 5-step quality checklist. 3 more products are code-complete and in final testing."</em></p>
+    <p><em>"We have 11 live Direct Book journeys, each on quote → policy → endorsement with PDF gates. Two products remain WIP for new quotes until that bar is met."</em></p>
   </div>
 
   <div class="footer">

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4: The 7pj Journey — Quote → Policy → Endorsement</title>
+  <link rel="stylesheet" href="../assets/lesson-style.css">
+</head>
+<body>
+  <h1>The 7pj Journey</h1>
+  <p class="subtitle">What staff actually do on screen — the product language you need with the CEO</p>
+
+  <div class="metadata">
+    <strong>Lesson 4</strong> • 7 min • Prerequisites: <a href="0001-product-status-map.html">L1</a>, <a href="0003-verification-checklist.html">L3</a><br>
+    Zone: Staff workflow, not insurance law
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">Catalog update since Lesson 1</div>
+    <p><strong>0190 Electronic Equipment (EEI)</strong> is now <code>sale: live</code>. Only <strong>0201 / 0202</strong> remain WIP. Say <em>"11 live journeys, 2 WIP"</em> (Marine = one journey).</p>
+  </div>
+
+  <h2>One Arc, Every Product</h2>
+  <pre><code>L1 QUOTE              L2 POLICY               L3 ENDORSEMENT
+price it              bind it                 change it mid-term
+     │                     │                        │
+     └── customer accepts ─┘                        └── (repeat)</code></pre>
+  <p>Product code only swaps which fields show. <strong>Path never changes.</strong> That is why you can lead quality without knowing every insurance clause.</p>
+
+  <h2>What Each Level Means (Plain English)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Staff action</th>
+        <th>Customer sees</th>
+        <th>Must work</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>L1 Quote</strong></td>
+        <td>Create / edit Info + Plan, save, print</td>
+        <td>Price offer PDF</td>
+        <td>Hydrate + save + PDF not blank</td>
+      </tr>
+      <tr>
+        <td><strong>L2 Policy</strong></td>
+        <td>Issue from quote, edit Premium, print</td>
+        <td>Bound contract PDF</td>
+        <td>Convert + save + policy PDF</td>
+      </tr>
+      <tr>
+        <td><strong>L3 Endorsement</strong></td>
+        <td>Generate mid-term change, save, print</td>
+        <td>Change document PDF</td>
+        <td>Generate + save + endt PDF</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <div class="callout-title">CEO Translation</div>
+    <p><em>"Every live product supports quote, bind, and mid-term change — with printable PDFs at each step. That is the insurance operating loop our underwriters run."</em></p>
+  </div>
+
+  <h2>WIP Rule (Don't Get Caught)</h2>
+  <p>WIP lines (<code>0201</code>, <code>0202</code>) sit on the same 7pj path, but:</p>
+  <ul>
+    <li>OK: list / view / edit <strong>existing</strong> records + PDF</li>
+    <li>Not OK: <strong>new quote create</strong> until <code>sale: live</code></li>
+  </ul>
+  <p>If someone demos a WIP create-quote and it fails — that is expected, not a production outage.</p>
+
+  <h2>How You Count "Done"</h2>
+  <p>One product × 3 levels = <strong>3 cells</strong>. A cell is done only when:</p>
+  <ol>
+    <li>Save works (no surprise error toast)</li>
+    <li>Detail view shows data</li>
+    <li>PDF prints with real content (not empty schedule)</li>
+  </ol>
+  <p>Rough math for live: <strong>11 journeys × 3 = 33 live cells</strong>. WIP adds 6 cells for existing-record ops only.</p>
+
+  <h2>Your Job as Lead (Not UW)</h2>
+  <ul>
+    <li>Ask: "Which cell failed — L1, L2, or L3?"</li>
+    <li>Ask: "Save, view, or PDF?"</li>
+    <li>Do <strong>not</strong> dig into clause wording first — triage the cell</li>
+  </ul>
+
+  <h2>Quick Self-Check</h2>
+  <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px;">
+    <ol>
+      <li>What does L2 mean in one word?</li>
+      <li>Can staff create a new quote on 0201 today?</li>
+      <li>Why can one path cover 11 products?</li>
+    </ol>
+    <details>
+      <summary style="cursor:pointer;font-weight:600">Show answers</summary>
+      <ol>
+        <li>Bind (quote → policy)</li>
+        <li>No — WIP blocks new quote</li>
+        <li>Code swaps fields; journey shape is shared</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="next-steps">
+    <h3>Next Lesson</h3>
+    <p><a href="0005-go-no-go.html">Lesson 5: Go / No-Go — How you ship or block →</a></p>
+  </div>
+
+  <div class="footer">
+    <p>Ask follow-ups in chat. Primary source: <code>pgi-core/references/journey-7pj.md</code></p>
+  </div>
+</body>
+</html>
