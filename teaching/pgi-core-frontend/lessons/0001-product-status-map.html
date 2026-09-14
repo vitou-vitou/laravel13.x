@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1: Product Status Map — What's Live, What's Not</title>
+  <link rel="stylesheet" href="../assets/lesson-style.css">
+</head>
+<body>
+  <h1>Product Status Map</h1>
+  <p class="subtitle">Know exactly what you're defending in the CEO meeting</p>
+  
+  <div class="metadata">
+    <strong>Lesson 1</strong> • 5 min read • Team Lead perspective<br>
+    Zone: Direct Book product catalog understanding
+  </div>
+
+  <h2>The Question You Must Answer</h2>
+  <p>When the CEO asks <em>"What products are we shipping?"</em>, you need a crisp answer with zero hedging.</p>
+
+  <div class="callout success">
+    <div class="callout-title">✓ Live Products (9 lines = 10 codes)</div>
+    <p>These are <strong>customer-facing today</strong>. Staff can quote, convert to policy, and endorse:</p>
+    <ul>
+      <li><strong>0191</strong> Burglary</li>
+      <li><strong>0192</strong> Money</li>
+      <li><strong>0193</strong> Plate Glass</li>
+      <li><strong>0189 + 0206</strong> Marine Cargo (twin codes, one journey)</li>
+      <li><strong>0194</strong> Construction All Risks (CAR)</li>
+      <li><strong>0195</strong> Bond</li>
+      <li><strong>0196</strong> Professional Indemnity</li>
+      <li><strong>0197</strong> Bankers Blanket Bond</li>
+      <li><strong>0198</strong> Directors & Officers (D&O)</li>
+      <li><strong>0199</strong> Erection All Risks (EAR)</li>
+    </ul>
+  </div>
+
+  <div class="callout warning">
+    <div class="callout-title">⚠ WIP Products (3 lines)</div>
+    <p><strong>Not customer-facing</strong>. No quote creation allowed:</p>
+    <ul>
+      <li><strong>0190</strong> Electronic Equipment</li>
+      <li><strong>0201</strong> Trade Credit</li>
+      <li><strong>0202</strong> Fidelity Guarantee</li>
+    </ul>
+  </div>
+
+  <h2>The Data Source (Single Source of Truth)</h2>
+  <p>This isn't tribal knowledge. It's code:</p>
+  <pre><code>resources/data/direct-book-lines.json</code></pre>
+  <p>Every product has a <code>"sale"</code> field: <code>"live"</code> or <code>"wip"</code>. The app reads this on boot.</p>
+
+  <h2>Product Families (How They Group)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Family</th>
+        <th>Codes</th>
+        <th>Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Property</strong></td>
+        <td>0191, 0192, 0193</td>
+        <td>Simple (flat plan, no nesting)</td>
+      </tr>
+      <tr>
+        <td><strong>Marine</strong></td>
+        <td>0189, 0206</td>
+        <td>Twin codes, one PAI nestKey</td>
+      </tr>
+      <tr>
+        <td><strong>Engineering</strong></td>
+        <td>0190, 0194, 0199</td>
+        <td>Nested PAI payload</td>
+      </tr>
+      <tr>
+        <td><strong>Bond-like</strong></td>
+        <td>0195, 0201, 0202</td>
+        <td>Nested PAI payload</td>
+      </tr>
+      <tr>
+        <td><strong>Liability</strong></td>
+        <td>0196</td>
+        <td>Nested PAI payload</td>
+      </tr>
+      <tr>
+        <td><strong>Schedule</strong></td>
+        <td>0197, 0198</td>
+        <td>Nested PAI + repeating sections</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>The 7pj Journey (What "Live" Means)</h2>
+  <p>A product is <strong>live</strong> when all 3 levels work end-to-end:</p>
+  <ol>
+    <li><strong>L1: Quote</strong> — create, edit, hydrate (fill fields), print PDF</li>
+    <li><strong>L2: Policy</strong> — convert quote → policy, edit, print PDF</li>
+    <li><strong>L3: Endorsement</strong> — create endorsement, edit, print PDF</li>
+  </ol>
+  <p><code>9 lines × 3 levels = 27 journeys live</code> (Marine is 1 journey despite 2 codes).</p>
+
+  <div class="callout">
+    <div class="callout-title">CEO Translation</div>
+    <p><em>"We have 9 insurance products live. Each one supports the full lifecycle: quote, policy, endorsement. 3 more products are in development and not customer-facing yet."</em></p>
+  </div>
+
+  <h2>Risk Awareness: Legacy Products (Don't Touch)</h2>
+  <p>Five <strong>legacy</strong> codes exist but are <strong>out of scope</strong> for Direct Book:</p>
+  <ul>
+    <li>0121 Public Liability</li>
+    <li>0122 Fire</li>
+    <li>0123 Property</li>
+    <li>0124 Home Package</li>
+    <li>0125 Business Package</li>
+  </ul>
+  <p><strong>Never refactor these.</strong> They predate Direct Book, have different architecture, and are production-stable. Any change risks breaking live customer policies.</p>
+
+  <h2>Quick Self-Check</h2>
+  <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+    <p><strong>Without looking back, answer:</strong></p>
+    <ol>
+      <li>How many Direct Book products are live?</li>
+      <li>Which file is the single source of truth?</li>
+      <li>What does "7pj" stand for?</li>
+      <li>Why shouldn't you touch code 0122?</li>
+    </ol>
+    <details style="margin-top: 1rem;">
+      <summary style="cursor: pointer; font-weight: 600;">Show answers</summary>
+      <ol style="margin-top: 0.5rem;">
+        <li>9 lines (10 codes, since Marine has twins)</li>
+        <li><code>resources/data/direct-book-lines.json</code></li>
+        <li>7 products journey (now expanded to 9, but the shorthand stuck)</li>
+        <li>It's legacy, pre-Direct Book, production-stable. Refactoring risks breaking live policies.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="next-steps">
+    <h3>Next Lesson</h3>
+    <p>Now you know <em>what</em> products exist. Next: understand the <strong>architecture</strong> — why this app isn't a normal Laravel CRUD, and what that means for quality assurance.</p>
+    <p><a href="0002-bff-architecture.html">Lesson 2: BFF Architecture — Why No Database Means Different Risks →</a></p>
+  </div>
+
+  <div class="footer">
+    <p>Have questions? Ask your AI instructor in the same session where you opened this lesson.</p>
+    <p>Primary source: <code>pgi-core SKILL.md</code>, <code>direct-book-lines.json</code></p>
+  </div>
+</body>
+</html>

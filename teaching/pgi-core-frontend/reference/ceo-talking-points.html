@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CEO Meeting Talking Points — Direct Book Status</title>
+  <link rel="stylesheet" href="../assets/lesson-style.css">
+</head>
+<body>
+  <h1>CEO Talking Points</h1>
+  <p class="subtitle">Print this. Bring it to the meeting.</p>
+  
+  <div class="metadata">
+    <strong>Quick Reference</strong> • Updated Sep 14, 2026<br>
+    Sources: <code>direct-book-lines.json</code>, verification logs, UAT reports
+  </div>
+
+  <h2>1. What We Shipped</h2>
+  <div class="callout success">
+    <p><strong>9 insurance products live</strong>, supporting full lifecycle (quote → policy → endorsement):</p>
+    <ul style="columns: 2;">
+      <li>Burglary (0191)</li>
+      <li>Money (0192)</li>
+      <li>Plate Glass (0193)</li>
+      <li>Marine Cargo (0189/0206)</li>
+      <li>Construction All Risks (0194)</li>
+      <li>Bond (0195)</li>
+      <li>Professional Indemnity (0196)</li>
+      <li>Bankers Blanket Bond (0197)</li>
+      <li>Directors & Officers (0198)</li>
+      <li>Erection All Risks (0199)</li>
+    </ul>
+  </div>
+
+  <h2>2. Quality Assurance</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Check</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>PHP unit tests</td>
+        <td>✓ ~200 tests passing</td>
+      </tr>
+      <tr>
+        <td>Static analysis (Larastan)</td>
+        <td>✓ Zero new issues (4,398 legacy frozen)</td>
+      </tr>
+      <tr>
+        <td>Build verification</td>
+        <td>✓ Production build succeeds</td>
+      </tr>
+      <tr>
+        <td>Routing coverage</td>
+        <td>✓ All Direct Book routes verified</td>
+      </tr>
+      <tr>
+        <td>UAT end-to-end smoke</td>
+        <td>✓ All 9 products passed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. What's in Progress (WIP)</h2>
+  <div class="callout warning">
+    <p><strong>3 products code-complete, not customer-facing yet:</strong></p>
+    <ul>
+      <li>Electronic Equipment (0190)</li>
+      <li>Trade Credit (0201)</li>
+      <li>Fidelity Guarantee (0202)</li>
+    </ul>
+    <p><strong>Blocker:</strong> UAT smoke incomplete. Estimated ready: [insert team's ETA].</p>
+  </div>
+
+  <h2>4. Technical Risk Profile</h2>
+  
+  <h3>Known Risk: PAI Dependency</h3>
+  <p><strong>What it is:</strong> Our app pulls data from PAI (insurance API). If PAI is down, we can't save quotes or policies.</p>
+  <p><strong>Mitigation:</strong> 60-second timeout, error handling, monitoring. But we can't eliminate this dependency.</p>
+  <p><strong>Impact:</strong> PAI downtime = our app becomes read-only.</p>
+
+  <h3>Quality Confidence: High</h3>
+  <ul>
+    <li>5-step verification checklist enforced</li>
+    <li>No known blockers for live products</li>
+    <li>UAT smoke passed for all 9 products</li>
+    <li>PDF print (critical for customer signatures) works</li>
+  </ul>
+
+  <h2>5. If CEO Asks...</h2>
+
+  <h3>"Can customers use this today?"</h3>
+  <p><strong>Yes</strong>, for the 9 live products. Staff can create quotes, convert to policies, issue endorsements, and print PDFs. All tested end-to-end in UAT.</p>
+
+  <h3>"What happens if PAI goes down?"</h3>
+  <p>App becomes read-only — staff can view existing data but can't create new quotes or save changes. We monitor PAI uptime and have escalation paths to their team.</p>
+
+  <h3>"How do we know the PDFs are correct?"</h3>
+  <p>Manual verification in UAT: we print a sample quote, policy, and endorsement for each product. QA checks layout, field population, and formatting. All 9 live products passed.</p>
+
+  <h3>"Why aren't the 3 WIP products live yet?"</h3>
+  <p>Code is done, but they haven't passed final UAT smoke test. We don't ship until all 5 checks pass. ETA: [team's estimate].</p>
+
+  <h3>"What's our test coverage?"</h3>
+  <p>~200 PHP unit tests for controllers and services. Static analysis catches type errors and null pointer risks. But E2E coverage is manual (UAT smoke) because we depend on a live PAI environment.</p>
+
+  <h3>"Can we add more products?"</h3>
+  <p>Yes. The Direct Book architecture is designed for this. Each new product follows the same pattern: Vue components + Laravel services + PAI integration + PDF templates. Estimated effort: [consult team].</p>
+
+  <h2>6. Team Readiness</h2>
+  <ul>
+    <li>✓ Verification checklist documented and enforced</li>
+    <li>✓ Code quality standards in place (Larastan, baseline freeze)</li>
+    <li>✓ UAT environment stable</li>
+    <li>✓ PDF print tested for all live products</li>
+  </ul>
+
+  <h2>7. What We're NOT Saying</h2>
+  <p>(Internal notes — don't volunteer unless asked)</p>
+  <ul>
+    <li>Legacy products (0121–0125) are out of scope — we're not refactoring them</li>
+    <li>Browser automation (Playwright) archived due to instability</li>
+    <li>No local E2E tests — UAT is the authoritative environment</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">One-Sentence Summary</div>
+    <p><em>"We have 9 insurance products live, all verified end-to-end in UAT with a 5-step quality checklist. 3 more products are code-complete and in final testing."</em></p>
+  </div>
+
+  <div class="footer">
+    <p>Last updated: Sep 14, 2026 • Sources: <code>direct-book-lines.json</code>, verification scripts, UAT logs</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2: BFF Architecture — Why No Database Means Different Risks</title>
+  <link rel="stylesheet" href="../assets/lesson-style.css">
+</head>
+<body>
+  <h1>BFF Architecture</h1>
+  <p class="subtitle">This is not a normal Laravel CRUD app. Understanding this changes how you assess quality.</p>
+  
+  <div class="metadata">
+    <strong>Lesson 2</strong> • 7 min read • Prerequisites: <a href="0001-product-status-map.html">Lesson 1</a><br>
+    Zone: System architecture, quality implications
+  </div>
+
+  <h2>The Shocking Truth</h2>
+  <p><strong>This Laravel app has no business data in its database.</strong></p>
+  
+  <p>No <code>quotes</code> table. No <code>policies</code> table. No Eloquent models for insurance products.</p>
+
+  <div class="callout warning">
+    <div class="callout-title">What This App Actually Is</div>
+    <p>A <strong>Backend-for-Frontend (BFF)</strong> — a thin layer between Vue.js and a remote insurance API called PAI.</p>
+  </div>
+
+  <h2>The Request Flow (Memorize This)</h2>
+  <pre><code>Browser (Vue)
+  ↓
+Laravel Controller
+  ↓
+app/Services/GlobalBaseService.php  ← HTTP client
+  ↓
+PAI (remote insurance API)  ← actual system of record
+  ↓
+Response reshaping
+  ↓
+Back to Vue</code></pre>
+
+  <h3>What Laravel Actually Owns</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>What It Does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Auth & Session</strong></td>
+        <td>Login, permissions, user state</td>
+      </tr>
+      <tr>
+        <td><strong>Routing & Middleware</strong></td>
+        <td>Permission checks before hitting PAI</td>
+      </tr>
+      <tr>
+        <td><strong>PDF Generation</strong></td>
+        <td>Blade templates → Snappy/MPDF → PDF download</td>
+      </tr>
+      <tr>
+        <td><strong>Response Reshaping</strong></td>
+        <td>PAI JSON → Vue-friendly structure</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>What PAI Owns (The Real Database)</h3>
+  <ul>
+    <li>All quote data</li>
+    <li>All policy data</li>
+    <li>All endorsement data</li>
+    <li>Commission, reinsurance, clauses</li>
+    <li>Product configuration</li>
+  </ul>
+
+  <h2>Quality Implications for CEO Meeting</h2>
+  
+  <h3>1. "Missing Field" Bugs Are Usually PAI Gaps</h3>
+  <p>When a field doesn't display, <strong>first suspect</strong>: PAI's API response omits it.</p>
+  <p><strong>Not</strong>: missing migration, wrong Eloquent relation, database corruption.</p>
+  <p><strong>Instead</strong>: PAI v2 endpoint changed, nested payload missing, API contract drift.</p>
+
+  <div class="callout">
+    <div class="callout-title">CEO Translation</div>
+    <p><em>"Our app doesn't own the data — we pull it from the insurance API. When a field is missing, the root cause is usually the API contract, not our code."</em></p>
+  </div>
+
+  <h3>2. No Local Testing Without PAI</h3>
+  <p>You can't run end-to-end tests without a live PAI environment.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Test Type</th>
+        <th>Feasible?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Unit tests (PHP)</td>
+        <td>✓ Yes — test logic, not data</td>
+      </tr>
+      <tr>
+        <td>Vue component tests</td>
+        <td>✓ Yes — mock API responses</td>
+      </tr>
+      <tr>
+        <td>E2E (quote → policy → PDF)</td>
+        <td>✗ No — requires PAI UAT environment</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3. Verification Happens in UAT, Not Locally</h3>
+  <p>The <strong>authoritative smoke test</strong> is a real staff member doing a real journey in UAT:</p>
+  <ol>
+    <li>Create quote for product X</li>
+    <li>Hydrate (fill all required fields)</li>
+    <li>Print PDF → verify layout</li>
+    <li>Convert to policy</li>
+    <li>Print policy PDF</li>
+    <li>Create endorsement</li>
+    <li>Print endorsement PDF</li>
+  </ol>
+  <p>If this works, <strong>the product is live</strong>. If it fails at step 3, you have a blocker.</p>
+
+  <h3>4. The Config File That Matters</h3>
+  <pre><code>.env file:
+API_INSURANCE_SERVICE_URL=https://uat-pai.example.com</code></pre>
+  <p>This URL determines which PAI environment you're hitting:</p>
+  <ul>
+    <li><code>uat-pai</code> → UAT data (safe to test)</li>
+    <li><code>prod-pai</code> → Production data (customer records, never touch from dev machine)</li>
+  </ul>
+
+  <h2>Risk: Timeout & Network Failures</h2>
+  <p>Every user action = 1 HTTP call to PAI. If PAI is slow or down:</p>
+  <ul>
+    <li>Loading a quote takes 10+ seconds</li>
+    <li>Saving a policy times out</li>
+    <li>Staff see blank screens</li>
+  </ul>
+  <p><strong>Mitigation in code:</strong></p>
+  <pre><code>// app/Services/GlobalBaseService.php
+Http::timeout(60) // 60 seconds before giving up</code></pre>
+
+  <div class="callout warning">
+    <div class="callout-title">CEO Risk Summary</div>
+    <p><strong>We depend on PAI uptime.</strong> If PAI goes down, our app becomes read-only (can't save). If PAI is slow, our app is slow. We mitigate with 60s timeouts and error handling, but we can't eliminate this dependency.</p>
+  </div>
+
+  <h2>Why This Architecture Was Chosen</h2>
+  <p><strong>You don't need to defend this decision</strong> (it predates you), but understand the tradeoff:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Alternative</th>
+        <th>Why Not</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Replicate PAI data locally</td>
+        <td>Sync complexity, stale data, dual writes</td>
+      </tr>
+      <tr>
+        <td>Cache PAI responses</td>
+        <td>Insurance data must be real-time (regulatory)</td>
+      </tr>
+      <tr>
+        <td>Build our own system of record</td>
+        <td>PAI already exists, massive duplication</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Quick Self-Check</h2>
+  <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+    <p><strong>Without looking back, answer:</strong></p>
+    <ol>
+      <li>Where is quote data stored?</li>
+      <li>What does Laravel actually own?</li>
+      <li>If a quote field is blank, what's the first thing to check?</li>
+      <li>Can you run full E2E tests on your laptop?</li>
+    </ol>
+    <details style="margin-top: 1rem;">
+      <summary style="cursor: pointer; font-weight: 600;">Show answers</summary>
+      <ol style="margin-top: 0.5rem;">
+        <li>PAI (remote insurance API), not this Laravel app's database</li>
+        <li>Auth, permissions, PDF generation, response reshaping</li>
+        <li>PAI's API response — did it send that field?</li>
+        <li>No — E2E requires a live PAI environment (UAT or prod)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="next-steps">
+    <h3>Next Lesson</h3>
+    <p>You understand the architecture. Now learn the <strong>verification checklist</strong> — how to know a product is actually ready to ship.</p>
+    <p><a href="0003-verification-checklist.html">Lesson 3: Verification Checklist — Proving It Works →</a></p>
+  </div>
+
+  <div class="footer">
+    <p>Have questions? Ask your AI instructor in the same session where you opened this lesson.</p>
+    <p>Primary source: <code>pgi-core SKILL.md</code>, section "What this app is"</p>
+  </div>
+</body>
+</html>

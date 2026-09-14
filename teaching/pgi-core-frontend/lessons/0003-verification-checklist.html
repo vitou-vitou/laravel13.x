@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3: Verification Checklist — Proving It Works</title>
+  <link rel="stylesheet" href="../assets/lesson-style.css">
+</head>
+<body>
+  <h1>Verification Checklist</h1>
+  <p class="subtitle">The exact steps your team runs before calling a product "done"</p>
+  
+  <div class="metadata">
+    <strong>Lesson 3</strong> • 8 min read • Prerequisites: <a href="0002-bff-architecture.html">Lesson 2</a><br>
+    Zone: Quality assurance, go/no-go decisions
+  </div>
+
+  <h2>The Core Question</h2>
+  <p>When your dev says <em>"Product X is done"</em>, what does "done" mean?</p>
+  
+  <div class="callout success">
+    <div class="callout-title">Definition of Done</div>
+    <p>All 5 checks pass:</p>
+    <ol>
+      <li><strong>PHP tests green</strong> — <code>php artisan test</code></li>
+      <li><strong>Static analysis clean</strong> — <code>composer analyse</code> (only new code checked)</li>
+      <li><strong>Build succeeds</strong> — <code>npm run build</code> (JS/Vue/CSS)</li>
+      <li><strong>Routing verified</strong> — <code>node scripts/verify-burglary-routing.mjs</code></li>
+      <li><strong>UAT smoke pass</strong> — quote → policy → endorsement, all PDFs render</li>
+    </ol>
+  </div>
+
+  <h2>Check 1: PHP Tests</h2>
+  <pre><code>php artisan test</code></pre>
+  <p><strong>What it catches:</strong></p>
+  <ul>
+    <li>Controller logic broken</li>
+    <li>Service methods throwing exceptions</li>
+    <li>PDF view models missing fields</li>
+  </ul>
+  <p><strong>What it doesn't catch:</strong></p>
+  <ul>
+    <li>Vue component bugs</li>
+    <li>PAI API contract changes</li>
+    <li>CSS layout issues</li>
+  </ul>
+  <p><strong>Current state:</strong> ~200 tests. Most are unit tests for services and controllers. No E2E coverage (requires PAI mock, too brittle).</p>
+
+  <h2>Check 2: Static Analysis (Larastan)</h2>
+  <pre><code>composer analyse</code></pre>
+  <p><strong>What it catches:</strong></p>
+  <ul>
+    <li>Type errors (passing <code>string</code> where <code>int</code> expected)</li>
+    <li>Undefined properties, methods</li>
+    <li>Null pointer risks</li>
+  </ul>
+  
+  <div class="callout">
+    <div class="callout-title">The Baseline File</div>
+    <p><code>phpstan-baseline.neon</code> freezes <strong>4,398 legacy errors</strong> from old code (pre-Direct Book).</p>
+    <p><strong>Your new code is checked separately.</strong> If <code>composer analyse</code> fails, it's <em>your</em> code that has the issue, not legacy.</p>
+    <p><strong>Never regenerate the baseline to hide your own error.</strong> Fix it instead.</p>
+  </div>
+
+  <h2>Check 3: Build (npm run build)</h2>
+  <pre><code>npm run build</code></pre>
+  <p><strong>When to run:</strong> Only if JS, Vue, or CSS changed. Skip otherwise (slow — ~2 minutes).</p>
+  <p><strong>What it catches:</strong></p>
+  <ul>
+    <li>Vue syntax errors</li>
+    <li>Import path typos</li>
+    <li>CSS class conflicts (sometimes)</li>
+  </ul>
+  <p><strong>Production CSS trap:</strong> <code>npm run dev</code> looks right, but production breaks. Example:</p>
+  <pre><code><!-- Looks fine in dev, breaks in prod: -->
+&lt;div class="grid-cols-1 md:grid-cols-2"&gt;
+
+<!-- core.css loads last, overrides md:grid-cols-2 -->
+<!-- Use this pattern instead: -->
+&lt;div class="grid-cols-4"&gt;
+  &lt;div class="col-span-2"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  <p><strong>Always test with a local build before pushing.</strong></p>
+
+  <h2>Check 4: Routing Verification</h2>
+  <pre><code>node scripts/verify-burglary-routing.mjs</code></pre>
+  <p><strong>What it does:</strong> Scans Vue Router config for Direct Book products, ensures all required routes exist:</p>
+  <ul>
+    <li>Quote create, edit, view</li>
+    <li>Policy create, edit, view</li>
+    <li>Endorsement create, edit, view</li>
+  </ul>
+  <p><strong>Why it matters:</strong> Direct Book products share routing patterns. If <code>0198-directors-officers</code> is missing a policy edit route, this catches it before UAT does.</p>
+
+  <h2>Check 5: UAT Smoke (The Real Test)</h2>
+  <p>All automated checks are <strong>necessary but not sufficient</strong>. The authoritative proof:</p>
+  
+  <h3>Manual Journey in UAT Environment</h3>
+  <ol>
+    <li><strong>Quote Level</strong>
+      <ul>
+        <li>Create new quote for product X</li>
+        <li>Fill all required fields (hydrate)</li>
+        <li>Save successfully</li>
+        <li>Print PDF → verify: correct product name, all sections render, no blank tables</li>
+      </ul>
+    </li>
+    <li><strong>Policy Level</strong>
+      <ul>
+        <li>Convert quote → policy</li>
+        <li>Edit policy (change a field, save)</li>
+        <li>Print policy PDF → verify layout</li>
+      </ul>
+    </li>
+    <li><strong>Endorsement Level</strong>
+      <ul>
+        <li>Create endorsement from policy</li>
+        <li>Edit endorsement</li>
+        <li>Print endorsement PDF → verify</li>
+      </ul>
+    </li>
+  </ol>
+
+  <div class="callout warning">
+    <div class="callout-title">Common Blocker: PDF Print Failures</div>
+    <p>Most "done but not done" cases fail at PDF print:</p>
+    <ul>
+      <li>Blade template missing a variable</li>
+      <li>PAI payload doesn't include a nested section</li>
+      <li>Table rendering breaks with long text</li>
+    </ul>
+    <p><strong>PDF is non-negotiable.</strong> Customers need printed quotes to sign. If PDF fails, product isn't shippable.</p>
+  </div>
+
+  <h2>Who Runs What, When</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Check</th>
+        <th>Who</th>
+        <th>When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1–4 (automated)</td>
+        <td>Developer before commit</td>
+        <td>Every feature branch</td>
+      </tr>
+      <tr>
+        <td>5 (UAT smoke)</td>
+        <td>QA or lead dev</td>
+        <td>Before marking JIRA "Done"</td>
+      </tr>
+      <tr>
+        <td>All 5</td>
+        <td>Team lead (you)</td>
+        <td>Before CEO demo or release</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Current Status: What's Been Verified</h2>
+  <p>Based on <code>direct-book-lines.json</code> <code>"sale": "live"</code>:</p>
+  <ul>
+    <li><strong>9 products passed all 5 checks</strong> (0191, 0192, 0193, 0189/0206, 0194, 0195, 0196, 0197, 0198, 0199)</li>
+    <li><strong>3 products WIP</strong> (0190, 0201, 0202) — failed check 5 (UAT smoke incomplete)</li>
+  </ul>
+
+  <div class="callout success">
+    <div class="callout-title">CEO-Ready Answer</div>
+    <p><em>"We have a 5-step verification checklist. All 9 live products passed every check, including end-to-end UAT smoke tests. The 3 WIP products are code-complete but haven't passed final UAT yet."</em></p>
+  </div>
+
+  <h2>Red Flags to Watch For</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Dev Says</th>
+        <th>What It Means</th>
+        <th>Your Response</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>"It works on my machine"</td>
+        <td>Didn't run <code>npm run build</code></td>
+        <td>Not done. Run check 3.</td>
+      </tr>
+      <tr>
+        <td>"PDF is just formatting"</td>
+        <td>Skipped UAT smoke</td>
+        <td>Not shippable. PDF is customer-facing.</td>
+      </tr>
+      <tr>
+        <td>"Tests pass but PAI changed"</td>
+        <td>API contract drift</td>
+        <td>Blocker. Coordinate with PAI team.</td>
+      </tr>
+      <tr>
+        <td>"I'll fix it after release"</td>
+        <td>Cutting corners</td>
+        <td>No. Fix before merge.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Quick Self-Check</h2>
+  <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+    <p><strong>Without looking back, answer:</strong></p>
+    <ol>
+      <li>What are the 5 checks?</li>
+      <li>Why can't you skip UAT smoke even if tests pass?</li>
+      <li>What does the baseline file freeze?</li>
+      <li>What's the most common PDF print failure?</li>
+    </ol>
+    <details style="margin-top: 1rem;">
+      <summary style="cursor: pointer; font-weight: 600;">Show answers</summary>
+      <ol style="margin-top: 0.5rem;">
+        <li>PHP tests, static analysis, build, routing verify, UAT smoke</li>
+        <li>Tests don't catch PAI contract changes, Vue bugs, or CSS layout issues</li>
+        <li>4,398 legacy errors from pre-Direct Book code</li>
+        <li>Blade template missing a variable from PAI payload</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="next-steps">
+    <h3>Next Lesson</h3>
+    <p>You can verify quality. Now understand the <strong>team structure</strong> and who owns what — so you know who to ask when something breaks.</p>
+    <p><a href="0004-team-ownership-map.html">Lesson 4: Team Ownership Map — Who to Ask When Things Break →</a></p>
+  </div>
+
+  <div class="footer">
+    <p>Have questions? Ask your AI instructor in the same session where you opened this lesson.</p>
+    <p>Primary source: <code>pgi-core SKILL.md</code>, section "Verification before claiming done"</p>
+  </div>
+</body>
+</html>
