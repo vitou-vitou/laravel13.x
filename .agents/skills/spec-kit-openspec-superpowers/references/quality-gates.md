@@ -92,21 +92,23 @@ Between Phase 4 (Implementation) and Phase 5 (Archive). The strictest gate.
 | TDD coverage | Every new feature/fix has tests with RED→GREEN cycle | test-driven-development |
 | All tests pass | Test command output shows 0 failures (full output preserved) | verification-before-completion |
 | Spec conformance review | Code matches confirmed spec (nothing missing, nothing extra) | requesting-code-review |
-| Code quality review | No Critical/Important issues unfixed | requesting-code-review |
+| Code quality review | No Critical / Required issues unfixed; findings severity-labeled | **code-review-and-quality** (+ requesting-code-review spawn OK) — [code-review-combo.md](code-review-combo.md) |
 | Simple code + voice | Small methods; short names (≤~3 words); plain text; no `/**` on obvious code | simple-code-voice.md |
 | Evidence archived | Verification output written to `progress.md` with exit code + timestamp | planning-with-files |
+| **Quick verify e2e** | View/print / amount-display slices: `npm run test:e2e:car-loi-unlimited` (or change quick script) exit 0 — see [quick-verify-e2e.md](quick-verify-e2e.md) | playwright-best-practices |
 | Constitution compliant | Code quality, test coverage, performance, security meet constitution baselines | constitution |
 | `/opsx:verify` passed | Completeness + Correctness + Coherence validated (OpenSpec expanded, if available) | OpenSpec |
 | MemPalace archived | Spec decisions + key findings persisted to palace (if configured) | MemPalace |
 | Zero edge-case confirm | After renames / path moves / symbol moves: no stale imports, no orphan old files, docs/rules updated, build/verify green — report **Confirmed — runtime edge cases: zero** (or list leftovers) | verification-before-completion |
 
-**Two-stage review flow** (from Superpowers):
-1. **Spec conformance** → Does the code match the confirmed spec?
+**Two-stage review flow** (from Superpowers + `code-review-and-quality`):
+1. **Spec conformance** (`requesting-code-review`) → Does the code match the confirmed spec?
    - Pass → proceed to step 2
    - Fail → fix → redo step 1
-2. **Code quality** → SOLID, security, performance?
+2. **Code quality** (`code-review-and-quality`) → Correctness · readability · architecture · security · performance; label Critical / Required / Optional / Nit
    - Pass → G4 passes
    - Fail → fix → redo step 2
+   - Detail: [code-review-combo.md](code-review-combo.md)
 
 **If it fails**: Fix based on review feedback → rerun tests → re-review → loop until it passes.
 

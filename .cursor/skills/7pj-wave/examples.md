@@ -2,13 +2,13 @@
 
 Type the slash. Do not paste wave boilerplate.
 
-## All 7 — one job, quote then policy
+## All live journeys — one job, quote then policy
 
 ```text
 /7pj do: merge Total Sum Insured like CAR view
 ```
 
-Expands to wave 1 quote (list+pdf+view+create+edit) then policy wire, all 7 lines.
+Expands to wave 1 quote (list+pdf+view+create+edit) then policy wire, all live journeys (10).
 
 ## One product
 

@@ -1,109 +1,169 @@
 ---
 name: spec-kit-openspec-superpowers
-description: >-
-  Triad router — when to use Spec-Kit vs OpenSpec vs Superpowers (+ optional Caveman voice).
-  Use when choosing SDD tools, verifying cross-machine setup, or deciding greenfield vs post-MVP workflow.
-  For execution, invoke the single skills: spec-kit, openspec, superpowers, or caveman.
-  Token saving ("save tokens", "token budget", "cheap mode", "be brief"): see
+description: >
+  Enforces spec-before-code workflow for AI-driven development. Automatically selects
+  Spec-Kit or OpenSpec mode, triages complexity (quick/standard/thorough), recovers
+  session context, and applies quality gates (G0-G4) with inline self-review at every stage.
+  Use this skill whenever the user says "/super-spec", "spec first", "规范先行",
+  or starts any feature, bugfix, or refactor — especially in projects with .spec-mode,
+  .specify/, or openspec/ directories. Even if the user doesn't explicitly ask for
+  spec-driven workflow, activate this skill for any non-trivial code change to prevent
+  skipping the design phase.
+  Orchestrates: Spec-Kit (v0.7.1, Workflow Engine) / OpenSpec (OPSX v1.2.0) +
+  planning-with-files (v2.30.0) + ui-ux-pro-max (v2.5.0, 67 styles, 161 palettes,
+  14 stacks, 6 specialist skills) + Superpowers (v5.0.7, inline self-review,
+  subagent model selection) + MemPalace (v3.3.0, 29 MCP tools, cross-session memory,
+  knowledge graph).
+  Every session (pgi): Claude Senior listener mode (save Cursor tokens) +
+  agent-browser when UI/browser proof needed — see references/claude-senior-listener.md.
+  Also: "load index", "project flow", "basic" / "basic e2e", "deep" / "deep e2e"
+  (orient + proof ladder — see references/load-index.md and project-proof-ladder.md).
+  Token saving ("save tokens", "token budget", "cheap mode", "be brief"): five levers in
   references/token-budget.md — voice and loading only, never skip gates G1-G4.
 ---
 
-# Spec-Kit, OpenSpec & Superpowers — Triad Router
+# Spec-First + Superpowers Orchestrator v5
 
-Three tools solve different layers of the AI coding problem:
+Stop the AI from jumping straight to code. Every feature, bugfix, and refactor goes through a specification phase first — because unexamined code is expensive code.
 
-| Tool | Skill folder | Core question | Analogy |
-|------|--------------|---------------|---------|
-| **Spec-Kit** | `spec-kit/` | "What rules govern the work?" | Building code manual |
-| **OpenSpec** | `openspec/` | "What changed?" | Change order |
-| **Superpowers** | `superpowers/` | "How to execute?" | Crew work manual |
-| **Caveman** | plugin: `~/.cursor/plugins/cache/caveman/` | "How to talk?" | Terse voice / token compression |
+## Commands
 
-**Critical rule:** Spec-Kit and OpenSpec are **competitors** (both SDD). Pick **one**. Superpowers and Caveman are **complementary** — Superpowers for *how to build*; Caveman for *how to speak* while building (optional).
+| Command | Effect |
+|---------|--------|
+| `/super-spec` | Full workflow (auto mode + auto complexity) |
+| `/super-spec force-spec-kit` | Force Spec-Kit mode |
+| `/super-spec force-openspec` | Force OpenSpec mode |
+| `/super-spec reset` | Reset mode selection |
+| `/super-spec upgrade` | Check all integrated projects for updates and execute upgrade |
+| `load index` / `load <domain> index` | Orient only — map entry/layers/domain; **no implement**. [load-index.md](references/load-index.md) |
+| `project flow` | Document happy-path pipeline (rung 1). [project-proof-ladder.md](references/project-proof-ladder.md) |
+| `basic` / `basic e2e` | Minimal e2e proof (rung 2) — scrape→queue→resolve→≥256KB |
+| `deep` / `deep e2e` | Scorecard e2e proof (rung 3) — multi-path, locked ep, deeper download |
+| `go next` | After a proof rung: take highest-value open gap from last `progress.md` |
+| `claude senior` / `listener mode` | Reinforce Claude Senior + Cursor thin listener (default every session on pgi) |
+| `save tokens` / `token budget` / `cheap mode` | Apply the token saving pattern. [token-budget.md](references/token-budget.md) |
+| `normal cursor` | Opt out — Cursor leads again |
+| `/git-push squash` / `combine commits` | Squashes all commits back to UAT merge-base into one using the oldest title |
+| `/product-driver optimize` | Applies Fast-Shell + 1-line caller caching without touching service internals |
 
-Source article: https://mp.weixin.qq.com/s/NeBSi-Q8zUWlWb0mL5BPOA
+**Proof ladder order:** `load index` → `project flow` → `basic` → `deep` → `go next`. Skip rungs only if user forces.
 
----
+## Session defaults (every activation)
 
-## When to use this skill
+**Default stack — ON every session (99% workflow).** User need not attach skill.
 
-- Choosing between Spec-Kit vs OpenSpec
-- Verifying triad setup on a new machine
-- Understanding how the three tools combine
-- laravel13.x workflow policy questions
+On skill load / `/super-spec` / **any coding task** in **pgi-core-frontend**:
 
-**For actual work**, invoke the single skill:
+0. **AFK ON** — auto mode + auto complexity; **G1 auto-approved**; implement without waiting for "go". Detail: [references/afk-default.md](references/afk-default.md) · repo `.cursor/rules/09-afk-lda-default.mdc`. Opt out: `no afk` / `ask me` / `gate G1`.
+1. **This orchestrator is the default** — OpenSpec + Superpowers + gates G1–G4.
+2. **Claude Senior listener ON** — Claude does heavy work; Cursor listens, applies, verifies. Detail: [references/claude-senior-listener.md](references/claude-senior-listener.md) · project rule `08-claude-senior-listener.mdc`.
+3. **agent-browser when needed** — UI/dropdown/form/visual/G4 browser proof. Load `agent-browser` skill → `agent-browser skills get core` before first use. Skip for pure PHP/API/docs.
+4. **Token budget ON** — progressive disclosure, size gate, `load index`, caveman voice. Index: [references/token-budget.md](references/token-budget.md). Gates G1–G4 are **never** compressed. Opt out: `verbose` / `normal mode`.
+5. Spec gates G1–G4 still apply — listener / AFK / token budget do **not** skip OpenSpec artifacts; they skip *waiting* on G1.
+6. **SRP + thin (avoid fat)** — Phase 4/G4 load [references/srp-thin.md](references/srp-thin.md) with simple-code-voice. Deep dive: skill `refactor` (`struct-single-responsibility`). User says `SRP` / `avoid fat` → same.
+7. **LDA-PO every plan (default)** — **Logic · Data structure · Architecture** first (+ Portal · Others). Load [references/solve-plan-pattern.md](references/solve-plan-pattern.md). Required on CreatePlan / Phase 2 / G2 (Quick = 5-bullet compress).
+8. Opt out of stack: user says `no super-spec` / `plain agent`.
 
-| Task | Invoke |
-|------|--------|
-| Greenfield MVP, `/speckit.*` | **spec-kit** |
-| Post-MVP changes, `/opsx:*` | **openspec** |
-| TDD, debugging, plans, review | **superpowers** |
-| Terse output, less tokens, compressed review/commits | **caveman** |
+## How It Works
 
----
+### Step 1: Pick a Mode
 
-## Decision guide
+Check for existing signals, then fall back to heuristics:
 
-```
-Need structured SDD?
-├── Greenfield / complex / strict governance → spec-kit + superpowers [+ caveman optional]
-├── Existing repo / fast iteration / change tracking → openspec + superpowers [+ caveman optional]
-└── Small task, no formal spec needed → superpowers alone [+ caveman optional]
+| Signal | Mode |
+|--------|------|
+| `.spec-mode` file exists | Use whatever it says |
+| `.specify/` directory | Spec-Kit |
+| `openspec/` directory | OpenSpec |
+| Brand new project, < 30 files | Spec-Kit |
+| Everything else | **OpenSpec** (default) |
 
-NEVER combine spec-kit + openspec (overlapping SDD — pick one)
-ALWAYS add superpowers for implementation quality
-OPTIONALLY add caveman for token-efficient voice (does not replace SDD or Superpowers)
-ECC / gstack: see [references/framework-best-used.md](references/framework-best-used.md) — Superpowers stays spine; ECC cherry-pick only (Nebutra)
-Save tokens: see [references/token-budget.md](references/token-budget.md) — cut input first, then routing, then voice; gates stay
-```
+Save the choice to `.spec-mode` so future sessions remember it.
 
----
+For detailed mode workflows, read:
+- Spec-Kit: [references/spec-kit-workflow.md](references/spec-kit-workflow.md)
+- OpenSpec: [references/openspec-workflow.md](references/openspec-workflow.md)
 
-## Framework best-used (Superpowers · ECC · gstack)
+### Step 2: Triage Complexity
 
-Full policy: [references/framework-best-used.md](references/framework-best-used.md) · source [Nebutra autopsy](https://nebutra.com/blog/claude-code-skill-frameworks-autopsy).
+**AFK default:** auto-pick level; state one-line defaults; do **not** wait for confirm. Opt out: `ask me` / `no afk`.
 
-| Workflow | Best used |
-|----------|-----------|
-| Team / shared PR | **Superpowers** skeleton + ECC `tdd-workflow` / `eval-harness` only |
-| Solo fast ship | gstack OK; ECC minimal; Superpowers if jump-to-code is the failure mode |
-| Legacy refactor | Superpowers `systematic-debugging` + `verification-before-completion` (+ ECC `tdd-workflow`) |
-| Learning | Superpowers gates; ECC as reference book — no full install |
+| Level | When | What happens |
+|-------|------|-------------|
+| **Quick** | Single-file bugfix, typo, config | Simplified spec (`/opsx:propose` or `/opsx:ff`) → TDD → archive |
+| **Standard** | Single feature, clear scope | All phases (Phase 3 only if UI) |
+| **Thorough** | Multi-module, architecture decisions | All phases + Agent Teams evaluation |
 
-**Never** replace Superpowers with wholesale ECC in this triad. Skills that are only polite suggestions are decoration.
+### Step 3: Execute the Pipeline
 
-## Chat intent router
+**Phase 0 — Session Recovery** (automatic)
+If `task_plan.md` exists from a previous session, read all planning files, query MemPalace for relevant history (if configured), run the 5-Question Reboot Test (Where am I? / Where am I going? / What's the goal? / What did I learn? / What did I do?), then resume from the last checkpoint.
 
-Full policy: [references/chat-intent-router.md](references/chat-intent-router.md).
+**Phase 1 — Specification**
+Write the spec using the selected mode. Quick tasks use `/opsx:propose`; standard/thorough use the full flow with `/opsx:explore` or `/speckit.specify`. Sketch **Logic** + **Data** + **Architecture** in plain words (LDA-PO).
+**Gate G1**: Spec aligns with constitution + inline review + scope check + Logic/Data/Architecture named. **AFK:** treat G1 as auto-approved (no wait). Non-AFK: user must explicitly confirm.
 
-| Mode | Stack |
-|------|-------|
-| Plan new project | Spec-Kit + Superpowers |
-| Maintain project | OpenSpec + Superpowers |
-| Fix bug | Superpowers debug/verify |
-| Explorer | Read-only + **Top-3 by stars**: Firecrawl (~158k), Context7 (~60k), last30days (~55k) |
-| Developer | Superpowers implement (+ ECC cherry-pick if gap) |
+**Phase 2 — Persistent Planning**
+Generate `task_plan.md` (numbered checklist with file structure mapping + test points), `findings.md`, and `progress.md` using `planning-with-files` + `writing-plans`.
+**Every plan / CreatePlan MUST include LDA-PO** — [references/solve-plan-pattern.md](references/solve-plan-pattern.md):
+1. Logic  2. Data structure  3. Architecture  4. Portal (reuse)  5. Others
+**Gate G2**: Every task has file paths + acceptance criteria + test strategy + **LDA-PO sections present** + inline plan review passed.
 
----
+**Phase 3 — UI/UX Design** (frontend → Impeccable always ON)
+Triggered when frontend is in scope (Vue, CSS, forms, Detail/view, visual blade chrome, `resources/js/**`, `resources/css/**`, design keywords). **Do not wait for `/impeccable`.**
+1. Load Impeccable skill + setup (PRODUCT.md / load-context) — [references/impeccable-frontend.md](references/impeccable-frontend.md).
+2. Apply **`polish`** for existing screens; **`craft`** / **`shape`** for new UI surfaces.
+3. Optional: `ui-ux-pro-max --design-system --persist` when a full design-system pass is needed (v2.5.0).
+**Gate G3**: Impeccable setup applied + pre-delivery checklist passed (+ user confirmed design when non-AFK / new surface).
 
-## Recommended workflows
+**Phase 4 — Implementation**
+Execute via one of two strategies (AI recommends, user picks):
+- **Subagent-Driven**: Fresh subagent per task + two-stage review (spec conformance → code quality) + model selection per task role + implementer status handling (DONE/DONE_WITH_CONCERNS/NEEDS_CONTEXT/BLOCKED)
+- **Executing-Plans**: Batch execution + checkpoint reviews
 
-### Path A: Spec-Kit + Superpowers (+ Caveman optional, greenfield)
+TDD throughout. Errors escalate through the 3-Strike protocol → `systematic-debugging`.
+**Simple code + voice (pgi):** small methods, short names, plain replies — [references/simple-code-voice.md](references/simple-code-voice.md) · `.cursor/rules/04-simple-code-voice.mdc`
+**SRP + thin (pgi):** one job per function/file; avoid fat shared — [references/srp-thin.md](references/srp-thin.md) · skill `refactor` (`struct-single-responsibility`)
+**Claude Senior (pgi session default):** prefer Claude-model Task / pasted Claude plan; Cursor thin apply+verify — [references/claude-senior-listener.md](references/claude-senior-listener.md).
+**Impeccable (frontend):** keep Impeccable laws + polish/craft active while editing Vue/CSS/forms/views — same always-on as Phase 3; do not drop after G3. Skip for pure PHP/API. Print PDF sample borders ≠ admin UI polish — see [references/impeccable-frontend.md](references/impeccable-frontend.md).
+**agent-browser (UI):** when Phase 4/G4 touches Vue/forms/pages, smoke via agent-browser (or IDE browser MCP if CDP fails) before claiming done.
+**Gate G4**: All tests pass + two-stage review (spec via `requesting-code-review` → quality via **`code-review-and-quality`** — [references/code-review-combo.md](references/code-review-combo.md)) + verification evidence written to `progress.md` + **quick verify e2e** for view/print display slices ([references/quick-verify-e2e.md](references/quick-verify-e2e.md)) + `/opsx:verify` passed (if available) + MemPalace archived (if configured) + browser evidence when UI changed + **zero edge-case confirm** after renames/path moves (see `references/quality-gates.md`).
 
-1. **spec-kit:** `/speckit.constitution` → specify → plan → tasks
-2. **superpowers:** TDD per task, subagents, code review, verification
-3. **spec-kit:** `/speckit.implement`
-4. **caveman** (optional): `/caveman` or `Use caveman:` for terse session voice; `cavecrew` subagents for compressed investigator/builder/reviewer output
+**Phase 5 — Archive**
+`finishing-a-development-branch` → update all checkboxes → archive spec artifacts → final `progress.md` entry → MemPalace diary entry (if configured).
 
-### Path B: OpenSpec + Superpowers (+ Caveman optional, existing project)
+## Quality Gates
 
-1. **openspec:** `/opsx:new` → continue or `/opsx:ff`
-2. **superpowers:** TDD loop during apply
-3. **openspec:** `/opsx:apply` → `/opsx:archive`
-4. **caveman** (optional): same as Path A — voice layer only, not SDD
+Each gate is a hard stop — nothing moves forward until all checks pass. If a gate fails, fix the issue and re-evaluate. Full gate criteria: [references/quality-gates.md](references/quality-gates.md)
 
----
+## Anti-Rush Protection
+
+If the user asks to skip the spec phase, politely decline and redirect to `/super-spec`. The whole point of this skill is preventing premature implementation.
+
+## Reference Files
+
+Read these as needed — they contain detailed procedures that would bloat this file:
+
+| File | When to read |
+|------|-------------|
+| [references/quality-gates.md](references/quality-gates.md) | Evaluating any gate (G0-G4) |
+| [references/token-budget.md](references/token-budget.md) | **Saving tokens** — five levers, decision table, what never to compress |
+| [references/solve-plan-pattern.md](references/solve-plan-pattern.md) | **Every** CreatePlan / Phase 2 — Logic · Data · Architecture · Portal · Others |
+| [references/afk-default.md](references/afk-default.md) | **AFK default** — auto G1, LDA-first wire |
+| [references/simple-code-voice.md](references/simple-code-voice.md) | Phase 4: short names, small methods, plain voice |
+| [references/srp-thin.md](references/srp-thin.md) | Phase 4/G4: SRP, avoid fat modules; links `refactor` skill |
+| [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md) | PL Direct Book `/edit` bypass — example of reviewed portal plan |
+| [references/synergy-patterns.md](references/synergy-patterns.md) | Understanding cross-tool integration (6 chains) |
+| [references/integration-guide.md](references/integration-guide.md) | Setup, troubleshooting, dependency list |
+| [references/spec-kit-workflow.md](references/spec-kit-workflow.md) | Running the Spec-Kit flow |
+| [references/openspec-workflow.md](references/openspec-workflow.md) | Running the OpenSpec flow |
+| [references/mempalace-integration.md](references/mempalace-integration.md) | MemPalace memory system setup + 5 integration points |
+| [references/upgrade-protocol.md](references/upgrade-protocol.md) | `/super-spec upgrade` — standardized version sync procedure |
+| [references/claude-senior-listener.md](references/claude-senior-listener.md) | Every-session Claude Senior + Cursor listener + agent-browser hooks |
+| [references/load-index.md](references/load-index.md) | `load index` / domain index — orient only, no implement |
+| [references/project-proof-ladder.md](references/project-proof-ladder.md) | `project flow` · `basic` · `deep` · `go next` proof ladder |
+| [assets/constitutions/openspec-constitution.md](assets/constitutions/openspec-constitution.md) | OpenSpec constitution template |
+| [assets/constitutions/spec-kit-constitution.md](assets/constitutions/spec-kit-constitution.md) | Spec-Kit constitution template |
 
 ## Cross-machine sync (same Cursor account)
 
@@ -113,16 +173,14 @@ Full policy: [references/chat-intent-router.md](references/chat-intent-router.md
 | **openspec** | Personal skills + local mirror | `~/.cursor/skills/openspec/` |
 | **superpowers** | Personal skills + local mirror | `~/.cursor/skills/superpowers/` |
 | **caveman** | Cursor plugin (optional) | `~/.cursor/plugins/cache/caveman/` — see `docs/CURSOR_SKILLS_SYNC.md` |
-| **This router** | Personal skills + local mirror | `~/.cursor/skills/spec-kit-openspec-superpowers/` |
+| **This orchestrator** | Personal skills + local mirror | `~/.cursor/skills/spec-kit-openspec-superpowers/` |
+| **caveman-spec-triad** | Repo + `~/.cursor/skills/` mirror | `.cursor/skills/caveman-spec-triad/` |
 | **impeccable** | Personal skills + local mirror | `~/.cursor/skills/impeccable/` |
-| **laravel-ui-phase** | Personal skills + `.agents/skills/` mirror | UI polish after MVP (`AI pick my UI`) |
-| **design-taste-frontend** | `.agents/skills/` (claude-skills pack) | Anti-slop catalog/landing with impeccable |
-| **system-study-packet** | Personal skills + local mirror | `~/.cursor/skills/system-study-packet/` |
-| **8-principle-study** | Personal skills + local mirror | `~/.cursor/skills/8-principle-study/` |
-| **laravel-specialist** | Personal skills + local mirror | `~/.cursor/skills/laravel-specialist/` |
+| **agent-browser** | Personal skill + CLI | `~/.claude/skills/agent-browser/` · `npm i -g agent-browser` |
+| **Claude Senior rule** | Repo + user rules | `.cursor/rules/08-claude-senior-listener.mdc` · `~/.cursor/rules/claude-senior-listener.mdc` |
 | **Superpowers plugin** | Cursor marketplace (optional) | Install per machine |
 | **Project policy** | Git only | `docs/SESSION_STATE.md`, `.cursor/rules/session-handoff.mdc` |
-| **CLI tools** | Install per machine | `specify`, `openspec` |
+| **CLI tools** | Install per machine | `specify`, `openspec`, `agent-browser` |
 
 ### Setup on a new PC
 
@@ -134,23 +192,25 @@ Full policy: [references/chat-intent-router.md](references/chat-intent-router.md
    uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
    npm install -g @fission-ai/openspec@latest
    ```
-5. Optional: install **Superpowers plugin** in Cursor.
-6. Clone `laravel13.x`; if skills missing: `cp -r .cursor/skills/* ~/.cursor/skills/`
+5. Optional: install **Superpowers** and **Caveman** plugins in Cursor.
+6. Clone `pgi-core-frontend`; if skills missing: `cp -r .cursor/skills/* ~/.cursor/skills/`
 
-### laravel13.x locked workflow
+## pgi-core-frontend overrides
 
-See [laravel13-x-policy.md](laravel13-x-policy.md). Summary:
+This repo has a **locked policy** — read before mode auto-selection:
 
-- **Greenfield:** spec-kit + superpowers (+ caveman optional). **No OpenSpec at init.**
-- **Post-MVP:** openspec + superpowers (+ caveman optional).
-- **Never** spec-kit + openspec on the same feature.
-- **continue** → read `docs/SESSION_STATE.md` first.
+- [pgi-core-policy.md](pgi-core-policy.md) — OpenSpec default; PL 7-product scope; no auto-commit; Claude Senior + agent-browser session defaults
+- Skill `triad-router` — manual tool-choice router (Spec-Kit vs OpenSpec vs Superpowers)
+- On `continue`: read `docs/SESSION_STATE.md` first
+- Active change: `openspec/changes/phase-ii-quotation-slice-only/`
+- Session: Claude Senior listener ON + agent-browser for UI verify — [references/claude-senior-listener.md](references/claude-senior-listener.md)
+- **AFK + LDA default ON:** [references/afk-default.md](references/afk-default.md) — auto G1; Logic · Data · Architecture first
+- **Every plan (LDA-PO):** [references/solve-plan-pattern.md](references/solve-plan-pattern.md) — Logic · Data structure · Architecture · Portal · Others
+- **PL `/edit` URL lock (reviewed example):** [references/pl-db-edit-lock-portal.md](references/pl-db-edit-lock-portal.md)
 
----
+### Invocation
 
-## Invocation
-
-### Full stack (Caveman + triad manuals — no auto SDD)
+#### Full stack (Caveman + triad manuals — no auto SDD)
 
 ```text
 /Caveman spec kit Openspec Superpower
@@ -160,22 +220,29 @@ See [laravel13-x-policy.md](laravel13-x-policy.md). Summary:
 Use caveman spec kit openspec superpower:
 ```
 
-Loads **caveman-spec-triad** skill: persistent caveman voice + triad router + laravel13.x policy. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
+Loads **caveman-spec-triad** skill. Does **not** run `/speckit.*` or `/opsx:*` until user asks.
 
-### Router only
+#### Router only
 
 ```text
 Use spec-kit-openspec-superpowers: verify my triad setup on this machine.
 ```
 
-### Single tools
+#### Index + proof ladder
 
 ```text
-Use spec-kit: /speckit.tasks in the current project.
+/spec-kit-openspec-superpowers load index
+/spec-kit-openspec-superpowers load Dramabox index
+/spec-kit-openspec-superpowers project flow
+/spec-kit-openspec-superpowers basic
+/spec-kit-openspec-superpowers deep
+/spec-kit-openspec-superpowers go next
 ```
 
+#### Single tools
+
 ```text
-Use openspec: /opsx:apply add-order-lifecycle.
+Use openspec: /opsx:apply <change-name>.
 ```
 
 ```text
@@ -186,36 +253,10 @@ Use superpowers: TDD for the next task.
 Use caveman: talk like caveman for the rest of this session.
 ```
 
-```text
-Use laravel-ui-phase: AI pick my UI for examples/marketplace-v2 — all pages.
-```
-
-## Reference links
+### Reference links
 
 - Spec-Kit: https://github.com/github/spec-kit
 - OpenSpec: https://github.com/Fission-AI/OpenSpec
 - Superpowers: https://github.com/obra/superpowers
-- ECC: https://github.com/affaan-m/ECC (cherry-pick only)
-- Framework autopsy: https://nebutra.com/blog/claude-code-skill-frameworks-autopsy
-- Caveman: https://github.com/JuliusBrussee/caveman (Matt Pocock-style token compression; includes cavecrew subagents)
-- Sync manifest: `docs/CURSOR_SKILLS_SYNC.md` (in laravel13.x)
-- Framework best-used: [references/framework-best-used.md](references/framework-best-used.md)
-- Chat intent router: [references/chat-intent-router.md](references/chat-intent-router.md)
-- Token budget: [references/token-budget.md](references/token-budget.md)
-
----
-
-## Token budget (saving pattern)
-
-Full index: [references/token-budget.md](references/token-budget.md).
-
-| Lever | Cuts |
-|-------|------|
-| Progressive disclosure — `SKILL.md` only, refs on demand | Input |
-| Claude Senior listener — Claude thinks, Cursor applies | Routing |
-| Size gate — tiny Quick (1 file, <~20 lines) stays solo | Routing |
-| `load index` — orient read-only, then stop | Input |
-| Caveman voice — terse prose, exact technical terms | Output |
-
-**Never compress:** gates G1–G4, file paths, status enums, verification evidence.
-Opt out: `verbose` · `normal mode` · `normal cursor`.
+- Caveman: https://github.com/JuliusBrussee/caveman
+- Sync manifest: `docs/CURSOR_SKILLS_SYNC.md`

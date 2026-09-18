@@ -76,6 +76,7 @@ Legacy path = **separate branch** (`isBur`), not more guesses in the same block.
 - [ ] Shared diff = thin branch **or** new slice file
 - [ ] No speculative fallbacks / fat error trees
 - [ ] Reuse before invent (`AGENTS.md`)
+- [ ] **Single portal** — no dual FE+BE for the same hydrate/save gap ([simple-code-voice.md](simple-code-voice.md) · clean pass)
 
 ## Triggers
 
