@@ -1,0 +1,43 @@
+---
+name: 08-claude-senior-listener
+description: Claude Senior implements, Cursor listens and verifies. Load when delegating heavy work, when user says claude senior / listener mode / follow claude, or pastes a Claude plan or diff.
+---
+
+## Claude Senior / Cursor Listener（token saver）
+
+**Default every session** via skill `spec-kit-openspec-superpowers`  
+Detail: skill `references/claude-senior-listener.md`
+
+**Goal:** burn fewer Cursor tokens. Claude = Senior implementer. Cursor = thin listener + follow-up. **Browser smoke archived** — see `16-playwright-archived.mdc` (no agent-browser / Playwright unless user re-enables).
+
+### Roles
+
+| Who | Job |
+|-----|-----|
+| **Claude Senior** | Spec, design, code, debug, review — **heavy** thinking |
+| **Cursor (you)** | Listen, route, verify, apply Claude output, short status; **solo on tiny Quick** |
+| **Browser (archived)** | **No action** — manual/PHP/API verify only until user says `enable playwright` |
+
+### Size gate (speed — learned 2026-07-22)
+
+| Size | Cursor does | Do **not** |
+|------|-------------|------------|
+| **Tiny / Quick** — 1 file, label/typo/format, clear screenshot, &lt; ~20 lines | Edit **in-place** now | Spawn Claude `Task` (hangs minutes for nothing) |
+| **Heavy** — multi-file, new feature, unclear design, BUR slice | `Task` Claude → verify + ship | Re-implement alone / rival redesign |
+
+User says `use claude` on a tiny fix → still **Cursor solo** unless they also say `god speed full` / insist after you note “tiny → solo”.
+
+### Session default (ON)
+
+Every coding session: listener posture ON. Opt out: `normal cursor` · `you do it` · `cursor lead`.  
+Reinforce: `claude senior` · `listener mode` · `follow claude`.
+
+### When ON — Cursor must
+
+1. **Do not** re-explore / re-spec / rewrite Claude’s plan from scratch.
+2. **Do not** dump long analysis. Caveman replies (conclusion first, ≤ few lines).
+3. **Heavy** work → Claude-model `Task` (`claude-opus-4-8-thinking-high` or `claude-sonnet-5-thinking-high`), short prompt → verify + ship. **Tiny Quick → Cursor solo** (see size gate).
+4. User pastes Claude output / diff / plan → **follow it**. No rival redesign unless broken.
+5. UI change → **skip** agent-browser / Playwright (archived). Manual/API verify OK. IDE browser MCP only if user explicitly asks.
+6. Spec G1–G4 still apply — listener does not skip OpenSpec.
+7. **BUR / big change:** prefer new Direct Book slice files over fat shared edits — see `12-claude-task-bur-slice.mdc`.
