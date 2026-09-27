@@ -31,7 +31,7 @@ Apply **humanizer** before shipping any of these if they sound AI-ish:
 | PR title + body | Reviewers decide trust here |
 | Commit messages | With `commit-humanizer.mdc` |
 | Error / UX copy users see | Hate starts at confusing tone |
-| Blog / launch posts / comments | Public brand |
+| Blog / launch posts / comments | Public brand — structure first via `tech-blog-post`, then humanize |
 | Long chat explanations meant to be reused | Paste-ready teaching |
 
 ### How

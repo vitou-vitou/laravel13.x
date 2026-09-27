@@ -80,4 +80,29 @@ class CheckoutTest extends TestCase
 
         $this->assertSame(0, Order::query()->count());
     }
+
+    public function test_second_checkout_fails_when_last_unit_already_reserved(): void
+    {
+        $product = Product::factory()->create(['stock_quantity' => 1, 'price_cents' => 500]);
+        $first = User::factory()->create();
+        $second = User::factory()->create();
+
+        $this->actingAs($first)
+            ->post(route('cart.store'), ['product_id' => $product->id, 'quantity' => 1]);
+        $this->actingAs($first)
+            ->post(route('checkout.store'))
+            ->assertRedirect();
+
+        $this->assertSame(0, $product->fresh()->stock_quantity);
+        $this->assertSame(1, Order::query()->count());
+
+        $this->actingAs($second)
+            ->post(route('cart.store'), ['product_id' => $product->id, 'quantity' => 1]);
+        $this->actingAs($second)
+            ->post(route('checkout.store'))
+            ->assertSessionHasErrors('cart');
+
+        $this->assertSame(1, Order::query()->count());
+        $this->assertSame(0, $product->fresh()->stock_quantity);
+    }
 }

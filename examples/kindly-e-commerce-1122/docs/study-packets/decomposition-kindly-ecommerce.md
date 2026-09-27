@@ -308,7 +308,8 @@ else           → StripeCheckoutService
 | Storefront (catalog, cart, coupon) | **Done** | MVP + Phase 2 |
 | Checkout & placement | **Done** | TX + pending |
 | Stripe Checkout (3a) | **Done** | Webhooks, stub pay removed |
-| Order lifecycle (3b) | **Done** | paid/shipped, emails, admin ship, 53 tests |
+| Order lifecycle (3b) | **Done** | paid/shipped, emails, admin ship |
+| Stock locks (3c) | **Done** | `lockForUpdate` + sort ids; 54 tests |
 | Customer order views | **Done** | Timeline on show |
 | Admin products | **Done** | CRUD |
 | Auth (Breeze + admin) | **Done** | Session + `is_admin` |
@@ -317,7 +318,7 @@ else           → StripeCheckoutService
 
 | Capability | Status | Notes |
 |------------|--------|-------|
-| Pessimistic stock locks (`lockForUpdate`) | **Not started** | Arena P1 recommendation |
+| Pessimistic stock locks (`lockForUpdate`) | **Done** | Phase 3c — placement + restore |
 | Coupon usage limits / per-user caps | **Not started** | Arena gap |
 | Audit log (status/admin actions) | **Not started** | Arena P2 |
 | Granular admin roles | **Not started** | Only boolean `is_admin` |
@@ -326,7 +327,7 @@ else           → StripeCheckoutService
 | OpenSpec change `add-order-lifecycle` | **Not started** | Code done; formal OpenSpec not |
 | `003-order-lifecycle/tasks.md` | **Not started** | Spec exists; task checklist missing |
 | Live browser Stripe E2E | **Blocked** | Needs real keys + `stripe listen` |
-| `NEXT_SESSION.md` test count | **Doing** | Doc still says 49/49; code at 53 |
+| `NEXT_SESSION.md` test count | **Done** | Doc + SESSION_STATE at 54/54 |
 
 ### Phases (product roadmap)
 
@@ -336,7 +337,8 @@ else           → StripeCheckoutService
 | Phase 2 (coupons, admin products) | **Done** |
 | Phase 3a (Stripe) | **Done** |
 | Phase 3b (lifecycle email + shipped) | **Done** (implementation) |
-| Phase 3c+ (stock locks, API, multi-vendor) | **Not started** |
+| Phase 3c (stock locks) | **Done** |
+| Phase 3d+ (coupon limits, API, multi-vendor) | **Not started** |
 
 ---
 
@@ -369,4 +371,4 @@ else           → StripeCheckoutService
 
 ---
 
-*Last aligned to codebase: Phase 3b lifecycle (53 tests). Update status matrix when new phases land.*
+*Last aligned to codebase: Phase 3c stock locks (54 tests). Update status matrix when new phases land.*

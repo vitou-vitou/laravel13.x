@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Services\CartService;
 use App\Services\CouponService;
 use Illuminate\Support\Facades\DB;
@@ -49,8 +50,13 @@ class OrderPlacementService
                 'total_cents' => $totalCents,
             ]);
 
-            foreach ($lines as $line) {
-                $product = $line['product']->fresh();
+            $sorted = $lines->sortBy(fn (array $line) => $line['product']->id)->values();
+
+            foreach ($sorted as $line) {
+                $product = Product::query()
+                    ->whereKey($line['product']->id)
+                    ->lockForUpdate()
+                    ->firstOrFail();
 
                 if ($line['quantity'] > $product->stock_quantity) {
                     throw ValidationException::withMessages([

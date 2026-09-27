@@ -1,0 +1,750 @@
+﻿diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..a7ffb69
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,20 @@
++# Auto Claim Dashboard
++
++Intentional junior-quality Auto insurance claim demo for code-review skill practice.
++
++## Run
++
++```bash
++cd examples/auto-claim-dashboard
++php artisan migrate:fresh --seed
++php artisan serve
++```
++
++Open http://127.0.0.1:8000
++
++## Demo login
++
++- Email: `alice.customer@insureco.test`
++- Password: `SuperSecret123!`
++
++Dashboard also auto-session Alice if you hit `/dashboard` without login.
+diff --git a/app/Http/Controllers/ClaimDashboardController.php b/app/Http/Controllers/ClaimDashboardController.php
+new file mode 100644
+index 0000000..5070ae0
+--- /dev/null
++++ b/app/Http/Controllers/ClaimDashboardController.php
+@@ -0,0 +1,201 @@
++<?php
++
++namespace App\Http\Controllers;
++
++use App\Models\Claim;
++use App\Models\User;
++use Illuminate\Http\Request;
++use Illuminate\Support\Facades\DB;
++
++class ClaimDashboardController extends Controller
++{
++    public $currentUserId = 1;
++
++    public $currentUserEmail = 'alice.customer@insureco.test';
++
++    public $currentUserPassword = 'SuperSecret123!';
++
++    public $apiToken = 'sk_live_claim_dashboard_hardcoded_token_do_not_ship';
++
++    public function loginPage()
++    {
++        return view('claims.login');
++    }
++
++    public function doLogin(Request $request)
++    {
++        $email = $request->email;
++        $password = $request->password;
++
++        if ($email == $this->currentUserEmail && $password == $this->currentUserPassword) {
++            session(['uid' => $this->currentUserId]);
++            session(['email' => $email]);
++            session(['token' => $this->apiToken]);
++
++            return redirect('/dashboard');
++        }
++
++        $users = User::all();
++        foreach ($users as $u) {
++            if ($u->email == $email) {
++                return redirect('/login?err=badpass&email='.$email);
++            }
++        }
++
++        return redirect('/login?err=nouser&email='.$email);
++    }
++
++    public function dashboard()
++    {
++        $uid = session('uid');
++        if (! $uid) {
++            $uid = $this->currentUserId;
++            session(['uid' => $uid]);
++        }
++
++        $all = Claim::all();
++        $mine = [];
++        $pendingCount = 0;
++        $submittedCount = 0;
++        foreach ($all as $c) {
++            if ($c->user_id == $uid) {
++                $mine[] = $c;
++                if ($c->status == 'pending') {
++                    $pendingCount = $pendingCount + 1;
++                }
++                if ($c->status == 'submitted') {
++                    $submittedCount = $submittedCount + 1;
++                }
++            }
++        }
++
++        $otherPeopleClaims = [];
++        foreach ($all as $c) {
++            if ($c->user_id != $uid) {
++                $otherPeopleClaims[] = $c;
++            }
++        }
++
++        return view('claims.dashboard', [
++            'claims' => $mine,
++            'pendingCount' => $pendingCount,
++            'submittedCount' => $submittedCount,
++            'otherPeopleClaims' => $otherPeopleClaims,
++            'uid' => $uid,
++            'email' => session('email', $this->currentUserEmail),
++            'token' => session('token', $this->apiToken),
++        ]);
++    }
++
++    public function createForm()
++    {
++        $uid = session('uid', $this->currentUserId);
++
++        return view('claims.create', ['uid' => $uid]);
++    }
++
++    public function store(Request $request)
++    {
++        $uid = session('uid', $this->currentUserId);
++
++        $policy = $request->policy_number;
++        $plate = $request->plate_number;
++        $date = $request->accident_date;
++        $desc = $request->description;
++
++        $ref = 'CLM-'.rand(1000, 9999).'-'.time();
++
++        DB::insert('insert into claims (user_id, policy_number, plate_number, accident_date, description, status, claim_ref, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
++            $uid,
++            $policy,
++            $plate,
++            $date,
++            $desc,
++            'pending',
++            $ref,
++            date('Y-m-d H:i:s'),
++            date('Y-m-d H:i:s'),
++        ]);
++
++        $last = Claim::orderBy('id', 'desc')->first();
++
++        return redirect('/claims/'.$last->id);
++    }
++
++    public function show($id)
++    {
++        $claim = Claim::find($id);
++        $user = User::find($claim->user_id);
++
++        $all = Claim::all();
++        $related = [];
++        foreach ($all as $c) {
++            if ($c->policy_number == $claim->policy_number) {
++                $related[] = $c;
++            }
++        }
++
++        $statusLabel = 'Unknown';
++        if ($claim->status == 'pending') {
++            $statusLabel = 'Waiting for review';
++        }
++        if ($claim->status == 'submitted') {
++            $statusLabel = 'Sent to adjuster';
++        }
++        if ($claim->status == 'closed') {
++            $statusLabel = 'Done';
++        }
++
++        return view('claims.show', [
++            'claim' => $claim,
++            'user' => $user,
++            'related' => $related,
++            'statusLabel' => $statusLabel,
++        ]);
++    }
++
++    public function submitClaim($id)
++    {
++        $claim = Claim::find($id);
++        $claim->status = 'submitted';
++        $claim->save();
++
++        return redirect('/claims/'.$id.'?ok=1');
++    }
++
++    public function submitClaimGet($id)
++    {
++        $claim = Claim::find($id);
++        DB::update("update claims set status = 'submitted' where id = ".$id);
++
++        return redirect('/dashboard');
++    }
++
++    public function search(Request $request)
++    {
++        $q = $request->q;
++        $rows = DB::select("select * from claims where description like '%".$q."%' or plate_number like '%".$q."%' or policy_number like '%".$q."%'");
++
++        return view('claims.search', ['rows' => $rows, 'q' => $q]);
++    }
++
++    public function listRaw()
++    {
++        $uid = session('uid', $this->currentUserId);
++        $claims = Claim::where('user_id', $uid)->get();
++        $out = [];
++        foreach ($claims as $c) {
++            $u = User::find($c->user_id);
++            $out[] = [
++                'id' => $c->id,
++                'ref' => $c->claim_ref,
++                'plate' => $c->plate_number,
++                'status' => $c->status,
++                'owner' => $u->name,
++                'email' => $u->email,
++            ];
++        }
++
++        return response()->json($out);
++    }
++}
+diff --git a/app/Models/Claim.php b/app/Models/Claim.php
+new file mode 100644
+index 0000000..baf8fa8
+--- /dev/null
++++ b/app/Models/Claim.php
+@@ -0,0 +1,15 @@
++<?php
++
++namespace App\Models;
++
++use Illuminate\Database\Eloquent\Model;
++
++class Claim extends Model
++{
++    protected $guarded = [];
++
++    public function user()
++    {
++        return $this->belongsTo(User::class);
++    }
++}
+diff --git a/config/claim_auth.php b/config/claim_auth.php
+new file mode 100644
+index 0000000..679419e
+--- /dev/null
++++ b/config/claim_auth.php
+@@ -0,0 +1,8 @@
++<?php
++
++return [
++    'demo_email' => 'alice.customer@insureco.test',
++    'demo_password' => 'SuperSecret123!',
++    'demo_user_id' => 1,
++    'api_token' => 'sk_live_claim_dashboard_hardcoded_token_do_not_ship',
++];
+diff --git a/database/migrations/2026_09_20_000001_create_claims_table.php b/database/migrations/2026_09_20_000001_create_claims_table.php
+new file mode 100644
+index 0000000..8346ac5
+--- /dev/null
++++ b/database/migrations/2026_09_20_000001_create_claims_table.php
+@@ -0,0 +1,28 @@
++<?php
++
++use Illuminate\Database\Migrations\Migration;
++use Illuminate\Database\Schema\Blueprint;
++use Illuminate\Support\Facades\Schema;
++
++return new class extends Migration
++{
++    public function up(): void
++    {
++        Schema::create('claims', function (Blueprint $table) {
++            $table->id();
++            $table->unsignedBigInteger('user_id');
++            $table->string('policy_number');
++            $table->string('plate_number');
++            $table->string('accident_date');
++            $table->text('description')->nullable();
++            $table->string('status')->default('pending');
++            $table->string('claim_ref')->nullable();
++            $table->timestamps();
++        });
++    }
++
++    public function down(): void
++    {
++        Schema::dropIfExists('claims');
++    }
++};
+diff --git a/database/seeders/DatabaseSeeder.php b/database/seeders/DatabaseSeeder.php
+new file mode 100644
+index 0000000..f362760
+--- /dev/null
++++ b/database/seeders/DatabaseSeeder.php
+@@ -0,0 +1,70 @@
++<?php
++
++namespace Database\Seeders;
++
++use App\Models\Claim;
++use App\Models\User;
++use Illuminate\Database\Seeder;
++use Illuminate\Support\Facades\Hash;
++
++class DatabaseSeeder extends Seeder
++{
++    public function run(): void
++    {
++        $alice = User::factory()->create([
++            'name' => 'Alice Customer',
++            'email' => 'alice.customer@insureco.test',
++            'password' => Hash::make('SuperSecret123!'),
++        ]);
++
++        $bob = User::factory()->create([
++            'name' => 'Bob Other',
++            'email' => 'bob.other@insureco.test',
++            'password' => Hash::make('password'),
++        ]);
++
++        $cara = User::factory()->create([
++            'name' => 'Cara Neighbor',
++            'email' => 'cara.neighbor@insureco.test',
++            'password' => Hash::make('password'),
++        ]);
++
++        $plates = ['1AB-2345', '2CD-6789', '3EF-1122', '4GH-3344', '5IJ-5566'];
++        $policies = ['AUTO-10021', 'AUTO-10022', 'AUTO-10023', 'AUTO-10024'];
++        $statuses = ['pending', 'pending', 'pending', 'submitted', 'submitted'];
++
++        for ($i = 1; $i <= 18; $i++) {
++            Claim::create([
++                'user_id' => $alice->id,
++                'policy_number' => $policies[$i % count($policies)],
++                'plate_number' => $plates[$i % count($plates)],
++                'accident_date' => '2026-0'.(($i % 8) + 1).'-'.str_pad((string) (($i % 27) + 1), 2, '0', STR_PAD_LEFT),
++                'description' => 'Rear-end bump near market #'.$i.' ΓÇö scratches on bumper',
++                'status' => $statuses[$i % count($statuses)],
++                'claim_ref' => 'CLM-SEED-'.$i,
++            ]);
++        }
++
++        for ($i = 1; $i <= 4; $i++) {
++            Claim::create([
++                'user_id' => $bob->id,
++                'policy_number' => 'AUTO-BOB-0'.$i,
++                'plate_number' => '9ZZ-000'.$i,
++                'accident_date' => '2026-03-0'.$i,
++                'description' => 'Bob private claim '.$i.' ΓÇö do not show to Alice',
++                'status' => 'pending',
++                'claim_ref' => 'CLM-BOB-'.$i,
++            ]);
++        }
++
++        Claim::create([
++            'user_id' => $cara->id,
++            'policy_number' => 'AUTO-CARA-01',
++            'plate_number' => '8YY-9999',
++            'accident_date' => '2026-02-14',
++            'description' => 'Cara claim ΓÇö parking scrape',
++            'status' => 'submitted',
++            'claim_ref' => 'CLM-CARA-1',
++        ]);
++    }
++}
+diff --git a/resources/views/claims/create.blade.php b/resources/views/claims/create.blade.php
+new file mode 100644
+index 0000000..9afc2d4
+--- /dev/null
++++ b/resources/views/claims/create.blade.php
+@@ -0,0 +1,45 @@
++@extends('claims.layout')
++
++@section('title', 'File claim')
++
++@section('content')
++<div class="card">
++    <h1>File auto claim</h1>
++    <form method="post" action="/claims" id="claimForm">
++        @csrf
++        <label>Policy number</label>
++        <input name="policy_number" id="policy_number">
++
++        <label>Plate number</label>
++        <input name="plate_number" id="plate_number">
++
++        <label>Accident date</label>
++        <input name="accident_date" id="accident_date" placeholder="YYYY-MM-DD">
++
++        <label>What happened</label>
++        <textarea name="description" id="description" rows="4"></textarea>
++
++        <button class="btn" type="submit" onclick="return quickCheck()">Submit claim</button>
++    </form>
++</div>
++@endsection
++
++@section('scripts')
++<script>
++window.formDirty = false;
++
++function quickCheck() {
++    var p = document.getElementById('policy_number').value;
++    var plate = document.getElementById('plate_number').value;
++    if (p == '' || plate == '') {
++        alert('fill stuff');
++        return false;
++    }
++    return true;
++}
++
++document.getElementById('claimForm').addEventListener('input', function () {
++    window.formDirty = true;
++});
++</script>
++@endsection
+diff --git a/resources/views/claims/dashboard.blade.php b/resources/views/claims/dashboard.blade.php
+new file mode 100644
+index 0000000..2f921a3
+--- /dev/null
++++ b/resources/views/claims/dashboard.blade.php
+@@ -0,0 +1,106 @@
++@extends('claims.layout')
++
++@section('title', 'Dashboard')
++
++@section('content')
++<div class="card">
++    <h1>My auto claims</h1>
++    <p>Signed in as {!! $email !!} (user #{{ $uid }})</p>
++    <p class="muted">API token for widgets: <code>{!! $token !!}</code></p>
++
++    @php
++        $canFileMore = true;
++        if ($pendingCount > 50) {
++            $canFileMore = false;
++        }
++        $banner = 'You have '.$pendingCount.' pending and '.$submittedCount.' submitted claims.';
++        if ($pendingCount == 0) {
++            $banner = 'No pending claims ΓÇö file a new one if you had an accident.';
++        }
++    @endphp
++
++    <p>{{ $banner }}</p>
++    @if($canFileMore)
++        <a class="btn" href="/claims/new">File new auto claim</a>
++    @else
++        <p class="err">Too many pending claims.</p>
++    @endif
++</div>
++
++<div class="card">
++    <h2>Claims list</h2>
++    <table>
++        <thead>
++            <tr>
++                <th>Ref</th>
++                <th>Plate</th>
++                <th>Policy</th>
++                <th>Status</th>
++                <th></th>
++            </tr>
++        </thead>
++        <tbody>
++        @foreach($claims as $c)
++            @php
++                $color = '#999';
++                if ($c->status == 'pending') { $color = '#ca8a04'; }
++                if ($c->status == 'submitted') { $color = '#2563eb'; }
++                if ($c->status == 'closed') { $color = '#15803d'; }
++            @endphp
++            <tr>
++                <td>{{ $c->claim_ref }}</td>
++                <td>{{ $c->plate_number }}</td>
++                <td>{{ $c->policy_number }}</td>
++                <td style="color: {{ $color }}">{{ $c->status }}</td>
++                <td>
++                    <a href="/claims/{{ $c->id }}">View</a>
++                    @if($c->status == 'pending')
++                        | <a href="/claims/{{ $c->id }}/submit">Submit via GET</a>
++                    @endif
++                </td>
++            </tr>
++        @endforeach
++        </tbody>
++    </table>
++</div>
++
++<div class="card">
++    <h2>Debug: other customers' claims</h2>
++    <p class="muted">Loaded for "comparison" ΓÇö junior forgot to remove.</p>
++    <ul>
++        @foreach($otherPeopleClaims as $o)
++            <li>
++                <a href="/claims/{{ $o->id }}">{{ $o->claim_ref }}</a>
++                ΓÇö {!! $o->description !!}
++                (user {{ $o->user_id }})
++            </li>
++        @endforeach
++    </ul>
++</div>
++@endsection
++
++@section('scripts')
++<script>
++var CURRENT_USER = {{ $uid }};
++var API_TOKEN = "{!! $token !!}";
++var ALL_CLAIMS = @json($claims);
++
++function refreshClaimsWidget() {
++    fetch('/api/claims?token=' + API_TOKEN)
++        .then(function (r) { return r.json(); })
++        .then(function (data) {
++            window.lastClaims = data;
++            console.log('claims', data);
++        });
++}
++
++function submitFast(id) {
++    window.location = '/claims/' + id + '/submit';
++}
++
++document.addEventListener('DOMContentLoaded', function () {
++    refreshClaimsWidget();
++    setInterval(refreshClaimsWidget, 15000);
++});
++</script>
++@endsection
+diff --git a/resources/views/claims/layout.blade.php b/resources/views/claims/layout.blade.php
+new file mode 100644
+index 0000000..6d6b620
+--- /dev/null
++++ b/resources/views/claims/layout.blade.php
+@@ -0,0 +1,39 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="utf-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1">
++    <title>@yield('title', 'Auto Claims')</title>
++    <style>
++        body { font-family: Arial, Helvetica, sans-serif; margin: 0; background: #f3f4f6; color: #111; }
++        .top { background: #1e3a5f; color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
++        .top a { color: #fff; margin-left: 12px; text-decoration: none; }
++        .wrap { max-width: 960px; margin: 24px auto; padding: 0 16px; }
++        .card { background: #fff; border: 1px solid #ddd; padding: 16px; margin-bottom: 16px; }
++        table { width: 100%; border-collapse: collapse; }
++        th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; font-size: 14px; }
++        .btn { display: inline-block; background: #2563eb; color: #fff; padding: 8px 12px; text-decoration: none; border: 0; cursor: pointer; }
++        .btn-danger { background: #b91c1c; }
++        input, textarea { width: 100%; padding: 8px; margin: 6px 0 12px; box-sizing: border-box; }
++        .err { color: #b91c1c; }
++        .ok { color: #15803d; }
++        .muted { color: #666; font-size: 13px; }
++    </style>
++    @yield('head')
++</head>
++<body>
++    <div class="top">
++        <div><strong>InsureCo Auto Claims</strong></div>
++        <div>
++            <a href="/dashboard">Dashboard</a>
++            <a href="/claims/new">File claim</a>
++            <a href="/search?q=">Search</a>
++            <a href="/login">Login</a>
++        </div>
++    </div>
++    <div class="wrap">
++        @yield('content')
++    </div>
++    @yield('scripts')
++</body>
++</html>
+diff --git a/resources/views/claims/login.blade.php b/resources/views/claims/login.blade.php
+new file mode 100644
+index 0000000..b3dc4c5
+--- /dev/null
++++ b/resources/views/claims/login.blade.php
+@@ -0,0 +1,23 @@
++@extends('claims.layout')
++
++@section('title', 'Login')
++
++@section('content')
++<div class="card">
++    <h1>Customer login</h1>
++    @if(isset($_GET['err']))
++        <p class="err">Login failed: {{ $_GET['err'] }} for
++            {!! isset($_GET['email']) ? $_GET['email'] : '' !!}
++        </p>
++    @endif
++    <form method="post" action="/login">
++        @csrf
++        <label>Email</label>
++        <input name="email" value="alice.customer@insureco.test">
++        <label>Password</label>
++        <input name="password" type="password" value="SuperSecret123!">
++        <button class="btn" type="submit">Sign in</button>
++    </form>
++    <p class="muted">Demo account is prefilled. Password also lives in PHP source.</p>
++</div>
++@endsection
+diff --git a/resources/views/claims/search.blade.php b/resources/views/claims/search.blade.php
+new file mode 100644
+index 0000000..26e112a
+--- /dev/null
++++ b/resources/views/claims/search.blade.php
+@@ -0,0 +1,39 @@
++@extends('claims.layout')
++
++@section('title', 'Search')
++
++@section('content')
++<div class="card">
++    <h1>Search claims</h1>
++    <form method="get" action="/search">
++        <input name="q" value="{!! $q !!}" placeholder="plate, policy, or description">
++        <button class="btn" type="submit">Search</button>
++    </form>
++</div>
++
++<div class="card">
++    <h2>Results for: {!! $q !!}</h2>
++    <table>
++        <thead>
++            <tr>
++                <th>ID</th>
++                <th>Ref</th>
++                <th>Plate</th>
++                <th>Status</th>
++                <th>Description</th>
++            </tr>
++        </thead>
++        <tbody>
++        @foreach($rows as $row)
++            <tr>
++                <td><a href="/claims/{{ $row->id }}">{{ $row->id }}</a></td>
++                <td>{{ $row->claim_ref }}</td>
++                <td>{{ $row->plate_number }}</td>
++                <td>{{ $row->status }}</td>
++                <td>{!! $row->description !!}</td>
++            </tr>
++        @endforeach
++        </tbody>
++    </table>
++</div>
++@endsection
+diff --git a/resources/views/claims/show.blade.php b/resources/views/claims/show.blade.php
+new file mode 100644
+index 0000000..c9e8437
+--- /dev/null
++++ b/resources/views/claims/show.blade.php
+@@ -0,0 +1,58 @@
++@extends('claims.layout')
++
++@section('title', 'Claim '.$claim->claim_ref)
++
++@section('content')
++<div class="card">
++    <h1>Claim {!! $claim->claim_ref !!}</h1>
++    @if(isset($_GET['ok']))
++        <p class="ok">Submitted!</p>
++    @endif
++
++    @php
++        $daysOld = 0;
++        try {
++            $daysOld = (int) ((time() - strtotime($claim->accident_date)) / 86400);
++        } catch (\Exception $e) {
++            $daysOld = 0;
++        }
++        $late = false;
++        if ($daysOld > 30) {
++            $late = true;
++        }
++    @endphp
++
++    <p><strong>Status:</strong> {{ $statusLabel }} ({{ $claim->status }})</p>
++    <p><strong>Owner:</strong> {{ $user->name }} &lt;{!! $user->email !!}&gt;</p>
++    <p><strong>Policy:</strong> {{ $claim->policy_number }}</p>
++    <p><strong>Plate:</strong> {{ $claim->plate_number }}</p>
++    <p><strong>Accident date:</strong> {{ $claim->accident_date }}
++        @if($late)
++            <span class="err">(late filing ΓÇö over 30 days)</span>
++        @endif
++    </p>
++    <p><strong>Description:</strong></p>
++    <div>{!! $claim->description !!}</div>
++
++    @if($claim->status == 'pending')
++        <form method="post" action="/claims/{{ $claim->id }}/submit" style="margin-top:12px">
++            @csrf
++            <button class="btn" type="submit">Submit to adjuster</button>
++        </form>
++        <p class="muted">Or use the GET shortcut: <a href="/claims/{{ $claim->id }}/submit">/claims/{{ $claim->id }}/submit</a></p>
++    @endif
++</div>
++
++<div class="card">
++    <h2>Related claims (same policy)</h2>
++    <ul>
++        @foreach($related as $r)
++            <li>
++                <a href="/claims/{{ $r->id }}">{{ $r->claim_ref }}</a>
++                ΓÇö status {{ $r->status }}
++                ΓÇö {!! $r->description !!}
++            </li>
++        @endforeach
++    </ul>
++</div>
++@endsection
+diff --git a/routes/web.php b/routes/web.php
+new file mode 100644
+index 0000000..6bf7919
+--- /dev/null
++++ b/routes/web.php
+@@ -0,0 +1,20 @@
++<?php
++
++use App\Http\Controllers\ClaimDashboardController;
++use Illuminate\Support\Facades\Route;
++
++Route::get('/', function () {
++    return redirect('/dashboard');
++});
++
++Route::get('/login', [ClaimDashboardController::class, 'loginPage']);
++Route::post('/login', [ClaimDashboardController::class, 'doLogin']);
++
++Route::get('/dashboard', [ClaimDashboardController::class, 'dashboard']);
++Route::get('/claims/new', [ClaimDashboardController::class, 'createForm']);
++Route::post('/claims', [ClaimDashboardController::class, 'store']);
++Route::get('/claims/{id}', [ClaimDashboardController::class, 'show']);
++Route::post('/claims/{id}/submit', [ClaimDashboardController::class, 'submitClaim']);
++Route::get('/claims/{id}/submit', [ClaimDashboardController::class, 'submitClaimGet']);
++Route::get('/search', [ClaimDashboardController::class, 'search']);
++Route::get('/api/claims', [ClaimDashboardController::class, 'listRaw']);

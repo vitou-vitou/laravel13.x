@@ -1,0 +1,474 @@
+Review complete: 24 finding(s) across 60 selected item(s).
+
+─── config/claim_auth.php:4-7 ───
+[security · high] Sensitive credentials and API tokens (`demo_password` and `api_token`) are
+hardcoded directly into the configuration file. Hardcoding secrets in repository source files risks
+credential exposure if code is shared, committed to version control, or leaked.
+
+Instead of hardcoding plaintext secrets, read them from environment variables via `env()` with
+sensible non-sensitive fallbacks (or `null`) in non-production environments.
+
+-     'demo_email' => 'alice.customer@insureco.test',
+-     'demo_password' => 'SuperSecret123!',
+-     'demo_user_id' => 1,
+-     'api_token' => 'sk_live_claim_dashboard_hardcoded_token_do_not_ship',
++     'demo_email' => env('CLAIM_AUTH_DEMO_EMAIL', 'alice.customer@insureco.test'),
++     'demo_password' => env('CLAIM_AUTH_DEMO_PASSWORD'),
++     'demo_user_id' => (int) env('CLAIM_AUTH_DEMO_USER_ID', 1),
++     'api_token' => env('CLAIM_AUTH_API_TOKEN'),
+
+
+─── app/Models/Claim.php:9-9 ───
+[security · medium] Unguarding all attributes via `protected $guarded = [];` exposes the model to
+mass-assignment vulnerabilities. If request inputs or user payloads are passed directly to
+`Claim::create()`, `fill()`, or `update()`, sensitive attributes like `user_id` or `status` could be
+overridden. Consider explicitly declaring allowed attributes via `protected $fillable = [...]` (or
+using PHP 8 `#[Fillable]` attribute) to prevent unintended attribute binding.
+
+-     protected $guarded = [];
++     protected $fillable = [
++         'policy_number',
++         'plate_number',
++         'accident_date',
++         'description',
++         'status',
++         'claim_ref',
++         'user_id',
++     ];
+
+
+─── database/migrations/2026_09_20_000001_create_claims_table.php:13-13 ───
+[maintainability · medium] The `user_id` column lacks a foreign key constraint and an index. Without
+`$table->foreignId('user_id')->constrained()->cascadeOnDelete();` or an explicit index, queries
+filtering by `user_id` (such as `Claim::where('user_id', $uid)`) will require full table scans as
+the dataset grows, and orphan records may remain if users are removed.
+
+-             $table->unsignedBigInteger('user_id');
++             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:174-177 ───
+[security · critical] Direct interpolation of user input `$q` into the raw SQL query allows SQL
+injection. Use parameterized queries or Eloquent query builder bindings instead.
+
+      public function search(Request $request)
+      {
+-         $q = $request->q;
+-         $rows = DB::select("select * from claims where description like '%".$q."%' or plate_number like '%".$q."%' or policy_number like '%".$q."%'");
++         $q = (string) $request->input('q', '');
++         $term = '%'.$q.'%';
++         $rows = DB::select(
++             'select * from claims where description like ? or plate_number like ? or policy_number like ?',
++             [$term, $term, $term]
++         );
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:166-169 ───
+[security · critical] Interpolating `$id` directly into the raw SQL update statement creates a SQL
+injection vulnerability. In addition, state-changing operations should not be performed via a GET
+request (which also lacks CSRF protection). Use parameterized queries or Eloquent to update records.
+
+      public function submitClaimGet($id)
+      {
+-         $claim = Claim::find($id);
+-         DB::update("update claims set status = 'submitted' where id = ".$id);
++         $claim = Claim::findOrFail($id);
++         $claim->update(['status' => 'submitted']);
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:16-18 ───
+[security · critical] Hardcoded user credentials and an API live secret token are committed directly
+in the controller source code. Secrets and demo credentials should be managed via environment
+variables (`.env`) or secure configuration files rather than hardcoded in class properties.
+
+-     public $currentUserPassword = 'SuperSecret123!';
+- 
+-     public $apiToken = 'sk_live_claim_dashboard_hardcoded_token_do_not_ship';
++     // Retrieve credentials and tokens from environment/config rather than hardcoding in source
++     public $currentUserPassword;
++     public $apiToken;
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:50-77 ───
+[security · high] Unauthenticated users are automatically assigned `currentUserId` (user #1),
+bypassing authentication. Furthermore, all claims in the database (including other users' claims)
+are loaded and passed to the view via `otherPeopleClaims`. In a multi-tenant system, this leaks
+other customers' sensitive insurance claim data. Ensure authentication is enforced and queries are
+scoped to the authenticated user.
+
+          $uid = session('uid');
+          if (! $uid) {
+-             $uid = $this->currentUserId;
+-             session(['uid' => $uid]);
+-         }
+- 
+-         $all = Claim::all();
+-         $mine = [];
+-         $pendingCount = 0;
+-         $submittedCount = 0;
+-         foreach ($all as $c) {
+-             if ($c->user_id == $uid) {
+-                 $mine[] = $c;
+-                 if ($c->status == 'pending') {
+-                     $pendingCount = $pendingCount + 1;
+-                 }
+-                 if ($c->status == 'submitted') {
+-                     $submittedCount = $submittedCount + 1;
+-                 }
+-             }
++             return redirect('/login');
+          }
+  
+-         $otherPeopleClaims = [];
+-         foreach ($all as $c) {
+-             if ($c->user_id != $uid) {
+-                 $otherPeopleClaims[] = $c;
+-             }
+-         }
++         $mine = Claim::where('user_id', $uid)->get();
++         $pendingCount = Claim::where('user_id', $uid)->where('status', 'pending')->count();
++         $submittedCount = Claim::where('user_id', $uid)->where('status', 'submitted')->count();
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:125-128 ───
+[security · high] Missing authorization checks (IDOR): any caller can view, modify, or submit
+another customer's claim by specifying arbitrary IDs in `/claims/{id}` or `/claims/{id}/submit`.
+Verify that `$claim->user_id` matches the authenticated session user (or authorize via a Laravel
+Policy/Gate) before displaying or mutating the claim. Also handle null cases when `$claim` is not
+found.
+
+      public function show($id)
+      {
+-         $claim = Claim::find($id);
+-         $user = User::find($claim->user_id);
++         $uid = session('uid');
++         $claim = Claim::findOrFail($id);
++         if ($claim->user_id !== $uid) {
++             abort(403, 'Unauthorized access to claim.');
++         }
++         $user = $claim->user;
+
+
+─── routes/web.php:17-18 ───
+[security · high] Exposing a state-changing database mutation via a `GET` endpoint violates HTTP
+idempotence principles and makes the action vulnerable to Cross-Site Request Forgery (CSRF) via
+ordinary link clicks, prefetching, or embedded `<img>` tags. Remove the GET mutation route and use
+only `POST` or `PATCH` with CSRF protection.
+
+  Route::post('/claims/{id}/submit', [ClaimDashboardController::class, 'submitClaim']);
+- Route::get('/claims/{id}/submit', [ClaimDashboardController::class, 'submitClaimGet']);
+
+
+─── resources/views/claims/login.blade.php:8-12 ───
+[security · critical] The query parameter `$_GET['email']` is rendered unescaped using raw Blade
+syntax `{!! ... !!}`. Because user input is reflected directly without escaping, an attacker can
+supply malicious JavaScript in the URL (e.g., `/login?err=failed&email=<script>...`), resulting in
+Reflected Cross-Site Scripting (XSS). Use standard Blade escaping `{{ ... }}` instead.
+
+      @if(isset($_GET['err']))
+          <p class="err">Login failed: {{ $_GET['err'] }} for
+-             {!! isset($_GET['email']) ? $_GET['email'] : '' !!}
++             {{ request('email') }}
+          </p>
+      @endif
+
+
+─── resources/views/claims/search.blade.php:6-15 ───
+[security · critical] The search query `$q` is rendered raw using `{!! $q !!}` in the value
+attribute and the heading tag. Because `$q` comes directly from untrusted request input
+(`$request->q`), this introduces Reflected Cross-Site Scripting (XSS) allowing HTML/JavaScript
+injection. Replace `{!! $q !!}` with standard escaped Blade syntax `{{ $q }}` (or `old('q', $q)`).
+
+  <div class="card">
+      <h1>Search claims</h1>
+      <form method="get" action="/search">
+-         <input name="q" value="{!! $q !!}" placeholder="plate, policy, or description">
++         <input name="q" value="{{ $q }}" placeholder="plate, policy, or description">
+          <button class="btn" type="submit">Search</button>
+      </form>
+  </div>
+  
+  <div class="card">
+-     <h2>Results for: {!! $q !!}</h2>
++     <h2>Results for: {{ $q }}</h2>
+
+
+─── resources/views/claims/search.blade.php:32-34 ───
+[security · critical] The claim description `$row->description` is rendered unescaped with `{!! ...
+!!}`. User-submitted text stored in the database can contain arbitrary HTML and script tags, leading
+to Stored Cross-Site Scripting (XSS). Render the description using safe Blade escaping `{{
+$row->description }}`.
+
+                  <td>{{ $row->status }}</td>
+-                 <td>{!! $row->description !!}</td>
++                 <td>{{ $row->description }}</td>
+              </tr>
+
+
+─── resources/views/claims/dashboard.blade.php:8-9 ───
+[security · high] User-controlled and sensitive values are rendered using unescaped Blade tags `{!!
+... !!}`, including `{!! $email !!}`, `API_TOKEN = "{!! $token !!}"`, and claim descriptions `{!!
+$o->description !!}`. 
+
+1. Using `{!! $email !!}` and `{!! $o->description !!}` causes XSS vulnerabilities when rendered
+directly to HTML.
+2. Embedding `"{!! $token !!}"` and `@json($claims)` directly into inline JavaScript exposes API
+tokens and data, and should use safe JSON encoding such as `@json($token)`.
+3. Escaped tags `{{ $email }}` should be used in HTML contexts.
+
+-     <p>Signed in as {!! $email !!} (user #{{ $uid }})</p>
+-     <p class="muted">API token for widgets: <code>{!! $token !!}</code></p>
++     <p>Signed in as {{ $email }} (user #{{ $uid }})</p>
++     <p class="muted">API token for widgets: <code>{{ $token }}</code></p>
+
+
+─── resources/views/claims/dashboard.blade.php:67-79 ───
+[security · critical] This debug section renders other customers' claims and unescaped claim
+descriptions (`{!! $o->description !!}`) across tenant boundaries, exposing sensitive data belonging
+to other users and creating a Stored XSS vulnerability. Debug sections exposing other users' claims
+should be removed in production templates.
+
+
+
+─── resources/views/claims/dashboard.blade.php:56-59 ───
+[security · high] The claim submission action is exposed via an HTTP GET link (`/claims/{{ $c->id
+}}/submit`). State changes should never be performed via GET requests as they violate HTTP
+safe-method semantics and bypass CSRF protection, enabling attackers to trigger submissions via link
+prefetching, search crawlers, or simple `<img>`/link tags. State modifications should only be
+performed via POST/PATCH forms with CSRF tokens.
+
+                      <a href="/claims/{{ $c->id }}">View</a>
+                      @if($c->status == 'pending')
+-                         | <a href="/claims/{{ $c->id }}/submit">Submit via GET</a>
++                         | <form method="post" action="/claims/{{ $c->id }}/submit" style="display:inline;">
++                             @csrf
++                             <button type="submit" class="btn-link">Submit</button>
++                         </form>
+                      @endif
+
+
+─── resources/views/claims/show.blade.php:6-57 ───
+[security · critical] `$claim->claim_ref`, `$user->email`, `$claim->description`, and
+`$r->description` are rendered unescaped with `{!! ... !!}`. These fields contain user-controlled
+input and can lead to Stored XSS. Use standard Blade escaping `{{ ... }}` instead.
+
+  <div class="card">
+-     <h1>Claim {!! $claim->claim_ref !!}</h1>
++     <h1>Claim {{ $claim->claim_ref }}</h1>
+      @if(isset($_GET['ok']))
+          <p class="ok">Submitted!</p>
+      @endif
+  
+      @php
+          $daysOld = 0;
+          try {
+              $daysOld = (int) ((time() - strtotime($claim->accident_date)) / 86400);
+          } catch (\Exception $e) {
+              $daysOld = 0;
+          }
+          $late = false;
+          if ($daysOld > 30) {
+              $late = true;
+          }
+      @endphp
+  
+      <p><strong>Status:</strong> {{ $statusLabel }} ({{ $claim->status }})</p>
+-     <p><strong>Owner:</strong> {{ $user->name }} &lt;{!! $user->email !!}&gt;</p>
++     <p><strong>Owner:</strong> {{ $user->name }} &lt;{{ $user->email }}&gt;</p>
+      <p><strong>Policy:</strong> {{ $claim->policy_number }}</p>
+      <p><strong>Plate:</strong> {{ $claim->plate_number }}</p>
+      <p><strong>Accident date:</strong> {{ $claim->accident_date }}
+          @if($late)
+              <span class="err">(late filing — over 30 days)</span>
+          @endif
+      </p>
+      <p><strong>Description:</strong></p>
+-     <div>{!! $claim->description !!}</div>
++     <div>{{ $claim->description }}</div>
+  
+      @if($claim->status == 'pending')
+          <form method="post" action="/claims/{{ $claim->id }}/submit" style="margin-top:12px">
+              @csrf
+              <button class="btn" type="submit">Submit to adjuster</button>
+          </form>
+-         <p class="muted">Or use the GET shortcut: <a href="/claims/{{ $claim->id }}/submit">/claims/{{ $claim->id }}/submit</a></p>
+      @endif
+  </div>
+  
+  <div class="card">
+      <h2>Related claims (same policy)</h2>
+      <ul>
+          @foreach($related as $r)
+              <li>
+                  <a href="/claims/{{ $r->id }}">{{ $r->claim_ref }}</a>
+                  — status {{ $r->status }}
+-                 — {!! $r->description !!}
++                 — {{ $r->description }}
+              </li>
+          @endforeach
+      </ul>
+  </div>
+
+
+─── tests/Feature/ExampleTest.php:13-18 ───
+[test · medium] The route `GET /` redirects to `/dashboard` (`return redirect('/dashboard');`),
+which responds with a redirect status code (302) rather than 200. Consequently,
+`$response->assertStatus(200);` will fail when executing this test. Consider asserting a 302
+redirect or updating the assertion to `$response->assertRedirect('/dashboard');`.
+
+      public function test_the_application_returns_a_successful_response(): void
+      {
+          $response = $this->get('/');
+  
+-         $response->assertStatus(200);
++         $response->assertRedirect('/dashboard');
+      }
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:38-45 ───
+[security · medium] User-supplied input (`$email`) is reflected directly in redirect URL query
+parameters across multiple failure conditions (`err=badpass&email=` and `err=nouser&email=`) and
+then rendered unescaped in views. Furthermore, displaying different error messages for existing vs
+non-existing emails allows user enumeration.
+
+Sanitize or avoid reflecting raw query parameters in the redirect URL, use standard session flash
+messages (e.g. `withErrors()`), and use generic authentication error messages.
+
+-         $users = User::all();
+-         foreach ($users as $u) {
+-             if ($u->email == $email) {
+-                 return redirect('/login?err=badpass&email='.$email);
+-             }
+-         }
+- 
+-         return redirect('/login?err=nouser&email='.$email);
++         return redirect('/login')->withErrors(['login' => 'Invalid credentials provided.']);
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:108-122 ───
+[bug · high] Retrieving the newly inserted claim via `Claim::orderBy('id', 'desc')->first()` is
+prone to race conditions under concurrent requests, potentially redirecting the user to another
+user's newly created claim. In addition, if `DB::insertGetId(...)` or Eloquent `Claim::create(...)`
+is used instead, the exact inserted ID is returned atomically.
+
+-         DB::insert('insert into claims (user_id, policy_number, plate_number, accident_date, description, status, claim_ref, created_at, updated_at) values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+-             $uid,
+-             $policy,
+-             $plate,
+-             $date,
+-             $desc,
+-             'pending',
+-             $ref,
+-             date('Y-m-d H:i:s'),
+-             date('Y-m-d H:i:s'),
++         $claim = Claim::create([
++             'user_id' => $uid,
++             'policy_number' => $policy,
++             'plate_number' => $plate,
++             'accident_date' => $date,
++             'description' => $desc,
++             'status' => 'pending',
++             'claim_ref' => $ref,
+          ]);
+- 
+-         $last = Claim::orderBy('id', 'desc')->first();
+  
+-         return redirect('/claims/'.$last->id);
++         return redirect('/claims/'.$claim->id);
+
+
+─── app/Http/Controllers/ClaimDashboardController.php:182-200 ───
+[security · high] The `/api/claims` endpoint exposes claims data without any authentication or
+authorization middleware or validation of the API token (which is passed in client queries). In
+addition, executing `User::find($c->user_id)` inside the loop causes an N+1 query problem. Secure
+the endpoint using authentication middleware and eager load the user relationship (e.g.,
+`Claim::with('user')->where('user_id', $uid)->get()`).
+
+-     public function listRaw()
++     public function listRaw(Request $request)
+      {
+-         $uid = session('uid', $this->currentUserId);
+-         $claims = Claim::where('user_id', $uid)->get();
+-         $out = [];
+-         foreach ($claims as $c) {
+-             $u = User::find($c->user_id);
+-             $out[] = [
++         // Enforce proper authentication or API token validation
++         $uid = session('uid');
++         if (! $uid) {
++             return response()->json(['error' => 'Unauthorized'], 401);
++         }
++ 
++         $claims = Claim::with('user')->where('user_id', $uid)->get();
++         $out = $claims->map(function ($c) {
++             return [
+                  'id' => $c->id,
+                  'ref' => $c->claim_ref,
+                  'plate' => $c->plate_number,
+                  'status' => $c->status,
+-                 'owner' => $u->name,
+-                 'email' => $u->email,
++                 'owner' => $c->user?->name,
++                 'email' => $c->user?->email,
+              ];
+-         }
++         });
+  
+          return response()->json($out);
+      }
+
+
+─── resources/views/claims/show.blade.php:37-43 ───
+[security · high] State modification via GET (`/claims/{{ $claim->id }}/submit`) violates HTTP GET
+semantics (safe/idempotent methods) and bypasses CSRF protection. This allows attackers to perform
+cross-site request forgery, or search bots and browser prefetch mechanisms to prematurely submit
+pending claims. The GET shortcut link should be removed and submissions should only occur via POST
+requests protected by CSRF tokens.
+
+      @if($claim->status == 'pending')
+          <form method="post" action="/claims/{{ $claim->id }}/submit" style="margin-top:12px">
+              @csrf
+              <button class="btn" type="submit">Submit to adjuster</button>
+          </form>
+-         <p class="muted">Or use the GET shortcut: <a href="/claims/{{ $claim->id }}/submit">/claims/{{ $claim->id }}/submit</a></p>
+      @endif
+
+
+─── database/migrations/2026_09_20_000001_create_claims_table.php:16-16 ───
+[maintainability · medium] The `claims` table stores `accident_date` as `string` (`VARCHAR`) rather
+than `date`. This prevents native date validation, comparisons (`whereDate`, ranges), sorting, and
+database-level temporal functions. Consider defining it as `$table->date('accident_date');`.
+
+-             $table->string('accident_date');
++             $table->date('accident_date');
+
+
+─── app/Models/User.php:15-18 ───
+[maintainability · low] The `User` model defines the one-to-many relationship with `Claim` inversely
+in `Claim::user()`, but `User` lacks the corresponding `claims()` relationship method. Adding this
+relation improves domain navigation and allows Eloquent queries such as `$user->claims()->get()`.
+
+  class User extends Authenticatable
+  {
+      /** @use HasFactory<UserFactory> */
+      use HasFactory, Notifiable;
++ 
++     public function claims()
++     {
++         return $this->hasMany(Claim::class);
++     }
+
+
+─── database/seeders/DatabaseSeeder.php:14-18 ───
+[security · low] Hardcoded credentials (`SuperSecret123!`) are seeded directly into the database for
+the demo user `alice.customer@insureco.test`. Hardcoding default passwords in seeders and controller
+logic introduces risk if executed in non-local environments. Consider sourcing seed credentials from
+environment variables (`config(...)` or `env(...)`) or generating a random password during seeding.
+
+          $alice = User::factory()->create([
+              'name' => 'Alice Customer',
+              'email' => 'alice.customer@insureco.test',
+-             'password' => Hash::make('SuperSecret123!'),
++             'password' => Hash::make(config('claim_auth.demo_password', 'SuperSecret123!')),
+          ]);
+

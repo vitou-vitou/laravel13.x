@@ -1,6 +1,6 @@
 # Feature Specification: Order lifecycle + notifications — PROPOSED
 
-**Status:** Proposed (2026-06-01) — **not implemented**  
+**Status:** Implemented (2026-06 / verified 2026-09-27)  
 **Arena:** `docs/ARENA_DEEP_REVIEW_PHASE3.md` (P2)  
 **Depends on:** Paid orders from Stripe or hardened stub
 

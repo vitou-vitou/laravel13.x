@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Read aloud — Meta Messenger deactivate research</title>
+  <style>
+    :root {
+      --bg: #1a1b1e;
+      --panel: #25262b;
+      --text: #e9ecef;
+      --muted: #adb5bd;
+      --accent: #74c0fc;
+      --ok: #69db7c;
+      --warn: #ffa94d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 16px/1.55 system-ui, Segoe UI, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #373a40;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      flex: 1 1 12rem;
+    }
+    .controls { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+    button, select {
+      font: inherit;
+      border-radius: 8px;
+      border: 1px solid #495057;
+      background: #2c2e33;
+      color: var(--text);
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+    }
+    button.primary { background: #1864ab; border-color: #1c7ed6; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    #status { color: var(--muted); font-size: 0.875rem; min-width: 8rem; }
+    main { max-width: 46rem; margin: 0 auto; padding: 1.25rem; }
+    article {
+      background: var(--panel);
+      border: 1px solid #373a40;
+      border-radius: 12px;
+      padding: 1.25rem 1.4rem;
+      white-space: pre-wrap;
+    }
+    .hint { color: var(--muted); font-size: 0.875rem; margin: 0 0 1rem; }
+    .speaking { outline: 2px solid var(--accent); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Meta Messenger — deactivate / anti-bot (research)</h1>
+    <div class="controls">
+      <button type="button" class="primary" id="play">▶ Read aloud</button>
+      <button type="button" id="pause" disabled>Pause</button>
+      <button type="button" id="stop" disabled>Stop</button>
+      <label>
+        Voice
+        <select id="voice"></select>
+      </label>
+      <label>
+        Rate
+        <select id="rate">
+          <option value="0.85">0.85</option>
+          <option value="1" selected>1.0</option>
+          <option value="1.15">1.15</option>
+          <option value="1.3">1.3</option>
+        </select>
+      </label>
+      <span id="status">Ready</span>
+    </div>
+  </header>
+  <main>
+    <p class="hint">
+      Click <strong>Read aloud</strong> for English voice (browser Web Speech API).
+      Source: <code>meta-messenger-deactivate-anti-bot.md</code>
+    </p>
+    <article id="doc" class="speaking"></article>
+  </main>
+  <script>
+    // Spoken script: English, link-stripped, table rows as sentences.
+    const SCRIPT = `
+Meta Messenger research: deactivate, sessions, and anti-bot. Date September twenty-seven, twenty twenty-six.
+
+Verdict.
+Meta does not offer a pause Messenger only while keeping Facebook fully active kill switch.
+Official Deactivate Messenger requires Facebook deactivation first, and the follow-up is mobile-only.
+To stop outbound bot or spam sessions now, Meta’s documented path is:
+go to facebook.com/hacked,
+change password,
+end sessions in Accounts Center under Where you’re logged in,
+remove suspicious Apps and websites,
+and turn on two-factor authentication —
+not deactivate Messenger alone.
+Deactivating Facebook can leave Messenger running as D E M A, Deactivated Except Messenger Account, unless you also deactivate Messenger.
+
+Problem statement.
+A compromised login, phishing, malware, stolen session, or a third-party app with messaging permissions can spam many contacts or groups.
+There are two different goals. Do not mix them.
+Goal A: stop YOUR account sending spam — sessions, password, two-factor auth, revoke apps, hacked recovery, optional deactivate Facebook plus Messenger.
+Goal B: stop OTHERS messaging YOU — message requests, who-can-message settings where available, block and report.
+
+Official options ranked for stopping outbound bot spam now, Goal A.
+
+One. Visit facebook.com/hacked on a device you’ve used before.
+Two. Change password if you can still log in.
+Three. End sessions: Accounts Center, Password and security, Where you’re logged in, then log out. Select all is OK.
+Four. Remove suspicious Apps and websites.
+Five. Turn on two-factor authentication.
+Six. Review Activity Log and delete unwanted posts, Pages, groups, events.
+Seven. Deactivate Facebook. This hides the profile but does not always kill Messenger.
+Eight. Then deactivate Messenger on mobile, only after Facebook deactivation. This stops D E M A.
+Nine. Permanently delete Facebook profile. Irreversible after the grace period.
+
+For Pages or business bots.
+P1. Turn Page messaging off. Needs full Page access.
+P2. Recover and secure hacked Page admins.
+P3. Revoke app permissions and tokens.
+P4. Expect Meta enforcement of Platform messaging rules.
+
+Topic notes.
+
+Deactivate Messenger versus deactivate Facebook versus delete.
+Deactivate Facebook is temporary. Profile is hidden. You can reactivate by logging in.
+Messenger may stay active after Facebook deactivation — that is D E M A.
+Deactivate Messenger has an explicit prerequisite: you have to deactivate your Facebook account first to see the option.
+Implication: Deactivate Messenger is not a mid-account pause. Prefer sessions, password, apps, and two-factor auth if you still need the account.
+
+Log out of all sessions.
+Use Where you’re logged in, select devices or Select all, then Log out.
+
+After compromise: change password and enable two-factor authentication via Accounts Center.
+Start at facebook.com/hacked if you were hacked.
+
+Revoke suspicious apps under Apps and websites. Remove anything you do not trust.
+
+Message requests and who-can-message settings are Goal B only. They do not stop your outbound bot.
+
+Meta spam policy: bulk and automated abuse can trigger restrictions. Rate limits exist. They are not a user pause button.
+
+What Meta does not offer.
+No documented temporary deactivate Messenger only while Facebook stays fully active.
+Deactivating Facebook alone is not a Messenger kill — D E M A keeps chat alive.
+Active Status off does not equal messaging off.
+Inbound privacy does not stop compromised outbound spam.
+
+One-line answer.
+Meta’s solution to stop a bot from using your Messenger is not a Messenger-only pause.
+It is hacked-account recovery, password, end all sessions, revoke apps, and two-factor authentication.
+Deactivate Messenger only appears after you deactivate Facebook,
+and deactivating Facebook alone can leave Messenger, D E M A, still able to chat.
+`.trim().replace(/\s+/g, " ");
+
+    const DISPLAY = `# Meta / Messenger — deactivate, sessions, and anti-bot
+
+**Verdict:** No “pause Messenger only” kill switch. Deactivate Messenger needs Facebook off first. FB-off can leave DEMA (Messenger still on).
+
+**Stop outbound spam NOW**
+1. facebook.com/hacked
+2. Change password
+3. Accounts Center → Where you’re logged in → log out all
+4. Remove Apps and websites
+5. Enable 2FA
+6. Clean Activity Log
+7. (Optional) Deactivate FB → then deactivate Messenger (mobile)
+8. (Last resort) Delete profile
+
+**Goal A** = stop YOUR account sending spam
+**Goal B** = stop others messaging you (does not kill your bot)
+
+Full citations: meta-messenger-deactivate-anti-bot.md`;
+
+    const doc = document.getElementById("doc");
+    const status = document.getElementById("status");
+    const playBtn = document.getElementById("play");
+    const pauseBtn = document.getElementById("pause");
+    const stopBtn = document.getElementById("stop");
+    const voiceSel = document.getElementById("voice");
+    const rateSel = document.getElementById("rate");
+
+    doc.textContent = DISPLAY;
+
+    if (!("speechSynthesis" in window)) {
+      status.textContent = "Speech Synthesis not supported in this browser";
+      playBtn.disabled = true;
+    }
+
+    function fillVoices() {
+      const voices = speechSynthesis.getVoices()
+        .filter((v) => v.lang.toLowerCase().startsWith("en"))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      voiceSel.innerHTML = "";
+      if (!voices.length) {
+        const o = document.createElement("option");
+        o.textContent = "Default English";
+        o.value = "";
+        voiceSel.appendChild(o);
+        return;
+      }
+      for (const v of voices) {
+        const o = document.createElement("option");
+        o.value = v.name;
+        o.textContent = `${v.name} (${v.lang})`;
+        if (/en-US/i.test(v.lang) && /natural|neural|aria|jenny|guy|google/i.test(v.name)) {
+          o.selected = true;
+        }
+        voiceSel.appendChild(o);
+      }
+      if (![...voiceSel.options].some((o) => o.selected) && voices[0]) {
+        voiceSel.options[0].selected = true;
+      }
+    }
+
+    fillVoices();
+    speechSynthesis.onvoiceschanged = fillVoices;
+
+    let utter = null;
+
+    function setBusy(busy) {
+      playBtn.disabled = busy;
+      pauseBtn.disabled = !busy;
+      stopBtn.disabled = !busy;
+    }
+
+    function stop() {
+      speechSynthesis.cancel();
+      utter = null;
+      setBusy(false);
+      pauseBtn.textContent = "Pause";
+      status.textContent = "Stopped";
+    }
+
+    playBtn.addEventListener("click", () => {
+      stop();
+      utter = new SpeechSynthesisUtterance(SCRIPT);
+      utter.lang = "en-US";
+      utter.rate = Number(rateSel.value) || 1;
+      const name = voiceSel.value;
+      const voice = speechSynthesis.getVoices().find((v) => v.name === name);
+      if (voice) utter.voice = voice;
+      utter.onstart = () => {
+        setBusy(true);
+        status.textContent = "Reading…";
+      };
+      utter.onend = () => {
+        setBusy(false);
+        status.textContent = "Done";
+        utter = null;
+      };
+      utter.onerror = () => {
+        setBusy(false);
+        status.textContent = "Speech error";
+        utter = null;
+      };
+      speechSynthesis.speak(utter);
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+        pauseBtn.textContent = "Pause";
+        status.textContent = "Reading…";
+      } else {
+        speechSynthesis.pause();
+        pauseBtn.textContent = "Resume";
+        status.textContent = "Paused";
+      }
+    });
+
+    stopBtn.addEventListener("click", stop);
+  </script>
+</body>
+</html>

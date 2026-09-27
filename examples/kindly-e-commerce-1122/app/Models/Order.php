@@ -58,10 +58,17 @@ class Order extends Model
 
     public function restoreStock(): void
     {
-        $this->loadMissing('items.product');
+        $this->loadMissing('items');
 
-        foreach ($this->items as $item) {
-            $item->product->increment('stock_quantity', $item->quantity);
+        $items = $this->items->sortBy('product_id')->values();
+
+        foreach ($items as $item) {
+            $product = Product::query()
+                ->whereKey($item->product_id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            $product->increment('stock_quantity', $item->quantity);
         }
     }
 }

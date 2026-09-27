@@ -30,7 +30,7 @@
 | Project | MVP | Tests | Auth | External AI |
 |---------|-----|-------|------|-------------|
 | `examples/kindly-login-1122` | **Complete (100%)** | 30/30 | Breeze session (web) | Arena A+B done; browser verified (`docs/BROWSER_VERIFICATION.md`) |
-| `examples/kindly-e-commerce-1122` | **MVP + Phase 2 + 3a Stripe** | 49/49 | Breeze session (web) | Stripe Checkout + webhooks; stub pay removed; :8012 |
+| `examples/kindly-e-commerce-1122` | **MVP + Phase 2 + 3a–3c** | 54/54 | Breeze session (web) | Stripe + lifecycle + stock locks; :8012 |
 | `examples/booking-v1` | **Complete** | 15/15 | Sanctum Bearer API | Grok A+B done; Prompt C optional |
 | `examples/clone-the-fb-nav` | **MVP complete** | 6/6 | None (static UI) | FB desktop top-nav study; Spec-Kit `001-fb-top-nav` |
 | `examples/dashboard-v1` | **MVP complete** | 115/115 | Breeze + Filament + Reverb + Socialite | Commerce + email + Echo + Google SSO + theme modes |
@@ -112,17 +112,17 @@ cd d:/laravel13.x/examples/dashboard-v2 && $PHP artisan test
 
 **What it is:** Laravel 13 + Breeze — catalog, session cart, Stripe Checkout (test), webhook-finalized `paid`, order history, coupons, admin CRUD.
 
-**Spec-Kit:** `.specify/specs/001-kindly-ecommerce/` (MVP); `.specify/specs/003-stripe-checkout/` (Phase 3a done)
+**Spec-Kit:** `.specify/specs/001-kindly-ecommerce/` (MVP); `003-stripe-checkout` / `003-order-lifecycle` / `003-stock-locks` (3a–3c done)
 
-**Key tests:** `CheckoutTest`, `StripeCheckoutTest`, `StripeWebhookTest`, `StripeCheckoutExpiredTest`, `CouponTest`, `AdminProductTest`
+**Key tests:** `CheckoutTest`, `StripeCheckoutTest`, `StripeWebhookTest`, `StripeCheckoutExpiredTest`, `CouponTest`, `AdminProductTest`, `AdminOrderShipmentTest`
 
 **Arena:** Phase 3 roadmap `docs/ARENA_DEEP_REVIEW_PHASE3.md`; Stripe 3a `docs/ARENA_REVIEW_STRIPE_PHASE3A.md`
 
 **Browser:** `docs/BROWSER_VERIFICATION.md` — http://127.0.0.1:8012 (cart UI; live Stripe needs `.env` + `stripe listen`)
 
-**Do not redo:** Breeze scaffold, Phase 2 coupons/admin, Stripe 3a wiring, stub pay route.
+**Do not redo:** Breeze scaffold, Phase 2 coupons/admin, Stripe 3a, lifecycle 3b, stock locks 3c, stub pay route.
 
-**Post-MVP only:** Phase 3b lifecycle email/shipped, multi-vendor, OpenSpec change orders.
+**Post-MVP only:** Coupon limits, audit log, multi-vendor, OpenSpec change orders.
 
 **Detail file:** `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md`
 
@@ -162,7 +162,7 @@ POST /api/logout
 
 ## Default next work (if user says “continue”)
 
-1. **kindly-e-commerce:** Phase **3a Stripe done** (49/49). Next: **3b order lifecycle** or OpenSpec — see `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md`. Autonomous loop OK until blocker (Arena login, missing Stripe keys for live E2E).
+1. **kindly-e-commerce:** Phase **3a–3c done** (54/54). Next: **coupon limits** or audit log — see `examples/kindly-e-commerce-1122/docs/NEXT_SESSION.md`. Autonomous loop OK until blocker (Arena login, missing Stripe keys for live E2E).
 
 2. **kindly-login:** Arena/browser complete — no work unless auth routes change.
 
@@ -256,7 +256,22 @@ POST /api/logout
 
 ## Agent transcript (full chat)
 
-`C:\Users\vitou\.cursor\projects\d-laravel13-x/agent-transcripts/b7d613e8-d8c2-4ba4-b7ca-c5b437273cc8/b7d613e8-d8c2-4ba4-b7ca-c5b437273cc8.jsonl`
+Current composer id: `e001434e-a30f-4c8d-983c-09a5822b6c7b`  
+UI title: **Laravel source code access**
+
+Main jsonl (partial — parent turns before 16:51 truncated on disk):  
+`…\agent-transcripts\e001434e-a30f-4c8d-983c-09a5822b6c7b\e001434e-a30f-4c8d-983c-09a5822b6c7b.jsonl`
+
+**Recovered earlier today (same chat id) from subagents + docs:**
+1. Laravel 11 CRUD primary-source research → `docs/research/laravel-11-crud-primary-sources.md` + `laravel-11-crud-10-layer-architecture.md`
+2. “All Laravel source” obtain guide → `docs/research/laravel-source-how-to-obtain.md`
+3. Subagent logs: `…\e001434e…\subagents\*.jsonl` (1c686208, 9cc58c94, cedb31d3, 3bc4dfc0)
+4. **10 blogs** (`/laravel-code-confidence` packs) — brief recovered from subagent `3bc4dfc0`; drafts written → `d:\laravel13.x\.scratch\blogs\01`…`10-*.md` (not committed)
+4b. **5-year admin roadmap** — pack `laravel-code-confidence/stacks/admin-5y-roadmap.md` + article drafts `.scratch/blogs/11`–`15`
+4c. **Blog format research** → `docs/research/tech-blog-post-format.md`; skill `tech-blog-post` (Goals / Rules / Details) in `.cursor/skills/` + `~/.cursor/skills/`
+5. Late turn: `continue working` → e-commerce Phase **3c stock locks** (54/54)
+
+Older SESSION_STATE pointer `b7d613e8-…` — **missing on disk**; use this file + per-example `NEXT_SESSION.md`.
 
 ---
 
