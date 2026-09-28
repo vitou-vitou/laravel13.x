@@ -16,7 +16,9 @@ Comprehensive 500-article publishing portfolio for compounding technical authori
 | **Track 6: Security & Multi-Tenancy** | 36–45 | ✅ Complete | Single-DB Tenancy, Policies, S3 Presigned, 2FA TOTP, Honeypots & Rate Limiting, HMAC Webhooks, CSP Headers, Audit Logging, Session Hardening, Model Attribute Encryption |
 | **Track 7: Testing & Verification** | 46–55 | ✅ Complete | Pest Feature Tests, HTTP Fakes, Fast Refresh, Smoke Drills, Mutation Tests, Queued Tests, Realistic Seeders, Contract Tests, PHPStan Level 8 |
 | **Track 8: Frontend & Realtime** | 56–75 | ✍️ Posts 56–65 Done | Vite Bundling, Tailwind Traps, Reverb WebSockets, Direct S3 Uploads, Flash Toasts, Validation Sharing, Inertia SSR, PrimeVue Integration, Optimistic UI, CDN Cache Busting |
-| **Track 9: Performance & Caching** | 76–95 | 📋 Next | Redis Atomic Locks, Tagged Cache Invalidation, Read Replicas, OPcache, Query Remember Trap, Partial Indexes, HTTP Response Caching, Heavy Hydration, Redis Eviction, Profiling Slow Requests |
+| **Special Track: Keycloakify & Enterprise IAM** | 68–77 | ✅ Complete | Modern Keycloakify React setup, kcContext routing, Tailwind styling, i18n, SMS OTP SPI, Mocking, User Profiles, Account Consoles, Docker CI/CD, and CSP hardening |
+| **Special Track: PGI Core Frontend & Commercial Systems** | 80–89 | ✅ Complete | Laravel BFF, Production CSS Order Traps, Vue3-Toastify Pipeline, Click Guards, Direct Book Journey, Headless PDF, Permission Directives, Keycloak SSO, Authority Limits, Audit Trails |
+| **Track 9: Performance & Caching** | 90–105 | 📋 Next | Redis Atomic Locks, Tagged Cache Invalidation, Read Replicas, OPcache, Query Remember Trap, Partial Indexes, HTTP Response Caching, Heavy Hydration, Redis Eviction, Profiling Slow Requests |
 | **Track 10: API Architecture & Gateways** | 96–115 | 📋 Planned | Versioning, Rate Limiting, Idempotency Keys, OpenAPI Generation, RFC 7807 Errors, Cursor Pagination, Resource Inclusions, REST vs GraphQL, M2M Tokens, Webhook Retry Backoff, API Gateways, JSON API Standards |
 | **Track 11: Production DevOps & SRE** | 116–135 | 📋 Planned | Docker Single-Container, Healthchecks, Restore Drills, Graceful Shutdown, Centralized Logging, SIGTERM Termination, Secret Management, Temp File Cleanup, Cloudflare Proxies, RDS Failover, Blue-Green Deploys, Terraform |
 | **Track 12: Domain Architecture & Longevity** | 136–155 | 📋 Planned | Domain Actions, Domain Events, Modular Monoliths, Major Upgrades, 20-Year Architecture, Refactoring Fat Models, Value Objects, State Pattern, Service Providers, Hexagonal Architecture, CQRS Lite, Bounded Contexts |
@@ -128,3 +130,44 @@ Comprehensive 500-article publishing portfolio for compounding technical authori
 - **73: `73-accessible-dialog-modals.md`** — Accessible Modals in Laravel: Focus Trapping and ARIA Standards Without Heavy UI Libraries
 - **74: `74-prefetching-inertia-pages.md`** — Instant Page Transitions: Prefetching Inertia Links on Hover Safely
 - **75: `75-managing-third-party-script-tags.md`** — Third-Party Script Hygiene: Loading Google Tag Manager and Analytics Without Slowing LCP
+
+### Keycloakify & Enterprise IAM Track (Complete)
+- **68: `68-keycloakify-getting-started-react.md`** — How to Build Custom Keycloak Themes with React and Keycloakify
+- **69: `69-keycloakify-kccontext-routing-architecture.md`** — How to Master Keycloak Context and Page Dispatching in Keycloakify
+- **70: `70-keycloakify-tailwind-styling-theme.md`** — How to Style Keycloak Login Themes with Tailwind CSS and Keycloakify
+- **71: `71-keycloakify-i18n-localization.md`** — How to Implement Multi-Language Localization in Keycloakify
+- **72: `72-keycloakify-sms-otp-custom-spi.md`** — How to Build Custom SMS OTP Screens in Keycloakify
+- **73: `73-keycloakify-storybook-local-mocking.md`** — How to Configure Local Development and Fast Mocking in Keycloakify
+- **74: `74-keycloakify-registration-user-profile.md`** — How to Build Custom Registration and User Profile Forms in Keycloakify
+- **75: `75-keycloakify-account-theme-customization.md`** — How to Build Custom Keycloak Account Consoles in Keycloakify
+- **76: `76-keycloakify-docker-production-builds.md`** — How to Build Production Docker Images for Keycloak with Keycloakify Themes
+- **77: `77-keycloakify-security-csp-hardening.md`** — How to Secure Keycloakify Themes Against XSS and CSP Violations
+- **78: `78-keycloakify-migrating-legacy-freemarker.md`** — How to Migrate Legacy FreeMarker Themes to Keycloakify React
+- **79: `79-keycloakify-continuous-delivery-pipeline.md`** — How to Build a Continuous Delivery Pipeline for Keycloakify Themes
+
+### PGI Core Frontend & Commercial Systems Track (Complete)
+- **80: `80-laravel-vue-bff-architecture.md`** — How to Build a Backend-For-Frontend Shell with Laravel and Vue
+- **81: `81-vite-production-css-cascade-traps.md`** — How to Fix Vite and Production CSS Order Traps in Tailwind Projects
+- **82: `82-safe-toast-notifications-vue3.md`** — How to Build a Safe Toast Notification Pipeline with Vue3-Toastify
+- **83: `83-prevent-double-click-submissions-vue.md`** — How to Prevent Double-Submissions with a Custom Vue 3 Click Guard Composable
+- **84: `84-direct-book-insurance-journey-vue.md`** — How to Build a Type-Safe Direct Book Insurance Journey in Vue 3
+- **85: `85-pixel-perfect-pdf-certificates-laravel.md`** — How to Build Pixel-Perfect Insurance Policy PDF Generators in Laravel
+- **86: `86-declarative-vue-permission-directives.md`** — How to Build Declarative Permission Directives in Vue 3 Admin Panels
+- **87: `87-laravel-keycloak-sso-oidc-integration.md`** — How to Build a Seamless Single Sign-On Flow with Laravel and Keycloak
+- **88: `88-underwriting-authority-limits-engine.md`** — How to Build Robust Underwriting Authority Limit Engines in Laravel
+- **89: `89-immutable-financial-audit-trails-laravel.md`** — How to Build Robust Audit Trails for Regulated Financial Platforms in Laravel
+
+### Boiler & Pressure Vessel Engineering Track (Complete)
+- **90: `90-boiler-pressure-vessel-risk-modeling-laravel.md`** — How to Model Boiler and Pressure Vessel Risks in Laravel
+- **91: `91-reactive-boiler-schedule-grid-vue3.md`** — How to Build a Reactive Boiler Schedule Grid in Vue 3
+- **92: `92-boiler-breakdown-premium-rating-engine.md`** — How to Calculate Boiler Explosion and Machinery Breakdown Premiums in PHP
+- **93: `93-boiler-inspection-certificate-pdf-browsershot.md`** — How to Generate Boiler Inspection Certificate PDFs with Browsershot
+- **94: `94-boiler-endorsement-equipment-substitution.md`** — How to Build a Boiler Endorsement Engine for Equipment Substitutions
+- **95: `95-boiler-inspection-expiration-alerts.md`** — How to Build Automated Boiler Statutory Inspection Alert Workflows
+- **96: `96-boiler-underwriting-authority-gate.md`** — How to Build an Underwriting Authority Gate for High-Pressure Boilers
+- **97: `97-boiler-csv-fleet-ingestion-laravel.md`** — How to Ingest Industrial Boiler CSV Fleets with Chunked Validation in Laravel
+- **98: `98-boiler-breakdown-claims-architecture.md`** — How to Model Boiler Explosion and Machinery Breakdown Claims in Laravel
+- **99: `99-boiler-reinsurance-treaty-engine.md`** — How to Model Boiler Reinsurance Treaties and Excess of Loss in Laravel
+
+
+
