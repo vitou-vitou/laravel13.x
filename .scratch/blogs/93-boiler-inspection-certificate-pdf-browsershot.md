@@ -1,163 +1,193 @@
 ---
-title: "How to Generate Boiler Inspection Certificate PDFs with Browsershot"
+title: "How to Render Boiler PDFs with Khmer Fonts in Laravel"
 published: true
-description: "Render high-fidelity industrial Boiler and Pressure Vessel inspection certificates and policy schedules using Headless Chromium and Tailwind in Laravel."
-tags: "laravel, pdf, browsershot, tailwind, insurance"
+description: "Fix tofu boxes and broken vowel stacks when you print Boiler inspection certificates with Khmer names in Browsershot and Chromium."
+tags: "laravel, pdf, browsershot, khmer"
 canonical_url: "https://github.com/vitou/laravel13.x/blob/main/.scratch/blogs/93-boiler-inspection-certificate-pdf-browsershot.md"
 ---
 
-Boiler and Pressure Vessel certificates serve as official legal documents presented to factory safety regulators, workplace inspectors, and reinsurance auditors. Legacy PDF libraries like DomPDF often break when rendering multi-column technical specification tables, precise engineering borders, and high-resolution compliance badges.
+Your Boiler certificate looks perfect in the browser. Then you print it to PDF and the Khmer plant name turns into empty boxes. The English serial table is fine, but វិញ្ញាបនបត្រ renders as tofu.
 
-Using Spatie Browsershot with Headless Chromium allows you to build PDF certificate templates using modern Tailwind CSS and Flexbox/Grid, ensuring pixel-perfect output. Let's see how.
+You get a legal document a factory inspector will reject. Let's see how to fix it with self-hosted Khmer fonts and Browsershot.
 
-## The Problem: DomPDF Limitations with Engineering Schedules
+## Context
 
-Industrial certificates have demanding layout requirements:
+This uses Laravel 11, Spatie Browsershot v4, `serversideup/php:8.4-fpm-nginx`, and Render with `runtime: docker`. You already have a Blade certificate view and a `policies` table with a `vessels` relation. One disclaimer: this covers Khmer shaping in Chromium only, not DomPDF.
 
-1. **Precision tabular data**: Vessel serials, hydrostatic test dates, and safety valve release thresholds must align across multi-page page breaks.
-2. **Watermarks and official stamps**: Government ministry approval stamps and underwriter signatures require exact absolute positioning.
-3. **No CSS3 Grid support**: Older PHP PDF generators crash or drop layout formatting when encountering modern Tailwind flex/grid classes.
+## Why Khmer Breaks in PDFs
 
-Browsershot resolves these pain points by executing a real Headless Chrome instance to render the HTML before capturing the print stream.
+Khmer is a complex script. Vowels sit above, below, and around consonants, and subscript consonants stack. A renderer needs a shaping engine plus a real Khmer font to place them.
 
-## Step 1: Design the Blade Template for the Certificate
+Two things go wrong in practice. Your local Mac has Noto Sans Khmer installed, so dev looks fine. Your slim Docker image has zero Khmer fonts, so Chromium draws a box per glyph. And if you load Tailwind from a CDN inside the PDF HTML, `waitUntilNetworkIdle()` never settles and the Khmer webfont arrives after Chrome already printed.
 
-Create a clean Blade view utilizing Tailwind print utilities:
+Self-host the font and inline your CSS. Then the PDF no longer depends on the network.
+
+## Step 1: Self-host the Khmer font
+
+Download two files from Google Fonts and commit them to your app. You need one sans for tables and one serif for the certificate heading. Both shape Khmer correctly:
+
+```text
+public/fonts/NotoSansKhmer-Regular.ttf
+public/fonts/NotoSerifKhmer-Bold.ttf
+```
+
+Declare them with `@font-face` in your print stylesheet. Use a font stack that falls back gracefully when a glyph is missing:
 
 `resources/views/pdf/boiler-certificate.blade.php:`
+
 ```blade
-<!DOCTYPE html>
-<html lang="en">
+<style>
+  @font-face {
+    font-family: 'Noto Sans Khmer';
+    src: url('{{ public_path('fonts/NotoSansKhmer-Regular.ttf') }}') format('truetype');
+    /* full certificate styles live below */
+  }
+  body {
+    font-family: 'Noto Sans Khmer', 'Noto Serif Khmer', sans-serif;
+  }
+</style>
+```
+
+Chromium now finds the glyphs on disk. No CDN fetch, no race.
+
+Set the document language and charset so shaping kicks in. This one line matters more than it looks:
+
+`resources/views/pdf/boiler-certificate.blade.php:`
+
+```blade
+<html lang="km">
 <head>
   <meta charset="UTF-8">
-  <title>Boiler & Pressure Vessel Certificate</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @page {
-      size: A4 portrait;
-      margin: 15mm;
-    }
-  </style>
+  <!-- Khmer heading renders here -->
 </head>
-<body class="bg-white text-gray-900 font-sans text-xs">
-  <!-- Certificate Header -->
-  <div class="border-b-2 border-blue-900 pb-4 mb-6 flex justify-between items-center">
-    <div>
-      <h1 class="text-xl font-bold tracking-wider text-blue-900 uppercase">Certificate of Inspection</h1>
-      <p class="text-gray-500">Boiler & Pressure Plant Insurance Underwriting</p>
-    </div>
-    <div class="text-right">
-      <p class="font-semibold">Certificate No: <span class="text-blue-900">{{ $policy->policy_number }}</span></p>
-      <p class="text-gray-500">Issue Date: {{ now()->format('d M Y') }}</p>
-    </div>
-  </div>
-
-  <!-- Insured Plant Information -->
-  <div class="mb-6 bg-gray-50 p-4 rounded border border-gray-200">
-    <h2 class="font-bold text-gray-700 uppercase mb-2">Insured Premises</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <p><span class="font-semibold">Plant Name:</span> {{ $policy->insured_name }}</p>
-        <p><span class="font-semibold">Location:</span> {{ $policy->plant_address }}</p>
-      </div>
-      <div>
-        <p><span class="font-semibold">Period of Insurance:</span> {{ $policy->start_date->format('d/m/Y') }} to {{ $policy->end_date->format('d/m/Y') }}</p>
-        <p><span class="font-semibold">Total Fleet Sum Insured:</span> ${{ number_format($policy->total_sum_insured, 2) }}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Technical Vessel Schedule -->
-  <div class="mb-6">
-    <h2 class="font-bold text-gray-700 uppercase mb-2">Inspected Pressure Units Schedule</h2>
-    <table class="w-full text-left border-collapse border border-gray-300">
-      <thead>
-        <tr class="bg-gray-100 text-gray-700 font-semibold border-b border-gray-300">
-          <th class="p-2 border-r border-gray-300">Tag / Serial</th>
-          <th class="p-2 border-r border-gray-300">Type</th>
-          <th class="p-2 border-r border-gray-300">MAWP (Bar)</th>
-          <th class="p-2 border-r border-gray-300">Test Date</th>
-          <th class="p-2 border-r border-gray-300">Cert Expiry</th>
-          <th class="p-2 text-right">Sum Insured</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($policy->vessels as $vessel)
-          <tr class="border-b border-gray-200">
-            <td class="p-2 border-r border-gray-200 font-mono">{{ $vessel->tag_number }}</td>
-            <td class="p-2 border-r border-gray-200">{{ ucfirst(str_replace('_', ' ', $vessel->vessel_type)) }}</td>
-            <td class="p-2 border-r border-gray-200 text-center">{{ $vessel->max_working_pressure_bar }}</td>
-            <td class="p-2 border-r border-gray-200">{{ $vessel->last_hydrostatic_test_date->format('d/m/Y') }}</td>
-            <td class="p-2 border-r border-gray-200">{{ $vessel->statutory_certificate_expiry->format('d/m/Y') }}</td>
-            <td class="p-2 text-right">${{ number_format($vessel->sum_insured_usd, 2) }}</td>
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Statutory Warranty Notice -->
-  <div class="mt-8 border border-red-200 bg-red-50 p-3 rounded text-red-900 text-[10px]">
-    <strong>Statutory Warranty:</strong> This policy remains valid only so long as all insured pressure vessels maintain current certificates of fitness issued by accredited government boiler inspectors. Any pressure increase beyond certified MAWP voids coverage.
-  </div>
-</body>
-</html>
 ```
 
-The template uses standard Tailwind utility classes for crisp borders and tabular alignment.
+With `lang="km"` Chromium enables the right OpenType features for vowel placement.
 
-## Step 2: Render with Browsershot
+## Step 2: Render with Browsershot without the CDN trap
 
-Build the PDF generation controller action:
+Drop the `<script src="https://cdn.tailwindcss.com">` tag from your PDF view. That tag is fine for screens and poison for print. Replace it with compiled CSS or plain `<style>` blocks.
+
+Render from local HTML so the font paths resolve:
 
 `app/Http/Controllers/BoilerCertificateController.php:`
+
 ```php
-<?php
+$html = view('pdf.boiler-certificate', compact('policy'))->render();
 
-namespace App\Http\Controllers;
-
-use App\Models\Policy;
-use Illuminate\Http\Response;
-use Spatie\Browsershot\Browsershot;
-
-class BoilerCertificateController extends Controller
-{
-    public function show(Policy $policy): Response
-    {
-        $policy->load('vessels');
-
-        $html = view('pdf.boiler-certificate', compact('policy'))->render();
-
-        $pdf = Browsershot::html($html)
-            ->format('A4')
-            ->margins(15, 15, 15, 15)
-            ->showBackground()
-            ->waitUntilNetworkIdle()
-            ->pdf();
-
-        return response($pdf, 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => "inline; filename=\"Certificate-{$policy->policy_number}.pdf\"",
-        ]);
-    }
-}
+$pdf = Browsershot::html($html)
+    ->format('A4')
+    ->showBackground()
+    ->waitUntilNetworkIdle()
+    ->pdf();
 ```
 
-The `showBackground()` and `waitUntilNetworkIdle()` flags ensure all CSS styling and web fonts render completely before Chrome writes the PDF buffer.
+You get identical output on Mac and Docker because nothing is fetched over HTTP.
 
-## What Can Go Wrong
+Your Khmer heading and English table can now live side by side:
 
-- **Missing Chromium Dependencies on Alpine/Ubuntu Servers:** Headless Chromium requires system libraries (like `nss`, `freetype`, `harfbuzz`, and `libxss`). Ensure your production Dockerfile includes `chromium` and sets the binary path via `Browsershot::setChromePath()`.
-- **Large Document Timeouts:** Generating 50-page equipment schedules can exceed PHP's default 30-second execution limit. Offload large certificate batches to background queues using Laravel jobs.
+`resources/views/pdf/boiler-certificate.blade.php:`
+
+```blade
+<h1 class="cert-title">វិញ្ញាបនបត្រ ត្រួតពិនិត្យឡចំហាយ</h1>
+<p class="cert-sub">Certificate of Inspection — Boiler & Pressure Plant</p>
+<table>
+  <!-- vessel Tag / Serial, MAWP (Bar), Test Date, Sum Insured rows -->
+</table>
+```
+
+The Khmer line shapes correctly and the vessel serials stay in monospace for easy scanning.
+
+## Step 3: Ship Chromium and Khmer fonts on serversideup + Render
+
+Your local Mac hides the missing-font bug. The serversideup image does too — it ships no Chromium and no Khmer fonts. Install both as root, then drop back to `www-data`:
+
+`Dockerfile:`
+
+```dockerfile
+FROM serversideup/php:8.4-fpm-nginx
+USER root
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get update && apt-get install -y --no-install-recommends \
+        chromium fonts-khmeros fonts-noto-core poppler-utils nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && fc-cache -f
+# app copy and Puppeteer install live below
+USER www-data
+```
+
+Chromium now finds Khmer glyphs via `fc-cache` on every deploy. Bookworm apt `nodejs` is v18, below the Browsershot v4 Node 22 floor, so NodeSource 22 is required.
+
+Tell Browsershot where Chromium lives and give it container-safe flags. Without `no-sandbox` the render dies as `www-data`, and without `disable-dev-shm-usage` it OOMs on small `/dev/shm`:
+
+`app/Http/Controllers/BoilerCertificateController.php:`
+
+```php
+$pdf = Browsershot::html($html)
+    ->setChromePath('/usr/bin/chromium')
+    ->noSandbox()
+    ->addChromiumArguments(['disable-gpu', 'disable-dev-shm-usage'])
+    ->format('A4')
+    ->showBackground()
+    ->waitUntilNetworkIdle()
+    ->pdf();
+```
+
+You get the same PDF locally and on Render because the binary path and flags are explicit.
+
+Use Docker runtime on Render, not native PHP. Native has no `apt-get`, so Chromium can never install. Point at your Dockerfile and keep the health check your blueprint already uses:
+
+`render.yaml:`
+
+```yaml
+services:
+  - type: web
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/healthz
+    # plan, env, and autorun keys live below
+```
+
+Pick `1c-2g` or higher for this service. Chromium OOMs on the 512MB free tier halfway through a 50-vessel schedule. Keep `LOG_CHANNEL: stderr` so render logs show the Chromium crash instead of swallowing it.
+
+## Proof it worked
+
+Don't eyeball the PDF. Check the font is visible to Chromium, then extract the text:
+
+```bash
+fc-list | grep -i -E "khmer|noto"
+pdftotext storage/app/cert-0198.pdf - | head -n 5
+```
+
+You want output like this:
+
+```text
+វិញ្ញាបនបត្រ ត្រួតពិនិត្យឡចំហាយ
+Certificate No: BPV-2026-0198
+រោងចក្រ៖ Phnom Penh Boiler Plant
+```
+
+If you see `□□□□` here, Chromium still lacks the font. If you see Khmer, your inspector copy is safe.
+
+## What can go wrong
+
+Ephemeral disks bite you on Render. SQLite and locally stored PDFs vanish on redeploy, and the Puppeteer cache rewrites each boot. Store finished certificates on S3 or a persistent disk, and set `PUPPETEER_CACHE_DIR: /tmp/puppeteer-cache` so Chromium starts writable.
+
+Large fleet schedules hit a second wall. A 50-vessel certificate can exceed the 30-second PHP limit while Chromium lays out Khmer stacks. Push that job to a queue and store the PDF on disk instead of rendering inline.
+
+Also watch your file size. Two Khmer TTFs add about 400KB. That is fine for a legal certificate and heavy for a one-page email attachment. Subset the font if you ever print thousands per day.
 
 ## Summary
 
-Headless Chrome via Browsershot guarantees that complex engineering certificates render cleanly with exact tabular alignments, proper CSS backgrounds, and professional typography.
+Khmer tofu in Boiler PDFs is a missing-font problem, not a Blade problem. Self-host Noto Sans Khmer, set `lang="km"`, install Chromium plus `fonts-khmeros` on your serversideup image, and run it on Render with Docker runtime and 2GB RAM.
 
-## Further Reading
+## Further reading
 
-- [Spatie Browsershot GitHub Repository](https://github.com/spatie/browsershot)
-- [Puppeteer Documentation](https://pptr.dev)
-- [Tailwind CSS Print Styling](https://tailwindcss.com/docs/hover-focus-and-other-states#print-styles)
+- [Spatie Browsershot docs](https://spatie.be/docs/browsershot/v4/introduction)
+- [Noto Sans Khmer on Google Fonts](https://fonts.google.com/noto/specimen/Noto+Sans+Khmer)
+- [Serversideup PHP Docker images](https://serversideup.net/open-source/docker-php/)
+- [Render Docker runtime](https://docs.render.com/docker)
 
-Next step: add a "Download Certificate" action to your policy view interface.
+Grab the two TTFs, deploy the serversideup image to Render, and run `pdftotext` before you send it to the inspector.
+
+*Disclosure: drafted with AI assistance, tested against Browsershot v4, serversideup/php 8.4, and Chromium on Render.*
