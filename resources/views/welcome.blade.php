@@ -64,6 +64,23 @@
                         >Open admin</a>
                     </p>
                 @endif
+                            <div class="mt-8 p-5 rounded-xl border border-teal-500/30 bg-teal-950/20 max-w-[36rem] space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-teal-400"></span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-teal-400">CareDesk Hospital Portal</span>
+                    </div>
+                    <p class="text-sm text-welcome-muted">
+                        Patient customer service, ticket inquiry tracking, department directory, and staff triage desk.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <a href="{{ route('hospital.home') }}" class="inline-flex items-center rounded-md bg-teal-500 px-4 py-2 text-xs font-bold text-slate-950 hover:bg-teal-400 transition">
+                            Open Hospital Patient Portal &rarr;
+                        </a>
+                        <a href="{{ route('hospital.desk.index') }}" class="inline-flex items-center rounded-md border border-teal-400/50 px-4 py-2 text-xs font-bold text-teal-300 hover:bg-teal-900/40 transition">
+                            Staff Support Desk &rarr;
+                        </a>
+                    </div>
+                </div>
             </main>
 
             <footer
