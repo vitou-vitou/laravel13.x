@@ -26,6 +26,8 @@ Seeded logins (`database/seeders/DatabaseSeeder.php`), password `password` for b
 
 Run tests with `php artisan test` (PHPUnit, in-memory SQLite via `phpunit.xml`).
 
+Build frontend assets before running the suite (`npm install && npm run build`). Otherwise `ExampleTest` (`GET /`) fails with `ViteManifestNotFoundException`, because `welcome.blade.php` calls `@vite` and there is no `public/build/manifest.json`.
+
 ## Architecture
 
 ### Three operational pillars (ADR 0001)
