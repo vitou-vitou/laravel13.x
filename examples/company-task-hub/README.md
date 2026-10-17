@@ -1,58 +1,99 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Company Task Hub (Laravel 13 + Filament)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Staff-only operations workspace that keeps three kinds of work apart: internal company tasks, daily incidents, and customer action items. Everything is managed from one Filament admin panel at `/admin`. Customers never log in.
 
-## About Laravel
+Background reading: [`spec.md`](spec.md) (product intent), [`CONTEXT.md`](CONTEXT.md) (glossary), [`docs/adr/0001-separate-task-entities.md`](docs/adr/0001-separate-task-entities.md) (why there are three tables).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Quick start
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cd examples/company-task-hub
+composer install
+cp .env.example .env          # DB_CONNECTION=sqlite by default
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve             # http://127.0.0.1:8000/admin
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+`composer setup` runs install, copies `.env`, generates the key, migrates and builds assets, but it does **not** seed. Run `php artisan db:seed` afterwards if you want demo data.
 
-## Contributing
+Seeded logins (`database/seeders/DatabaseSeeder.php`), password `password` for both:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+| Email | Name |
+|---|---|
+| `admin@companytaskhub.test` | Operations Admin |
+| `lead@companytaskhub.test` | Tech Lead |
 
-## Code of Conduct
+Run tests with `php artisan test` (PHPUnit, in-memory SQLite via `phpunit.xml`).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Architecture
 
-## Security Vulnerabilities
+### Three operational pillars (ADR 0001)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Each pillar has its own model, table and Filament resource. They all sit in the **Operations** navigation group.
 
-## License
+| Pillar | Model / table | Filament resource (nav label) | Owner FK | Pillar-specific fields |
+|---|---|---|---|---|
+| Company General | `CompanyTask` / `company_tasks` | `CompanyTaskResource` (Company Tasks) | `assignee_id` | `department` (default `Operations`), `priority`, `due_date` |
+| Resolve Issue Daily | `DailyIssueTask` / `daily_issue_tasks` | `DailyIssueTaskResource` (Daily Issues) | `resolver_id` | `incident_type` (default `bug`), `severity`, `root_cause`, `resolution_notes`, `resolved_at` |
+| Customer General | `CustomerTask` / `customer_tasks` | `CustomerTaskResource` (Customer Tasks) | `handler_id` | `customer_name` (required), `customer_email` (validated as email in the form), `task_type` (default `onboarding`), `priority`, `notes`, `due_date` |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Owner FKs point to `users`, are nullable, and are set to `null` when the user is deleted.
+
+Schema: `database/migrations/2026_09_16_000001_create_company_task_hub_tables.php`.
+
+### Enums (`app/Enums`)
+
+All three models cast `status` to `TaskStatus`. Each enum has `label()` and `color()` methods, and the Filament badge columns use `color()`.
+
+| Enum | Values | Used by |
+|---|---|---|
+| `TaskStatus` | `pending`, `in_progress`, `completed`, `cancelled` | all three models |
+| `TaskPriority` | `low`, `medium`, `high`, `urgent` | `CompanyTask`, `CustomerTask` |
+| `IssueSeverity` | `minor`, `major` (default), `critical` | `DailyIssueTask` |
+
+### Resolving an incident
+
+Call `DailyIssueTask::markResolved()` to resolve an incident. Don't set the status by hand:
+
+```php
+$issue->markResolved(
+    notes: 'Increased curl timeout from 2s to 10s',
+    rootCause: 'Upstream gateway DNS latency',
+    resolverId: $user->id,
+);
+// status => completed, resolved_at => now(); arguments you pass as null keep their existing values
+```
+
+The Filament edit form does **not** call `markResolved()`. If you set status to Completed in the UI, `resolved_at` is only filled when you also pick it in the date-time field.
+
+### Dashboard widgets (`app/Filament/Widgets`)
+
+- `OperationsOverviewWidget` shows three counts: pending company tasks, critical daily issues not yet `completed`, and customer tasks not yet `completed`.
+- `TaskStatsOverview` and `TasksByStatusChart` belong to the **workspace** module below, not to the three pillars.
+
+## Secondary modules in this app
+
+These came from earlier iterations and are still wired in:
+
+- **Workspaces / Projects / Tasks** (`app/Filament/Resources/{Workspaces,Projects,Tasks}`, `app/Support/WorkspaceContext.php`). These are multi-workspace tasks. A user belongs to workspaces through `workspace_user` (with a `role` pivot). `WorkspaceContext::current()` returns `users.current_workspace_id` if the user is a member of that workspace, and otherwise their first workspace. Project and task queries are scoped to that workspace, and creating one stamps `workspace_id`. Users with no workspace see nothing (`whereRaw('1 = 0')`). Task statuses here are the string constants `todo` / `in_progress` / `done` on `App\Models\Task`, not the `TaskStatus` enum.
+- **Todo JSON API** (`routes/api.php`, `TodoController`). This is unauthenticated (`authorize()` returns `true`).
+
+  | Method | Path | Rate limiter |
+  |---|---|---|
+  | GET | `/api/v1/todos`, `/api/v1/todos/{todo}` | `api` (60/min per user or IP) |
+  | POST | `/api/v1/todos` | `api` + `api-writes` (30/min) |
+  | PATCH | `/api/v1/todos/{todo}` | `api` + `api-writes` |
+  | DELETE | `/api/v1/todos/{todo}` | `api` + `api-writes` |
+  | PATCH | `/api/v1/todos/{todo}/complete`, `/incomplete` | `api` + `api-writes` |
+
+  Index query params: `status`, `priority`, `search` (title/description LIKE), `sort` (`created_at`, `updated_at`, `due_date` or `priority`), `direction` (`asc`/`desc`), `per_page` (default 15). `due_date` must be after today. Limiters are defined in `AppServiceProvider`.
+- **Signed URL demo** (`routes/web.php`). `GET /signing` returns a signed URL for `GET /action`, which returns 403 unless the signature is valid. Background notes are in [`safe-link-structure.md`](safe-link-structure.md).
+
+## Common pitfalls
+
+- **Creating a Daily Issue or Customer Task without `status` breaks the record.** The migration default for `status` on `daily_issue_tasks` and `customer_tasks` is `open`, but `TaskStatus` has no `open` case. A row saved without an explicit status therefore can't be cast when it's read back. The Filament forms always send `pending`, and the seeder and factories set status too, so this mostly affects tinker, raw inserts and new code paths. Always pass a `TaskStatus` value.
+- **Workspace widgets show zeros after seeding.** The seeder creates no workspaces, so `TaskStatsOverview` and `TasksByStatusChart` are empty until the logged-in user creates or joins a workspace. Creating one through the Workspaces resource attaches the user as `owner` and makes it their current workspace.
+- **Every user can open the panel.** `User::canAccessPanel()` returns `true`. There are no roles or policies on the pillar resources yet.
+- **`GET /api/user` is not usable.** It uses `auth:sanctum`, but Laravel Sanctum is not installed (it isn't in `composer.json` or `composer.lock`).
+- **`spec.md` mentions Pest and PHP 8.4.** The suite is actually PHPUnit (`tests/Feature/CompanyTaskHub*Test.php`, `WorkspaceTenancyTest.php`), and `composer.json` requires `php ^8.3`.

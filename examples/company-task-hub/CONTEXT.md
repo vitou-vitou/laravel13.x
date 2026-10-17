@@ -11,11 +11,12 @@
 
 ### Issue Resolution Task (Resolve Issue Daily Task)
 - **Definition:** A daily operational incident or bug task requiring rapid investigation and resolution.
-- **Attributes:** Title, incident_type, severity (minor, major, critical), resolution_notes, root_cause, status (open, investigating, resolved, closed), resolver_id, resolved_at.
+- **Attributes:** Title, incident_type, severity (minor, major, critical), resolution_notes, root_cause, status (pending, in_progress, completed, cancelled — shared `TaskStatus` enum), resolver_id, resolved_at.
+- **Resolving:** `DailyIssueTask::markResolved()` sets status to `completed` and stamps `resolved_at`.
 
 ### Customer Task (Customer General)
 - **Definition:** An action item or request tied to an external client or customer profile (e.g. onboarding followup, account review, custom setup).
-- **Attributes:** Title, customer_name, customer_email, task_type, priority, status (open, in_progress, completed), handler_id, due_date.
+- **Attributes:** Title, customer_name, customer_email, task_type, priority (low, medium, high, urgent), status (pending, in_progress, completed, cancelled — shared `TaskStatus` enum), notes, handler_id, due_date.
 
 ### User / Operator
 - **Definition:** Internal staff member who creates, resolves, or oversees tasks across all three operational pillars.
