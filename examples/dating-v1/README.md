@@ -1,58 +1,71 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Spark — Dating App Demo (Laravel 13 + Livewire 4)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Single-page dating demo with swipe, browse, match, chat and profile editing. The whole UI is one route (`GET /`) that renders the Livewire component `dating-app`. There is **no login screen**: the app logs you in as a seeded persona automatically, and a picker lets you switch persona. It's a local demo only. See [Pitfalls](#pitfalls) before exposing it anywhere.
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Quick start
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cd examples/dating-v1
+composer install
+cp .env.example .env            # DB_CONNECTION=sqlite
+php artisan key:generate
+php artisan migrate --seed      # 12 personas + 2 pre-made matches with messages
+npm install --ignore-scripts && npm run build   # or `npm run dev`; required, see pitfalls
+php artisan serve               # http://127.0.0.1:8000
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+`composer setup` covers install, `.env`, key, migrate and the asset build, but **not** `--seed`. Run `php artisan db:seed` afterwards. With an empty `users` table the app has no one to log in as.
 
-## Contributing
+Tests: `php artisan test` (PHPUnit, in-memory SQLite). `DatingAppFlowTest` seeds the DB and renders `/`, so it needs built Vite assets (`public/build/manifest.json`).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Seed data (`database/seeders/DatabaseSeeder.php`): 12 users `alex@example.com` … `jordan@example.com`, all with password `password`. Alex Rivera is the first user, so he's the default persona. He's already matched with Sophia and with Elena, and both conversations have messages.
 
-## Code of Conduct
+## Architecture
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Livewire single-file components (`resources/views/components/⚡*.blade.php`)
 
-## Security Vulnerabilities
+Each file holds an anonymous `new class extends Component` in a `<?php … ?>` block followed by its Blade markup. The `⚡` prefix is part of the filename, and you reference the component without it (e.g. `@livewire('dating-app')`).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+| Component | Responsibility | Key actions / events |
+|---|---|---|
+| `dating-app` | Shell: tabs (`swipe`, `browse`, `matches`, `profile`), persona picker ("Acting as:"), match celebration modal | `mount()` auto-logs in `User::first()`; `switchPersona($id)` dispatches `personaSwitched`; listens for `matchCreated`, `openChat`, `tabChanged` |
+| `swipe-deck` | Card stack | `loadQueue()` picks 15 random users you haven't swiped on yet, excluding yourself; `swipe('like'\|'pass'\|'superlike')`; `resetDeck()` deletes **all** your swipes |
+| `browse-grid` | Filterable grid | Filters: `filterGender` (`all`/`woman`/`man`), `minAge`/`maxAge` (default 20–35); `quickLike($userId)` |
+| `matches-chat` | Match list + conversation | `selectMatch()`, `sendMessage()`; chat pane polls with `wire:poll.2s` |
+| `profile-drawer` | Edit current user's profile | `save()` updates `users.name` and upserts `profiles`; interests are entered comma-separated and stored as a JSON array |
 
-## License
+### Matching rule
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A match is created when a `like` or `superlike` meets an existing `like`/`superlike` in the other direction. The same check runs in `swipe-deck::swipe()` and `browse-grid::quickLike()`:
+
+```php
+DatingMatch::firstOrCreate(
+    ['user_one_id' => min($a, $b), 'user_two_id' => max($a, $b)],   // ordered pair
+    ['matched_at' => now()],
+);
+// then dispatches 'matchCreated' with ['user' => ..., 'match_id' => ...]
+```
+
+Always store pairs as (lower id, higher id). The unique index on `matches(user_one_id, user_two_id)` only prevents duplicates if every write follows that order. Note that the seeder writes `(alex, sophia)` / `(alex, elena)`, which is in id order because Alex is created first.
+
+### Data model (`database/migrations/2026_03_30_000001_create_dating_tables.php`)
+
+| Table / model | Notes |
+|---|---|
+| `profiles` / `Profile` | 1:1 with `users`; `photos` and `interests` are JSON arrays; defaults: `age` 25, `gender` `woman`, `interested_in` `all`, `city` `New York, NY` |
+| `swipes` / `Swipe` | `type` enum `like`/`pass`/`superlike`; unique `(swiper_id, swiped_id)`; swipes are upserted |
+| `matches` / `DatingMatch` | Model class is `DatingMatch` but `$table = 'matches'`; `messages()` ordered oldest first, `latestMessage()` |
+| `messages` / `Message` | `match_id`, `sender_id`, `body`, `read_at` (column exists but nothing writes it yet) |
+
+`User::allMatches()` returns a query builder over matches where the user is on either side. `User::getOtherUser($match)` returns the other participant.
+
+## Pitfalls
+
+- **Missing Vite manifest → 500 on `/`.** `welcome.blade.php` uses `@vite`. Without `npm run build` (or a running `npm run dev`), the page and `DatingAppFlowTest::test_welcome_page_renders_dating_app` fail with `ViteManifestNotFoundException`.
+- **No authentication or authorization. Demo only.**
+  - Any visitor is logged in as the first user.
+  - `switchPersona()` logs in as any user id it's given.
+  - `matches-chat` loads and posts to whatever `activeMatchId` it receives, without checking that the current user belongs to that match. A user outside a match can read and send messages in it.
+- **Swipe `type` is only enforced by the DB.** `swipe()` doesn't validate its argument, so a value outside `like`/`pass`/`superlike` fails with a constraint `QueryException` (a CHECK constraint on SQLite).
+- **`interested_in` and `distance_km` are display-only.** Neither the deck nor the grid filters on them. `browse-grid` also declares an unused `$search` property.
+- **Nested app folder.** `vitou-test-livewire-auth/` inside this example is a separate Laravel app, almost identical to `examples/vitou-test-livewire-auth`. It isn't part of the dating app.
