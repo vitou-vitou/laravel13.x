@@ -1,0 +1,28 @@
+# Matt-Pocock Coding & Architecture Guidelines (pgi-core-frontend)
+
+## Core Principles
+
+1. **Prefer edit existing over creating new** — never introduce a new file, service, trait, or component if an existing one can be surgically edited to absorb the responsibility.
+2. **Never touch PHP helper files (`app/Helpers/helpers.php` or `app/Helpers/PL/**`)** — helper files are frozen. Put all new logic in dedicated service classes under `app/Services/` or domain modules.
+3. **Minimize loop constructs (`foreach`, `for`)** — prefer declarative collection pipelines (`collect()->map()->filter()->values()`) or native array functionals (`array_map`, `array_filter`) where cleaner and expressive.
+4. **YAGNI & Surgical edits** — touch only what is requested. No drive-by refactoring, no speculative configuration, no unrequested abstractions.
+
+## Boundary & Perimeter Rules
+
+5. **Perimeter security first** — never bypass controller authorization checks. Do not delegate security gates into dynamic resolvers.
+6. **No untyped dictionary pass-through** — never pass raw `$request->all()` into services. Pass typed primitives or validated arrays only.
+7. **No controller Eloquent queries** — controllers do not run raw DB queries (`DataMaster::query()`). Product/policy resolution belongs in service/repository layers.
+8. **No drive-by public API deletions** — never drop public controller methods (`download()`) or UI fields (`Payment Terms`) without explicit instruction.
+
+## Product & Feature Branching Rules
+
+9. **Capability over identity** — name predicates by behavior/capability, not product code:
+   - BAD: `isCar`, `isEar`, `isDno`
+   - GOOD: `hasMaintenancePeriod(code)`, `requiresRetroactiveDate(code)`, `supportsMultiSection(code)`
+10. **No negative product boolean chains** — never write `!isCar && !isMarine && !isEei`. Use capability helper or whitelist set.
+11. **Dictionary lookup over nested ternaries** — replace nested condition chains with static lookup maps:
+    - BAD: `isCar ? (isEar ? '70%' : '64%') : '100%'`
+    - GOOD: `const COLUMN_WIDTHS = { [EAR]: '70%', [CAR]: '64%' }; COLUMN_WIDTHS[code] ?? '100%'`
+12. **Honest variable names** — variable name must match exact predicate. Never alias `isEar` to `isEar || isEei`.
+13. **Single discriminant over boolean soup** — objects/VMs hold ONE product discriminant (`productCode` or `productFamily`), never 12 mutually exclusive booleans (`isCar`, `isEei`, `isMarine`).
+
